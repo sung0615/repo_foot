@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aaa000.demo.user.user.UserDao">
+
+	<resultMap id="resultMapObj" type="com.aaa000.demo.user.user.UserDto"></resultMap>
+	
+		<!--사용자 리스트 보여주기 -->
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT 
+			suSeq,
+		    userName,
+		    userGender,
+		    userNewsAgency,
+		    userPhoneNumber,
+		    userBirthday,
+		    userId,
+		    userEmail,
+		    userPassword
+		FROM
+			user
+		WHERE 1=1
+		ORDER BY suSeq ASC
+	</select>
+	
+	<!-- 유저 데이터중에 한개만 뽑아서 보여주라 -->
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+			suSeq,
+		    userName,
+		    userGender,
+		    userNewsAgency,
+		    userPhoneNumber,
+		    userBirthday,
+		    userId,
+		    userEmail,
+		    userPassword
+		FROM
+			user
+		WHERE 1=1
+		AND suSeq = #{suSeq}
+		ORDER BY suSeq DESC
+	</select>
+	
+	
+	
+		<!-- 업데이트  -->
+	<update id="update">
+		UPDATE user SET	
+		    userName = #{userName},
+		    userGender = #{userGender},
+		    userNewsAgency = #{userNewsAgency},
+		    userPhoneNumber = #{userPhoneNumber},
+		    userBirthday = #{userBirthday},
+		    userId = #{userId},
+		    userEmail = #{userEmail},
+		    userPassword = #{userPassword}
+		WHERE 
+			suSeq = #{suSeq}
+	</update>
+	
+	<!-- 업데이트 삭제 -->
+	<update id="uelete">
+		UPDATE user SET	
+		   	uDelMy = 1
+		WHERE 
+			suSeq = #{suSeq}
+	
+	</update>
+	
+	
+	<insert id="insert">
+		INSERT INTO addcontact(
+	
+			
+		    userName,
+		    userGender,
+		    userNewsAgency,
+		    userPhoneNumber,
+		    userBirthday,
+		    userId,
+		    userEmail,
+		    userPassword,
+		    uDelMy
+		) value (
+	
+		    #{userName},
+		    #{userGender},
+		    #{userNewsAgency},
+		    #{userPhoneNumber},
+		    #{userBirthday},
+		    #{userId},
+		    #{userEmail},
+		    #{userPassword},
+		    0
+		)
+			<selectKey resultType="String" keyProperty="suSeq" order="AFTER">
+			SELECT last_insert_id()
+			</selectKey>
+	</insert>
+	
+	
+	
+	
+	
+	
+</mapper>	
+	

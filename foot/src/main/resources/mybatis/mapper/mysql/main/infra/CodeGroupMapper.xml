@@ -1,7 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.junefw.infra.codegroup.CodeGroupDao">
+<mapper namespace="com.aaa000.demo.module.codegroup.CodeGroupDao">
 
-	  
+	<resultMap id="resultMapObj" type="com.aaa000.demo.module.codegroup.CodeGroupDto"></resultMap>
+	
+	<!-- 리스트 보여주기 -->
+	<select id="selectList" resultMap="resultMapObj">
+	SELECT
+		cdgSeq,
+	    ifcgName,
+	    newsAgency,
+	    gender,
+	    usedOrNot,
+	    registration,
+	    correction,
+	    count
+	FROM
+		codegroup
+	WHERE 1=1
+		 <!-- AND ifchDelNy = 0  -->
+	ORDER BY cdgSeq DESC
+	</select>
+	
+	
+	<!-- 등록하기 -->
+	<insert id="insert">
+		
+		INSERT INTO codegroup(
+			ifcgName,
+			ifchDelNy,
+			newsAgency,
+			gender,
+			usedOrNot,
+			registration,
+			correction,
+			count
+			
+		) value (
+			#{ifcgName},
+			0,
+			#{newsAgency},
+			#{gender},
+			#{usedOrNot},
+			#{registration},
+			#{correction},
+			#{count}
+		)
+		
+		<selectKey resultType="String" keyProperty="cdgSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+		
+	</insert>
+	 
+	 <!-- 업데이트 삭제 -->
+	 <update id="ueLete">
+	 	UPDATE codegroup SET
+	 		ifchDelNy = 1
+	 	WHERE
+	 		cdgSeq = #{cdgSeq}
+	 </update>
+	 
 </mapper>

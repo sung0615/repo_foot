@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aaa000.demo.user.futsalinformation.FutsalinformationDao">
+
+	<resultMap id="resultMapObj" type="com.aaa000.demo.user.futsalinformation.FutsalinformationDto"></resultMap>
+
+	<!-- 풋살장 정보 리스트 보여주기 -->
+	<select id="selectList" resultMap="resultMapObj">
+		
+		 SELECT 
+			a.fiSeq,
+		    a.futsalName,
+		    a.futsalPrice,
+		    a.futsalRegion,
+		    a.futsalAddress,
+		    a.futsalPhoneNumbar,
+		    a.futsalBusinessHours,
+		    a.futsalFacilityUsageRules,
+		    a.futsalCancellationPolicy,
+		    b.rSeq,
+		    b.starScore,
+		    b.user_suSeq,
+		    b.futsalInformation_fiSeq
+		  
+		FROM
+			futsalinformation a
+			LEFT JOIN review b ON b.futsalInformation_fiSeq	
+	</select>
+	
+	
+	
+	
+	
+	
+</mapper>	
+	
+	
+	
+	
+	

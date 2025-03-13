@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aaa000.demo.user.reservationprocess.ReservationprocessDao">
+
+	<resultMap id="resultMapObj" type="com.aaa000.demo.user.reservationprocess.ReservationprocessDto"></resultMap>
+	
+		<!-- 풋살 매칭시청시 신청 정보 매칭 사이트 리스트 뿌리기 -->
+		<select id="selectList" resultMap="resultMapObj">
+			
+			 SELECT 
+				a.fpSeq,
+			    a.reservationDate,
+			    a.reservationTime,
+				a.matchingVs,
+			    a.matchingTeamLevel,
+			    a.user_suSeq,
+			    a.futsalInformation_fiSeq,
+				b.fiSeq,
+			    b.futsalName,
+			    b.futsalRegion
+			  
+			FROM
+				reservationprocess a
+				LEFT JOIN futsalinformation b ON b.fiSeq	
+		</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>	
