@@ -12,8 +12,8 @@ public class FutsalinformationService {
 	FutsalinformationDao futsalinformationDao;
 	
 	// 풋살장 정보 리스트 보여주기
-	public List<FutsalinformationDto> selectList(){
-		return futsalinformationDao.selectList();
+	public List<FutsalinformationDto> selectList(FutsalinformationVo vo){
+		return futsalinformationDao.selectList(vo);
 	}
 	
 	// 풋살장 1개씩 보여주기
@@ -36,5 +36,11 @@ public class FutsalinformationService {
 		return futsalinformationDao.uelete(futsalinformationDto);
 	}
 	
+	//페이지 네이션
+	public int selectOneCount(FutsalinformationVo vo) {
+		return futsalinformationDao.selectOneCount(vo);
+	}
 	
+	
+		
 }

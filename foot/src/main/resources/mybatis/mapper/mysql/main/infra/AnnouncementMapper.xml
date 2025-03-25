@@ -1,0 +1,110 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aaa000.demo.module.announcement.AnnouncementDao">
+
+	<resultMap id="resultMapObj" type="com.aaa000.demo.module.announcement.AnnouncementDto"></resultMap>
+
+	<!-- 리스트 불러오기 -->
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT
+			annoSeq,
+			author,
+			creationDate,
+			detail,
+			title
+			
+		FROM
+			announcement
+		WHERE 1=1
+			
+			<if test="shDelNy != null and !shDelNy.equals('')">AND annoDelMy = #{shDelNy}</if>
+		
+			<choose>
+            	
+            	<when test="shOption == 1">AND author LIKE CONCAT('%',#{shValue},'%')</when>
+            	<when test="shOption == 2">AND title LIKE CONCAT('%',#{shValue},'%')</when>
+      	    </choose>
+		
+		
+		
+		
+		
+		
+		
+			AND annoDelMy = 0
+		ORDER BY annoSeq DESC
+	
+	</select>
+	
+	<!-- 데이터 1개만 가져오기 -->
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+			annoSeq,
+			author,
+		    creationDate,
+		    detail,
+		    title
+		FROM
+			announcement
+		WHERE 1=1
+		AND annoSeq = #{annoSeq}
+		ORDER BY annoSeq DESC
+	</select>
+	
+	
+	<!-- 업데이트  -->
+	<update id="update">
+		UPDATE announcement SET	
+		
+		    author = #{author},
+		    creationDate = #{creationDate},
+		    detail = #{detail},
+		    title = #{title}
+		WHERE 
+			annoSeq = #{annoSeq}
+			
+			limit #{rowNumToShow} offset #{startRnumForMysql} 
+	</update>
+	
+	<!-- 데이터 넣기 -->
+	<insert id="insert">
+		
+	INSERT INTO announcement(
+	
+   	    author,
+	    creationDate,
+	    detail,
+		annoDelMy,
+		title
+	) value (
+	
+	    #{author},
+	    #{creationDate},
+        #{detail},
+	    0,
+	    #{title}
+		)
+			<!-- <selectKey resultType="String" keyProperty="announcement" order="AFTER">
+			SELECT last_insert_id()
+			</selectKey> -->
+	</insert>
+	
+	
+	
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM
+			announcement 
+		WHERE 1=1
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

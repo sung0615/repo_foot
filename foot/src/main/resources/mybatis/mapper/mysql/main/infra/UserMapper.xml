@@ -4,23 +4,63 @@
 <mapper namespace="com.aaa000.demo.user.user.UserDao">
 
 	<resultMap id="resultMapObj" type="com.aaa000.demo.user.user.UserDto"></resultMap>
+	<!-- refid같은 id 사용할때 붙어서 사용가능하다 -->
+	 <sql id="selectCommon">
+		FROM
+			user a
+			LEFT JOIN code telecom ON a.userNewsAgency = telecom.cdSeq
+			LEFT JOIN code gender ON a.userGender = gender.cdSeq
+		WHERE 1=1
+		
+		<if test="shDelNy != null and !shDelNy.equals('')">AND a.uDelMy = #{shDelNy}</if>
+		
+		
+		 <choose>
+            
+            <when test="shOption == 1">AND a.userName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 2">AND gender.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND telecom.ifcdName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 4">AND a.userPhoneNumber LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 5">AND a.userBirthday LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 6">AND a.userId LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 7">AND a.userEmail LIKE CONCAT('%',#{shValue},'%')</when>
+            
+        </choose>
+		
+		
+		
+		ORDER BY suSeq ASC
+		
+			 <!-- AND ifchDelNy = 0  -->
+	</sql>
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon"></include>
+	</select>
 	
 		<!--사용자 리스트 보여주기 -->
 	<select id="selectList" resultMap="resultMapObj">
 		SELECT 
-			suSeq,
-		    userName,
-		    userGender,
-		    userNewsAgency,
-		    userPhoneNumber,
-		    userBirthday,
-		    userId,
-		    userEmail,
-		    userPassword
-		FROM
-			user
-		WHERE 1=1
-		ORDER BY suSeq ASC
+			a.suSeq,
+		    a.userName,
+		    a.userGender,
+		    a.userNewsAgency,
+		    a.userPhoneNumber,
+		    a.userBirthday,
+		    a.userId,
+		    a.userEmail,
+		    a.userPassword,
+		    a.uDelMy,
+		    telecom.cdSeq AS telecomCdSeq,
+		    telecom.ifcdName AS telecomName,
+		    gender.cdSeq AS genderCdSeq,
+		    gender.ifcdName AS genderName
+		
+		    
+		    
+			 <include refid="selectCommon"></include> 
+			
+			limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
 	<!-- 유저 데이터중에 한개만 뽑아서 보여주라 -->

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface CodeGroupDao {
 	
 	// 전체 보여주기
-	public List<CodeGroupDto> selectList();
+	public List<CodeGroupDto> selectList(CodeGroupVo vo);
 	
 	// 등록 하기
 	public int insert(CodeGroupDto codeGroupDto);
@@ -18,5 +18,7 @@ public interface CodeGroupDao {
 	//업데이트 삭제
 	public int uelete(CodeGroupDto codeGroupDto);
 	
-
+	
+	
+	public int selectOneCount(CodeGroupVo vo);
 }

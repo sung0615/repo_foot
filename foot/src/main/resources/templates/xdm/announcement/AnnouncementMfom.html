@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{xdm/include/head :: head}"></div>
+
+<form action="/AnnouncementUpdt" method="get" id="form">
+<input type="hidden" id="annoSeq" name="annoSeq" th:value="${item?.annoSeq}" />
+
+<section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>풋살장 공지사항 상세</h2>
+            </div>
+            <!-- Input -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        
+                        <div class="body">
+                            
+
+                            <h2 class="card-inside-title">공지사항</h2>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="작성자" id="author" name="author" th:value="${item?.author}"/>
+                                            <span id="authorError" style="color: red; font-size: 10px;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="공지사항 제목" id="detail" name="detail" th:value="${item?.detail}"/>
+                                        	<span id="detailError" style="color: red; font-size: 10px;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" placeholder="작성 날짜 입력 예)2025-03-03" id="creationDate" name="creationDate" th:value="${item?.creationDate}"/>
+                                        	<span id="creationDateError" style="color: red; font-size: 10px;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                            
+                            <div>
+                                <h2 class="card-inside-title">풋살장 공지사항 내용 작성</h2>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <textarea rows="4" class="form-control no-resize" placeholder="공지사항 내용 입력해주세요" id="title" name="title" th:text="${item?.title}"></textarea>
+                                            	<span id="titleError" style="color: red; font-size: 10px;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                
+                            </div>
+                            
+                            
+                            <!-- <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                <div class="dz-message">
+                                    <div class="drag-icon-cph">
+                                        <i class="material-icons">touch_app</i>
+                                    </div>
+                                    <h3>여기에 파일을 놓거나 클릭하여 업로드하세요.</h3>
+                                    
+                                </div>
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                </div>
+                            </form> -->
+                            <br>
+                            <button type="button" class="btn bg-red waves-effect" id="btuSave">
+                                수정하기
+                            </button>
+                           
+                            <a role="button" type="button" class="btn bg-black waves-effect" th:href="@{/AnnouncementList}">
+                                목록
+                            </a>
+                            <!-- <a role="button" type="button" class="btn bg-blue-grey waves-effect">
+                                수정하기
+                            </a> -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+           
+            <!--#END# Switch Button -->
+        </div>
+</section>
+</form>
+ 
+
+    <!-- Jquery Core Js -->
+    <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
+
+    <!-- Autosize Plugin Js -->
+    <script src="/xdm/template/master/plugins/autosize/autosize.js"></script>
+
+    <!-- Moment Plugin Js -->
+    <script src="/xdm/template/master/plugins/momentjs/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/xdm/template/master/js/admin.js"></script>
+    <script src="/xdm/template/master/js/pages/forms/basic-form-elements.js"></script>
+
+    <!-- Demo Js -->
+    <script src="/xdm/template/master/js/demo.js"></script>
+
+    <!-- Dropzone Plugin Js -->
+    <script src="/xdm/template/master/plugins/dropzone/dropzone.js"></script>
+    
+      <!-- Dropzone Css -->
+    <link href="/xdm/template/master/plugins/dropzone/dropzone.css" rel="stylesheet">
+    
+    <script type="text/javascript">
+
+	document.getElementById("btuSave").onclick = function() {
+		let author = document.getElementById("author"); //풋살장 공지사항 작성자
+		let authorError = document.getElementById("authorError"); //풋살장 공지사항 작성자 잘못 입력 했을 경우
+		
+		let detail = document.getElementById("detail"); //풋살장 공지사항 제목 
+		let detailError = document.getElementById("detailError");//풋살장 공지사항 제목  잘못 입력 했을 경우
+		
+		let creationDate = document.getElementById("creationDate"); //풋살장 공지사항 등록일
+		let creationDateError = document.getElementById("creationDateError");//풋살장 공지사항 등록일 잘못 입력 했을 경우
+		
+		let title = document.getElementById("title"); //풋살장 공지사항 내용
+		let titleError = document.getElementById("titleError");//풋살장 공지사항 내용 잘못 입력 했을 경우
+		
+		
+		let isValid = true;
+		
+		//공지사항 작성자 검증
+		if (author.value == ""){
+			authorError.innerText = "작성자를 입력해주세요";
+			author.focus();
+			isValid = false;
+		} else {
+			authorError.innerText = "";
+		}
+		
+		//공지사항 제목 검증
+		if (detail.value == ""){
+			detailError.innerText = "제목을 입력해주세요";
+			detail.focus();
+			isValid = false;
+		} else {
+			detailError.innerText = "";
+		}
+		
+		//공지사항 등록일 검증
+		if (creationDate.value == ""){
+			creationDateError.innerText = "등록일 입력해주세요";
+			creationDate.focus();
+			isValid = false;
+		} else {
+			creationDateError.innerText = "";
+		}
+		
+		//공지사항 내용 검증
+		if (title.value == ""){
+			titleError.innerText = "등록일 입력해주세요";
+			title.focus();
+			isValid = false;
+		} else {
+			titleError.innerText = "";
+		}
+		
+		
+		
+		
+		
+		
+		// 데이터 값이 있을 경우 폼 제출
+        if (isValid) {
+            document.getElementById("form").submit();
+        }
+	}
+	
+	</script>
+
+</body>
+</html>

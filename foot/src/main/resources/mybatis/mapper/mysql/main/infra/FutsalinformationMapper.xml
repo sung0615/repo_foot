@@ -18,17 +18,113 @@
 		    a.futsalBusinessHours,
 		    a.futsalFacilityUsageRules,
 		    a.futsalCancellationPolicy,
-		    b.rSeq,
-		    b.starScore,
-		    b.user_suSeq,
-		    b.futsalInformation_fiSeq
+		    a.fiDelMy,
+		    region.cdSeq AS regionCdSeq,
+		    region.ifcdName AS regionName
 		  
 		FROM
 			futsalinformation a
-			LEFT JOIN review b ON b.futsalInformation_fiSeq	
+			LEFT JOIN code region ON a.futsalRegion = region.cdSeq
+		WHERE 1=1
+			<if test="shDelNy != null and !shDelNy.equals('')">AND a.fiDelMy = #{shDelNy}</if>
+			<if test="shValue != null and !shValue.equals('')">
+			    AND a.futsalName LIKE CONCAT('%', #{shValue}, '%')
+			</if>
+			
+			<choose>
+           	    <when test="shOption == 1">AND a.futsalName LIKE CONCAT('%',#{shValue},'%')</when>
+            	<when test="shOption == 2">AND a.futsalAddress LIKE CONCAT('%',#{shValue},'%')</when>
+         	    <when test="shOption == 3">AND a.futsalPrice LIKE CONCAT('%',#{shValue},'%')</when>
+         	    
+         	    
+      		</choose>
+			
+			
+			 limit #{rowNumToShow} offset #{startRnumForMysql} 
 	</select>
 	
+	<sql id="selectCommon">
+		FROM
+			futsalinformation 
+		WHERE 1=1
+			 <!-- AND ifchDelNy = 0  -->
+	</sql>
 	
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon"></include>
+	</select>
+	
+	<!-- 폼 등록하기 -->
+	<insert id="insert">
+		INSERT INTO futsalinformation(
+			futsalName,
+			futsalPrice,
+			futsalRegion,
+			futsalAddress,
+			futsalPhoneNumbar,
+			futsalBusinessHours,
+			futsalFacilityUsageRules,
+			futsalCancellationPolicy,
+			fiDelMy
+		
+		
+		) value (
+			#{futsalName},
+			#{futsalPrice},
+			#{futsalRegion},
+			#{futsalAddress},
+			#{futsalPhoneNumbar},
+			#{futsalBusinessHours},
+			#{futsalFacilityUsageRules},
+			#{futsalCancellationPolicy},
+			0
+		)
+		
+		  <selectKey resultType="String" keyProperty="fiSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>  
+	
+	</insert>
+	
+	<update id ="update">
+	UPDATE futsalinformation SET
+		futsalName = #{futsalName},
+		futsalPrice = #{futsalPrice},
+		futsalRegion = #{futsalRegion},
+		futsalAddress = #{futsalAddress},
+		futsalPhoneNumbar = #{futsalPhoneNumbar},
+		futsalBusinessHours = #{futsalBusinessHours},
+		futsalFacilityUsageRules = #{futsalFacilityUsageRules},
+		futsalCancellationPolicy = #{futsalCancellationPolicy}
+	WHERE
+		fiSeq = #{fiSeq}
+	
+	
+	</update>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+	SELECT 
+			a.fiSeq,
+		    a.futsalName,
+		    a.futsalPrice,
+		    a.futsalRegion,
+		    a.futsalAddress,
+		    a.futsalPhoneNumbar,
+		    a.futsalBusinessHours,
+		    a.futsalFacilityUsageRules,
+		    a.futsalCancellationPolicy,
+		    region.cdSeq AS regionCdSeq,
+		    region.ifcdName AS regionName
+		  
+		FROM
+			futsalinformation a
+			LEFT JOIN code region ON a.futsalRegion = region.cdSeq
+		WHERE 1=1
+		AND fiSeq = #{fiSeq}
+		
+	
+	</select>
 	
 	
 	

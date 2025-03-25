@@ -4,8 +4,8 @@ public class UserDto {
 	
 	private String suSeq; //사용자 Seq
 	private String userName; //사용자 이름
-	private String userGender; // 사용자 성별
-	private String userNewsAgency; //사용자 통신사
+	private Integer userGender; // 사용자 성별
+	private Integer userNewsAgency; //사용자 통신사
 	private String userPhoneNumber; //사용자 폰번호
 	private String userBirthday; //사용자 생일
 	private String userId; //사용자 id
@@ -13,6 +13,14 @@ public class UserDto {
 	private String userPassword; //사용자 페스워드
 	private Integer uDelMy; // 데이터 삭제
 //	----
+//	-----
+	private Integer xifcdSeqCount; // 코드 그룹 갯수
+//	-----
+// 코드 에있는  코드 이름  코드 Seq 땡겨오기
+	private Integer  codeGroup_cdgSeq; // 코드 그룹 Seq
+	private String cdSeq; //코드 Seq
+	private String ifcdName;//코드 이름
+//	-----
 	public String getSuSeq() {
 		return suSeq;
 	}
@@ -25,16 +33,16 @@ public class UserDto {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getUserGender() {
+	public Integer getUserGender() {
 		return userGender;
 	}
-	public void setUserGender(String userGender) {
+	public void setUserGender(Integer userGender) {
 		this.userGender = userGender;
 	}
-	public String getUserNewsAgency() {
+	public Integer getUserNewsAgency() {
 		return userNewsAgency;
 	}
-	public void setUserNewsAgency(String userNewsAgency) {
+	public void setUserNewsAgency(Integer userNewsAgency) {
 		this.userNewsAgency = userNewsAgency;
 	}
 	public String getUserPhoneNumber() {
@@ -73,6 +81,34 @@ public class UserDto {
 	public void setuDelMy(Integer uDelMy) {
 		this.uDelMy = uDelMy;
 	}
-//	----
+	public Integer getXifcdSeqCount() {
+		return xifcdSeqCount;
+	}
+	public void setXifcdSeqCount(Integer xifcdSeqCount) {
+		this.xifcdSeqCount = xifcdSeqCount;
+	}
+	public Integer getCodeGroup_cdgSeq() {
+		return codeGroup_cdgSeq;
+	}
+	public void setCodeGroup_cdgSeq(Integer codeGroup_cdgSeq) {
+		this.codeGroup_cdgSeq = codeGroup_cdgSeq;
+	}
+	public String getCdSeq() {
+		return cdSeq;
+	}
+	public void setCdSeq(String cdSeq) {
+		this.cdSeq = cdSeq;
+	}
+	public String getIfcdName() {
+		return ifcdName;
+	}
+	public void setIfcdName(String ifcdName) {
+		this.ifcdName = ifcdName;
+	}
+	
+	
+
+	
+
 
 }

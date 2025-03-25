@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{xdm/include/head :: head}"></div>
+
+<form action="/FutsalUpdt" method="get" id="form">
+<input type="hidden" id="fiSeq" name="fiSeq" th:value="${item?.fiSeq}" />
+<section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>풋살장 등록</h2>
+            </div>
+            <!-- Input -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        
+                        <div class="body">
+                            
+
+                            <h2 class="card-inside-title">풋살장 정보</h2>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="futsalName" name="futsalName"  th:value="${item?.futsalName}" />
+                                            <span id="futsalNameError" style="color: red; font-size: 10px;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="futsalPrice" name="futsalPrice"   th:value="${item?.futsalPrice}"/>
+                                        	<span id="futsalPriceError" style="color: red; font-size: 10px;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id="futsalPhoneNumbar" name="futsalPhoneNumbar"  th:value="${item?.futsalPhoneNumbar}"/>
+                                        	<span id="futsalPhoneNumbarError" style="color: red; font-size: 10px;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" id= "futsalBusinessHours" name="futsalBusinessHours"  th:value="${item?.futsalBusinessHours}"/>
+                                        	<span id="futsalBusinessHoursError" style="color: red; font-size: 10px;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h2 class="card-inside-title">풋살장 지역</h2>
+                                <div class="row clearfix">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                            	
+                                                <textarea rows="4" class="form-control no-resize" id="futsalRegion" name="futsalRegion" th:text="${item?.futsalRegion}"  th:value="${item?.futsalRegion}" ></textarea>
+                                            	<span id="futsalRegionError" style="color: red; font-size: 10px;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                
+                            </div>
+                            <div>
+                                <h2 class="card-inside-title">풋살장 주소</h2>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <textarea rows="4" class="form-control no-resize" id="futsalAddress" name="futsalAddress" th:text="${item?.futsalAddress}"  th:value="${item?.futsalAddress}"></textarea>
+                                            	<span id="futsalAddressError" style="color: red; font-size: 10px;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                
+                            </div>
+                            
+                            <div>
+                                <h2 class="card-inside-title">풋살장 시설 및 이용 규칙</h2>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <textarea rows="4" class="form-control no-resize" id="futsalFacilityUsageRules" name="futsalFacilityUsageRules" th:text="${item?.futsalFacilityUsageRules}" th:value="${item?.futsalFacilityUsageRules}"></textarea>
+                                            	<span id="futsalFacilityUsageRulesError" style="color: red; font-size: 10px;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h2 class="card-inside-title">풋살장 예약 취소 및 환불 규정</h2>
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <textarea rows="4" class="form-control no-resize" id="futsalCancellationPolicy" name="futsalCancellationPolicy" th:text="${item?.futsalCancellationPolicy}" th:value="${item?.futsalCancellationPolicy}"></textarea>
+                                            	<span id="futsalCancellationPolicyError" style="color: red; font-size: 10px;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                <div class="dz-message">
+                                    <div class="drag-icon-cph">
+                                        <i class="material-icons">touch_app</i>
+                                    </div>
+                                    <h3>여기에 파일을 놓거나 클릭하여 업로드하세요.</h3>
+                                    
+                                </div>
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                </div>
+                            </form> -->
+                            <br>
+                            <button type="button" class="btn bg-red waves-effect" id="btuSave">
+                                수정 하기
+                            </button>
+                           
+                            <a role="button" type="button" class="btn bg-black waves-effect" th:href="@{/FutsalList}">
+                                목록
+                            </a>
+                            <!-- <a role="button" type="button" class="btn bg-blue-grey waves-effect">
+                                수정하기
+                            </a> -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+           
+            <!--#END# Switch Button -->
+        </div>
+</section>
+</form>
+ 
+
+    <!-- Jquery Core Js -->
+    <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
+
+    <!-- Autosize Plugin Js -->
+    <script src="/xdm/template/master/plugins/autosize/autosize.js"></script>
+
+    <!-- Moment Plugin Js -->
+    <script src="/xdm/template/master/plugins/momentjs/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/xdm/template/master/js/admin.js"></script>
+    <script src="/xdm/template/master/js/pages/forms/basic-form-elements.js"></script>
+
+    <!-- Demo Js -->
+    <script src="/xdm/template/master/js/demo.js"></script>
+
+    <!-- Dropzone Plugin Js -->
+    <script src="/xdm/template/master/plugins/dropzone/dropzone.js"></script>
+    
+      <!-- Dropzone Css -->
+    <link href="/xdm/template/master/plugins/dropzone/dropzone.css" rel="stylesheet">
+    
+    <script type="text/javascript">
+
+	document.getElementById("btuSave").onclick = function() {
+		let futsalName = document.getElementById("futsalName"); //풋살장 이름
+		let futsalNameError = document.getElementById("futsalNameError"); //풋살장이름 잘못 입력 했을 경우
+		
+		let futsalPrice = document.getElementById("futsalPrice"); //풋살장 가격 
+		let futsalPriceError = document.getElementById("futsalPriceError");//풋살장 가격 잘못 입력 했을 경우
+		
+		let futsalPhoneNumbar = document.getElementById("futsalPhoneNumbar"); //풋살장 번호
+		let futsalPhoneNumbarError = document.getElementById("futsalPhoneNumbarError");//풋살장 번호 잘못 입력 했을 경우
+		
+		let futsalBusinessHours = document.getElementById("futsalBusinessHours");//풋살장 영업시간때
+		let futsalBusinessHoursError = document.getElementById("futsalBusinessHoursError");//풋살장 영업시간 잘못 입력했을경우
+		
+		let futsalRegion = document.getElementById("futsalRegion"); //풋살장 지역 1 번 서울 2번 경기
+		let futsalRegionError = document.getElementById("futsalRegionError"); //풋살장 지역 잘못 입력 했을 경우
+		
+		let futsalAddress = document.getElementById("futsalAddress");//풋살장 주소
+		let futsalAddressError = document.getElementById("futsalAddressError");//풋살장 주소 잘못 입력 했을 경우
+		
+		let futsalFacilityUsageRules = document.getElementById("futsalFacilityUsageRules");//풋살장 시절 및 이용 큐칙 
+		let futsalFacilityUsageRulesError = document.getElementById("futsalFacilityUsageRulesError");//풋살장 시설 및 이용규칙 잘못 적을 경우
+		
+		let futsalCancellationPolicy = document.getElementById("futsalCancellationPolicy");//풋살장 환불 규정
+		let futsalCancellationPolicyError = document.getElementById("futsalCancellationPolicyError");//풋살장 환불 규정 잘못 적을 경우
+		
+		let isValid = true;
+		
+		//풋살장 이름 검증
+		if (futsalName.value == ""){
+			futsalNameError.innerText = "풋살장 이름 입력해주세요";
+			futsalName.focus();
+			isValid = false;
+		} else {
+			futsalNameError.innerText = "";
+		}
+		
+		 //풋살장 가격 검증
+		if (futsalPrice.value == ""){
+			futsalPriceError.innerText = "가격을 입력해주세요";
+			futsalPrice.focus();
+			isValid = false;
+		} else {
+			futsalPriceError.innerText = "";
+		} 
+		
+		 //풋살장 연럭처 검증
+		if (futsalPhoneNumbar.value ==""){
+			futsalPhoneNumbarError.innerText ="연락처를 입력해주세요";
+			futsalPhoneNumbar.focus();
+			isValid = false;
+		}else {
+			futsalPhoneNumbarError.innerText ="";
+		} 
+		
+		 //풋살자 영업시간 검증
+		if(futsalBusinessHours.value == ""){
+			futsalBusinessHoursError.innerText = "영업시간을 입력해주세요";
+			futsalBusinessHours.focus();
+			isValid = false;
+		}else {
+			futsalBusinessHoursError.innerText = "";
+		} 
+		
+		 //풋살장 지역 8 서울 9 경기 입력
+		let result = /^[89]$/; // 8 또는 9만 허용
+		if(futsalRegion.value.trim() == ""){
+			futsalRegionError.innerText = "서울8 경기9 숫자를 입력해주세요";
+			futsalRegion.focus();
+			isValid = false;
+		}else if (!result.test(futsalRegion.value)) {
+			futsalRegionError.innerText = "8 또는 9만 입력 가능합니다.";
+			futsalRegion.focus();
+	        isValid = false;
+	    } else {
+	    	futsalRegionError.innerText = "";
+	    }
+		
+		
+		//풋살장 주소 검사
+		if(futsalAddress.value == ""){
+			futsalAddressError.innerText = "풋살장 주소를 입력해주세요";
+			futsalAddress.focus();
+			isValid = false;
+		} else {
+			futsalAddressError.innerText = "";
+		}
+		
+		// 풋살장 시설 및 이용 규칙 검사
+		if(futsalFacilityUsageRules.value == ""){
+			futsalFacilityUsageRulesError.innerText = "시설 및 이용 규칙을 작성 해주세요";
+			futsalFacilityUsageRules.focus();
+			isValid = false;
+		} else {
+			futsalFacilityUsageRulesError.innerText = "";
+		}
+		
+		//풋살장 시설 및 이용 규칙 
+		if(futsalCancellationPolicy.value == ""){
+			futsalCancellationPolicyError.innerText = "예약 취소 및 환불 규정 작성 해주세요";
+			futsalCancellationPolicy.focus();
+			isValid = false;
+		}else {
+			futsalCancellationPolicyError.innerText = "";
+		} 
+		
+		
+		// 데이터 값이 있을 경우 폼 제출
+        if (isValid) {
+        	console.log("폼 제출 시도");
+            document.getElementById("form").submit();
+        }else {
+            console.log("유효성 검사 실패");
+        }
+	}
+	
+	</script>
+
+</body>
+</html>

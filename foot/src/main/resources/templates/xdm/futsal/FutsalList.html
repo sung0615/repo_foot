@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{xdm/include/head :: head}"></div>
+	
+		<form name="formList" id="formList" method="post" autocomplete="off">
+		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+    <section class="content">
+        <div class="container-fluid">
+            
+            <div class="block-header">
+                <h2>풋살장 등록 List</h2>
+            </div>
+
+            <!-- Input -->
+           <!-- Input -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            
+                            
+                            <div class="row clearfix">
+                                <div class="col-sm-12">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-2">
+                                            <select class="form-control show-tick " id="shDelNy" name="shDelNy">
+                                                <option value="" th:selected="${vo.shDelNy == null}">삭제 여부</option>
+                                                <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+                                                <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
+                                            </select>
+                                            
+                                        </div>
+                                        <!-- <div class="col-sm-2">
+                                            <select class="form-control show-tick ">
+                                                <option value="">Y</option>
+                                                <option value="1">10</option>
+                                                <option value="2">20</option>
+                                               
+                                            </select>
+                                            
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <select class="form-control show-tick ">
+                                                <option value="">날짜</option>
+                                                <option value="2">등록일</option>
+                                                <option value="3">수정일</option>    
+                                            </select>
+                                            
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="2025-01-05" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="2025-02-04" />
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        
+
+                                    </div>
+                                    
+                                    <div class="row clearfix">
+                                    
+                                        <div class="col-sm-2">
+                                            <select class="form-control show-tick " id="shOption" name="shOption">
+                                                <option value="" th:selected="${vo.shOption == null}">검색구분</option>
+                                                <option value="1" th:selected="${vo.shOption == 1}">풋살장 이름</option>
+                                                <option value="2" th:selected="${vo.shOption == 2}">풋살장 주소</option>
+                                                <option value="3" th:selected="${vo.shOption == 3}">가격</option>
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" class="form-control" placeholder="검색어" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()"/>
+                                                	<span id="shValueError" style="color: red; font-size: 10px;"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" class="btn btn-default waves-effect" id="btnSearch">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                                  </svg>
+                                            </button>
+                                            <button type="button" class="btn btn-default waves-effect">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
+                                                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                                                  </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <div class="table-responsive">
+                            	<div class="col-sm-2">
+                                        	<strong>Total:<span th:text="${vo.totalRows}"></span></strong>
+                                        </div>					<!-- js-basic-example 들어가면 페이징 가능-->
+                            			<div class="col-sm-2" style="float: right;">
+                                            <select class="form-select form-select-sm" id="changeRowNum" name="changeRowNum">
+												<option value="5" th:selected="${vo.rowNumToShow eq 5}">5</option>
+												<option value="10" th:selected="${vo.rowNumToShow eq 10}">10</option>
+												<option value="30" th:selected="${vo.rowNumToShow eq 30}">30</option>
+												<option value="50" th:selected="${vo.rowNumToShow eq 50}">50</option>
+												<option value="80" th:selected="${vo.rowNumToShow eq 80}">80</option>
+												<option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>       
+											</select>
+                                        </div>
+                            
+                                <table class="table table-bordered table-striped table-hover  dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <input class="form-check-input" type="checkbox" id="entire">
+                                                <label class="form-check-label" for="entire"></label>
+                                            </th>
+                                            <th>#</th>
+                                            
+                                            <th>풋살장 이름</th>
+                                            <th>풋살장 주소</th>
+                                            <th>풋살장 가격</th>
+                                            
+                                        </tr>
+                                    </thead>
+            
+                                    <tbody>
+                                    	<tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">    	
+                                    		<td colspan="10">
+                                    			<p class="fs-0" style="padding-top: 12px">데이터가 없습니다</p>
+                                    		</td>
+                                    	</tr>
+                                        <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
+                                            <th>
+                                                <input class="form-check-input row-checkbox" id="1" type="checkbox">
+                                                <label class="form-check-label" for="1"></label>
+                                            </th>
+                                            <td th:text="${list.fiSeq}"></td>
+                                            <td>
+                                                <nav aria-label="breadcrumb">
+                                                    <ol class="breadcrumb">
+                                                        <li class="breadcrumb-item">
+                                                            <a th:href= "@{/FutsalMfom(fiSeq=${list.fiSeq})}"  style="color: blue;" th:text="${list.futsalName}">
+                                                                
+                                                            </a>
+                                                        </li>
+                                                    </ol>
+                                                </nav>
+                                            </td>
+                                            <td th:text="${list.futsalAddress}"></td>
+                                            
+                                            <td th:text="${list.futsalPrice}"></td>
+                                            
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                                 <div style="text-align: center;">
+								  <ul class="pagination">
+								  	  
+									
+									<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item">
+										<a class="page-link" href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
+											<i>이전</i>
+										</a>
+									</li>
+									<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''" class="page-item">
+										<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"><!-- ${i.index} --></a>
+									</li>
+									<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" >
+										<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
+											<i>다음</i>
+										</a>
+									</li>
+								  
+								  </ul>
+								    
+								</div>
+                                
+                                <a role="button" href="" class="btn btn-danger" style=" margin-right:  5px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                  </svg>
+                                </a>
+                                <a role="button" class="btn btn-danger" href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                      </svg>
+                                    </a>
+                                <a class="btn btn-primary" th:href="@{/FutsalForm}" role="button" style="float: right; margin-right:  5px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                                      </svg>
+                                    </a>
+                                <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
+                                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                                      </svg>
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            
+            
+        </div>
+    </section>
+ </form>   
+        <!-- Jquery Core Js -->
+    <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
+
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="/xdm/template/master/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="/xdm/template/master/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="/xdm/template/master./plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/xdm/template/master/js/admin.js"></script>
+    <script src="/xdm/template/master/js/pages/tables/jquery-datatable.js"></script>
+
+    <!-- Demo Js -->
+    <script src="/xdm/template/master/js/demo.js"></script>
+
+    <!--체크박스 전체 체크 단독 체크-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const entireCheckbox = document.getElementById("entire");
+            const rowCheckboxes = document.querySelectorAll(".row-checkbox");
+    
+            // 전체 선택 체크박스 클릭 시
+            entireCheckbox.addEventListener("change", function () {
+                rowCheckboxes.forEach(checkbox => {
+                    checkbox.checked = entireCheckbox.checked;
+                });
+            });
+    
+            // 개별 체크박스 클릭 시 전체 선택 체크박스 상태 변경
+            rowCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", function () {
+                    entireCheckbox.checked = [...rowCheckboxes].every(chk => chk.checked);
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+          
+    	// 페이지네이션 자바 스크립
+	    let form = document.querySelector("form[name=formList]");
+	 goList = function (thisPage) {
+	     document.querySelector("input[name=thisPage]").value = thisPage;
+	     form.action = "/FutsalList";
+	     form.submit();
+	 }  
+	
+	 /* 리스트 데이터 값 보여주기 */
+	 document.getElementById("changeRowNum").onchange = function () {
+		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
+		    form.action = "/FutsalList";
+		    form.submit();
+		}
+	 
+	 
+	 /* 검색하기 */
+	 document.getElementById("btnSearch").onclick = function () {
+		 
+		 let shValue = document.getElementById("shValue");// 검색어 
+		 let shValueError = document.getElementById("shValueError");// 검색어  입력 안했을 경우
+		 
+		 let isValid = true;
+		 
+		 
+		 
+		 if (shValue.value.trim() == "") {
+			 shValueError.innerText = "검색어를 입력해주세요";
+             ifcdName.focus();
+             isValid = false;
+         } else {
+        	 shValueError.innerText = "";
+         }
+		 
+		 
+		// 데이터 값이 있을 경우 폼 제출
+         if (isValid) {
+        	 form.action = "/codeGroup/codeGroupList";
+ 	        form.submit(); 
+         }
+         
+	        
+	  };
+	 
+	 
+    
+    </script>
+   
+</body>
+</html>

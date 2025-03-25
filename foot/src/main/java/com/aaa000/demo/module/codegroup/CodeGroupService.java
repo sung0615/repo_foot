@@ -12,8 +12,8 @@ public class CodeGroupService {
 	CodeGroupDao codeGroupDao;
 	
 	//리스트 보여주기
-	public List<CodeGroupDto> selectList(){
-		return codeGroupDao.selectList();
+	public List<CodeGroupDto> selectList(CodeGroupVo vo){
+		return codeGroupDao.selectList(vo);
 	}
 	
 	// 등록폼
@@ -24,6 +24,12 @@ public class CodeGroupService {
 	// 업데이트 삭제
 	public int uelete(CodeGroupDto codeGroupDto) {
 		return codeGroupDao.uelete(codeGroupDto);
+	}
+	
+	
+	//페이지 네이션
+	public int selectOneCount(CodeGroupVo vo) {
+		return codeGroupDao.selectOneCount(vo);
 	}
 	
 }

@@ -12,7 +12,18 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	// 사용자 리스트 보여주기
+	// 사용자 회원 가입 리스트 관리자에서 보여주기
+	@RequestMapping(value="/UserMemberList")
+	public String UserMember(Model model, UserVo vo) {
+		
+		
+		vo.setParamsPaging(userService.selectOneCount(vo));
+		model.addAttribute("list", userService.selectList(vo));
+		model.addAttribute("vo", vo);
+		
+		return "xdm/usermember/UserMemberList";
+	}
+
 	
 	
 	// 로그인창 폼 만들기
@@ -34,6 +45,16 @@ public class UserController {
 								// 회원 가입이 됬을때 로그인창으로 넘경됨
 		return "redirect:/user/signin/SigninUser";
 	}
+	
+	
+	// 회원 정보 관리자 Ui 상세 뿌리기
+	@RequestMapping(value="/UserMemberView")
+	public String UserMemberView(Model model,UserDto userDto) {
+		
+		model.addAttribute("item", userService.selectOne(userDto));
+		return "/xdm/usermember/UserMemberView";
+	}
+	
 	
 	
 	

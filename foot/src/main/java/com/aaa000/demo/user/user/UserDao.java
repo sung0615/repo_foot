@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface UserDao {
 	
 	// 사용자 리스트 보여주기
-	public List <UserDto> selectList();
+	public List <UserDto> selectList(UserVo vo);
 	
 	//데이터 1개만 뽑을때
 	public UserDto selectOne(UserDto userDto);
@@ -22,5 +22,5 @@ public interface UserDao {
 	//사용자 업데이트 삭제
 	public int uelete(UserDto userDto);
 	
-	
+	public int selectOneCount(UserVo vo);
 }

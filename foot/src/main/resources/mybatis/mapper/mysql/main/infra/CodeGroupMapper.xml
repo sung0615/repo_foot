@@ -5,22 +5,58 @@
 
 	<resultMap id="resultMapObj" type="com.aaa000.demo.module.codegroup.CodeGroupDto"></resultMap>
 	
+	<!-- refid같은 id 사용할때 붙어서 사용가능하다 -->
+	 <sql id="selectCommon">
+		FROM
+			codegroup
+		WHERE 1=1
+		<!-- 사용여부는 사용안함 -->
+		 <!-- <if test= "shUseMy != null and !shUseMy.equals('')">AND  a.ifcgUseMy = #{shUseMy}</if>  -->
+		 <!-- 삭제 여부 -->
+		<if test= "shDelNy != null and !shDelNy.equals('')">AND ifchDelNy = #{shDelNy}</if>
+			
+			
+						
+				<!-- <choose>
+					<when test="shOptionDate == 1">AND regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+					<when test="shOptionDate == 2">AND modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				</choose> -->
+ 
+		
+		 <choose>
+            <when test="shOption == 1">AND cdgSeq = #{shValue}</when>
+            <when test="shOption == 2">AND ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
+		
+		
+			 <!-- AND ifchDelNy = 0  -->
+	</sql> 
+	
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon"></include>
+	</select>
+	
 	<!-- 리스트 보여주기 -->
 	<select id="selectList" resultMap="resultMapObj">
-	SELECT
-		cdgSeq,
-	    ifcgName,
-	    newsAgency,
-	    gender,
-	    usedOrNot,
-	    registration,
-	    correction,
-	    count
-	FROM
-		codegroup
-	WHERE 1=1
-		 <!-- AND ifchDelNy = 0  -->
-	ORDER BY cdgSeq DESC
+		
+		
+			SELECT
+				cdgSeq,
+			    ifcgName,
+			    newsAgency,
+			    gender,
+			    usedOrNot,
+			    registration,
+			    correction,
+			 
+				(select count(aa.cdSeq) from code aa where 1=1 and aa.ifcdDelNy = 0 and aa.codeGroup_cdgSeq = cdgSeq) as xifcdSeqCount
+			
+			    
+				<include refid="selectCommon"></include>
+			ORDER BY cdgSeq DESC
+			limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
 	
 	
@@ -34,8 +70,8 @@
 			gender,
 			usedOrNot,
 			registration,
-			correction,
-			count
+			correction
+			
 			
 		) value (
 			#{ifcgName},
@@ -44,10 +80,10 @@
 			#{gender},
 			#{usedOrNot},
 			#{registration},
-			#{correction},
-			#{count}
-		)
+			#{correction}
 		
+		)
+		<include refid="selectCommon"></include>
 		<selectKey resultType="String" keyProperty="cdgSeq" order="AFTER">
 			SELECT last_insert_id()
 		</selectKey>

@@ -11,7 +11,12 @@ public class CodeGroupDto {
 	private String registration;// 등록날짜
 	private String correction;//수정일
 	private Integer count; //갯수
+
 //	-----
+	private Integer xifcdSeqCount; // 코드 그룹 갯수
+//	-----
+	
+	
 	public String getCdgSeq() {
 		return cdgSeq;
 	}
@@ -65,6 +70,12 @@ public class CodeGroupDto {
 	}
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+	public Integer getXifcdSeqCount() {
+		return xifcdSeqCount;
+	}
+	public void setXifcdSeqCount(Integer xifcdSeqCount) {
+		this.xifcdSeqCount = xifcdSeqCount;
 	}
 	
 	

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface FutsalinformationDao {
 	
 	// 풋살장 정보 리스트					
-	public List<FutsalinformationDto> selectList();
+	public List<FutsalinformationDto> selectList(FutsalinformationVo vo);
 	
 	//정보 1개씩 뽑기
 	public FutsalinformationDto selectOne(FutsalinformationDto futsalinformationDto);
@@ -22,4 +22,5 @@ public interface FutsalinformationDao {
 	// 풋살장 정보 업데이트 삭제
 	public int uelete(FutsalinformationDto futsalinformationDto);
 	
+	public int selectOneCount(FutsalinformationVo vo);
 }

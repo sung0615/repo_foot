@@ -3,6 +3,7 @@ package com.aaa000.demo.module.codegroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -12,10 +13,20 @@ public class CodeGroupController {
 	CodeGroupService codeGroupService;
 	
 	
-	//리스트 보여주기
+	//리스트 보여주고 
 	@RequestMapping(value = "/codeGroup/codeGroupList")
-	public String codeGroupList(Model model) {
-		model.addAttribute("list", codeGroupService.selectList());
+	public String codeGroupList(CodeGroupVo vo,Model model,CodeGroupDto  codeGroupDto) {
+		// 토탈 가져와야되는 값이 먼저 돌아야된다
+		// 본데이터 값이 그다음 돌아야된다
+		
+		
+		vo.setParamsPaging(codeGroupService.selectOneCount(vo));
+		model.addAttribute("list", codeGroupService.selectList(vo));
+		model.addAttribute("vo", vo);
+		
+		
+		
+
 		return "xdm/codeGroup/codeGroupXdmList";
 	}
 	
@@ -41,5 +52,8 @@ public class CodeGroupController {
 		codeGroupService.uelete(codeGroupDto);
 		return "redirect:/codeGroup/codeGroupList";
 	}
+	
+	
+
 	
 }

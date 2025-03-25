@@ -12,8 +12,8 @@ public class UserService {
 	UserDao userDao;
 	
 	// 사용자 리스트보여주기
-	public List<UserDto> selectList(){
-		return userDao.selectList();
+	public List<UserDto> selectList(UserVo vo){
+		return userDao.selectList(vo);
 	}
 	
 	//데이터 1개씩 뽑기
@@ -34,6 +34,11 @@ public class UserService {
 	// 업데이트 삭제
 	public int uelete(UserDto userDto) {
 		return userDao.uelete(userDto);
+	}
+	
+	//페이지 네이션
+	public int selectOneCount(UserVo vo) {
+		return userDao.selectOneCount(vo);
 	}
 	
 }

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{xdm/include/head :: head}"></div>
+                                
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="block-header">
+                <h2>회원 관리</h2>
+            </div>
+            <!-- Input -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        
+                        <div class="body">
+                            
+
+                            <h2 class="card-inside-title">회원 상세정보</h2>
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <p>이름</p>
+                                            <input type="text" class="form-control"  th:text="${item.userName}" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <p>성별</p>
+                                            <input type="text" class="form-control" th:text="${@codeService.selectOneCachedCode(item.userGender)}" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <p>통신사</p>
+                                            <input type="text" class="form-control" th:text="${@codeService.selectOneCachedCode(item.userNewsAgency)}"disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <p>폰번호</p>
+                                            <input type="text" class="form-control"  th:text="${item.userPhoneNumber}" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <p>생일</p>
+                                            <input type="text" class="form-control"  th:text="${item.userBirthday}" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <p>ID</p>
+                                            <input type="text" class="form-control"  th:text="${item.userId}" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <p>이메일</p>
+                                            <input type="text" class="form-control"  th:text="${item.userEmail}" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <p>비밀번호</p>
+                                            <input type="text" class="form-control"  th:text="${item.userPassword}" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <br>
+                            <!-- <button type="button" class="btn bg-red waves-effect">
+                                등록 하기
+                            </button> -->
+                           
+                            <a role="button" type="button" class="btn bg-black waves-effect" href="/UserMemberList">
+                                목록
+                            </a>
+                            <!-- <button type="button" class="btn bg-blue-grey waves-effect">
+                                수정하기
+                            </button> -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+           
+            <!--#END# Switch Button -->
+        </div>
+    </section>
+
+    <!-- Jquery Core Js -->
+    <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
+
+    <!-- Autosize Plugin Js -->
+    <script src="/xdm/template/master/plugins/autosize/autosize.js"></script>
+
+    <!-- Moment Plugin Js -->
+    <script src="/xdm/template/master/plugins/momentjs/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="/xdm/template/master/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/xdm/template/master/js/admin.js"></script>
+    <script src="/xdm/template/master/js/pages/forms/basic-form-elements.js"></script>
+
+    <!-- Demo Js -->
+    <script src="/xdm/template/master/js/demo.js"></script>
+
+    <!-- Dropzone Plugin Js -->
+    <script src="/xdm/template/master/plugins/dropzone/dropzone.js"></script>
+    
+      <!-- Dropzone Css -->
+    <link href="/xdm/template/master/plugins/dropzone/dropzone.css" rel="stylesheet">
+</body>
+</html>

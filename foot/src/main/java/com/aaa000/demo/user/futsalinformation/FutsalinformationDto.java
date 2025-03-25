@@ -4,7 +4,7 @@ public class FutsalinformationDto {
 	
 	private String fiSeq; // 풋살장정보Seq
 	private String futsalName; //풋살장 이름
-	private String futsalPrice; //가격
+	private Integer futsalPrice; //가격
 	private String futsalRegion; //서울or경기 지역
 	private String futsalAddress; //풋살장 주소
 	private String futsalPhoneNumbar; //풋살장 번호
@@ -13,6 +13,12 @@ public class FutsalinformationDto {
 	private String futsalCancellationPolicy; //풋살장 취소정책
 	private Integer fiDelMy; // 업데이트 삭제
 //	-----
+// 코드 에있는  코드 이름  코드 Seq 땡겨오기
+	private Integer  codeGroup_cdgSeq; // 코드 그룹 Seq
+	private String cdSeq; //코드 Seq
+	private String ifcdName;//코드 이름
+//	-----
+	
 	public String getFiSeq() {
 		return fiSeq;
 	}
@@ -25,10 +31,10 @@ public class FutsalinformationDto {
 	public void setFutsalName(String futsalName) {
 		this.futsalName = futsalName;
 	}
-	public String getFutsalPrice() {
+	public Integer getFutsalPrice() {
 		return futsalPrice;
 	}
-	public void setFutsalPrice(String futsalPrice) {
+	public void setFutsalPrice(Integer futsalPrice) {
 		this.futsalPrice = futsalPrice;
 	}
 	public String getFutsalRegion() {
@@ -103,6 +109,24 @@ public class FutsalinformationDto {
 	}
 	public void setFutsalInformation_fiSeq(String futsalInformation_fiSeq) {
 		this.futsalInformation_fiSeq = futsalInformation_fiSeq;
+	}
+	public Integer getCodeGroup_cdgSeq() {
+		return codeGroup_cdgSeq;
+	}
+	public void setCodeGroup_cdgSeq(Integer codeGroup_cdgSeq) {
+		this.codeGroup_cdgSeq = codeGroup_cdgSeq;
+	}
+	public String getCdSeq() {
+		return cdSeq;
+	}
+	public void setCdSeq(String cdSeq) {
+		this.cdSeq = cdSeq;
+	}
+	public String getIfcdName() {
+		return ifcdName;
+	}
+	public void setIfcdName(String ifcdName) {
+		this.ifcdName = ifcdName;
 	}
 	
 	
