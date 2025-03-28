@@ -21,6 +21,15 @@ public class UserDto {
 	private String cdSeq; //코드 Seq
 	private String ifcdName;//코드 이름
 //	-----
+	private String genderCdSeq;
+	private String genderName;
+	private String telecomName;
+	private String telecomCdSeq;
+//	----
+	private String cdgSeq;
+	private String ifcgName;
+//	----
+	
 	public String getSuSeq() {
 		return suSeq;
 	}
@@ -104,6 +113,42 @@ public class UserDto {
 	}
 	public void setIfcdName(String ifcdName) {
 		this.ifcdName = ifcdName;
+	}
+	public String getGenderCdSeq() {
+		return genderCdSeq;
+	}
+	public void setGenderCdSeq(String genderCdSeq) {
+		this.genderCdSeq = genderCdSeq;
+	}
+	public String getGenderName() {
+		return genderName;
+	}
+	public void setGenderName(String genderName) {
+		this.genderName = genderName;
+	}
+	public String getTelecomName() {
+		return telecomName;
+	}
+	public void setTelecomName(String telecomName) {
+		this.telecomName = telecomName;
+	}
+	public String getTelecomCdSeq() {
+		return telecomCdSeq;
+	}
+	public void setTelecomCdSeq(String telecomCdSeq) {
+		this.telecomCdSeq = telecomCdSeq;
+	}
+	public String getCdgSeq() {
+		return cdgSeq;
+	}
+	public void setCdgSeq(String cdgSeq) {
+		this.cdgSeq = cdgSeq;
+	}
+	public String getIfcgName() {
+		return ifcgName;
+	}
+	public void setIfcgName(String ifcgName) {
+		this.ifcgName = ifcgName;
 	}
 	
 	

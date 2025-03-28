@@ -7,7 +7,7 @@ public class CodeDto {
 	
 	private String cdSeq; // 코드Seq
 	private String ifcdName; //코드 이름
-	private String ifcdDelNy; //업데이트 삭제
+	private Integer ifcdDelNy; //업데이트 삭제
 	private String newsAgencyName; //통신사 이름
 	private String codeGroup_cdgSeq; //코드구릅Seq
 	private String ifcgName; // 코드 그룹 이름
@@ -30,10 +30,10 @@ public class CodeDto {
 	public void setIfcdName(String ifcdName) {
 		this.ifcdName = ifcdName;
 	}
-	public String getIfcdDelNy() {
+	public Integer getIfcdDelNy() {
 		return ifcdDelNy;
 	}
-	public void setIfcdDelNy(String ifcdDelNy) {
+	public void setIfcdDelNy(Integer ifcdDelNy) {
 		this.ifcdDelNy = ifcdDelNy;
 	}
 	public String getNewsAgencyName() {

@@ -38,7 +38,8 @@
          	    
          	    
       		</choose>
-			
+				AND fiDelMy = 0  
+			 
 			
 			 limit #{rowNumToShow} offset #{startRnumForMysql} 
 	</select>
@@ -126,6 +127,15 @@
 	
 	</select>
 	
+	<!-- 업데이트 삭제 -->
+	<update id ="uelete">
+			UPDATE futsalinformation SET
+	 		fiDelMy = 1
+	 	
+	 	WHERE
+	 		fiSeq = #{fiSeq}
+	
+	</update>
 	
 	
 	

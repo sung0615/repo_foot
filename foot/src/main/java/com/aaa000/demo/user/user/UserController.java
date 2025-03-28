@@ -1,9 +1,17 @@
 package com.aaa000.demo.user.user;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.aaa000.demo.module.code.CodeVo;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -23,28 +31,29 @@ public class UserController {
 		
 		return "xdm/usermember/UserMemberList";
 	}
-
 	
 	
-	// 로그인창 폼 만들기
-	@RequestMapping(value="/SigninUser")
-	public String SigninUser() {
-					// 로그인이 맞으면 인덱스 화면으로 넘기는걸 수정해야됨
-		return "/user/signin/SigninUser";
-	}
+	
 	
 	
 	// 사용자 회원가입하기 등록폼 하기 (회원가입 후 로그인 주소로 가겠끔 수정해야함)
 	@RequestMapping(value="/SignupUserForm")
-	public String SignupUserForm() {
+	public String SignupUserForm(Model model,UserDto userDto, CodeVo vo) {
+		
+		model.addAttribute("list", userService.codeList(userDto));
+		model.addAttribute("item", userService.selectOne(userDto));
+		
+		
 		return "user/signup/SignupUserForm";
 	}
 	@RequestMapping(value="/SignupUserInst")
 	public String SignupUserInst(UserDto userDto) {
 		userService.insert(userDto);
 								// 회원 가입이 됬을때 로그인창으로 넘경됨
-		return "redirect:/user/signin/SigninUser";
+		return "redirect:/SigninUser";
 	}
+	
+	
 	
 	
 	// 회원 정보 관리자 Ui 상세 뿌리기
@@ -93,5 +102,114 @@ public class UserController {
 		userService.uelete(userDto);
 		return "/user/secession/SecessionUserUele";
 	}
+	
+	
+	// 사용자 로그인창 폼 만들기
+	@RequestMapping(value="/SigninUser")
+	public String SigninUser() {
+					// 로그인이 맞으면 인덱스 화면으로 넘기는걸 수정해야됨
+		return "/user/signin/SigninUser";
+	}
+	//사용자 로그인화면 구현
+	@ResponseBody
+	@RequestMapping(value = "/SigninUser1")
+	public Map<String, Object> SigninUser1(UserDto userDto, HttpSession httpSession) throws Exception {
+			
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+		UserDto rtt = userService.selectId(userDto);
+			
+		if (rtt != null) {
+			returnMap.put("rt", "success");
+			httpSession.setAttribute("sessSeqXdm", rtt.getSuSeq());
+			httpSession.setAttribute("sessIdXdm", rtt.getUserId());
+			httpSession.setAttribute("sessNameXdm", rtt.getUserName());  
+
+		} else {
+			
+			
+		}
+		    
+		  
+		    
+			
+		return returnMap;
+	}
+	
+	//사용자 로그아웃 구현
+	@ResponseBody
+	@RequestMapping(value = "/SignoutUser1")
+	public Map<String, Object> SignoutUser1(UserDto userDto,HttpSession httpSession) throws Exception {
+			
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+			
+		httpSession.setAttribute("sessSeqXdm", null);
+		httpSession.setAttribute("sessIdXdm", null);
+		httpSession.setAttribute("sessNameXdm", null);
+		returnMap.put("rt", "success");
+			
+			
+		return returnMap;
+			
+	}
+	
+	
+	
+	
+	
+	//관리자 로그인
+	  @RequestMapping(value="/SigninAdimn") 
+	  public String SigninAdimn () {
+		  
+		  
+		  return "xdm/signinadmin/SigninAdimn"; 
+	  }
+	 
+	
+	//관리자 로그인 구현 
+	@ResponseBody
+	@RequestMapping(value = "/SigninAdimn1")
+	public Map<String, Object> SigninAdimn(UserDto userDto,HttpSession httpSession) throws Exception {
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		UserDto rtt = userService.selectId(userDto);
+		
+		if (rtt != null) {
+			returnMap.put("rt", "success");
+			//httpSession.setMaxInactiveInterval(60 * Constants.SESSION_MINUTE_XDM); // 60second * 30 = 30minute
+			httpSession.setAttribute("sessSeqXdm", rtt.getSuSeq());
+			httpSession.setAttribute("sessIdXdm", rtt.getUserId());
+			httpSession.setAttribute("sessNameXdm", rtt.getUserName());
+
+		} else {
+			
+			
+		}
+	    
+		
+	    
+		
+		return returnMap;
+	}
+	
+	
+	//관리자 로그아웃
+	@ResponseBody
+	@RequestMapping(value = "/SignoutAdimn1")
+	public Map<String, Object> SignoutAdimn1(UserDto userDto,HttpSession httpSession) throws Exception {
+		
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+			
+			httpSession.setAttribute("sessSeqXdm", null);
+			httpSession.setAttribute("sessIdXdm", null);
+			httpSession.setAttribute("sessNameXdm", null);
+			returnMap.put("rt", "success");
+		
+		return returnMap;
+		
+	}
+	
 	
 }

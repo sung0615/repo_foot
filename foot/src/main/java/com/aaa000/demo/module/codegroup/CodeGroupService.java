@@ -16,6 +16,11 @@ public class CodeGroupService {
 		return codeGroupDao.selectList(vo);
 	}
 	
+	//1개만 받아오니깐 
+	public CodeGroupDto selectOne(CodeGroupVo vo){ //Dto 를 받겠다선언
+		return codeGroupDao.selectOne(vo); //Dto함수를 사용하기 위해
+	}
+	
 	// 등록폼
 	public int insert(CodeGroupDto codeGroupDto) {
 		return codeGroupDao.insert(codeGroupDto);
@@ -26,6 +31,10 @@ public class CodeGroupService {
 		return codeGroupDao.uelete(codeGroupDto);
 	}
 	
+	//업데이트
+	public int update(CodeGroupDto codeGroupDto) {
+		return codeGroupDao.update(codeGroupDto);
+	}
 	
 	//페이지 네이션
 	public int selectOneCount(CodeGroupVo vo) {

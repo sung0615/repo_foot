@@ -13,7 +13,14 @@ public class CodeController {
 	@Autowired
 	CodeService codeService;
 	
-
+	
+	/*
+	 * // 코드 리스트 사용자 회원 가입에 뿌려주기
+	 * 
+	 * @RequestMapping(value ="/SignupUserForm") public String SignupUserForm(CodeVo
+	 * vo, Model model) { model.addAttribute("list", codeService.selectList(vo));
+	 * return "user/signup/SignupUserForm"; }
+	 */
 	 
 	 
 	
@@ -33,35 +40,61 @@ public class CodeController {
 	
 	// 등록폼
 	@RequestMapping(value="/code/CodeForm")
-	public String CodeForm(CodeDto codeDto, Model model) {
-		model.addAttribute("list", codeService.codeGroupNameSeq(codeDto));
+	public String CodeForm( CodeDto codeDto, Model model , CodeVo vo) {
 		
-		return "xdm/code/CodeXdmForm";
+		
+		model.addAttribute("list", codeService.codeGroupNameSeq(codeDto));
+		model.addAttribute("vo", vo);
+		
+		
+		if (vo.getCdSeq().equals("0") || vo.getCdSeq().equals("")) {	
+			
+		} else {
+//			update mode			
+			model.addAttribute("item", codeService.selectOne(vo));
+			
+		}
+		
+		return "xdm/code/codeXdmForm";
 	}
 	
 	// 등록후 리스트 에서 보여주라
 	@RequestMapping(value="/code/CodeInst")
 	public String CodeInst(CodeDto codeDto) {
+System.out.println(codeDto.getCodeGroup_cdgSeq());
 		codeService.insert(codeDto);
 		return "redirect:/code/codeList";
 	}
+	
+	//업데이트
+	@RequestMapping(value="/code/CodeUpdt")
+	public String CodeUpdt(CodeDto codeDto) {
+		codeService.update(codeDto);
+		return "redirect:/code/codeList";
+	}
+	
+	
+	
 	
 	// 업데이트 삭제
 	@RequestMapping(value="/code/CodeUele")
 	public String CodeUele(CodeDto codeDto) {
 		codeService.uelete(codeDto);
-		return "redirect:/code/codeXdmList";
+		return "redirect:/code/codeList";
 	}
 	
 	
-	//데이터 1개씩 뽑아서 폼 화면 뿌리기
-	@RequestMapping(value="/code/CodeView")
-	public String CodeView(Model model,CodeDto codeDto) {
-		
-		model.addAttribute("item", codeService.selectOne(codeDto));
-		
-		return"xdm/code/CodeXdmForm";
-	}
+	/*
+	 * //데이터 1개씩 뽑아서 폼 화면 뿌리기
+	 * 
+	 * @RequestMapping(value="/code/CodeView") public String CodeView(Model
+	 * model,CodeDto codeDto,CodeVo vo) {
+	 * 
+	 * 
+	 * model.addAttribute("item", codeService.selectOne(codeDto,vo));
+	 * 
+	 * return"xdm/code/CodeXdmForm"; }
+	 */
 	
 		
 	

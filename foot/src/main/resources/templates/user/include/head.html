@@ -80,7 +80,7 @@
 					<div class="col-lg-2 col-xxl-2 text-end col-md-6 col-7">
 						<div class="list-inline">
 							<div class="list-inline-item me-5">
-								<a href="/user/template/pages/favorites.html" class="text-muted position-relative">
+								<a href="/FavoritesUserList" class="text-muted position-relative">
 									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
 										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
 										stroke-linejoin="round" class="feather feather-heart">
@@ -95,7 +95,7 @@
 									</span>
 								</a>
 							</div>
-							<div class="list-inline-item me-5">
+							<!-- <div class="list-inline-item me-5">
 								<a href="#!" class="text-muted" data-bs-toggle="modal" data-bs-target="#userModal">
 									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
 										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -104,6 +104,12 @@
 										<circle cx="12" cy="7" r="4"></circle>
 									</svg>
 								</a>
+							</div> -->
+							<div class="list-inline-item me-5">
+							<h6 class="mt-2 text-black">Name : [[${session.sessNameXdm}]]</h6>
+							</div>
+							<div class="list-inline-item me-5">
+							<h6 class="mt-2 text-black">ID : [[${session.sessIdXdm}]]</h6>
 							</div>
 							<!-- <div class="list-inline-item me-5 me-lg-0">
 								<a class="text-muted position-relative" data-bs-toggle="offcanvas"

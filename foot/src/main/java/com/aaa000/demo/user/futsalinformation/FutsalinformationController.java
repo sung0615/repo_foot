@@ -76,6 +76,12 @@ public class FutsalinformationController {
 	
 	
 	
+	//업데이트 삭제
+	@RequestMapping(value="/FutsalUele")
+	public String FutsalUele (FutsalinformationDto futsalinformationDto) {
+		futsalinformationService.uelete(futsalinformationDto);
+		return "redirect:/FutsalList";
+	}
 	
 	
 	

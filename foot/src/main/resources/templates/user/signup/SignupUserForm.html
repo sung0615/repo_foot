@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
+<form action="/SignupUserInst" method="post" id="form">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -26,7 +26,7 @@
   <div class="border-bottom shadow-sm">
     <nav class="navbar navbar-light py-2">
       <div class="container justify-content-center justify-content-lg-between">
-        <a class="navbar-brand" href="/indexUserView">
+        <a class="navbar-brand" href="../index.html">
           <img src="/user/template/assets/images/logo/ball.png" width="20" alt="" class="d-inline-block align-text-top"><strong>&nbsp;Now Futsal</strong>
         </a>
         <span class="navbar-text">
@@ -62,69 +62,63 @@
                 <div class="col-8">
                   <!-- input -->
                   <label for="formSignupfname" class="form-label visually-hidden">이름</label>
-                  <input type="text" class="form-control" id="formSignupfname" placeholder="이름" required />
-                  <div class="invalid-feedback">이름을 입력해주세요</div>
+                  <input type="text" class="form-control" id="userName" name="userName" placeholder="이름" required />
+                  <div id="userNameError" style="color: red; font-size: 10px;"></div>
                 </div>
                 <div class="col-4">
-                  <!-- input -->
+                 
                   <label for="gender" class="form-label visually-hidden">성별</label>
-                  <select type="" class="form-select" id="gender"  required>
-                    <option selected disabled value="">성별</option>
-                    <option>남자</option>
-                    <option>여자</option>
-                    <option>기타</option>
+                  <select type="" class="form-select" required id="userGender" name="userGender" >
+                    <option selected value="">성별</option>
+                    <option th:each="list : ${list}"  th:if="${list.codeGroup_cdgSeq == 2}"   th:text="${list.ifcdName}"   th:value="${list.cdSeq}">  </option>
+                    <!--  <option  th:each="list : ${list}" th:text="${list.ifcdName}" th:value="${list?.codeGroup_cdgSeq}"></option> -->
+                    
                   </select>
 
-                  <div class="invalid-feedback">성별을 선택해주세요
-                </div>
-                </div>
+                  <div id="userGenderError" style="color: red; font-size: 10px;"></div>
+                </div> 
                 <div class="col-4">
-                  <!-- input -->
+               
                   <label for="newsagency" class="form-label visually-hidden">통신사</label>
-                  <select type="" class="form-select" id="newsagency" required >
+                  <select type="" class="form-select" id=userNewsAgency name="userNewsAgency" required >
                     <option selected disabled value="">통신사</option>
-                    <option>KT</option>
-                    <option>SKT</option>
-                    <option>LG U+</option>
-                    <option>알뜰폰</option>
+                    <option th:each="list : ${list}"  th:if="${list.codeGroup_cdgSeq == 1}"   th:text="${list.ifcdName}"   th:value="${list.cdSeq}">  </option>
+                    
                   </select>
 
-                  <div class="invalid-feedback">통신사를 선택해주세요
-                  </div>
-                </div>
+                  <div id="userNewsAgencyError" style="color: red; font-size: 10px;"></div> 
+                </div> 
                 <div class="col-8">
                   <!-- input -->
                   <label for="phonenumber" class="form-label visually-hidden">휴대폰</label>
-                  <input type="tel" class="form-control" id="phonenumber" placeholder="휴대폰" required />
-                  <div class="invalid-feedback">휴대폰 번호를 입력해주세요</div>
+                  <input type="tel" class="form-control" id="userPhoneNumber" name ="userPhoneNumber" placeholder="휴대폰" required />
+                  <div id="userPhoneNumberError" style="color: red; font-size: 10px;"></div>
                 </div>
-                
                 <div class="col-12">
-                  <!-- input -->
                   <label for="dob" class="form-label visually-hidden">생년월일</label>
-                  <input type="text" class="form-control" id="dob" placeholder="yyyy/mm/dd" required />
-                  <div class="invalid-feedback">생년월일을 입력해주세요</div>
+                  <input type="text" class="form-control" id="userBirthday" name="userBirthday" placeholder="yyyy-mm-dd" required />
+                  <div id="userBirthdayError" style="color: red; font-size: 10px;"></div>
                 </div>
                 <div class="col-12">
                   <!-- input -->
                   <label for="formSignuplname" class="form-label visually-hidden">아이디</label>
-                  <input type="text" class="form-control" id="formSignuplname" placeholder="아이디" required />
-                  <div class="invalid-feedback">아이디를 입력해주세요</div>
+                  <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디" required />
+                  <div id="userIdError" style="color: red; font-size: 10px;"></div>
                 </div>
                 <div class="col-12">
                   <!-- input -->
                   <label for="formSignupEmail" class="form-label visually-hidden">이메일</label>
-                  <input type="email" class="form-control" id="formSignupEmail" placeholder="이메일" required />
-                  <div class="invalid-feedback">이메일을 입력해주세요</div>
+                  <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="이메일" required />
+                  <div id="userEmailError" style="color: red; font-size: 10px;"></div>
                 </div>
                 <div class="col-12">
                   <div class="password-field position-relative">
                     <label for="formSignupPassword" class="form-label visually-hidden">비밀번호</label>
                     <div class="password-field position-relative">
-                      <input type="password" class="form-control fakePassword" id="formSignupPassword"
+                      <input type="password" class="form-control fakePassword" id="userPassword" name= "userPassword"
                         placeholder="비밀번호" required />
                       <span><i class="bi bi-eye-slash passwordToggler"></i></span>
-                      <div class="invalid-feedback">비밀번호를 입력해주세요</div>
+                      <div id="userPasswordError" style="color: red; font-size: 10px;"></div>
                     </div>
                   </div>
                 </div>
@@ -132,15 +126,15 @@
                   <div class="password-field position-relative">
                     <label for="formSignupPassword" class="form-label visually-hidden">비밀번호 확인</label>
                     <div class="password-field position-relative">
-                      <input type="password" class="form-control fakePassword" id="formSignupPassword"
+                      <input type="password" class="form-control fakePassword" id="PasswordCheck"
                         placeholder="비밀번호 확인" required />
                       <span><i class="bi bi-eye-slash passwordToggler"></i></span>
-                      <div class="invalid-feedback">비밀번호 와 일치 하지 않습니다</div>
+                      <div id="PasswordCheckError" style="color: red; font-size: 10px;"></div>
                     </div>
                   </div>
                 </div>
                 <!-- btn -->
-                <div class="col-12 d-grid"><button type="submit" class="btn btn-primary">가입하기</button></div>
+                <div class="col-12 d-grid"><button type="button" id="btuSave" class="btn btn-primary">가입하기</button></div>
 
                 <!-- text -->
                 <!-- <p>
@@ -238,7 +232,7 @@
   </footer>
   <!-- Javascript-->
   <!-- Libs JS -->
-  <!-- <script src="/user/template/assets/libs/jquery/dist/jquery.min.js"></script> -->
+  <!-- <script src="../assets/libs/jquery/dist/jquery.min.js"></script> -->
   <script src="/user/template/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/user/template/assets/libs/simplebar/dist/simplebar.min.js"></script>
 
@@ -248,6 +242,200 @@
   <script src="/user/template/assets/js/vendors/password.js"></script>
 
   <script src="/user/template/assets/js/vendors/validation.js"></script>
-</body>
+  
+  <script type="text/javascript">
+  
+  document.getElementById("btuSave").onclick = function() {
+	  
+	  let userName = document.getElementById("userName"); //이름 
+	  let userNameError = document.getElementById("userNameError"); //이름 잘못 입력 했을경우
+	  
+	  let userPhoneNumber = document.getElementById("userPhoneNumber"); //폰번호
+	  let userPhoneNumberError = document.getElementById("userPhoneNumberError"); //폰번호 잘못 입력 했을 경우
+	  
+	  let userBirthday = document.getElementById("userBirthday"); //생일
+	  let userBirthdayError = document.getElementById("userBirthdayError");//생일 잘못입력 했을 경우
+	  
+	  let userId = document.getElementById("userId"); //아이디
+	  let userIdError = document.getElementById("userIdError"); //아이디 잘못 입력 했을경우
+	  
+	  let userEmail = document.getElementById("userEmail"); //이메일
+	  let userEmailError = document.getElementById("userEmailError"); //이메일 잘못입력했을경우
+	  
+	  let userPassword = document.getElementById("userPassword"); // 비밀번호
+	  let userPasswordError = document.getElementById("userPasswordError");//비밀번호 잘못 입력 했을 경우
+	  
+	  let PasswordCheck = document.getElementById("PasswordCheck");//비밀번호 확인
+	  let PasswordCheckError = document.getElementById("PasswordCheckError");// 비밀번호 입력 잘못 했을 경우
+	  
+	  let userGender = document.getElementById("userGender");//성별 
+	  let userGenderError = document.getElementById("userGenderError"); // 성별 체크 안했을경우
+	  
+	  let userNewsAgency = document.getElementById("userNewsAgency"); //통신사
+	  let userNewsAgencyError = document.getElementById("userNewsAgencyError");//통신사 체크 안했을 경우
+	  
+	  let isValid = true;
+	  
+	  
+	  //이름 필드 검증
+	  if (userName.value.trim() == "") {
+		  userNameError.innerText = "이름을 입력하세요";
+		  userName.classList.add("is-invalid");
+          userName.classList.remove("is-valid");
+		  userName.focus();
+	      isValid = false;
+	  } else {
+		  userNameError.innerText = "";
+		  userName.classList.add("is-valid");
+          userName.classList.remove("is-invalid");
+	  }
+	  
+	  // 성별 입력 검증
+	  if (userNewsAgency.value.trim() == ""){
+		  userNewsAgencyError.innerText = "통신사를 정해주세요";
+		  userNewsAgency.classList.add("is-invalid");
+		  userNewsAgency.classList.remove("is-valid");
+		  userNewsAgency.focus();
+		  isValid = false;
+	  } else {
+		  userNewsAgencyError.innerText = "";
+		  userNewsAgency.classList.add("is-valid");
+		  userNewsAgency.classList.remove("is-invalid");
+	  }
+	  
+	// 통신사 입력 검증
+	  if (userGender.value.trim() == ""){
+		  userGenderError.innerText = "통신사를 정해주세요";
+		  userGender.classList.add("is-invalid");
+		  userGender.classList.remove("is-valid");
+		  userGender.focus();
+		  isValid = false;
+	  } else {
+		  userGenderError.innerText = "";
+		  userGender.classList.add("is-valid");
+		  userGender.classList.remove("is-invalid");
+	  }
+	  
+	  
+	  
+	  // 폰번호 입력 검증
+	  if (userPhoneNumber.value.trim() == ""){
+		  userPhoneNumberError.innerText = "폰번호 입력하세요";
+		  userPhoneNumber.classList.add("is-invalid");
+		  userPhoneNumber.classList.remove("is-valid");
+		  userPhoneNumber.focus();
+		  isValid = false;
+	  }else {
+		  userPhoneNumberError.innerText = "";
+		  userPhoneNumber.classList.remove("is-invalid");
+		  userPhoneNumber.classList.add("is-valid");
+		  
+	  }
+	  
+	 
+	// 생년월일 입력 검증
+	  let birthdayPattern = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD 형식
+	  if (userBirthday.value.trim() === "") {
+	      userBirthdayError.innerText = "생년월일을 입력하세요 (예: 1999-06-15)";
+	      userBirthday.classList.add("is-invalid");
+	      userBirthday.classList.remove("is-valid");
+	      userBirthday.focus();
+	      isValid = false;
+	  } else if (!birthdayPattern.test(userBirthday.value.trim())) {
+	      userBirthdayError.innerText = "올바른 형식으로 입력하세요 (YYYY-MM-DD)";
+	      userBirthday.classList.add("is-invalid");  // 잘못된 입력 시 is-invalid 유지
+	      userBirthday.classList.remove("is-valid");
+	      userBirthday.focus();
+	      isValid = false;
+	  } else {
+	      userBirthdayError.innerText = "";
+	      userBirthday.classList.remove("is-invalid"); 
+	      userBirthday.classList.add("is-valid"); // 올바르게 입력된 경우 is-valid 적용
+	  }
+	  
+	// 아이디 입력 검증
+	  if (userId.value.trim() === "") {
+	      userIdError.innerText = "아이디를 입력하세요";
+	      userId.classList.add("is-invalid");
+	      userId.classList.remove("is-valid");
+	      userId.focus();
+	      isValid = false;
+	  } else {
+	      userIdError.innerText = "";
+	      userId.classList.remove("is-invalid");
+	      userId.classList.add("is-valid"); 
+	  }
+	  
+	// 이메일 입력 검증
+	  let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 이메일 형식 검증 정규식
 
+	  if (userEmail.value.trim() === "") {
+	      userEmailError.innerText = "이메일을 입력하세요";
+	      userEmail.classList.add("is-invalid");
+	      userEmail.classList.remove("is-valid");
+	      userEmail.focus();
+	      isValid = false;
+	  } else if (!emailPattern.test(userEmail.value.trim())) { 
+	      userEmailError.innerText = "올바른 이메일 형식이 아닙니다 (예: example@email.com)";
+	      userEmail.classList.add("is-invalid");
+	      userEmail.classList.remove("is-valid");
+	      userEmail.focus();
+	      isValid = false;
+	  } else {
+	      userEmailError.innerText = "";
+	      userEmail.classList.remove("is-invalid");
+	      userEmail.classList.add("is-valid"); 
+	  }
+	
+	
+	
+	  // 비밀번호 입력 검증
+	  if (userPassword.value.trim() === "") {
+		    userPasswordError.innerText = "비밀번호를 입력하세요";
+		    userPassword.classList.add("is-invalid");
+		    userPassword.classList.remove("is-valid");
+		    userPassword.focus();
+		    isValid = false;
+		} else {
+		    userPasswordError.innerText = "";
+		    userPassword.classList.remove("is-invalid");
+		    userPassword.classList.add("is-valid");
+		}
+
+	// 비밀번호 확인 검증
+	  if (PasswordCheck.value.trim() === "") {
+	      PasswordCheckError.innerText = "비밀번호 확인을 입력하세요";
+	      PasswordCheck.classList.add("is-invalid");
+	      PasswordCheck.classList.remove("is-valid");
+	      PasswordCheck.focus();
+	      isValid = false;
+	  } else if (PasswordCheck.value.trim() !== userPassword.value.trim()) {
+	      PasswordCheckError.innerText = "비밀번호가 일치하지 않습니다";
+	      PasswordCheck.classList.add("is-invalid");
+	      PasswordCheck.classList.remove("is-valid");
+	      PasswordCheck.focus();
+	      isValid = false;
+	  } else {
+	      PasswordCheckError.innerText = "";
+	      PasswordCheck.classList.remove("is-invalid");
+	      PasswordCheck.classList.add("is-valid");
+	  }
+	
+	
+	  
+	  
+	  
+	  
+	  // 데이터 값이 있을 경우 폼 제출
+      if (isValid) {
+          document.getElementById("form").submit();
+      }
+	  
+	  
+  }
+  
+  </script> 
+  
+</body>
+</form>
 </html>

@@ -24,7 +24,7 @@ public interface CodeDao {
 	public int update(CodeDto codeDto);
 	
 	//데이터 하나씩 뽑기
-	public CodeDto selectOne(CodeDto codeDto);
+	public CodeDto selectOne( CodeVo vo);
 	
 	//코드 그룹 에있는 이름 Seq 리스트 뿌리기
 	public List<CodeDto> codeGroupNameSeq(CodeDto codeDto);

@@ -38,6 +38,23 @@
 		<include refid="selectCommon"></include>
 	</select>
 	
+	<select id="codeList" resultMap="resultMapObj">
+		SELECT 
+			cdSeq,
+			ifcdName,
+			codeGroup_cdgSeq
+		
+		    
+		    
+			FROM
+				code 
+			WHERE 1=1
+			
+			 
+			
+			
+	</select>
+	
 		<!--사용자 리스트 보여주기 -->
 	<select id="selectList" resultMap="resultMapObj">
 		SELECT 
@@ -59,6 +76,7 @@
 		    
 		    
 			 <include refid="selectCommon"></include> 
+			 
 			
 			limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
@@ -79,6 +97,7 @@
 			user
 		WHERE 1=1
 		AND suSeq = #{suSeq}
+		
 		ORDER BY suSeq DESC
 	</select>
 	
@@ -110,7 +129,7 @@
 	
 	
 	<insert id="insert">
-		INSERT INTO addcontact(
+		INSERT INTO user(
 	
 			
 		    userName,
@@ -139,7 +158,30 @@
 			</selectKey>
 	</insert>
 	
-	
+	<select id="selectId" resultMap="resultMapObj">
+		SELECT 
+			suSeq,
+		    userName,
+		    userGender,
+		    userNewsAgency,
+		    userPhoneNumber,
+		    userBirthday,
+		    userId,
+		    userEmail,
+		    userPassword,
+		    uDelMy
+		    
+		    
+		FROM
+			user
+			
+		WHERE 1=1
+			AND userId = #{userId}
+			AND userPassword = #{userPassword}
+			
+		ORDER BY suSeq DESC
+		
+	</select>
 	
 	
 	

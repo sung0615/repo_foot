@@ -30,7 +30,7 @@
           <img src="/user/template/assets/images/logo/ball.png" width="20" alt="" class="d-inline-block align-text-top"><strong>&nbsp;Now Futsal</strong>
         </a>
         <span class="navbar-text">
-          이미 계정이 있나요? <a href="/user/template/pages/signin.html" style="color: green;">로그인</a>
+          계정이 없나요 <a href="/SignupUserForm" style="color: green;">회원가입</a>
         </span>
       </div>
     </nav>
@@ -60,19 +60,19 @@
 
                 <div class="col-12">
                   <!-- input -->
-                  <label for="formSigninEmail" class="form-label visually-hidden">아이디</label>
-                  <input type="text" class="form-control" id="formSigninEmail" placeholder="아이디" required />
-                  <div class="invalid-feedback">아이디를 입력해주세요</div>
+                  <label for="formSigninEmail" class="form-label visually-hidden" >아이디</label>
+                  <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디" required />
+                  <span id="userIdError" style="color: red; font-size: 10px;"></span>
                 </div>
                 <div class="col-12">
                   <!-- input -->
                   <div class="password-field position-relative">
                     <label for="formSigninPassword" class="form-label visually-hidden">비밀번호</label>
                     <div class="password-field position-relative">
-                      <input type="password" class="form-control fakePassword" id="formSigninPassword"
+                      <input type="password" class="form-control fakePassword" id="userPassword" name ="userPassword"
                         placeholder="*****" required />
                       <span><i class="bi bi-eye-slash passwordToggler"></i></span>
-                      <div class="invalid-feedback">비밀번호를 입력해주세요</div>
+                      <span id="userPasswordError" style="color: red; font-size: 10px;"></span>
                     </div>
                   </div>
                 </div>
@@ -89,7 +89,7 @@
                   </div>
                 </div>
                 <!-- btn -->
-                <div class="col-12 d-grid"><button type="submit" class="btn btn-primary">로그인</button></div>
+                <div class="col-12 d-grid"><button type="button" class="btn btn-primary" id="buttonSignIn">로그인</button></div>
                 <!-- link -->
                 <div>
                   계정이 없나요?
@@ -122,7 +122,7 @@
                 <a href="#!"><img src="/user/template/assets/images/payment/american-express.svg" alt=""></a>
               </li>
               <li class="list-inline-item">
-                <a href="#!"><img src="/user/template/assets/images/payment//mastercard.svg" alt=""></a>
+               <a href="#!"><img src="/user/template/assets/images/payment/mastercard.svg" alt=""></a>
               </li>
               <li class="list-inline-item">
                 <a href="#!"><img src="/user/template/assets/images/payment/paypal.svg" alt=""></a>
@@ -179,6 +179,29 @@
 
       </div>
     </div>
+    
+    <!-- 로그인 잘못 입력 모달 -->
+		<div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+															<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">??</button> -->
+					</div>
+						<div class="modal-body" id="modalConfirmBody"></div>
+							<div class="modal-footer">
+							<!-- <button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal"></button> -->
+							<!-- <button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalDelete">영구삭제</button> -->
+							    <!--  <button type="button" class="btn btn-sm btn_custom" name="" id="" href="#">닫기</button> -->
+								 <button type="button" class="btn btn-danger btn-sm btn_custom" href="#" id="btnModal">확인</button> 
+							</div>
+				</div>
+			</div>
+		</div>
+											
+	<!-- 로그인  AND -->
+    
+    
   </footer>
   <!-- Javascript-->
   <!-- Libs JS -->
@@ -191,6 +214,121 @@
 
   <script src="/user/template/assets/js/vendors/password.js"></script>
   <script src="/user/template/assets/js/vendors/validation.js"></script>
+	<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+	
+	
+	
+	<script type="text/javascript">
+    //벨리데이션 
+    function validation(){
+    	let userId = document.getElementById("userId"); //id
+    	let userIdError = document.getElementById("userIdError"); //아이디 잘못 입력 했을경우
+    	
+    	let userPassword = document.getElementById("userPassword"); //비밀번호
+    	let userPasswordError = document.getElementById("userPasswordError"); //비밀번호 잘못입력 했을 경우
+    	
+    	let isValid = true;
+    	
+    	//아이디 입력 안했을 경우
+    	if (userId.value == ""){
+    		userIdError.innerText = "아이디를 입력해주세요";
+    		userId.classList.add("is-invalid");
+    		userId.classList.remove("is-valid");
+    		userId.focus();
+    		isValid = false;
+    	} else {
+    		userIdError.innerText = "";
+    		userId.classList.remove("is-invalid");
+    		userId.classList.add("is-valid");
+    	}
+    	
+    	//비밀번호 입력 안했을 경우
+    	if (userPassword.value.trim() === "") {
+	        userPasswordError.innerText = "비밀번호를 입력해주세요";
+	        userPassword.classList.add("is-invalid");
+	        userPassword.classList.remove("is-valid");
+	        userPassword.focus();
+        isValid = false;
+	    } else {
+	        userPasswordError.innerText = "";
+	        userPassword.classList.remove("is-invalid");
+	        userPassword.classList.add("is-valid");
+	    }
+    	
+    	return isValid;
+    	
+    }
+    
+    // 모달
+    
+    let buttonSignIn = document.getElementById("buttonSignIn");
+    let btnModal = document.getElementById("btnModal");
+    let modalConfirmTitle = document.querySelector("#modalConfirmTitle");
+    let modalConfirmBody = document.querySelector("#modalConfirmBody");
+    
+    
+   
+    
+ // 모달 창 띄우는 함수
+    function showModal(title, message) {
+        $("#modalConfirmTitle").text(title);
+        $("#modalConfirmBody").text(message);
+        $("#btnModal").show();
+        $("#modalConfirm").modal("show");
+    }
+
+    // 모달의 확인 버튼 클릭 시 닫기만 수행
+    $("#btnModal").on("click", function () {
+        $("#modalConfirm").modal("hide");
+    });
+    
+    </script>
+    <script type="text/javascript">
+    //버튼 로그인 버튼 눌렀을때
+    $("#buttonSignIn").on( "click", function( event ) {
+    	if (validation()){
+    		loginLogic(); //벨리데이션 통과시 로그인 실행
+    	}
+	});
+    
+    </script>
+	
+	<script type="text/javascript">
+
+		function loginLogic (){
+				
+				if(validation() == false) return false;
+				$.ajax({
+					async: true 
+					,cache: false
+					,type: "post"
+					/* ,dataType:"json" */
+					,url: "/SigninUser1"
+					/* ,data : $("#formLogin").serialize() */
+					,data : { "userId" : $("#userId").val(), "userPassword" : $("#userPassword").val()}
+					,success: function(response) {
+						
+						if (response.rt == "success") {
+			       
+			                window.location.href = "/indexUserView"; // 성공시 회원 정보 리스트로 가기
+				
+						 } else if (response.rt != "success"){
+							 showModal("경 고", "로그인 실패: 아이디 또는 비밀번호가 틀립니다");
+						 }
+						
+					},
+					error: function() {
+						showModal("오 류", "서버 이상함 다시 시도해주세요");
+			        }
+					
+				});
+			}
+    
+    </script>
+	
+	
+	
+	
 </body>
 
 </html>

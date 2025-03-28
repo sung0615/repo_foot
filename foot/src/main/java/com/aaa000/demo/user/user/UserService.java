@@ -11,6 +11,16 @@ public class UserService {
 	@Autowired
 	UserDao userDao;
 	
+	// 관리자 ID 리스트
+	public UserDto selectId(UserDto userDto){
+		return userDao.selectId(userDto);
+	}
+	
+	//사용자 리스트 회원 가입
+	public List<UserDto> codeList(UserDto userDto){
+		return userDao.codeList(userDto);
+	}
+	
 	// 사용자 리스트보여주기
 	public List<UserDto> selectList(UserVo vo){
 		return userDao.selectList(vo);
@@ -18,6 +28,7 @@ public class UserService {
 	
 	//데이터 1개씩 뽑기
 	public UserDto selectOne(UserDto userDto) {
+		
 		return userDao.selectOne(userDto);
 	}
 	

@@ -450,83 +450,13 @@
 					<!-- col -->
 					
 					<!-- col -->
-					<div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
-						<div class="pt-10 pe-lg-10">
-							<!-- nav -->
-							<ul class="nav flex-column nav-pills nav-pills-dark">
-								<!-- nav item -->
-								<li class="nav-item">
-									<a class="nav-link " aria-current="page" href="/ReservationDetailsUserList">
-										<i class="feather-icon icon-shopping-bag me-2"></i>
-										예약내역
-									</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link " aria-current="page" href="/SocialMatchDetailsUserList">
-										<i class="feather-icon icon-shopping-bag me-2"></i>
-										소셜매칭 내역
-									</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link " aria-current="page" href="/FavoritesUserList">
-										<i class="feather-icon icon-shopping-bag me-2"></i>
-										즐겨찾기
-									</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link " href="/AccountSettingsUserMfom">
-										<i class="feather-icon icon-settings me-2"></i>
-										계정설정
-									</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link " href="/PasswordChangeUserMfom">
-										<i class="feather-icon icon-settings me-2"></i>
-										비밀번호 변경
-									</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link " href="/SecessionUserUele">
-										<i class="feather-icon icon-settings me-2"></i>
-										계정 탈퇴
-									</a>
-								</li>
-								
-								<!-- nav item -->
-								<li class="nav-item">
-									<a class="nav-link" href="account-address.html">
-										<i class="feather-icon icon-map-pin me-2"></i>
-										Address
-									</a>
-								</li>
-								<!-- nav item -->
-								<li class="nav-item">
-									<a class="nav-link" href="account-payment-method.html">
-										<i class="feather-icon icon-credit-card me-2"></i>
-										Payment Method
-									</a>
-								</li>
-								<!-- nav item -->
-								<li class="nav-item">
-									<a class="nav-link" href="account-notification.html">
-										<i class="feather-icon icon-bell me-2"></i>
-										Notification
-									</a>
-								</li>
-								<!-- nav item -->
-								<li class="nav-item">
-									<hr />
-								</li>
-								<!-- nav item -->
-								<li class="nav-item">
-									<a class="nav-link" href="/user/template/index.html">
-										<i class="feather-icon icon-log-out me-2"></i>
-										로그아웃
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
+					
+					
+					<div th:replace="~{user/include/account :: account}"></div>
+					
+					
+					
+					
 					<div class="col-lg-9 col-md-8 col-12">
 						
 						

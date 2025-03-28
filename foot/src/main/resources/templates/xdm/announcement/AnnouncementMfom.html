@@ -82,6 +82,10 @@
                             <button type="button" class="btn bg-red waves-effect" id="btuSave">
                                 수정하기
                             </button>
+                            
+                            <button type="button" class="btn bg-red waves-effect" id="btnUelete">
+                                삭제
+                            </button>
                            
                             <a role="button" type="button" class="btn bg-black waves-effect" th:href="@{/AnnouncementList}">
                                 목록
@@ -95,7 +99,28 @@
                 </div>
             </div>
             
-            
+           				<!-- 삭제 모달 -->
+							<div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+											<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">??</button> -->
+										</div>
+										<div class="modal-body" id="modalConfirmBody">
+											body
+										</div>
+										<div class="modal-footer">
+											<!-- <button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal"></button> -->
+											<!-- <button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalDelete">영구삭제</button> -->
+											<!-- <button type="button" class="btn btn-sm btn_custom" name="" id="" href="#">닫기</button> -->
+										<button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalUelete">삭제</button>
+										</div>
+									</div>
+								</div>
+							</div>
+											
+						<!-- 삭제모달 AND -->  
             
             
            
@@ -144,6 +169,31 @@
     
       <!-- Dropzone Css -->
     <link href="/xdm/template/master/plugins/dropzone/dropzone.css" rel="stylesheet">
+    
+    <script type="text/javascript">
+    
+		if(document.getElementById("btnUelete")){
+			document.getElementById("btnUelete").onclick = function () {
+				document.querySelector("#modalConfirmTitle").textContent = "확 인";
+				document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
+				document.querySelector("#btnModalUelete").style.display = '';
+				/* document.querySelector("#btnModalDelete").style.display = 'none'; */
+				$("#modalConfirm").modal("show");      	
+			}
+		}
+		
+		
+		document.getElementById("btnModalUelete").onclick = function () {
+			form.action = "/AnnouncementUele";
+			form.submit();
+		}
+    
+    
+    </script>
+    
+    
+    
+    
     
     <script type="text/javascript">
 

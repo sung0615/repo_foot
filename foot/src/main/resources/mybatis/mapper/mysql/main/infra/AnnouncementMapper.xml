@@ -99,6 +99,13 @@
 	</select>
 	
 	
+	<!-- 업데이트 삭제 -->
+	<update id="uelete">
+		UPDATE announcement SET
+	 		annoDelMy = 1
+	 	WHERE
+	 		annoSeq = #{annoSeq}
+	</update>
 	
 	
 	

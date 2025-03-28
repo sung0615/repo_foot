@@ -15,8 +15,8 @@ public class CodeService {
 	CodeDao codeDao;
 	
 	// 데이터 1개씩 뽑기
-	public CodeDto selectOne(CodeDto codeDto) {
-		return codeDao.selectOne(codeDto);
+	public CodeDto selectOne(CodeVo vo) {
+		return codeDao.selectOne(vo);
 	}
 	
 	//리스트 보여주기

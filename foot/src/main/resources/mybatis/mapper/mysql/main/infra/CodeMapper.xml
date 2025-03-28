@@ -34,7 +34,8 @@
             
         </choose>
 		
-			  <!-- AND ifchDelNy = 0 -->  
+			   AND ifchDelNy = 0  
+			   AND ifcdDelNy = 0
 	</sql>
 	
 	<select id="selectOneCount" resultType="Integer">
@@ -64,14 +65,14 @@
 	<insert id="insert">
 		INSERT INTO code(
 			ifcdName,
-		    ifcdDelNy,
-		    codeGroup_cdgSeq
+		    codeGroup_cdgSeq,
+		    ifcdDelNy
+		    
 		    
 		) value (
 			#{ifcdName},
-		    0,
-		    #{codeGroup_cdgSeq}
-		    
+		    #{codeGroup_cdgSeq},
+		    0
 		)
 	  
 	  <selectKey resultType="String" keyProperty="cdSeq" order="AFTER">
@@ -80,22 +81,40 @@
 	</insert>
 	<!-- 데이터값 가져오기 -->
 	<select id="selectOne" resultMap="resultMapObj">
-			SELECT
-			a.cdSeq,
-		    a.ifcdName,
-		    a.ifcdDelNy,
-		    a.codeGroup_cdgSeq,
-		    b.cdgSeq,
-		    b.ifcgName
-		<include refid="selectCommon"></include>
+		   SELECT
+ 		        a.cdSeq,
+		        a.ifcdName,
+		        a.ifcdDelNy,
+		        a.codeGroup_cdgSeq,
+		        b.cdgSeq,
+		        b.ifcgName
+		    FROM
+		        code a
+			        LEFT JOIN codegroup b ON b.cdgSeq = a.codeGroup_cdgSeq
+			    WHERE 1=1
+			        AND cdSeq = #{cdSeq}
+			    ORDER BY cdSeq DESC
+		<!-- <include refid="selectCommon"></include> -->
 		
 	</select>
 	
 	
+	<!-- 업데이트 -->
+	<update id="update">
+		UPDATE code SET
+			ifcdName = #{ifcdName}
+		WHERE
+			cdSeq = #{cdSeq}
+	
+	</update>
+	
+	
+	
 	
 		 <!-- 업데이트 삭제 -->
-	 <update id="ueLete">
+	 <update id="uelete">
 	 	UPDATE code SET
+	 		ifcdDelNy = 1,
 	 		ifchDelNy = 1
 	 	WHERE
 	 		cdSeq = #{cdSeq}

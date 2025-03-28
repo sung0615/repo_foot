@@ -74,4 +74,14 @@ public class AnnouncementContriller {
 	}
 	
 	
+	//업데이트 삭제
+	@RequestMapping(value="/AnnouncementUele")
+	public String AnnouncementUele (AnnouncementDto announcementDto) {
+		announcementService.uelete(announcementDto);
+		return "redirect:/AnnouncementList";
+	}
+	
+	
+	
+	
 }

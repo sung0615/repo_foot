@@ -32,8 +32,18 @@ public class CodeGroupController {
 	
 	// 등록하기
 	@RequestMapping(value = "/codeGroup/codeGroupForm")
-	public String codeGroupForm() {
+	public String codeGroupForm(@ModelAttribute("vo") CodeGroupVo vo,Model model) {
 		
+		
+		if(vo.getCdgSeq().equals("0") || vo.getCdgSeq().equals("")) {
+	//		insert mode
+		} else {
+	//		update mode
+			model.addAttribute("item", codeGroupService.selectOne(vo));
+			
+			
+			
+		}
 		
 		return "xdm/codeGroup/codeGroupXdmForm";
 	}
@@ -45,6 +55,17 @@ public class CodeGroupController {
 		codeGroupService.insert(codeGroupDto);
 		return "redirect:/codeGroup/codeGroupList";
 	}
+	
+	
+	
+	// 업데이트
+	@RequestMapping(value ="/codeGroup/codeGroupUpdt")
+	public String codeGroupUpdt(CodeGroupDto codeGroupDto) {
+		codeGroupService.update(codeGroupDto);
+		return "redirect:/codeGroup/codeGroupList";
+		
+	}
+	
 	
 	//업데이트 삭제
 	@RequestMapping(value ="/codeGroup/codeGroupUele")

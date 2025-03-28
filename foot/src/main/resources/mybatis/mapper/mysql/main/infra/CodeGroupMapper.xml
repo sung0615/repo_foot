@@ -30,8 +30,17 @@
         </choose>
 		
 		
-			 <!-- AND ifchDelNy = 0  -->
+			
 	</sql> 
+	
+	<update id="update">
+		UPDATE codegroup SET
+			ifcgName = #{ifcgName}
+		WHERE
+			cdgSeq = #{cdgSeq}
+			
+	
+	</update>
 	
 	<select id="selectOneCount" resultType="Integer">
 		SELECT COUNT(*)
@@ -54,7 +63,9 @@
 				(select count(aa.cdSeq) from code aa where 1=1 and aa.ifcdDelNy = 0 and aa.codeGroup_cdgSeq = cdgSeq) as xifcdSeqCount
 			
 			    
-				<include refid="selectCommon"></include>
+			<include refid="selectCommon"></include>
+			
+				AND ifchDelNy = 0  
 			ORDER BY cdgSeq DESC
 			limit #{rowNumToShow} offset #{startRnumForMysql}
 	</select>
@@ -83,15 +94,29 @@
 			#{correction}
 		
 		)
-		<include refid="selectCommon"></include>
+		 <!-- <include refid="selectCommon"></include>  -->
 		<selectKey resultType="String" keyProperty="cdgSeq" order="AFTER">
 			SELECT last_insert_id()
 		</selectKey>
 		
 	</insert>
+	
+	<!-- 데이터 1개씩 가져오기 -->
+	<select id="selectOne"  resultMap="resultMapObj">
+	SELECT
+		cdgSeq,
+		ifcgName,
+		ifchDelNy
+	FROM
+		codegroup
+	WHERE 1=1
+		AND cdgSeq = #{cdgSeq}
+	ORDER BY cdgSeq DESC
+	
+	</select>
 	 
 	 <!-- 업데이트 삭제 -->
-	 <update id="ueLete">
+	 <update id="uelete" >
 	 	UPDATE codegroup SET
 	 		ifchDelNy = 1
 	 	WHERE

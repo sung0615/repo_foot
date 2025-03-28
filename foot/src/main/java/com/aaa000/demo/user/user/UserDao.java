@@ -7,6 +7,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
 	
+	
+	//회원 가입 폰 리스트
+	public List <UserDto> codeList (UserDto userDto);
+	
+	// 관리자 로그인 비교
+	public UserDto selectId(UserDto userDto);
+	
 	// 사용자 리스트 보여주기
 	public List <UserDto> selectList(UserVo vo);
 	
