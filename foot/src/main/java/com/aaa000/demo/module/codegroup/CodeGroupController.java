@@ -14,8 +14,8 @@ public class CodeGroupController {
 	
 	
 	//리스트 보여주고 
-	@RequestMapping(value = "/codeGroup/codeGroupList")
-	public String codeGroupList(CodeGroupVo vo,Model model,CodeGroupDto  codeGroupDto) {
+	@RequestMapping(value = "/codeGroup/codeGroupXdmList")
+	public String codeGroupXdmList(CodeGroupVo vo,Model model,CodeGroupDto  codeGroupDto) {
 		// 토탈 가져와야되는 값이 먼저 돌아야된다
 		// 본데이터 값이 그다음 돌아야된다
 		
@@ -31,8 +31,8 @@ public class CodeGroupController {
 	}
 	
 	// 등록하기
-	@RequestMapping(value = "/codeGroup/codeGroupForm")
-	public String codeGroupForm(@ModelAttribute("vo") CodeGroupVo vo,Model model) {
+	@RequestMapping(value = "/codeGroup/codeGroupXdmForm")
+	public String codeGroupXdmForm(@ModelAttribute("vo") CodeGroupVo vo,Model model) {
 		
 		
 		if(vo.getCdgSeq().equals("0") || vo.getCdgSeq().equals("")) {
@@ -53,7 +53,7 @@ public class CodeGroupController {
 		
 		
 		codeGroupService.insert(codeGroupDto);
-		return "redirect:/codeGroup/codeGroupList";
+		return "redirect:/codeGroup/codeGroupXdmList";
 	}
 	
 	
@@ -62,7 +62,7 @@ public class CodeGroupController {
 	@RequestMapping(value ="/codeGroup/codeGroupUpdt")
 	public String codeGroupUpdt(CodeGroupDto codeGroupDto) {
 		codeGroupService.update(codeGroupDto);
-		return "redirect:/codeGroup/codeGroupList";
+		return "redirect:/codeGroup/codeGroupXdmList";
 		
 	}
 	
@@ -71,7 +71,7 @@ public class CodeGroupController {
 	@RequestMapping(value ="/codeGroup/codeGroupUele")
 	public String codeGroupUele(CodeGroupDto codeGroupDto) {
 		codeGroupService.uelete(codeGroupDto);
-		return "redirect:/codeGroup/codeGroupList";
+		return "redirect:/codeGroup/codeGroupXdmList";
 	}
 	
 	

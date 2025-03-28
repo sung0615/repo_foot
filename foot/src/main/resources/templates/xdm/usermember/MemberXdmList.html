@@ -2,19 +2,20 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="~{xdm/include/head :: head}"></div>
-	
-		<form name="formList" id="formList" method="post" autocomplete="off">
+
+	<form name="formList" id="formList" method="post" autocomplete="off">
 		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+                   
+
     <section class="content">
         <div class="container-fluid">
             
             <div class="block-header">
-                <h2>풋살장 등록 List</h2>
+                <h2>회원 정보</h2>
             </div>
 
             <!-- Input -->
-           <!-- Input -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -25,10 +26,11 @@
                                 <div class="col-sm-12">
                                     <div class="row clearfix">
                                         <div class="col-sm-2">
-                                            <select class="form-control show-tick " id="shDelNy" name="shDelNy">
-                                                <option value="" th:selected="${vo.shDelNy == null}">삭제 여부</option>
-                                                <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
-                                                <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
+                                            <select class="form-control show-tick " id="shDelNy" name="shDelNy" >
+                                                <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                                                <option value="1"  th:selected="${vo.shDelNy == 1}">Y</option>
+                                                 <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
+                                               
                                             </select>
                                             
                                         </div>
@@ -40,12 +42,12 @@
                                                
                                             </select>
                                             
-                                        </div>
-                                        <div class="col-sm-2">
+                                        </div> -->
+                                        <!-- <div class="col-sm-2">
                                             <select class="form-control show-tick ">
                                                 <option value="">날짜</option>
-                                                <option value="2">등록일</option>
-                                                <option value="3">수정일</option>    
+                                                <option value="1">등록일</option>
+                                                <option value="2">수정일</option>    
                                             </select>
                                             
                                         </div>
@@ -66,28 +68,29 @@
                                         
 
                                     </div>
-                                    
                                     <div class="row clearfix">
-                                    
                                         <div class="col-sm-2">
                                             <select class="form-control show-tick " id="shOption" name="shOption">
                                                 <option value="" th:selected="${vo.shOption == null}">검색구분</option>
-                                                <option value="1" th:selected="${vo.shOption == 1}">풋살장 이름</option>
-                                                <option value="2" th:selected="${vo.shOption == 2}">풋살장 주소</option>
-                                                <option value="3" th:selected="${vo.shOption == 3}">가격</option>
-                                                
+                                                <option value="1" th:selected="${vo.shOption == 1}">이름</option>
+                                                <option value="2" th:selected="${vo.shOption == 2}">성별</option>
+                                                <option value="3" th:selected="${vo.shOption == 3}">통신사</option>
+                                                <option value="4" th:selected="${vo.shOption == 4}">폰번호</option>
+                                                <option value="5" th:selected="${vo.shOption == 5}">생일</option>
+                                                <option value="6" th:selected="${vo.shOption == 6}">ID</option>
+                                                <option value="7" th:selected="${vo.shOption == 7}">이메일</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" placeholder="검색어" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()"/>
+                                                    <input type="text" class="form-control" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어"/>
                                                 	<span id="shValueError" style="color: red; font-size: 10px;"></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
-                                            <button type="button" class="btn btn-default waves-effect" id="btnSearch">
+                                            <button type="button" class="btn btn-default waves-effect"  id="btnSearch">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                                   </svg>
@@ -114,7 +117,7 @@
                     <div class="card">
                         <div class="body">
                             <div class="table-responsive">
-                            	<div class="col-sm-2">
+                            <div class="col-sm-2">
                                         	<strong>Total:<span th:text="${vo.totalRows}"></span></strong>
                                         </div>					<!-- js-basic-example 들어가면 페이징 가능-->
                             			<div class="col-sm-2" style="float: right;">
@@ -127,7 +130,6 @@
 												<option value="100" th:selected="${vo.rowNumToShow eq 100}">100</option>       
 											</select>
                                         </div>
-                            
                                 <table class="table table-bordered table-striped table-hover  dataTable">
                                     <thead>
                                         <tr>
@@ -136,47 +138,46 @@
                                                 <label class="form-check-label" for="entire"></label>
                                             </th>
                                             <th>#</th>
-                                            
-                                            <th>풋살장 이름</th>
-                                            <th>풋살장 주소</th>
-                                            <th>풋살장 가격</th>
-                                            
+                                            <th>이름</th>
+                                            <th>성별</th>
+                                            <th>통신사</th>
+                                            <th>폰번호</th>
+                                            <th>생일</th>
+                                            <th>ID</th>
+                                            <th>이메일</th>
+                                            <th>비밀번호</th>
+                                           
                                         </tr>
                                     </thead>
             
                                     <tbody>
-                                    	<tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">    	
+                                    <tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">    	
                                     		<td colspan="10">
                                     			<p class="fs-0" style="padding-top: 12px">데이터가 없습니다</p>
                                     		</td>
                                     	</tr>
-                                        <tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
+                                        <tr  th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
                                             <th>
                                                 <input class="form-check-input row-checkbox" id="1" type="checkbox">
                                                 <label class="form-check-label" for="1"></label>
                                             </th>
-                                            <td th:text="${list.fiSeq}"></td>
-                                            <td>
-                                                <nav aria-label="breadcrumb">
-                                                    <ol class="breadcrumb">
-                                                        <li class="breadcrumb-item">
-                                                            <a th:href= "@{/FutsalMfom(fiSeq=${list.fiSeq})}"  style="color: blue;" th:text="${list.futsalName}">
-                                                                
-                                                            </a>
-                                                        </li>
-                                                    </ol>
-                                                </nav>
-                                            </td>
-                                            <td th:text="${list.futsalAddress}"></td>
-                                            
-                                            <td th:text="${list.futsalPrice}"></td>
+                                            <td th:text="${list.suSeq}"></td>
+                                            <td><a th:href="@{/MemberXdmView(suSeq=${list.suSeq})}" th:text="${list.userName}"></a></td>
+                                            <td th:text="${@codeService.selectOneCachedCode(list.userGender)}"></td>
+                                            <td th:text="${@codeService.selectOneCachedCode(list.userNewsAgency)}"></td>
+                                            <td th:text="${list.userPhoneNumber}"></td>
+                                            <td th:text="${list.userBirthday}"></td>
+                                            <td th:text="${list.userId}"></td>
+                                            <td th:text="${list.userEmail}"></td>
+                                            <td th:text="${list.userPassword}"></td>
                                             
                                         </tr>
                                         
+                                        
                                     </tbody>
                                 </table>
-                                 <div style="text-align: center;">
-								  <ul class="pagination">
+                                 <nav aria-label="Page navigation example"  style="text-align: center;">
+								  <ul class="pagination" >
 								  	  
 									
 									<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item">
@@ -195,11 +196,12 @@
 								  
 								  </ul>
 								    
-								</div>
-                                
-                                <a role="button" href="" class="btn btn-danger" style=" margin-right:  5px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+								</nav>
+                              
+                                <a role="button" class="btn btn-danger waves-effect" style=" margin-right:  5px;" href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                                  </svg>
+                                    </svg>
                                 </a>
                                 <a role="button" class="btn btn-danger" href="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -207,7 +209,7 @@
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                       </svg>
                                     </a>
-                                <a class="btn btn-primary" th:href="@{/FutsalForm}" role="button" style="float: right; margin-right:  5px;">
+                                <a class="btn btn-primary" href="./code_basic_information.html" role="button" style="float: right; margin-right:  5px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                                       </svg>
@@ -217,7 +219,13 @@
                                         <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
                                         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
                                       </svg>
-                                    </a>
+                                    </a>                                
+                                <a class="btn btn-primary" href="" role="button" style="float: right; margin-right:  5px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16">
+                                        <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57s-2.687-1.08-2.687-2.57zM12.5 15h-9v-1h9z"/>
+                                      </svg>
+                                    </a>   
+                                
                             </div>
                         </div>
                     </div>
@@ -231,40 +239,39 @@
             
         </div>
     </section>
- </form>   
+       
         <!-- Jquery Core Js -->
-    <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery/jquery.min.js"></script>
 
-    <!-- Bootstrap Core Js -->
-    <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
-
-    <!-- Select Plugin Js -->
-    <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
-
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="/xdm/template/master/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="/xdm/template/master./plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
-
-    <!-- Custom Js -->
-    <script src="/xdm/template/master/js/admin.js"></script>
-    <script src="/xdm/template/master/js/pages/tables/jquery-datatable.js"></script>
-
-    <!-- Demo Js -->
-    <script src="/xdm/template/master/js/demo.js"></script>
-
+        <!-- Bootstrap Core Js -->
+        <script src="/xdm/template/master/plugins/bootstrap/js/bootstrap.js"></script>
+    
+        <!-- Select Plugin Js -->
+        <script src="/xdm/template/master/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    
+        <!-- Slimscroll Plugin Js -->
+        <script src="/xdm/template/master/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    
+        <!-- Waves Effect Plugin Js -->
+        <script src="/xdm/template/master/plugins/node-waves/waves.js"></script>
+    
+        <!-- Jquery DataTable Plugin Js -->
+        <script src="/xdm/template/master/plugins/jquery-datatable/jquery.dataTables.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+        <script src="/xdm/template/master/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    
+        <!-- Custom Js -->
+        <script src="/xdm/template/master/js/admin.js"></script>
+        <script src="/xdm/template/master/js/pages/tables/jquery-datatable.js"></script>
+    
+        <!-- Demo Js -->
+        <script src="/xdm/template/master/js/demo.js"></script>
     <!--체크박스 전체 체크 단독 체크-->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -286,55 +293,54 @@
             });
         });
     </script>
-    <script type="text/javascript">
-          
-    	// 페이지네이션 자바 스크립
-	    let form = document.querySelector("form[name=formList]");
-	 goList = function (thisPage) {
-	     document.querySelector("input[name=thisPage]").value = thisPage;
-	     form.action = "/FutsalList";
-	     form.submit();
-	 }  
-	
-	 /* 리스트 데이터 값 보여주기 */
-	 document.getElementById("changeRowNum").onchange = function () {
-		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-		    form.action = "/FutsalList";
-		    form.submit();
-		}
-	 
-	 
-	 /* 검색하기 */
-	 document.getElementById("btnSearch").onclick = function () {
-		 
-		 let shValue = document.getElementById("shValue");// 검색어 
-		 let shValueError = document.getElementById("shValueError");// 검색어  입력 안했을 경우
-		 
-		 let isValid = true;
-		 
-		 
-		 
-		 if (shValue.value.trim() == "") {
-			 shValueError.innerText = "검색어를 입력해주세요";
-             ifcdName.focus();
-             isValid = false;
-         } else {
-        	 shValueError.innerText = "";
-         }
-		 
-		 
-		// 데이터 값이 있을 경우 폼 제출
-         if (isValid) {
-        	 form.action = "/codeGroup/codeGroupList";
- 	        form.submit(); 
-         }
+        <script type="text/javascript">
+            // 페이지네이션 자바 스크립
+            let form = document.querySelector("form[name=formList]");
+         goList = function (thisPage) {
+             document.querySelector("input[name=thisPage]").value = thisPage;
+             form.action = "/MemberXdmList";
+             form.submit();
+         }  
+    	
+         /*  5 10 15 데이터값 페이지 보여주기 */
+     	document.getElementById("changeRowNum").onchange = function () {
+     	    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
+     	    form.action = "/MemberXdmList";
+     	    form.submit();
+     	}
+        
+     </script>
+     <script type="text/javascript">
+         document.getElementById("btnSearch").onclick = function () {
+        	
+        	 
+        	 let shValue = document.getElementById("shValue");// 검색어 
+    		 let shValueError = document.getElementById("shValueError");// 검색어  입력 안했을 경우
+    		 
+    		 let isValid = true;
+    		 
+    		 
+    		 
+    		 if (shValue.value.trim() == "") {
+    			 shValueError.innerText = "검색어를 입력해주세요";
+                 ifcdName.focus();
+                 isValid = false;
+             } else {
+            	 shValueError.innerText = "";
+             }
+    		 
+    		 
+    		// 데이터 값이 있을 경우 폼 제출
+             if (isValid) {
+            	 form.action = "/MemberXdmList";
+     	        form.submit(); 
+             }
+        	};
+        	
+        	
+        	
          
-	        
-	  };
-	 
-	 
-    
-    </script>
-   
+     </script>
+
 </body>
 </html>

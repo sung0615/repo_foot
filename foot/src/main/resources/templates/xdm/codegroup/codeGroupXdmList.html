@@ -54,14 +54,15 @@
                                          <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="shDateStart" name="shDateStart"  placeholder="시작일"  autocomplete="off"/>
+                                                    <input type="text" class="form-control" id="date_timepicker_start"  placeholder="시작일"  autocomplete="off"/>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="shDateEnd" name="shDateEnd"placeholder="종료일"  autocomplete="off"/>
+                                                    <input type="text" class="form-control" id="date_timepicker_end" placeholder="종료일"  autocomplete="off"/>
                                                 </div>
                                             </div>
                                         </div> 
@@ -274,7 +275,14 @@
 
     <!-- Demo Js -->
     <script src="/xdm/template/master/js/demo.js"></script>
+	
+	<!-- 달력 플러그인 추가 -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
+
+	
+	
     <!--체크박스 전체 체크 단독 체크-->
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function () {
@@ -331,21 +339,21 @@
 		 
 		// 데이터 값이 있을 경우 폼 제출
          if (isValid) {
-        	 form.action = "/codeGroup/codeGroupList";
+        	 form.action = "/codeGroup/codeGroupXdmList";
  	        form.submit(); 
          }
          
 	        
 	  };
 	  document.getElementById("btnReset").onclick = function () {
-		  window.location.href = "/codeGroup/codeGroupList";
+		  window.location.href = "/codeGroup/codeGroupXdmList";
 		};
 	  
 	    
 	    /* 몇개의 데이터를 보여주라 */
 	    document.getElementById("changeRowNum").onchange = function () {
 	        document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-	        form.action = "/codeGroup/codeGroupList";
+	        form.action = "/codeGroup/codeGroupXdmList";
 	        form.submit();
 	    }
     
@@ -361,10 +369,35 @@
 
 	    goForm = function (keyValue) {
 	        seq.value = keyValue;
-	        form.action = "/codeGroup/codeGroupForm";
+	        form.action = "/codeGroup/codeGroupXdmForm";
 	        form.submit();
 	    }
     </script> 
+    
+    <script type="text/javascript">
+    
+    jQuery(function(){
+    	 jQuery('#date_timepicker_start').datetimepicker({
+    	  format:'Y/m/d',
+    	  onShow:function( ct ){
+    	   this.setOptions({
+    	    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+    	   })
+    	  },
+    	  timepicker:false
+    	 });
+    	 jQuery('#date_timepicker_end').datetimepicker({
+    	  format:'Y/m/d',
+    	  onShow:function( ct ){
+    	   this.setOptions({
+    	    minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
+    	   })
+    	  },
+    	  timepicker:false
+    	 });
+    	});
+    
+    </script>
 </body>
 </html>
 

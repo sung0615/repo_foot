@@ -10,7 +10,7 @@
         <div class="container-fluid">
             
             <div class="block-header">
-                <h2>풋살장 공지사항 List</h2>
+                <h2>풋살장 등록 List</h2>
             </div>
 
             <!-- Input -->
@@ -26,10 +26,9 @@
                                     <div class="row clearfix">
                                         <div class="col-sm-2">
                                             <select class="form-control show-tick " id="shDelNy" name="shDelNy">
-                                                <option value="" th:selected="${vo.shDelNy == null}">삭제여부</option>
+                                                <option value="" th:selected="${vo.shDelNy == null}">삭제 여부</option>
                                                 <option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
                                                 <option value="0" th:selected="${vo.shDelNy == 0}">N</option>
-                                               
                                             </select>
                                             
                                         </div>
@@ -72,21 +71,23 @@
                                     
                                         <div class="col-sm-2">
                                             <select class="form-control show-tick " id="shOption" name="shOption">
-                                                <option value="">검색구분</option>
-                                                <option value="1" th:selected="${vo.shOption == 1}">작성자</option>
-                                                <option value="2" th:selected="${vo.shOption == 2}">공지사항 제목</option>
-                                              
+                                                <option value="" th:selected="${vo.shOption == null}">검색구분</option>
+                                                <option value="1" th:selected="${vo.shOption == 1}">풋살장 이름</option>
+                                                <option value="2" th:selected="${vo.shOption == 2}">풋살장 주소</option>
+                                                <option value="3" th:selected="${vo.shOption == 3}">가격</option>
+                                                
+                                            </select>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" placeholder="검색어" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()"/>
-                                               		<span id="shValueError" style="color: red; font-size: 10px;"></span>
+                                                	<span id="shValueError" style="color: red; font-size: 10px;"></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
-                                            <button type="button" class="btn btn-default waves-effect"  id="btnSearch">
+                                            <button type="button" class="btn btn-default waves-effect" id="btnSearch">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                                   </svg>
@@ -136,9 +137,9 @@
                                             </th>
                                             <th>#</th>
                                             
-                                            <th>작성자</th>
-                                            <th>공지사항 제목</th>
-                                            <th>작성 날짜</th>
+                                            <th>풋살장 이름</th>
+                                            <th>풋살장 주소</th>
+                                            <th>풋살장 가격</th>
                                             
                                         </tr>
                                     </thead>
@@ -154,22 +155,21 @@
                                                 <input class="form-check-input row-checkbox" id="1" type="checkbox">
                                                 <label class="form-check-label" for="1"></label>
                                             </th>
-                                            <td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-                                            <td th:text="${list.author}"></td>
+                                            <td th:text="${list.fiSeq}"></td>
                                             <td>
                                                 <nav aria-label="breadcrumb">
                                                     <ol class="breadcrumb">
                                                         <li class="breadcrumb-item">
-                                                            <a th:href= "@{/AnnouncementMfom(annoSeq=${list.annoSeq})}"  style="color: blue;" th:text="${list.title}">
+                                                            <a th:href= "@{/FutsalXdmMfom(fiSeq=${list.fiSeq})}"  style="color: blue;" th:text="${list.futsalName}">
                                                                 
                                                             </a>
                                                         </li>
                                                     </ol>
                                                 </nav>
                                             </td>
-                                            <td th:text="${list.creationDate}"></td>
+                                            <td th:text="${list.futsalAddress}"></td>
                                             
-                                          
+                                            <td th:text="${list.futsalPrice}"></td>
                                             
                                         </tr>
                                         
@@ -207,7 +207,7 @@
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                       </svg>
                                     </a>
-                                <a class="btn btn-primary" th:href="@{/AnnouncementForm}" role="button" style="float: right; margin-right:  5px;">
+                                <a class="btn btn-primary" th:href="@{/FutsalXdmForm}" role="button" style="float: right; margin-right:  5px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                                       </svg>
@@ -286,28 +286,29 @@
             });
         });
     </script>
-          <script type="text/javascript">
+    <script type="text/javascript">
+          
     	// 페이지네이션 자바 스크립
 	    let form = document.querySelector("form[name=formList]");
 	 goList = function (thisPage) {
 	     document.querySelector("input[name=thisPage]").value = thisPage;
-	     form.action = "/AnnouncementList";
+	     form.action = "/FutsalXdmList";
 	     form.submit();
 	 }  
-
-    
-	 /*  5 10 15 데이터값 페이지 보여주기 */
-  	document.getElementById("changeRowNum").onchange = function () {
-  	    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-  	    form.action = "/AnnouncementList";
-  	    form.submit();
-  	}
+	
+	 /* 리스트 데이터 값 보여주기 */
+	 document.getElementById("changeRowNum").onchange = function () {
+		    document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
+		    form.action = "/FutsalXdmList";
+		    form.submit();
+		}
 	 
-	 /* 검색 */
-  	document.getElementById("btnSearch").onclick = function () {
-  	    
-  		let shValue = document.getElementById("shValue");// 검색어 
-		let shValueError = document.getElementById("shValueError");// 검색어  입력 안했을 경우
+	 
+	 /* 검색하기 */
+	 document.getElementById("btnSearch").onclick = function () {
+		 
+		 let shValue = document.getElementById("shValue");// 검색어 
+		 let shValueError = document.getElementById("shValueError");// 검색어  입력 안했을 경우
 		 
 		 let isValid = true;
 		 
@@ -315,22 +316,24 @@
 		 
 		 if (shValue.value.trim() == "") {
 			 shValueError.innerText = "검색어를 입력해주세요";
-            ifcdName.focus();
-            isValid = false;
-        } else {
-       	 shValueError.innerText = "";
-        }
+             ifcdName.focus();
+             isValid = false;
+         } else {
+        	 shValueError.innerText = "";
+         }
 		 
 		 
 		// 데이터 값이 있을 경우 폼 제출
-        if (isValid) {
-       	 form.action = "/codeGroup/codeGroupList";
-	        form.submit(); 
-        }
-        
+         if (isValid) {
+        	 form.action = "/codeGroup/codeGroupXdmList";
+ 	        form.submit(); 
+         }
+         
 	        
-	    
-  	};
+	  };
+	 
+	 
+    
     </script>
    
 </body>

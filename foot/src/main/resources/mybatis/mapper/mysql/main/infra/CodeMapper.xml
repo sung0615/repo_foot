@@ -114,8 +114,7 @@
 		 <!-- 업데이트 삭제 -->
 	 <update id="uelete">
 	 	UPDATE code SET
-	 		ifcdDelNy = 1,
-	 		ifchDelNy = 1
+	 		ifcdDelNy = 1
 	 	WHERE
 	 		cdSeq = #{cdSeq}
 	 </update>

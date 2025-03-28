@@ -106,10 +106,17 @@
 								</a>
 							</div> -->
 							<div class="list-inline-item me-5">
-							<h6 class="mt-2 text-black">Name : [[${session.sessNameXdm}]]</h6>
+							<h6 class="mt-2 text-black">Name : [[${session.sessNameUser}]]</h6>
 							</div>
 							<div class="list-inline-item me-5">
-							<h6 class="mt-2 text-black">ID : [[${session.sessIdXdm}]]</h6>
+							<h6 class="mt-2 text-black">ID : [[${session.sessIdUser}]]</h6>
+							</div>
+							
+							<div class="list-inline-item me-5">
+								<a class="nav-link" href="javascript:void(0);" id="btnSignout">
+										<i class="feather-icon icon-log-out me-2"></i>
+										로그아웃
+									</a>
 							</div>
 							<!-- <div class="list-inline-item me-5 me-lg-0">
 								<a class="text-muted position-relative" data-bs-toggle="offcanvas"
@@ -468,3 +475,40 @@
 			</div>
 		</nav>
 	</div>
+	
+	
+	<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+
+<script type="text/javascript">
+
+	const URL_SIGNIN_FORM_XDM = "/SigninUser" //로그인 주소
+	const URL_SIGNOUT_PROC_XDM = "/SignoutUser1" // 컨트롤로 사인 주소
+	
+	const URL_INDEX_VIEW_XDM = "/indexUserView" //넘어갈 페이지
+
+
+	
+		$("#btnSignout").on("click", function(){
+			$.ajax({
+				async: true 
+				,cache: false
+				,type: "post"
+				,url: URL_SIGNOUT_PROC_XDM
+				,data: {}
+				,success: function(response) {
+					if(response.rt == "success") {
+						location.href = URL_SIGNIN_FORM_XDM;
+					} else {
+						// by pass
+					}
+				}
+				,error : function(jqXHR, textStatus, errorThrown){
+					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+		});
+	
+
+
+
+</script>

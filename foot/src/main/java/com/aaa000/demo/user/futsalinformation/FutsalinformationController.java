@@ -36,42 +36,42 @@ public class FutsalinformationController {
 	
 	
 	//풋살장 리스트 관리자 리스에뿌리기
-	@RequestMapping(value="/FutsalList")
-	public String FutsalList(Model model, FutsalinformationVo vo) {
+	@RequestMapping(value="/FutsalXdmList")
+	public String FutsalXdmList(Model model, FutsalinformationVo vo) {
 		
 		vo.setParamsPaging(futsalinformationService.selectOneCount(vo));
 		model.addAttribute("list", futsalinformationService.selectList(vo));
 		model.addAttribute("vo", vo);
 		
-		return "xdm/futsal/FutsalList";
+		return "xdm/futsal/FutsalXdmList";
 	}
 	
 	// 풋살장 관리자 등록 폼 만들기 만들기
-	@RequestMapping(value="/FutsalForm")
-	public String FutsalForm() {
-		return "xdm/futsal/FutsalForm";
+	@RequestMapping(value="/FutsalXdmForm")
+	public String FutsalXdmForm() {
+		return "xdm/futsal/FutsalXdmForm";
 	}
 	//풋살장 등록후 풋살장 리스트에 뿌리기
 	@RequestMapping(value="/FutsalInst")
 	public String FutsalInst(FutsalinformationDto futsalinformationDto) {
 		
 		futsalinformationService.insert(futsalinformationDto);
-		return "redirect:/FutsalList";
+		return "redirect:/FutsalXdmList";
 		
 	}
 	
 	
 	//풋살장 정보 관리자에서 수정폼 Mfom
-	@RequestMapping(value="/FutsalMfom")
-	public String FutsalMfom(Model model,FutsalinformationDto futsalinformationDto) {
+	@RequestMapping(value="/FutsalXdmMfom")
+	public String FutsalXdmMfom(Model model,FutsalinformationDto futsalinformationDto) {
 		model.addAttribute("item", futsalinformationService.selectOne(futsalinformationDto));
-		return "xdm/futsal/FutsalMfom";
+		return "xdm/futsal/FutsalXdmMfom";
 	}
 	//수정한 데이터를 리스트 화면으로 옴겨야됨
 	@RequestMapping(value="/FutsalUpdt")
 	public String FutsalUpdt (FutsalinformationDto futsalinformationDto) {
 		futsalinformationService.update(futsalinformationDto);
-		return "redirect:/FutsalList";
+		return "redirect:/FutsalXdmList";
 	}
 	
 	
@@ -80,7 +80,7 @@ public class FutsalinformationController {
 	@RequestMapping(value="/FutsalUele")
 	public String FutsalUele (FutsalinformationDto futsalinformationDto) {
 		futsalinformationService.uelete(futsalinformationDto);
-		return "redirect:/FutsalList";
+		return "redirect:/FutsalXdmList";
 	}
 	
 	

@@ -53,14 +53,14 @@
                                          <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="shDateStart" name="shDateStart" placeholder="시작일"  autocomplete="off"/>
+                                                    <input type="text" class="form-control" id="date_timepicker_start"  placeholder="시작일"  autocomplete="off"/>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input type="text" class="form-control" id="shDateEnd" name="shDateEnd"  placeholder="종료일"  autocomplete="off"/>
+                                                    <input type="text" class="form-control" id="date_timepicker_end"  placeholder="종료일"  autocomplete="off"/>
                                                 </div>
                                             </div>
                                         </div>  
@@ -275,6 +275,17 @@
     
         <!-- Demo Js -->
         <script src="/xdm/template/master/js/demo.js"></script>
+        
+        
+        
+        <!-- datetimepicker 플러그인 추가 -->
+		<script src="/xdm/jquery/datetimepicker-master/build"></script>
+        
+        <!-- 달력 플러그인 추가 -->
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+   
+   
     <!--체크박스 전체 체크 단독 체크-->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -302,7 +313,7 @@
 	    let form = document.querySelector("form[name=formList]");
 	 	goList = function (thisPage) {
 	     document.querySelector("input[name=thisPage]").value = thisPage;
-	     form.action = "/code/codeList";
+	     form.action = "/code/codeXdmList";
 	     form.submit();
 	 }  
 
@@ -310,7 +321,7 @@
     </script>
          <script type="text/javascript">
          document.getElementById("btnReset").onclick = function () {
-   		  window.location.href = "/code/codeList";
+   		  window.location.href = "/code/codeXdmList";
    		};
 	 /* 검색하기 */
 	 document.getElementById("btnSearch").onclick = function () {
@@ -333,7 +344,7 @@
 		 
 		// 데이터 값이 있을 경우 폼 제출
          if (isValid) {
-        	 form.action = "/code/codeList";
+        	 form.action = "/code/codeXdmList";
  	        form.submit(); 
          }  
 	        
@@ -342,7 +353,7 @@
 	    
 	  document.getElementById("changeRowNum").onchange = function () {
 	       document.getElementById("rowNumToShow").value = document.getElementById("changeRowNum").value;
-	       form.action = "/code/codeList";
+	       form.action = "/code/codeXdmList";
            form.submit();
      }
 	  
@@ -355,11 +366,40 @@
 
 		goForm = function (keyValue) {
 		    seq.value = keyValue;
-		    form.action = "/code/CodeForm";
+		    form.action = "/code/CodeXdmForm";
 		    form.submit();
 		}
 	    
     
     </script> 
+    
+    <script type="text/javascript">
+    
+    jQuery(function(){
+    	 jQuery('#date_timepicker_start').datetimepicker({
+    	  format:'Y/m/d',
+    	  onShow:function( ct ){
+    	   this.setOptions({
+    	    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+    	   })
+    	  },
+    	  timepicker:false
+    	 });
+    	 jQuery('#date_timepicker_end').datetimepicker({
+    	  format:'Y/m/d',
+    	  onShow:function( ct ){
+    	   this.setOptions({
+    	    minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
+    	   })
+    	  },
+    	  timepicker:false
+    	 });
+    	});
+    
+    
+    
+    
+    
+    </script>
 </body>
 </html>

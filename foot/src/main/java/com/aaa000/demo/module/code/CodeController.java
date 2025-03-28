@@ -25,8 +25,8 @@ public class CodeController {
 	 
 	
 	// 리스트 보여주고 페이지네이션 보여주기
-	@RequestMapping(value = "/code/codeList")
-	public String codeList(CodeVo vo, Model model) {
+	@RequestMapping(value = "/code/codeXdmList")
+	public String codeXdmList(CodeVo vo, Model model) {
 		
 		vo.setParamsPaging(codeService.selectOneCount(vo));
 		model.addAttribute("list", codeService.selectList(vo));
@@ -39,8 +39,8 @@ public class CodeController {
 	
 	
 	// 등록폼
-	@RequestMapping(value="/code/CodeForm")
-	public String CodeForm( CodeDto codeDto, Model model , CodeVo vo) {
+	@RequestMapping(value="/code/CodeXdmForm")
+	public String CodeXdmForm( CodeDto codeDto, Model model , CodeVo vo) {
 		
 		
 		model.addAttribute("list", codeService.codeGroupNameSeq(codeDto));
@@ -59,28 +59,28 @@ public class CodeController {
 	}
 	
 	// 등록후 리스트 에서 보여주라
-	@RequestMapping(value="/code/CodeInst")
-	public String CodeInst(CodeDto codeDto) {
+	@RequestMapping(value="/code/CodeXdmInst")
+	public String CodeXdmInst(CodeDto codeDto) {
 System.out.println(codeDto.getCodeGroup_cdgSeq());
 		codeService.insert(codeDto);
-		return "redirect:/code/codeList";
+		return "redirect:/code/codeXdmList";
 	}
 	
 	//업데이트
-	@RequestMapping(value="/code/CodeUpdt")
-	public String CodeUpdt(CodeDto codeDto) {
+	@RequestMapping(value="/code/CodeXdmUpdt")
+	public String CodeXdmUpdt(CodeDto codeDto) {
 		codeService.update(codeDto);
-		return "redirect:/code/codeList";
+		return "redirect:/code/codeXdmList";
 	}
 	
 	
 	
 	
 	// 업데이트 삭제
-	@RequestMapping(value="/code/CodeUele")
-	public String CodeUele(CodeDto codeDto) {
+	@RequestMapping(value="/code/CodeXdmUele")
+	public String CodeXdmUele(CodeDto codeDto) {
 		codeService.uelete(codeDto);
-		return "redirect:/code/codeList";
+		return "redirect:/code/codeXdmList";
 	}
 	
 	

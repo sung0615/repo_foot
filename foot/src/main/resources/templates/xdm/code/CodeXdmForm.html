@@ -3,7 +3,7 @@
 
 <div th:replace="~{xdm/include/head :: head}"></div>
 
-<form action="/code/CodeInst" method="post" id="form">
+<form action="/code/CodeXdmInst" method="post" id="form">
 	<input type="hidden" name="cdSeq" th:value="${vo.cdSeq}">
 	<!-- ### -->
 
@@ -131,7 +131,7 @@
 											</div>
 										</div>
 										<a role="button" class="btn btn-light" style="float: left;"
-											th:href="@{/code/codeList}"> <svg
+											th:href="@{/code/codeXdmList}"> <svg
 												xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 												fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                                                 <path
@@ -288,13 +288,13 @@ document.getElementById("btnSubmit").onclick = function() {
             if (validationInst() == false)
                 return false;
 
-            form.action = "/code/CodeInst";
+            form.action = "/code/CodeXdmInst";
             form.submit();
         } else {
             if (validationUpdt() == false)
                 return false;
 
-            form.action = "/code/CodeUpdt";
+            form.action = "/code/CodeXdmUpdt";
             form.submit();
         }
     }
@@ -304,7 +304,9 @@ document.getElementById("btnSubmit").onclick = function() {
 
 <script type="text/javascript">
 // 업데이트 삭제
+	
 	if(document.getElementById("btnUelete")){
+		
 		document.getElementById("btnUelete").onclick = function () {
 			document.querySelector("#modalConfirmTitle").textContent = "확 인";
 			document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
@@ -316,7 +318,9 @@ document.getElementById("btnSubmit").onclick = function() {
 	
 	
 	document.getElementById("btnModalUelete").onclick = function () {
-		form.action = "/code/codeUele";
+		
+		form.action = "/code/CodeXdmUele";
+							
 		form.submit();
 	}
 

@@ -3,8 +3,8 @@
 
 <div th:replace="~{xdm/include/head :: head}"></div>
 
-<form action="/FutsalUpdt" method="get" id="form">
-<input type="hidden" id="fiSeq" name="fiSeq" th:value="${item?.fiSeq}" />
+<form action="/FutsalInst" method="post" id="form">
+
 <section class="content">
         <div class="container-fluid">
             <div class="block-header">
@@ -23,7 +23,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" id="futsalName" name="futsalName"  th:value="${item?.futsalName}" />
+                                            <input type="text" class="form-control" placeholder="풋살장 이름" id="futsalName" name="futsalName" />
                                             <span id="futsalNameError" style="color: red; font-size: 10px;"></span>
                                         </div>
                                     </div>
@@ -31,7 +31,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" id="futsalPrice" name="futsalPrice"   th:value="${item?.futsalPrice}"/>
+                                            <input type="text" class="form-control" placeholder="풋살장 가격 예) 120000" id="futsalPrice" name="futsalPrice"/>
                                         	<span id="futsalPriceError" style="color: red; font-size: 10px;"></span>
                                         </div>
                                     </div>
@@ -39,7 +39,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" id="futsalPhoneNumbar" name="futsalPhoneNumbar"  th:value="${item?.futsalPhoneNumbar}"/>
+                                            <input type="text" class="form-control" placeholder="풋살장 연락처" id="futsalPhoneNumbar" name="futsalPhoneNumbar"/>
                                         	<span id="futsalPhoneNumbarError" style="color: red; font-size: 10px;"></span>
                                         </div>
                                     </div>
@@ -47,7 +47,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" id= "futsalBusinessHours" name="futsalBusinessHours"  th:value="${item?.futsalBusinessHours}"/>
+                                            <input type="text" class="form-control" placeholder="풋살장 영업시간 예) 오전10:00 ~ 오후10:00" id= "futsalBusinessHours" name="futsalBusinessHours"/>
                                         	<span id="futsalBusinessHoursError" style="color: red; font-size: 10px;"></span>
                                         </div>
                                     </div>
@@ -60,7 +60,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                             	
-                                                <textarea rows="4" class="form-control no-resize" id="futsalRegion" name="futsalRegion" th:text="${item?.futsalRegion}"  th:value="${item?.futsalRegion}" ></textarea>
+                                                <textarea rows="4" class="form-control no-resize" placeholder="풋살장 지역을 입력하세요 예)서울 8번 or 경기 9번"  id="futsalRegion" name="futsalRegion"></textarea>
                                             	<span id="futsalRegionError" style="color: red; font-size: 10px;"></span>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <textarea rows="4" class="form-control no-resize" id="futsalAddress" name="futsalAddress" th:text="${item?.futsalAddress}"  th:value="${item?.futsalAddress}"></textarea>
+                                                <textarea rows="4" class="form-control no-resize" placeholder="주소를 입력해주세요" id="futsalAddress" name="futsalAddress"></textarea>
                                             	<span id="futsalAddressError" style="color: red; font-size: 10px;"></span>
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <textarea rows="4" class="form-control no-resize" id="futsalFacilityUsageRules" name="futsalFacilityUsageRules" th:text="${item?.futsalFacilityUsageRules}" th:value="${item?.futsalFacilityUsageRules}"></textarea>
+                                                <textarea rows="4" class="form-control no-resize" placeholder="시설 및 이용 규칙" id="futsalFacilityUsageRules" name="futsalFacilityUsageRules" ></textarea>
                                             	<span id="futsalFacilityUsageRulesError" style="color: red; font-size: 10px;"></span>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <textarea rows="4" class="form-control no-resize" id="futsalCancellationPolicy" name="futsalCancellationPolicy" th:text="${item?.futsalCancellationPolicy}" th:value="${item?.futsalCancellationPolicy}"></textarea>
+                                                <textarea rows="4" class="form-control no-resize" placeholder="예약 취소 및 환불 규정" id="futsalCancellationPolicy" name="futsalCancellationPolicy"></textarea>
                                             	<span id="futsalCancellationPolicyError" style="color: red; font-size: 10px;"></span>
                                             </div>
                                         </div>
@@ -125,14 +125,10 @@
                             </form> -->
                             <br>
                             <button type="button" class="btn bg-red waves-effect" id="btuSave">
-                                수정 하기
-                            </button>
-                            
-                            <button type="button" class="btn bg-red waves-effect" id="btnUelete">
-                                삭제
+                                등록 하기
                             </button>
                            
-                            <a role="button" type="button" class="btn bg-black waves-effect" th:href="@{/FutsalList}">
+                            <a role="button" type="button" class="btn bg-black waves-effect" th:href="@{/FutsalXdmList}">
                                 목록
                             </a>
                             <!-- <a role="button" type="button" class="btn bg-blue-grey waves-effect">
@@ -143,28 +139,7 @@
                     </div>
                 </div>
             </div>
-								<!-- 삭제 모달 -->
-									<div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="modalConfirmTitle">title</h5>
-													<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">??</button> -->
-												</div>
-												<div class="modal-body" id="modalConfirmBody">
-													body
-												</div>
-												<div class="modal-footer">
-													<!-- <button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal"></button> -->
-													<!-- <button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalDelete">영구삭제</button> -->
-													<!-- <button type="button" class="btn btn-sm btn_custom" name="" id="" href="#">닫기</button> -->
-												<button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalUelete">삭제</button>
-												</div>
-											</div>
-										</div>
-									</div>
-											
-								<!-- 삭제모달 AND -->            
+            
             
             
             
@@ -216,31 +191,6 @@
     <link href="/xdm/template/master/plugins/dropzone/dropzone.css" rel="stylesheet">
     
     <script type="text/javascript">
-    
-		if(document.getElementById("btnUelete")){
-			document.getElementById("btnUelete").onclick = function () {
-				document.querySelector("#modalConfirmTitle").textContent = "확 인";
-				document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
-				document.querySelector("#btnModalUelete").style.display = '';
-				/* document.querySelector("#btnModalDelete").style.display = 'none'; */
-				$("#modalConfirm").modal("show");      	
-			}
-		}
-		
-		
-		document.getElementById("btnModalUelete").onclick = function () {
-			form.action = "/FutsalUele";
-			form.submit();
-		}
-    
-    
-    </script>
-    
-    
-    
-    
-    
-    <script type="text/javascript">
 
 	document.getElementById("btuSave").onclick = function() {
 		let futsalName = document.getElementById("futsalName"); //풋살장 이름
@@ -252,8 +202,8 @@
 		let futsalPhoneNumbar = document.getElementById("futsalPhoneNumbar"); //풋살장 번호
 		let futsalPhoneNumbarError = document.getElementById("futsalPhoneNumbarError");//풋살장 번호 잘못 입력 했을 경우
 		
-		let futsalBusinessHours = document.getElementById("futsalBusinessHours");//풋살장 영업시간때
-		let futsalBusinessHoursError = document.getElementById("futsalBusinessHoursError");//풋살장 영업시간 잘못 입력했을경우
+		let futsalBusiness = document.getElementById("futsalBusinessHours");//풋살장 영업시간
+		let futsalBusinessHoursError = document.getElementById("futsalBusinessHoursError"); //풋살장 영업시간 잘못 입력했을경우
 		
 		let futsalRegion = document.getElementById("futsalRegion"); //풋살장 지역 1 번 서울 2번 경기
 		let futsalRegionError = document.getElementById("futsalRegionError"); //풋살장 지역 잘못 입력 했을 경우
@@ -304,6 +254,8 @@
 		}else {
 			futsalBusinessHoursError.innerText = "";
 		} 
+		 
+		
 		
 		 //풋살장 지역 8 서울 9 경기 입력
 		let result = /^[89]$/; // 8 또는 9만 허용
@@ -350,10 +302,7 @@
 		
 		// 데이터 값이 있을 경우 폼 제출
         if (isValid) {
-        	console.log("폼 제출 시도");
             document.getElementById("form").submit();
-        }else {
-            console.log("유효성 검사 실패");
         }
 	}
 	

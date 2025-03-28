@@ -21,15 +21,15 @@ public class UserController {
 	UserService userService;
 	
 	// 사용자 회원 가입 리스트 관리자에서 보여주기
-	@RequestMapping(value="/UserMemberList")
-	public String UserMember(Model model, UserVo vo) {
+	@RequestMapping(value="/MemberXdmList")
+	public String MemberXdmList(Model model, UserVo vo) {
 		
 		
 		vo.setParamsPaging(userService.selectOneCount(vo));
 		model.addAttribute("list", userService.selectList(vo));
 		model.addAttribute("vo", vo);
 		
-		return "xdm/usermember/UserMemberList";
+		return "xdm/usermember/MemberXdmList";
 	}
 	
 	
@@ -57,11 +57,11 @@ public class UserController {
 	
 	
 	// 회원 정보 관리자 Ui 상세 뿌리기
-	@RequestMapping(value="/UserMemberView")
-	public String UserMemberView(Model model,UserDto userDto) {
+	@RequestMapping(value="/MemberXdmView")
+	public String MemberXdmView(Model model,UserDto userDto) {
 		
 		model.addAttribute("item", userService.selectOne(userDto));
-		return "/xdm/usermember/UserMemberView";
+		return "/xdm/usermember/MemberXdmView";
 	}
 	
 	
@@ -100,7 +100,7 @@ public class UserController {
 	@RequestMapping(value="/SecessionUserUele")
 	public String SecessionUserUele(UserDto userDto) {
 		userService.uelete(userDto);
-		return "/user/secession/SecessionUserUele";
+		return "user/secession/SecessionUserUele";
 	}
 	
 	
@@ -108,7 +108,7 @@ public class UserController {
 	@RequestMapping(value="/SigninUser")
 	public String SigninUser() {
 					// 로그인이 맞으면 인덱스 화면으로 넘기는걸 수정해야됨
-		return "/user/signin/SigninUser";
+		return "user/signin/SigninUser";
 	}
 	//사용자 로그인화면 구현
 	@ResponseBody
@@ -121,18 +121,15 @@ public class UserController {
 			
 		if (rtt != null) {
 			returnMap.put("rt", "success");
-			httpSession.setAttribute("sessSeqXdm", rtt.getSuSeq());
-			httpSession.setAttribute("sessIdXdm", rtt.getUserId());
-			httpSession.setAttribute("sessNameXdm", rtt.getUserName());  
+			httpSession.setAttribute("sessSeqUser", rtt.getSuSeq());
+			httpSession.setAttribute("sessIdUser", rtt.getUserId());
+			httpSession.setAttribute("sessNameUser", rtt.getUserName());  
 
 		} else {
 			
 			
 		}
-		    
-		  
-		    
-			
+		
 		return returnMap;
 	}
 	
@@ -143,9 +140,9 @@ public class UserController {
 			
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 			
-		httpSession.setAttribute("sessSeqXdm", null);
-		httpSession.setAttribute("sessIdXdm", null);
-		httpSession.setAttribute("sessNameXdm", null);
+		httpSession.setAttribute("sessSeqUser", null);
+		httpSession.setAttribute("sessIdUser", null);
+		httpSession.setAttribute("sessNameUser", null);
 		returnMap.put("rt", "success");
 			
 			
@@ -206,7 +203,8 @@ public class UserController {
 			httpSession.setAttribute("sessIdXdm", null);
 			httpSession.setAttribute("sessNameXdm", null);
 			returnMap.put("rt", "success");
-		
+			
+			
 		return returnMap;
 		
 	}
