@@ -138,6 +138,8 @@
 										<!-- text -->
 										<div class="mt-2 small lh-1">
 											<a href="#!" class="text-decoration-none text-inherit">
+											
+											
 												<span class="me-1 align-text-bottom">
 													<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
 														viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -303,6 +305,7 @@
 										class="icon-shape icon-xxl" />
 									<div class="ms-3">
 										<!-- title -->
+										
 										<a href="/user/template/pages/shop-single.html" class="text-inherit">
 											<h6 class="mb-0">Salted Instant Popcorn</h6>
 										</a>
@@ -502,12 +505,12 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-7 col-xl-6">
-						<div class="ps-lg-10 mt-6 mt-md-0">
+					<div class="col-md-7 col-xl-6" >
+						<div class="ps-lg-10 mt-6 mt-md-0" >
 							<!-- content -->
 							<!-- <a href="#!" class="mb-4 d-block">Bakery Biscuits</a> -->
 							<!-- heading -->
-							<h1 class="mb-1">HIP 풋살그라운드</h1>
+							<h1 class="mb-1" th:text="${item.futsalName}" >풋살장</h1>
 							<div class="mb-4">
 								<!-- rating -->
 								<!-- rating -->
@@ -522,7 +525,7 @@
 							</div>
 							<div class="fs-4">
 								<!-- price -->
-								<span class="fw-bold text-dark">130,000 원</span>
+								<span th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')}"></span>원
 								<!-- <span class="text-decoration-line-through text-muted">$35</span> -->
 								<!-- <span><small class="fs-6 ms-2 text-danger">26% Off</small></span> -->
 							</div>
@@ -542,101 +545,94 @@
 									<div class="col-lg-10 col-12">
 										<small>날짜 선택<span style="color: red;">*</span></small>
 										
-										<input type="text" class="form-control flatpickr" id="creatCustomerDate" placeholder="날짜를 선택하세요" required />
-										<div class="invalid-feedback">아이디를 입력해주세요</div>
+									<input type="text" class="form-control" id="reservationDate" placeholder="날짜를 선택하세요" required /> 
+										<!--  <input type="text" class="form-control"  id="reservationDate" name="reservationDate" placeholder="날짜를 선택하세요"/>	 -->
+										<div class="invalid-feedback">날짜 선택해주세요</div>
 									</div>
+									<!-- <div class="col-lg-10 col-12">
+										<small>시간 선택<span style="color: red;">*</span></small>
+										
+									<input type="text" class="form-control" id="datetimepicker2" placeholder="시간을 선택하세요" required /> 
+										 <input type="text" class="form-control"  id="reservationDate" name="reservationDate" placeholder="날짜를 선택하세요"/>	
+										<div class="invalid-feedback">시간을 선택해주세요</div>
+									</div> -->
 									
 								
 									<div class="col-lg-10 col-12">
 										<small>시간 선택<span style="color: red;">*</span></small>
 										<label for="" class="form-label visually-hidden">시간선택</label>
-											<select type="" class="form-select" id=""  required>
+											<select class="form-select" id="" value="" required>
 												<option selected disabled value="">시간선택</option>
-												<option>오전06:00 ~ 오전08:00</option>
-												<option>오전08:00 ~ 오전10:00</option>
-												<option>오전10:00 ~ 오전12:00</option>
-												<option>오후12:00 ~ 오후02:00</option>
-												<option>오후02:00 ~ 오후04:00</option>
-												<option>오후04:00 ~ 오후06:00</option>
-												<option>오후06:00 ~ 오후08:00</option>
-												<option>오후10:00 ~ 오후12:00</option>
-												<option>오전12:00 ~ 오전02:00</option>                   						
+												<option value="">오전06:00 ~ 오전08:00</option>
+												<option value="">오전08:00 ~ 오전10:00</option>
+												<option value="">오전10:00 ~ 오전12:00</option>
+												<option value="">오후12:00 ~ 오후02:00</option>
+												<option value=""ㄴ>오후02:00 ~ 오후04:00</option>
+												<option value="">오후04:00 ~ 오후06:00</option>
+												<option value="">오후06:00 ~ 오후08:00</option>
+												<option value="">오후10:00 ~ 오후12:00</option>
+												<option value="">오전12:00 ~ 오전02:00</option>                   						
 											</select>
 											<div class="invalid-feedback">아이디를 입력해주세요</div>
 									</div>
-									<div class="col-lg-10 col-12">
-										<small>소셜매칭 신청하기(선택사항)</small>
-										<label for="" class="form-label visually-hidden">소셜 매칭</label>
-											<select type="" class="form-select" id=""  required>
-												<option selected disabled value="">선택해주세요</option>
-												<option>신청한다</option>
-												<option>신청하지 않는다</option>
-																						
-											</select>
-
-									</div>
-									<div class="col-lg-10 col-12">
-										<small>소셜매칭 신청한다 선택시 입력</small><br>
-										<small>매칭시 상대팀 구장비용 청구 금액란</small>
-										<label for="" class="form-label"></label>
-										<input type="text" class="form-control" id="" placeholder="금액을 입력해주세요">
-																						
-									</div>
-									<div class="col-lg-10 col-12">
-										
-										<small>소셜매칭 신청한다 선택시 입력</small>
-										<label for="" class="form-label"></label>
-										<input type="text" class="form-control" id="" placeholder="은행명 입력해주세요">
-																							
-									</div>
-									<div class="col-lg-10 col-12">
-										<small>소셜매칭 신청한다 선택시 입력</small>
-										<label for="" class="form-label"></label>
-										<input type="text" class="form-control" id="" placeholder="계좌 번호 입럭해주세요">
-																						
-									</div>
-									<div class="col-lg-10 col-12">
-										<small>소셜매칭 신청한다 선택시 선택해주세요</small>
-										<label for="" class="form-label visually-hidden">소셜 매칭</label>
-											<select type="" class="form-select" id=""  required>
-												<option selected disabled value="">선택해주세요</option>
-												<option>5 VS 5</option>
-												<option>6 VS 6</option>
-																						
-											</select>
-
-									</div>
-									<div class="col-lg-10 col-12">
-										<small>소셜매칭 신청한다 선택시 선택해주세요</small>
-										<label for="" class="form-label visually-hidden">소셜 매칭</label>
-											<select type="" class="form-select" id=""  required>
-												<option selected disabled value="">팀 레벨 선택</option>
-												<option>비기너</option>
-												<option>아마C</option>
-												<option>아마B</option>
-												<option>아마A</option>
-												<option>세미C</option>
-												<option>세미B</option>
-												<option>세미A</option>
-												<option>프로C</option>
-												<option>프로B</option>
-												<option>프로A</option>
-																						
-											</select>
-
-									</div>
-									<div class="col-lg-10 col-12">
-										<small>소셜매칭 신청한다 선택시 입력</small>
-										<label for="" class="form-label"></label>
-										<input type="email" class="form-control" id="" placeholder="팀 명을 입력해 주세요">
-																						
-									</div>
-									<div class="col-lg-10 col-12">
-										<small>소셜매칭 신청한다 선택시 팀 소개 입력</small>
-										<label for="" class="form-label"></label>
-										<textarea class="form-control" id="" rows="3" placeholder="팀 소개, 주의사항 등등"></textarea>
-																						
-									</div>
+								<div>
+							    <div class="col-lg-10 col-12">
+							        <small>소셜매칭 신청하기(선택사항)</small>
+							        <label for="socialMatching" class="form-label visually-hidden">소셜 매칭</label>
+							        <select class="form-select" id="socialMatching" required>
+							            <option selected value="">선택해주세요</option>
+							            <option value="yes">신청한다</option>
+							            <option value="no">신청하지 않는다</option>
+							        </select>
+							    </div>
+							
+							    <div id="socialMatchingDetails" style="display: none;">
+							        <div class="col-lg-10 col-12">
+							            <small>매칭시 상대팀 구장비용 청구 금액</small>
+							            <input type="text" class="form-control" placeholder="금액을 입력해주세요">
+							        </div>
+							        <div class="col-lg-10 col-12">
+							            <small>은행명 입력</small>
+							            <input type="text" class="form-control" placeholder="은행명 입력해주세요">
+							        </div>
+							        <div class="col-lg-10 col-12">
+							            <small>계좌 번호 입력</small>
+							            <input type="text" class="form-control" placeholder="계좌 번호 입력해주세요">
+							        </div>
+							        <div class="col-lg-10 col-12">
+							            <small>매칭 방식 선택</small>
+							            <select class="form-select" required>
+							                <option selected disabled value="">선택해주세요</option>
+							                <option>5 VS 5</option>
+							                <option>6 VS 6</option>
+							            </select>
+							        </div>
+							        <div class="col-lg-10 col-12">
+							            <small>팀 레벨 선택</small>
+							            <select class="form-select" required>
+							                <option selected disabled value="">팀 레벨 선택</option>
+							                <option>비기너</option>
+							                <option>아마C</option>
+							                <option>아마B</option>
+							                <option>아마A</option>
+							                <option>세미C</option>
+							                <option>세미B</option>
+							                <option>세미A</option>
+							                <option>프로C</option>
+							                <option>프로B</option>
+							                <option>프로A</option>
+							            </select>
+							        </div>
+							        <div class="col-lg-10 col-12">
+							            <small>팀 명 입력</small>
+							            <input type="text" class="form-control" placeholder="팀 명을 입력해 주세요">
+							        </div>
+							        <div class="col-lg-10 col-12">
+							            <small>팀 소개 입력</small>
+							            <textarea class="form-control" rows="3" placeholder="팀 소개, 주의사항 등등"></textarea>
+							        </div>
+							    </div>
+							</div>
 								</form>
 							</div>
 							
@@ -706,15 +702,15 @@
 									<tbody>
 										<tr>
 											<td>주소</td>
-											<td>경기도 의정부시 호암로 95 신한대학교 내 (HIP 풋살그라운드)</td>
+											<td th:text="${item.futsalAddress}"></td>
 										</tr>
 										<tr>
 											<td>연락처</td>
-											<td>010-4331-0250</td>
+											<td th:text="${item.futsalPhoneNumbar}"></td>
 										</tr>
 										<tr>
 											<td>영업시간</td>
-											<td>오전 06:00 ~ 오전 02:00</td>
+											<td th:text="${item.futsalBusinessHours}"></td>
 										</tr>
 										
 									</tbody>
@@ -805,77 +801,13 @@
 									<div class="mb-5">
 										<!-- text -->
 										<h4 class="mb-1">특이사항</h4><br>
-										<p class="mb-0">
-											<strong>[주차 안내]</strong>
-										</p><br>
-										<p class="mb-0">
-											신한대학교 내 모든 주차장 공간에 주차 가능
+										
+										<p class="mb-0" style="white-space: pre-line;" th:text="${item.futsalFacilityUsageRules}" >
+											
 										</p>
-										<p class="mb-0">
-											주차 요금 : 3시간 1,000원 (할인권 구매시)
-										</p>
-										<p class="mb-0">
-											안내데스크에서 주차할인권(3시간) 구매가능 (1,000원)
-										</p>
-										<p class="mb-0">
-											주차할인권을 구매하지 않는 경우 신한대 정상주차요금 발생 (시간당 2,000원)
-										</p><br>
-										<p class="mb-0">
-											<strong>[꼭 지켜주세요요]</strong>
-										</p><br>
-										<p class="mb-0">
-											경기장 및 시설 내 흡연은 절대 불가하며, 지정된 흡연구역에서만 흡연이 가능합니다.
-										</p>
-										<p class="mb-0">
-											흡연구역은 'A구장 옆'에 위치하고 있습니다.
-										</p>
-										<p class="mb-0">
-											이용 시 발생한 쓰레기는 모두 정리하여, 안내데스크 앞 쓰레기봉투에 분리배출 부탁드립니다.
-										</p><br>
-										<p class="mb-0">
-											<strong>[물품대여 서비스]</strong>
-										</p><br>
-										<p class="mb-0">
-											풋살공 및 조끼 대여 : 무료
-										</p>
-										<p class="mb-0">
-											풋살화 대여 : 4,000원
-										</p>
-										<p class="mb-0">
-											풋살화 사이즈는 255~285까지 구비되어 있으며, 우천 시 대여 불가합니다.
-										</p>
-										<p class="mb-0"><br>
-											<strong>[판매물품 안내]</strong>
-										</p><br>
-										<p class="mb-0">
-											<strong>생수, 음료, 주차할인권 등</strong>
-										</p>
+										
 									</div>
-									<!-- <div class="mb-5">
-										<h5 class="mb-1">Storage Tips</h5>
-										<p class="mb-0">
-											Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae
-											varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus.
-											Consequat risus facilisis
-											ante ipsum netus risus adipiscing sagittis sed.Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit.
-										</p>
-									</div>
-									
-									<div class="mb-5">
-										<h5 class="mb-1">Unit</h5>
-										<p class="mb-0">3 units</p>
-									</div>
-									<div class="mb-5">
-										<h5 class="mb-1">Seller</h5>
-										<p class="mb-0">DMart Pvt. LTD</p>
-									</div>
-									<div>
-										<h5 class="mb-1">Disclaimer</h5>
-										<p class="mb-0">Image shown is a representation and may slightly vary from the
-											actual product. Every effort is made to maintain accuracy of all information
-											displayed.</p>
-									</div> -->
+								
 								</div>
 							</div>
 							<!-- tab pane -->
@@ -915,49 +847,13 @@
 									</div>
 									<div class="mb-5">
 										<p class="mb-0"><br>
-											<strong>강수 시 변경 및 환불 규정</strong>
-										</p><br>
-										<p class="mb-0">
-											예약 시작 2시간 전 기상청 날씨누리 기준 시간당 5mm 이상의 강수량이 예보되는 경우, 구장 연락을 통해 예약 날짜를 변경할 수 있습니다. 변경된 일정 취소 시 환불되지 않습니다.
+											
 										</p>
-										<p class="mb-0">
-											예약 당일 천재지변(호우·대설·태풍 주의보 및 경보, 한파·폭염·강풍 경보)이 있는 경우 100% 환불됩니다.
+										<p class="mb-0" style="white-space: pre-line;" th:text="${item.futsalCancellationPolicy}">
+											
 										</p>
-										<p class="mb-0">
-											실내 구장의 경우, 변경 및 환불 가능 조건에 해당하지 않습니다.
-										</p>
-										<p class="mb-0">
-											변경 및 환불 필요시 구장 혹은 플랩풋볼로 문의주셔야 확인 후 안내드릴 수 있습니다.
-										</p>
-										<p class="mb-0">
-											이용 시간이 지난 경우 환불은 불가합니다.
-										</p>
-										<p class="mb-0"><br>
-											<strong>변경 규정</strong>
-										</p><br>
-										<p class="mb-0">
-											예약 시작 시간 2시간 전 기상청 날씨누리 해당 주소지를 기준으로 합니다
-												- 오전 예약의 경우 전일 21시부터 변경 요청 가능
-										</p>
-										<p class="mb-0"><br>
-											<strong>환불 규정</strong>
-										</p><br>
-										<p class="mb-0">
-											당일 천재지변으로 인해 구장 이용이 불가한 경우, 100% 환불됩니다.
-											- 적용 기준: 호우·대설·태풍·강풍 주의보 및 경보, 한파·폭염 경보
-										</p>
-										<p class="mb-0"><br>
-											<strong>그 외 취소 규정</strong>
-										</p><br>
-										<p class="mb-0">
-											신청 후 30분 이내 하루 1회에 한해 무료 취소가 가능합니다.
-										</p>
-										<p class="mb-0">
-											단순 변심에 의한 날짜 변경은 불가합니다.
-										</p>
-										<p class="mb-0">
-											예약 시간이 지나고 문의하는 경우 변경 및 환불이 불가합니다.
-										</p>
+										
+										
 									</div>
 								</div>
 
@@ -1609,7 +1505,9 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- 달력 플러그인 추가 -->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
 	<!-- Javascript-->
 	<script src="/user/template/assets/libs/rater-js/index.js"></script>
@@ -1628,6 +1526,52 @@
 	<script src="/user/template/assets/js/vendors/zoom.js"></script>
 	<script src="/user/template/assets/js/vendors/dropzone.js"></script>
 	<script src="/user/template/assets/js/vendors/validation.js"></script>
+	
+
+	
+	
+	
+	<!-- datetimepicker JS -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery-datetimepicker@2.5.20/jquery.datetimepicker.full.min.js"></script>
+	
+	<!-- 달력 플러그인 추가 -->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+	
+	
+	
+	    <script type="text/javascript">
+    //달력 
+    $.datetimepicker.setLocale('ko'); //번역기
+    jQuery(function(){
+    	 jQuery('#reservationDate').datetimepicker({
+    	  format:'Y/m/d',
+    	  
+    	  timepicker:false
+    	 });
+    	
+    });
+    
+    </script>
+	
+	<script>
+	//소셜매칭 신청한다 했을때 보여주고 아니다 하면 숨기기
+    document.getElementById("socialMatching").addEventListener("change", function() {
+        var details = document.getElementById("socialMatchingDetails");
+        if (this.value === "yes") {
+            details.style.display = "block"; // 신청하면 보이기
+        } else {
+            details.style.display = "none"; // 신청 안 하면 숨기기
+        }
+    });
+</script>
+	
+
+
+
+
+	
+	
 </body>
 
 </html>

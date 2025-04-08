@@ -1,5 +1,7 @@
 package com.aaa000.demo.user.futsalinformation;
 
+import java.sql.Date;
+
 public class FutsalinformationDto {
 	
 	private String fiSeq; // 풋살장정보Seq
@@ -18,6 +20,10 @@ public class FutsalinformationDto {
 	private String cdSeq; //코드 Seq
 	private String ifcdName;//코드 이름
 //	-----
+//	검색 날짜
+	private Date regDateTime;
+	private Date modDateTime;
+//	----
 	
 	public String getFiSeq() {
 		return fiSeq;
@@ -127,6 +133,18 @@ public class FutsalinformationDto {
 	}
 	public void setIfcdName(String ifcdName) {
 		this.ifcdName = ifcdName;
+	}
+	public Date getRegDateTime() {
+		return regDateTime;
+	}
+	public void setRegDateTime(Date regDateTime) {
+		this.regDateTime = regDateTime;
+	}
+	public Date getModDateTime() {
+		return modDateTime;
+	}
+	public void setModDateTime(Date modDateTime) {
+		this.modDateTime = modDateTime;
 	}
 	
 	

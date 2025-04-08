@@ -10,7 +10,8 @@
     <title>Basic Form Elements | Bootstrap Based Admin Template - Material Design</title>
    
     
- 
+ 	<!-- 달력 CSS 플러그인 추가 -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"/>
 	
     <!-- Bootstrap Core Css -->
     <link href="/xdm/template/master/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -299,7 +300,7 @@
                     </div>
                 </div>
             </div>
-           ㅡ
+           
             <!-- Menu -->
             <div class="menu">
                 <ul class="list">
@@ -307,29 +308,18 @@
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons"></i>
-                            <span>프로젝트</span>
+                            <span>서비스 관리</span>
                         </a>
                         <ul class="ml-menu">
+                            
                             <li>
-                                <a th:href="@{/FutsalXdmForm}">풋살장 등록</a>
+                                <a th:href="@{/FutsalXdmList}">풋살장 정보</a>
                             </li>
-                            <li>
-                                <a th:href="@{/FutsalXdmList}">풋살장 List</a>
-                            </li>
-                            <li>
-                                <a th:href="@{/AnnouncementXdmForm}">풋살장 공지사항 등록</a>
-                            </li>
-                            <li>
-                                <a th:href="@{/AnnouncementXdmList}">풋살장 공지사항 List</a>
-                            </li>
+                            
+                            
                         </ul>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="material-icons"></i>
-                            <span>공지사항</span>
-                        </a>
-                    </li>
+                
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons"></i>
@@ -337,40 +327,23 @@
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a th:href="@{/MemberXdmList}">개인프로젝트 회원 정보</a>
+                                <a th:href="@{/MemberXdmList}">회원 관리</a>
                             </li>
-                            <li>
-                                <a href="#">??</a>
-                            </li>
+                           
                         </ul>
                     </li>
+                   
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons"></i>
-                            <span>서비스관리</span>
+                            <span>커뮤니케이션</span>
                         </a>
                         <ul class="ml-menu">
                             <li>
-                                <a href="#">??</a>
+                                <a th:href="@{/AnnouncementXdmList}">풋살장 공지사항</a>
                             </li>
-                            <li>
-                                <a href="#">???</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons"></i>
-                            <span>커뮤니케이션션</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="#">??</a>
-                            </li>
-                            <li>
-                                <a href="#">???</a>
-                            </li>
-                        </ul>
+                           
+                        </ul> 
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
@@ -386,26 +359,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="javascript:void(0);">
-                            <i class="material-icons"></i>
-                            <span>개인정보관리</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons"></i>
-                            <span>test</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="#">??</a>
-                            </li>
-                            <li>
-                                <a href="#">??</a>
-                            </li>
-                        </ul>
-                    </li>
+                   
                 </ul>
             </div>
         </aside>
@@ -586,6 +540,30 @@
 			});
 		});
 	
+
+
+
+</script>
+<script type="text/javascript">
+
+document.addEventListener("DOMContentLoaded", function () {
+	
+	 let pathName = window.location.pathname;
+	 if(pathName.startsWith("/code/codeXdmList")){ //코드
+		 document.getElementById("tables-nav").className="nav-content collapse show"
+		 if(pathName.includes("/codeGroup/codeGroupXdmList")){ //코드그룹
+			 document.getElementById("btnCodegroup").className="active"			
+		 }else{
+		 document.getElementById("btnCode").className="active"
+		 }
+	 } else if(pathName.startsWith("/MemberXdmList")){ //회원정보
+		 document.getElementById("user-nav").className="nav-content collapse show"
+			 document.getElementById("btnMember").className="active"
+	 } else if(pathName.startsWith("/FutsalXdmList")){ //풋살장관리
+		 document.getElementById("mc-nav").className="nav-content collapse show"
+			 document.getElementById("btnCompany").className="active"
+	 }
+	  });
 
 
 

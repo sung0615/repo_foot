@@ -9,9 +9,10 @@
 		SELECT
 			annoSeq,
 			author,
-			creationDate,
 			detail,
-			title
+			title,
+			regDateTime,
+			modDateTime
 			
 		FROM
 			announcement
@@ -26,6 +27,11 @@
       	    </choose>
 		
 		
+			<choose>
+				<when test="shOptionDate == 1">AND regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+				<when test="shOptionDate == 2">AND modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			</choose>
+				
 		
 		
 		
@@ -57,13 +63,14 @@
 		UPDATE announcement SET	
 		
 		    author = #{author},
-		    creationDate = #{creationDate},
+		  
 		    detail = #{detail},
-		    title = #{title}
+		    title = #{title},
+		   modDateTime = NOW()  <!-- 현재 시간으로 업데이트 -->
 		WHERE 
 			annoSeq = #{annoSeq}
 			
-			limit #{rowNumToShow} offset #{startRnumForMysql} 
+			<!-- limit #{rowNumToShow} offset #{startRnumForMysql}  -->
 	</update>
 	
 	<!-- 데이터 넣기 -->
@@ -72,17 +79,23 @@
 	INSERT INTO announcement(
 	
    	    author,
-	    creationDate,
+	   
 	    detail,
 		annoDelMy,
-		title
+		title,
+	    regDateTime,
+	    modDateTime
+	    
+	    
 	) value (
 	
 	    #{author},
-	    #{creationDate},
+	   
         #{detail},
 	    0,
-	    #{title}
+	    #{title},
+	    NOW(),
+	    NOW()
 		)
 			<!-- <selectKey resultType="String" keyProperty="announcement" order="AFTER">
 			SELECT last_insert_id()

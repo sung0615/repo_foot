@@ -11,7 +11,13 @@ public class UserService {
 	@Autowired
 	UserDao userDao;
 	
-	// 관리자 ID 리스트
+	// 회원가입 아이디 비교
+	public int idDuplicate(UserDto userDto) {
+		return userDao.idDuplicate(userDto);
+	}
+	
+	
+	// 관리자 ID 
 	public UserDto selectId(UserDto userDto){
 		return userDao.selectId(userDto);
 	}
@@ -41,6 +47,11 @@ public class UserService {
 	public int update(UserDto userDto) {
 		return userDao.update(userDto);
 	}
+	//my페이지 비밀번호 수정
+	public int updatePassword(UserDto userDto) {
+		return userDao.updatePassword(userDto);
+	}
+	
 	
 	// 업데이트 삭제
 	public int uelete(UserDto userDto) {

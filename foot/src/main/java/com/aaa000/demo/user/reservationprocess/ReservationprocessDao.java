@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface ReservationprocessDao {
 		
 	// 리스트 보여주기
-	public List<ReservationprocessDto> selectList();
+	public List<ReservationprocessDto> selectList(ReservationprocessDto reservationprocessDto);
 	
 	// 한데이터만 뽑아을때
 	public ReservationprocessDto selectOne(ReservationprocessDto reservationprocessDto);

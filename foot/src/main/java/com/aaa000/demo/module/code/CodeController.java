@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.aaa000.demo.common.util.UtilDateTiem;
 import com.aaa000.demo.module.codegroup.CodeGroupService;
 
 @Controller
@@ -32,7 +33,10 @@ public class CodeController {
 		model.addAttribute("list", codeService.selectList(vo));
 		model.addAttribute("vo",vo);
 		
+		// UtilDateTiem 함수 가져와서 사용 
 		
+		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
+		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
 		
 		return "xdm/code/codeXdmList";
 	}
@@ -61,7 +65,7 @@ public class CodeController {
 	// 등록후 리스트 에서 보여주라
 	@RequestMapping(value="/code/CodeXdmInst")
 	public String CodeXdmInst(CodeDto codeDto) {
-System.out.println(codeDto.getCodeGroup_cdgSeq());
+		System.out.println(codeDto.getCodeGroup_cdgSeq());
 		codeService.insert(codeDto);
 		return "redirect:/code/codeXdmList";
 	}

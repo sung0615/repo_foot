@@ -14,16 +14,16 @@ public class ReservationprocessController {
 	ReservationprocessService reservationprocessService;
 	// 매칭신청시  my페이지 상세에 소셜매칭 신청내역 List 뿌리기
 	@RequestMapping(value="/SocialMatchDetailsUserList")
-	public String SocialMatchDetailsUserList(Model model) {
-		model.addAttribute("list", reservationprocessService.selectList());
+	public String SocialMatchDetailsUserList() {
+		
 		return "user/socialmatchdetails/SocialMatchDetailsUserList";
 	}
 	
 	
 	// 풋살장 예약내역 my페이지 상세에 예약내역에 뿌리기
 	@RequestMapping(value="/ReservationDetailsUserList")
-	public String ReservationDetailsUserList(Model model) {
-		model.addAttribute("list", reservationprocessService.selectList());
+	public String ReservationDetailsUserList() {
+		
 		return "user/reservationdetails/ReservationDetailsUserList";
 	}
 	
@@ -32,24 +32,13 @@ public class ReservationprocessController {
 	
 	// 풋살장 예약에서 매칭 리스트  화면 뿌리기
 	@RequestMapping(value="/SocialMatchUserList")
-	public String SocialMatchList(Model model) {		
-		model.addAttribute("list", reservationprocessService.selectList());		
+	public String SocialMatchList() {		
+			
 		return "user/socialMatch/SocialMatchUserList";
 	}
 	
 	
 	
-	
-	// 풋살장 예약상세 폼 등록하기 등록하면 결제창으로 가라 
-	@RequestMapping(value="/DetailedPageUserForm")
-	public String DetailedPageForm() {
-		return "user/detailedpage/DetailedPageUserForm";
-	}
-	@RequestMapping(value="/DetailedPageUserInst")
-	public String DetailedPageUserInst(ReservationprocessDto reservationprocessDto) {
-		reservationprocessService.insert(reservationprocessDto);
-		return "redirect:/user/pay/PayUserForm";
-	}
 	
 	
 	
@@ -78,6 +67,32 @@ public class ReservationprocessController {
 		reservationprocessService.insert(reservationprocessDto);
 		return "redirect:/user/socialMatch/SocialMatchUserList";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

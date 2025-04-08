@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.aaa000.demo.user.reservationprocess.ReservationprocessDto;
+
 @Controller
 public class FutsalinformationController {
 	
@@ -81,6 +83,17 @@ public class FutsalinformationController {
 	public String FutsalUele (FutsalinformationDto futsalinformationDto) {
 		futsalinformationService.uelete(futsalinformationDto);
 		return "redirect:/FutsalXdmList";
+	}
+	
+	
+	
+	// 풋살장 상세 페이지
+	@RequestMapping(value="/DetailedPageUserForm")
+	public String DetailedPageUserForm (Model model, FutsalinformationVo vo,FutsalinformationDto futsalinformationDto) {
+			
+		model.addAttribute("item", futsalinformationService.selectOne(futsalinformationDto));
+			
+		return "user/detailedpage/DetailedPageUserForm";
 	}
 	
 	

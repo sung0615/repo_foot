@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.aaa000.demo.common.util.UtilDateTiem;
+
 @Controller
 public class CodeGroupController {
 	
@@ -25,6 +27,8 @@ public class CodeGroupController {
 		model.addAttribute("vo", vo);
 		
 		
+		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
+		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
 		
 
 		return "xdm/codeGroup/codeGroupXdmList";

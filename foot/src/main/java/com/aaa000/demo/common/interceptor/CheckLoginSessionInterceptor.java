@@ -13,9 +13,9 @@ public class CheckLoginSessionInterceptor implements HandlerInterceptor{
 
 		
 //		사용자용
-		System.out.println("fkdfdsjofjdsjfodsofjd");
+		
 		if(request.getRequestURI().contains("User")) { 
-			System.out.println(request.getRequestURI().contains("User"));
+			
 			if (request.getSession().getAttribute("sessSeqUser") != null) {
 				// by pas
 				
@@ -29,12 +29,12 @@ public class CheckLoginSessionInterceptor implements HandlerInterceptor{
 		
 //		관리자용
 		if(request.getRequestURI().contains("Xdm")) {
-			System.out.println("1");
+			
 			if (request.getSession().getAttribute("sessSeqXdm") != null) {
-				System.out.println("2");
+				
 				// by pass
 			} else {
-				System.out.println("3");
+				
 				response.sendRedirect("/SigninAdimn");
 		        return false;
 			}

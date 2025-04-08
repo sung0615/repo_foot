@@ -26,6 +26,11 @@
             <when test="shOption == 7">AND a.userEmail LIKE CONCAT('%',#{shValue},'%')</when>
             
         </choose>
+        
+        <choose>
+			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+ 			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose>
 		
 		
 		
@@ -68,6 +73,8 @@
 		    a.userEmail,
 		    a.userPassword,
 		    a.uDelMy,
+		    a.regDateTime,
+		    a.modDateTime,
 		    telecom.cdSeq AS telecomCdSeq,
 		    telecom.ifcdName AS telecomName,
 		    gender.cdSeq AS genderCdSeq,
@@ -106,14 +113,24 @@
 		<!-- 업데이트  -->
 	<update id="update">
 		UPDATE user SET	
-		    userName = #{userName},
-		    userGender = #{userGender},
+		   
 		    userNewsAgency = #{userNewsAgency},
 		    userPhoneNumber = #{userPhoneNumber},
-		    userBirthday = #{userBirthday},
-		    userId = #{userId},
+		   
+		   
 		    userEmail = #{userEmail},
-		    userPassword = #{userPassword}
+		   <!--  userPassword = #{userPassword}, -->
+		    modDateTime = NOW()  <!-- 현재 시간으로 업데이트 -->
+		WHERE 
+			suSeq = #{suSeq}
+	</update>
+	
+			<!-- my페이지 페스워드 업데이트  -->
+	<update id="updatePassword">
+		UPDATE user SET	
+		 
+		     userPassword = #{userPassword},
+		    modDateTime = NOW()  <!-- 현재 시간으로 업데이트 -->
 		WHERE 
 			suSeq = #{suSeq}
 	</update>
@@ -140,7 +157,9 @@
 		    userId,
 		    userEmail,
 		    userPassword,
-		    uDelMy
+		    uDelMy,
+	        regDateTime,
+	        modDateTime
 		) value (
 	
 		    #{userName},
@@ -151,7 +170,9 @@
 		    #{userId},
 		    #{userEmail},
 		    #{userPassword},
-		    0
+		    0,
+	        NOW(),
+	        NOW()
 		)
 			<selectKey resultType="String" keyProperty="suSeq" order="AFTER">
 			SELECT last_insert_id()
@@ -180,6 +201,18 @@
 			AND userPassword = #{userPassword}
 			
 		ORDER BY suSeq DESC
+		
+	</select>
+	
+	<select id="idDuplicate" resultType="Integer">
+			SELECT COUNT(*)
+			
+			FROM
+				user
+			WHERE 1=1
+			
+			AND userId = #{userId}
+			
 		
 	</select>
 	

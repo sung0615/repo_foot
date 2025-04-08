@@ -1,5 +1,9 @@
 package com.aaa000.demo.module.announcement;
 
+import java.sql.Date;
+
+import javax.xml.crypto.Data;
+
 public class AnnouncementVo {
 	
 //	paging
@@ -19,12 +23,19 @@ public class AnnouncementVo {
 //	search
 	private Integer shUseNy = 1; 									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer shDelNy = 0; 								/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
-	private Integer shOptionDate = 2;							/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
+	private Integer shOptionDate;							/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String shDateStart;
 	private String shDateEnd;
 	private Integer shOption;									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String shValue;
 //	-----
+//	검색 날짜
+	private Data regDateTime;
+	private Data modDateTime;
+//	----
+//	----
+	private Date shQptionDate;
+//	----
 	
 	public int getThisPage() {
 		return thisPage;
@@ -219,5 +230,29 @@ public class AnnouncementVo {
 
 	public void setShValue(String shValue) {
 		this.shValue = shValue;
+	}
+
+	public Data getRegDateTime() {
+		return regDateTime;
+	}
+
+	public void setRegDateTime(Data regDateTime) {
+		this.regDateTime = regDateTime;
+	}
+
+	public Data getModDateTime() {
+		return modDateTime;
+	}
+
+	public void setModDateTime(Data modDateTime) {
+		this.modDateTime = modDateTime;
+	}
+
+	public Date getShQptionDate() {
+		return shQptionDate;
+	}
+
+	public void setShQptionDate(Date shQptionDate) {
+		this.shQptionDate = shQptionDate;
 	}
 }

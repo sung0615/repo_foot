@@ -510,7 +510,7 @@
                                  <!-- <div class="position-absolute top-0 start-0">
                                     <span class="badge bg-danger">Sale</span>
                                  </div> -->
-                                 <a href="Detailed-page.html">
+                                 <a href="#">
                                     <!-- img -->
                                     <img src="/user/template/assets/images/products/라온구장 이미지.jpg"
                                        alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
@@ -540,18 +540,17 @@
                               </div>
                               <br>
                               <div>
-                                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
-                                 <label class="btn btn-outline-primary" for="btn-check-outlined">즐겨찾기</label>
-                                
-                              </div>
+						        <input type="checkbox" class="btn-check" th:id="'btn-check-' + ${list.fiSeq}" autocomplete="off">
+						        <label class="btn btn-outline-primary btn-sm px-2 py-1" th:for="'btn-check-' + ${list.fiSeq}">즐겨찾기</label>
+							 </div>
                               <!-- price -->
                               <div class="d-flex justify-content-between align-items-center mt-3">
                                  <div>
-                                    <span class="text-dark" th:text="${list.futsalPrice}"></span><span>원</span>
+                                   <span class="text-dark" th:text="${#numbers.formatInteger(list.futsalPrice, 3, 'COMMA')}"></span><span> 원</span>
                                     <!-- <span class="text-decoration-line-through text-muted">$24</span> -->
                                  </div>
                                  <!-- btn -->
-                                 <div>
+                                 <!-- <div>
                                     <a href="Detailed-page.html" class="btn btn-primary btn-sm">
                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -561,7 +560,7 @@
                                        </svg>
                                        예약하기
                                     </a>
-                                 </div>
+                                 </div> -->
                               </div>
                            </div>
                         </div>

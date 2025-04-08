@@ -1,5 +1,7 @@
 package com.aaa000.demo.module.codegroup;
 
+import java.sql.Date;
+
 public class CodeGroupDto {
 	
 	private String cdgSeq;
@@ -15,6 +17,10 @@ public class CodeGroupDto {
 //	-----
 	private Integer xifcdSeqCount; // 코드 그룹 갯수
 //	-----
+//	검색 날짜
+	private Date regDateTime;
+	private Date modDateTime;
+//	----
 	
 	
 	public String getCdgSeq() {
@@ -77,6 +83,19 @@ public class CodeGroupDto {
 	public void setXifcdSeqCount(Integer xifcdSeqCount) {
 		this.xifcdSeqCount = xifcdSeqCount;
 	}
+	public Date getRegDateTime() {
+		return regDateTime;
+	}
+	public void setRegDateTime(Date regDateTime) {
+		this.regDateTime = regDateTime;
+	}
+	public Date getModDateTime() {
+		return modDateTime;
+	}
+	public void setModDateTime(Date modDateTime) {
+		this.modDateTime = modDateTime;
+	}
+	
 	
 	
 	

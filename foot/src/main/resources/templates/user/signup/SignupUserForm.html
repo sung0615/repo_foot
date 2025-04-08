@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<form action="/SignupUserInst" method="post" id="form">
-<head>
+
+<head>       
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,7 +9,9 @@
   <title>Sign up eCommerce HTML Template - FreshCart</title>
   <!-- Favicon icon-->
   <link rel="shortcut icon" type="image/x-icon" href="/user/template/assets/images/favicon/favicon.ico">
-
+	
+  <!-- 달력 CSS 플러그인 추가 -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"/>
 
   <!-- Libs CSS -->
   <link href="/user/template/assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -22,6 +24,8 @@
 </head>
 
 <body>
+
+
   <!-- navigation -->
   <div class="border-bottom shadow-sm">
     <nav class="navbar navbar-light py-2">
@@ -39,7 +43,7 @@
 
   <main>
     <!-- section -->
-
+<form action="/SignupUserInst" method="post" id="form">
     <section class="my-lg-14 my-8">
       <!-- container -->
       <div class="container">
@@ -56,7 +60,7 @@
               <p>Now Futsal에 오신 것을 환영합니다! 시작하려면 이메일을 입력하세요</p>
             </div>
             <!-- form -->
-            <form class="needs-validation" novalidate>
+            
               <div class="row g-3">
                 <!-- col -->
                 <div class="col-8">
@@ -103,7 +107,7 @@
                   <!-- input -->
                   <label for="formSignuplname" class="form-label visually-hidden">아이디</label>
                   <input type="text" class="form-control" id="userId" name="userId" placeholder="아이디" required />
-                  <div id="userIdError" style="color: red; font-size: 10px;"></div>
+                  <div id="userIdError" style="color: red; font-size: 10px;" ></div>
                 </div>
                 <div class="col-12">
                   <!-- input -->
@@ -146,11 +150,12 @@
                   </small>
                 </p> -->
               </div>
-            </form>
+           
           </div>
         </div>
       </div>
     </section>
+ </form>
   </main>
 
   <!-- Footer -->
@@ -230,6 +235,8 @@
       </div>
     </div>
   </footer>
+  
+
   <!-- Javascript-->
   <!-- Libs JS -->
   <!-- <script src="../assets/libs/jquery/dist/jquery.min.js"></script> -->
@@ -243,199 +250,243 @@
 
   <script src="/user/template/assets/js/vendors/validation.js"></script>
   
-  <script type="text/javascript">
+  <!-- 달력 플러그인 추가 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
   
-  document.getElementById("btuSave").onclick = function() {
-	  
-	  let userName = document.getElementById("userName"); //이름 
-	  let userNameError = document.getElementById("userNameError"); //이름 잘못 입력 했을경우
-	  
-	  let userPhoneNumber = document.getElementById("userPhoneNumber"); //폰번호
-	  let userPhoneNumberError = document.getElementById("userPhoneNumberError"); //폰번호 잘못 입력 했을 경우
-	  
-	  let userBirthday = document.getElementById("userBirthday"); //생일
-	  let userBirthdayError = document.getElementById("userBirthdayError");//생일 잘못입력 했을 경우
-	  
-	  let userId = document.getElementById("userId"); //아이디
-	  let userIdError = document.getElementById("userIdError"); //아이디 잘못 입력 했을경우
-	  
-	  let userEmail = document.getElementById("userEmail"); //이메일
-	  let userEmailError = document.getElementById("userEmailError"); //이메일 잘못입력했을경우
-	  
-	  let userPassword = document.getElementById("userPassword"); // 비밀번호
-	  let userPasswordError = document.getElementById("userPasswordError");//비밀번호 잘못 입력 했을 경우
-	  
-	  let PasswordCheck = document.getElementById("PasswordCheck");//비밀번호 확인
-	  let PasswordCheckError = document.getElementById("PasswordCheckError");// 비밀번호 입력 잘못 했을 경우
-	  
-	  let userGender = document.getElementById("userGender");//성별 
-	  let userGenderError = document.getElementById("userGenderError"); // 성별 체크 안했을경우
-	  
-	  let userNewsAgency = document.getElementById("userNewsAgency"); //통신사
-	  let userNewsAgencyError = document.getElementById("userNewsAgencyError");//통신사 체크 안했을 경우
-	  
-	  let isValid = true;
-	  
-	  
-	  //이름 필드 검증
-	  if (userName.value.trim() == "") {
-		  userNameError.innerText = "이름을 입력하세요";
-		  userName.classList.add("is-invalid");
-          userName.classList.remove("is-valid");
-		  userName.focus();
-	      isValid = false;
+  <script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+  
+  
+<script type="text/javascript">
+	// 베리데이션
+	// 이름
+	function validateName() {
+		let name = document.getElementById("userName");
+		let error = document.getElementById("userNameError");
+	  if (name.value.trim() === "") {
+	    error.innerText = "이름을 입력하세요";
+	    name.classList.add("is-invalid");
+	    name.classList.remove("is-valid");
+	    return false;
 	  } else {
-		  userNameError.innerText = "";
-		  userName.classList.add("is-valid");
-          userName.classList.remove("is-invalid");
+	    error.innerText = "";
+	    name.classList.remove("is-invalid");
+	    name.classList.add("is-valid");
+	    return true;
 	  }
-	  
-	  // 성별 입력 검증
-	  if (userNewsAgency.value.trim() == ""){
-		  userNewsAgencyError.innerText = "통신사를 정해주세요";
-		  userNewsAgency.classList.add("is-invalid");
-		  userNewsAgency.classList.remove("is-valid");
-		  userNewsAgency.focus();
-		  isValid = false;
+	}
+	// 폰번호
+	function validatePhone() {
+		let phone = document.getElementById("userPhoneNumber");
+		let error = document.getElementById("userPhoneNumberError");
+		let pattern = /^[0-9]{10,11}$/;
+	  if (phone.value.trim() === "") {
+	    error.innerText = "휴대폰 번호를 입력하세요";
+	    phone.classList.add("is-invalid");
+	    return false;
+	  } else if (!pattern.test(phone.value.trim())) {
+	    error.innerText = "휴대폰 번호는 숫자 10~11자리로 입력하세요";
+	    phone.classList.add("is-invalid");
+	    return false;
 	  } else {
-		  userNewsAgencyError.innerText = "";
-		  userNewsAgency.classList.add("is-valid");
-		  userNewsAgency.classList.remove("is-invalid");
+	    error.innerText = "";
+	    phone.classList.remove("is-invalid");
+	    phone.classList.add("is-valid");
+	    return true;
 	  }
-	  
-	// 통신사 입력 검증
-	  if (userGender.value.trim() == ""){
-		  userGenderError.innerText = "통신사를 정해주세요";
-		  userGender.classList.add("is-invalid");
-		  userGender.classList.remove("is-valid");
-		  userGender.focus();
-		  isValid = false;
+	}
+	// 생일
+	function validateBirthday() {
+	  let birthday = document.getElementById("userBirthday");
+	  let error = document.getElementById("userBirthdayError");
+	  let pattern = /^\d{4}-\d{2}-\d{2}$/;
+	  if (birthday.value.trim() === "") {
+	    error.innerText = "생년월일을 입력하세요 (예: 1999-06-15)";
+	    birthday.classList.add("is-invalid");
+	    birthday.classList.remove("is-valid");
+	    return false;
+	  } else if (!pattern.test(birthday.value.trim())) {
+	    error.innerText = "올바른 형식으로 입력하세요 (YYYY-MM-DD)";
+	    birthday.classList.add("is-invalid");
+	    birthday.classList.remove("is-valid");
+	    return false;
 	  } else {
-		  userGenderError.innerText = "";
-		  userGender.classList.add("is-valid");
-		  userGender.classList.remove("is-invalid");
+	    error.innerText = "";
+	    birthday.classList.remove("is-invalid");
+	    birthday.classList.add("is-valid");
+	    return true;
 	  }
-	  
-	  
-	  
-	  // 폰번호 입력 검증
-	  if (userPhoneNumber.value.trim() == ""){
-		  userPhoneNumberError.innerText = "폰번호 입력하세요";
-		  userPhoneNumber.classList.add("is-invalid");
-		  userPhoneNumber.classList.remove("is-valid");
-		  userPhoneNumber.focus();
-		  isValid = false;
-	  }else {
-		  userPhoneNumberError.innerText = "";
-		  userPhoneNumber.classList.remove("is-invalid");
-		  userPhoneNumber.classList.add("is-valid");
-		  
-	  }
-	  
-	 
-	// 생년월일 입력 검증
-	  let birthdayPattern = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD 형식
-	  if (userBirthday.value.trim() === "") {
-	      userBirthdayError.innerText = "생년월일을 입력하세요 (예: 1999-06-15)";
-	      userBirthday.classList.add("is-invalid");
-	      userBirthday.classList.remove("is-valid");
-	      userBirthday.focus();
-	      isValid = false;
-	  } else if (!birthdayPattern.test(userBirthday.value.trim())) {
-	      userBirthdayError.innerText = "올바른 형식으로 입력하세요 (YYYY-MM-DD)";
-	      userBirthday.classList.add("is-invalid");  // 잘못된 입력 시 is-invalid 유지
-	      userBirthday.classList.remove("is-valid");
-	      userBirthday.focus();
-	      isValid = false;
-	  } else {
-	      userBirthdayError.innerText = "";
-	      userBirthday.classList.remove("is-invalid"); 
-	      userBirthday.classList.add("is-valid"); // 올바르게 입력된 경우 is-valid 적용
-	  }
-	  
-	// 아이디 입력 검증
-	  if (userId.value.trim() === "") {
-	      userIdError.innerText = "아이디를 입력하세요";
-	      userId.classList.add("is-invalid");
-	      userId.classList.remove("is-valid");
-	      userId.focus();
-	      isValid = false;
-	  } else {
-	      userIdError.innerText = "";
-	      userId.classList.remove("is-invalid");
-	      userId.classList.add("is-valid"); 
-	  }
-	  
-	// 이메일 입력 검증
-	  let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 이메일 형식 검증 정규식
-
-	  if (userEmail.value.trim() === "") {
-	      userEmailError.innerText = "이메일을 입력하세요";
-	      userEmail.classList.add("is-invalid");
-	      userEmail.classList.remove("is-valid");
-	      userEmail.focus();
-	      isValid = false;
-	  } else if (!emailPattern.test(userEmail.value.trim())) { 
-	      userEmailError.innerText = "올바른 이메일 형식이 아닙니다 (예: example@email.com)";
-	      userEmail.classList.add("is-invalid");
-	      userEmail.classList.remove("is-valid");
-	      userEmail.focus();
-	      isValid = false;
-	  } else {
-	      userEmailError.innerText = "";
-	      userEmail.classList.remove("is-invalid");
-	      userEmail.classList.add("is-valid"); 
-	  }
+	}
+	// 아아디 벨리데이션 중복 확인
+	function validateId() {
+		  let userId = $("#userId").val().trim();
+		  let userIdInput = $("#userId");
+		  let userIdError = $("#userIdError");
 	
+		  if (userId === "") {
+		    userIdError.text("아이디를 입력하세요.");
+		    userIdInput.removeClass("is-valid").addClass("is-invalid");
+		    return false;
+		  }
 	
+		 /*  let result = false; */
 	
-	  // 비밀번호 입력 검증
-	  if (userPassword.value.trim() === "") {
-		    userPasswordError.innerText = "비밀번호를 입력하세요";
-		    userPassword.classList.add("is-invalid");
-		    userPassword.classList.remove("is-valid");
-		    userPassword.focus();
-		    isValid = false;
-		} else {
-		    userPasswordError.innerText = "";
-		    userPassword.classList.remove("is-invalid");
-		    userPassword.classList.add("is-valid");
+		  $.ajax({
+		    type: "post",
+		    url: "/SignupUserForm1",
+		    data: { "userId": userId },
+		    async: false,  
+		    success: function (response) {
+		      if (response.count > 0) {
+		        userIdError.text("중복된 아이디입니다.");
+		        userIdInput.removeClass("is-valid").addClass("is-invalid");
+		        result = false;
+		      } else {
+		        userIdError.text("");
+		        userIdInput.removeClass("is-invalid").addClass("is-valid");
+		        result = true;
+		      }
+		    },
+		    
+		  });
+	
+		  return false;
 		}
 
-	// 비밀번호 확인 검증
-	  if (PasswordCheck.value.trim() === "") {
-	      PasswordCheckError.innerText = "비밀번호 확인을 입력하세요";
-	      PasswordCheck.classList.add("is-invalid");
-	      PasswordCheck.classList.remove("is-valid");
-	      PasswordCheck.focus();
-	      isValid = false;
-	  } else if (PasswordCheck.value.trim() !== userPassword.value.trim()) {
-	      PasswordCheckError.innerText = "비밀번호가 일치하지 않습니다";
-	      PasswordCheck.classList.add("is-invalid");
-	      PasswordCheck.classList.remove("is-valid");
-	      PasswordCheck.focus();
-	      isValid = false;
+
+
+
+
+
+
+	// 이메일
+	function validateEmail() {
+		let email = document.getElementById("userEmail");
+		let error = document.getElementById("userEmailError");
+		let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	  if (email.value.trim() === "") {
+	    error.innerText = "이메일을 입력하세요";
+	    email.classList.add("is-invalid");
+	    email.classList.remove("is-valid");
+	    return false;
+	  } else if (!pattern.test(email.value.trim())) {
+	    error.innerText = "올바른 이메일 형식이 아닙니다 (예: example@email.com)";
+	    email.classList.add("is-invalid");
+	    email.classList.remove("is-valid");
+	    return false;
 	  } else {
-	      PasswordCheckError.innerText = "";
-	      PasswordCheck.classList.remove("is-invalid");
-	      PasswordCheck.classList.add("is-valid");
+	    error.innerText = "";
+	    email.classList.remove("is-invalid");
+	    email.classList.add("is-valid");
+	    return true;
 	  }
+	}
+	// 비밀번호
+	function validatePassword() {
+		let pw = document.getElementById("userPassword");
+		let error = document.getElementById("userPasswordError");
+	  if (pw.value.trim() === "") {
+	    error.innerText = "비밀번호를 입력하세요";
+	    pw.classList.add("is-invalid");
+	    pw.classList.remove("is-valid");
+	    return false;
+	  } else {
+	    error.innerText = "";
+	    pw.classList.remove("is-invalid");
+	    pw.classList.add("is-valid");
+	    return true;
+	  }
+	}
+	// 비밀번호 확인
+	function validatePasswordCheck() {
+		let pw = document.getElementById("userPassword");
+		let check = document.getElementById("PasswordCheck");
+		let error = document.getElementById("PasswordCheckError");
+	  if (check.value.trim() === "") {
+	    error.innerText = "비밀번호 확인을 입력하세요";
+	    check.classList.add("is-invalid");
+	    check.classList.remove("is-valid");
+	    return false;
+	  } else if (check.value.trim() !== pw.value.trim()) {
+	    error.innerText = "비밀번호가 일치하지 않습니다";
+	    check.classList.add("is-invalid");
+	    check.classList.remove("is-valid");
+	    return false;
+	  } else {
+	    error.innerText = "";
+	    check.classList.remove("is-invalid");
+	    check.classList.add("is-valid");
+	    return true;
+	  }
+	}
+	// 성별
+	function validateGender() {
+		let gender = document.getElementById("userGender");
+		let error = document.getElementById("userGenderError");
+	  if (gender.value.trim() === "") {
+	    error.innerText = "성별을 선택하세요";
+	    gender.classList.add("is-invalid");
+	    gender.classList.remove("is-valid");
+	    return false;
+	  } else {
+	    error.innerText = "";
+	    gender.classList.remove("is-invalid");
+	    gender.classList.add("is-valid");
+	    return true;
+	  }
+	}
 	
+	// 통신사
+	function validateAgency() {
+		let agency = document.getElementById("userNewsAgency");
+		let error = document.getElementById("userNewsAgencyError");
+	  if (agency.value.trim() === "") {
+	    error.innerText = "통신사를 선택하세요";
+	    agency.classList.add("is-invalid");
+	    agency.classList.remove("is-valid");
+	    return false;
+	  } else {
+	    error.innerText = "";
+	    agency.classList.remove("is-invalid");
+	    agency.classList.add("is-valid");
+	    return true;
+	  }
+	}
+
+	// 이벤트 연결: 각 필드에 포커스가 빠질 때 벨리데이션 실행 (탭 키 등으로 이동 시)
+	window.onload = function () {
+	  document.getElementById("userName").addEventListener("blur", validateName); //이름
+	  document.getElementById("userPhoneNumber").addEventListener("blur", validatePhone); //번호
+	  document.getElementById("userBirthday").addEventListener("blur", validateBirthday); //생일
+	  document.getElementById("userId").addEventListener("blur", validateId); //아이디
+	  document.getElementById("userEmail").addEventListener("blur", validateEmail); //이메일
+	  document.getElementById("userPassword").addEventListener("blur", validatePassword); //비밀번호
+	  document.getElementById("PasswordCheck").addEventListener("blur", validatePasswordCheck); //비밀번호확인
+	  document.getElementById("userGender").addEventListener("blur", validateGender); //성별
+	  document.getElementById("userNewsAgency").addEventListener("blur", validateAgency); //통신사
+	}
+
+	// 저장 버튼 클릭 시 전체 검증
+	document.getElementById("btuSave").onclick = function () {
+	  let isValid =
+	    validateName() & //이름 벨리데이션
+	    validatePhone() & //폰번호
+	    validateBirthday() & //생일
+	    validateId() &     //아이디
+	    validateEmail() & //이메일
+	    validatePassword() & //비밀번호
+	    validatePasswordCheck() & //비밀번호 체크
+	    validateGender() & //성별
+	    validateAgency(); // 통신사
 	
-	  
-	  
-	  
-	  
-	  // 데이터 값이 있을 경우 폼 제출
-      if (isValid) {
-          document.getElementById("form").submit();
-      }
-	  
-	  
-  }
+	  if (isValid) {
+	    document.getElementById("form").submit();
+	  }
+	}
+
+</script>
+
   
-  </script> 
   
 </body>
-</form>
+
 </html>

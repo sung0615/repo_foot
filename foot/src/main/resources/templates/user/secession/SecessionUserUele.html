@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{user/include/head :: head}"></div>
-
+<form action="/SecessionUele" method="get" id="form">
 	<!-- Modal -->
 	<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -475,28 +475,32 @@
 
 
 								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+								<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnUelete">
 									계정 탈퇴
 								</button>
 								
-								<!-- Modal -->
-								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-										<h1 class="modal-title fs-5" id="exampleModalLabel">계정 삭제</h1>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body">
-										계정을 탈퇴하시겠습니까?
-										</div>
-										<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
-										<button type="button" class="btn btn-primary">삭제</button>
+								<!-- 삭제 모달 -->
+									<div class="modal fade" id="modalConfirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+													<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">??</button> -->
+												</div>
+												<div class="modal-body" id="modalConfirmBody">
+													body
+												</div>
+												<div class="modal-footer">
+													<!-- <button type="button" class="btn btn-outline-secondary btn-sm btn_custom" data-bs-dismiss="modal"></button> -->
+													<!-- <button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalDelete">영구삭제</button> -->
+												<button type="button" class="btn btn-sm btn_custom" data-bs-dismiss="modal">닫기</button> 
+												<button type="button" class="btn btn-danger btn-sm btn_custom" name="" id="btnModalUelete">삭제</button>
+												</div>
+											</div>
 										</div>
 									</div>
-									</div>
-								</div>
+											
+								<!-- 삭제모달 AND -->  
 							</div>
 						</div>
 					</div>
@@ -679,6 +683,7 @@
 			</div>
 		</div>
 	</footer>
+</form>
 	<!-- Javascript-->
 	<!-- Libs JS -->
 	<!-- <script src="/user/template/assets/libs/jquery/dist/jquery.min.js"></script> -->
@@ -688,6 +693,26 @@
 	<!-- Theme JS -->
 	<script src="/user/template/assets/js/theme.min.js"></script>
 
+   <script type="text/javascript">
+    
+		if(document.getElementById("btnUelete")){
+			document.getElementById("btnUelete").onclick = function () {
+				document.querySelector("#modalConfirmTitle").textContent = "확 인";
+				document.querySelector("#modalConfirmBody").textContent = "계정 탈퇴 하시겠습니까 ?";
+				document.querySelector("#btnModalUelete").style.display = '';
+				/* document.querySelector("#btnModalDelete").style.display = 'none'; */
+				$("#modalConfirm").modal("show");      	
+			}
+		}
+		
+		
+		document.getElementById("btnModalUelete").onclick = function () {
+			form.action = "/SigninUser";
+			form.submit();
+		}
+    
+    
+    </script>
 </body>
 
 </html>

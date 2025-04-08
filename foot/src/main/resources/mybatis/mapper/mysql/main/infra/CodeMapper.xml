@@ -17,12 +17,12 @@
 		<!-- 삭제 여부 선택 -->
         <if test="shDelNy != null and !shDelNy.equals('')">AND ifcdDelNy = #{shDelNy}</if>
         
-<!-- 				
+ 				
 				<choose>
 					<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 					<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 				</choose>
- -->				
+				
         <choose>
         	<when test="shOption == 1">AND a.codeGroup_cdgSeq = #{shValue}</when> 
             <when test="shOption == 2">AND b.ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
@@ -58,6 +58,7 @@
 		    
 		 	
 			ORDER BY cdSeq DESC
+			
 			limit #{rowNumToShow} offset #{startRnumForMysql} 
 	
 	</select>
@@ -66,13 +67,17 @@
 		INSERT INTO code(
 			ifcdName,
 		    codeGroup_cdgSeq,
-		    ifcdDelNy
+		    ifcdDelNy,
+	        regDateTime,
+	        modDateTime
 		    
 		    
 		) value (
 			#{ifcdName},
 		    #{codeGroup_cdgSeq},
-		    0
+		    0,
+	        NOW(),
+	        NOW()
 		)
 	  
 	  <selectKey resultType="String" keyProperty="cdSeq" order="AFTER">
@@ -102,7 +107,8 @@
 	<!-- 업데이트 -->
 	<update id="update">
 		UPDATE code SET
-			ifcdName = #{ifcdName}
+			ifcdName = #{ifcdName},
+			modDateTime = NOW()  <!-- 현재 시간으로 업데이트 -->
 		WHERE
 			cdSeq = #{cdSeq}
 	

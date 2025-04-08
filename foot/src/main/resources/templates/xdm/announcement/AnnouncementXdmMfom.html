@@ -37,14 +37,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                 <div class="col-sm-6">
+                                <!--  <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" class="form-control" placeholder="작성 날짜 입력 예)2025-03-03" id="creationDate" name="creationDate" th:value="${item?.creationDate}"/>
                                         	<span id="creationDateError" style="color: red; font-size: 10px;"></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 
                                 
                             </div>
@@ -204,8 +204,7 @@
 		let detail = document.getElementById("detail"); //풋살장 공지사항 제목 
 		let detailError = document.getElementById("detailError");//풋살장 공지사항 제목  잘못 입력 했을 경우
 		
-		let creationDate = document.getElementById("creationDate"); //풋살장 공지사항 등록일
-		let creationDateError = document.getElementById("creationDateError");//풋살장 공지사항 등록일 잘못 입력 했을 경우
+		
 		
 		let title = document.getElementById("title"); //풋살장 공지사항 내용
 		let titleError = document.getElementById("titleError");//풋살장 공지사항 내용 잘못 입력 했을 경우
@@ -231,18 +230,11 @@
 			detailError.innerText = "";
 		}
 		
-		//공지사항 등록일 검증
-		if (creationDate.value == ""){
-			creationDateError.innerText = "등록일 입력해주세요";
-			creationDate.focus();
-			isValid = false;
-		} else {
-			creationDateError.innerText = "";
-		}
+		
 		
 		//공지사항 내용 검증
 		if (title.value == ""){
-			titleError.innerText = "등록일 입력해주세요";
+			titleError.innerText = "내용을 입력해주세요";
 			title.focus();
 			isValid = false;
 		} else {

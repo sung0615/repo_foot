@@ -1,5 +1,6 @@
 package com.aaa000.demo.module.code;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,12 @@ public class CodeDto {
 	private String cdgSeq;// 코드 그룹 Seq;
 //	-----
 //	for cache
+//	검색 날짜
+	private Date regDateTime;
+	private Date modDateTime;
+//	----
+	
+	
 	
 	public static List<CodeDto> cachedCodeArrayList = new ArrayList<CodeDto>();
 	
@@ -62,6 +69,18 @@ public class CodeDto {
 	}
 	public void setCdgSeq(String cdgSeq) {
 		this.cdgSeq = cdgSeq;
+	}
+	public Date getRegDateTime() {
+		return regDateTime;
+	}
+	public void setRegDateTime(Date regDateTime) {
+		this.regDateTime = regDateTime;
+	}
+	public Date getModDateTime() {
+		return modDateTime;
+	}
+	public void setModDateTime(Date modDateTime) {
+		this.modDateTime = modDateTime;
 	}
 	
 	

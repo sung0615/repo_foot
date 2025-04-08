@@ -33,7 +33,7 @@
                                             </select>
                                             
                                         </div>
-                                        <!-- <div class="col-sm-2">
+                                        <!--  <div class="col-sm-2">
                                             <select class="form-control show-tick ">
                                                 <option value="">Y</option>
                                                 <option value="1">10</option>
@@ -41,29 +41,33 @@
                                                
                                             </select>
                                             
-                                        </div>
+                                        </div> -->
                                         <div class="col-sm-2">
-                                            <select class="form-control show-tick ">
-                                                <option value="">날짜</option>
-                                                <option value="2">등록일</option>
-                                                <option value="3">수정일</option>    
+                                            <select class="form-control show-tick " id="shOptionDate" name="shOptionDate">
+                                                <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                                                <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
+                                                <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>    
                                             </select>
                                             
                                         </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" placeholder="2025-01-05" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <input type="text" class="form-control" placeholder="2025-02-04" />
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                         <div class="col-sm-2">
+										    <div class="form-group">
+										        <div class="form-line">
+										            <input type="text" class="form-control" 
+										                   th:value="${vo.shDateStart != null && #strings.length(vo.shDateStart) >= 10 ? #strings.substring(vo.shDateStart, 0, 10) : vo.shDateStart}"
+										                   id="shDateStart" name="shDateStart" placeholder="시작일" autocomplete="off"/>
+										        </div>
+										    </div>
+										</div>
+										<div class="col-sm-2">
+										    <div class="form-group">
+										        <div class="form-line">
+										            <input type="text" class="form-control" 
+										                   th:value="${vo.shDateEnd != null && #strings.length(vo.shDateEnd) >= 10 ? #strings.substring(vo.shDateEnd, 0, 10) : vo.shDateEnd}"
+										                   id="shDateEnd" name="shDateEnd" placeholder="종료일" autocomplete="off"/>
+										        </div>
+										    </div>
+										</div>
                                         
 
                                     </div>
@@ -81,7 +85,7 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" class="form-control" placeholder="검색어" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()"/>
-                                               		<span id="shValueError" style="color: red; font-size: 10px;"></span>
+                                               		
                                                 </div>
                                             </div>
                                         </div>
@@ -91,7 +95,7 @@
                                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                                                   </svg>
                                             </button>
-                                            <button type="button" class="btn btn-default waves-effect">
+                                            <button type="button" class="btn btn-default waves-effect" id="btnReset">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
                                                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
@@ -138,7 +142,8 @@
                                             
                                             <th>작성자</th>
                                             <th>공지사항 제목</th>
-                                            <th>작성 날짜</th>
+                                            <th>등록일</th>
+                                            <th>수정일</th>
                                             
                                         </tr>
                                     </thead>
@@ -160,14 +165,15 @@
                                                 <nav aria-label="breadcrumb">
                                                     <ol class="breadcrumb">
                                                         <li class="breadcrumb-item">
-                                                            <a th:href= "@{/AnnouncementXdmMfom(annoSeq=${list.annoSeq})}"  style="color: blue;" th:text="${list.title}">
+                                                            <a th:href= "@{/AnnouncementXdmMfom(annoSeq=${list.annoSeq})}"  style="color: blue;" th:text="${list.detail}">
                                                                 
                                                             </a>
                                                         </li>
                                                     </ol>
                                                 </nav>
                                             </td>
-                                            <td th:text="${list.creationDate}"></td>
+                                            <td th:text="${list.regDateTime}"></td>
+                                            <td th:text="${list.modDateTime}"></td>
                                             
                                           
                                             
@@ -264,9 +270,16 @@
 
     <!-- Demo Js -->
     <script src="/xdm/template/master/js/demo.js"></script>
+        <!-- 달력 플러그인 추가 -->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
     <!--체크박스 전체 체크 단독 체크-->
     <script>
+    document.getElementById("btnReset").onclick = function () {
+ 		  window.location.href = "/AnnouncementXdmList";
+ 		};
+    
         document.addEventListener("DOMContentLoaded", function () {
             const entireCheckbox = document.getElementById("entire");
             const rowCheckboxes = document.querySelectorAll(".row-checkbox");
@@ -306,31 +319,40 @@
 	 /* 검색 */
   	document.getElementById("btnSearch").onclick = function () {
   	    
-  		let shValue = document.getElementById("shValue");// 검색어 
-		let shValueError = document.getElementById("shValueError");// 검색어  입력 안했을 경우
-		 
-		 let isValid = true;
-		 
-		 
-		 
-		 if (shValue.value.trim() == "") {
-			 shValueError.innerText = "검색어를 입력해주세요";
-            ifcdName.focus();
-            isValid = false;
-        } else {
-       	 shValueError.innerText = "";
-        }
-		 
-		 
-		// 데이터 값이 있을 경우 폼 제출
-        if (isValid) {
-       	 form.action = "/codeGroup/codeGroupXdmList";
+  		
+       	 form.action = "/AnnouncementXdmList";
 	        form.submit(); 
-        }
+        
         
 	        
 	    
   	};
+    </script>
+    
+             <script type="text/javascript">
+    //달력 
+    $.datetimepicker.setLocale('ko'); //번역기
+    jQuery(function(){
+    	 jQuery('#shDateStart').datetimepicker({
+    	  format:'Y/m/d',
+    	  onShow:function( ct ){
+    	   this.setOptions({
+    	    maxDate:jQuery('#shDateEnd').val()?jQuery('#shDateEnd').val():false
+    	   })
+    	  },
+    	  timepicker:false
+    	 });
+    	 jQuery('#shDateEnd').datetimepicker({
+    	  format:'Y/m/d',
+    	  onShow:function( ct ){
+    	   this.setOptions({
+    	    minDate:jQuery('#shDateStart').val()?jQuery('#shDateStart').val():false
+    	   })
+    	  },
+    	  timepicker:false
+    	 });
+    	});
+    
     </script>
    
 </body>

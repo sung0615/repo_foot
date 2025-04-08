@@ -1,5 +1,7 @@
 package com.aaa000.demo.user.user;
 
+import java.sql.Date;
+
 public class UserDto {
 	
 	private String suSeq; //사용자 Seq
@@ -28,6 +30,10 @@ public class UserDto {
 //	----
 	private String cdgSeq;
 	private String ifcgName;
+//	----
+//	검색 날짜
+	private Date regDateTime;
+	private Date modDateTime;
 //	----
 	
 	public String getSuSeq() {
@@ -149,6 +155,18 @@ public class UserDto {
 	}
 	public void setIfcgName(String ifcgName) {
 		this.ifcgName = ifcgName;
+	}
+	public Date getRegDateTime() {
+		return regDateTime;
+	}
+	public void setRegDateTime(Date regDateTime) {
+		this.regDateTime = regDateTime;
+	}
+	public Date getModDateTime() {
+		return modDateTime;
+	}
+	public void setModDateTime(Date modDateTime) {
+		this.modDateTime = modDateTime;
 	}
 	
 	

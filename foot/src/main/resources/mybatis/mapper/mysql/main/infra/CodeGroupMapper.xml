@@ -16,11 +16,11 @@
 		<if test= "shDelNy != null and !shDelNy.equals('')">AND ifchDelNy = #{shDelNy}</if>
 			
 			
-						
-				<!-- <choose>
-					<when test="shOptionDate == 1">AND regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-					<when test="shOptionDate == 2">AND modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-				</choose> -->
+			<!-- 날짜 검색 -->			
+		<choose>								
+			<when test="shOptionDate == 1">AND regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 2">AND modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose> 
  
 		
 		 <choose>
@@ -28,6 +28,9 @@
             <when test="shOption == 2">AND ifcgName LIKE CONCAT('%',#{shValue},'%')</when>
             <when test="shOption == 3">AND ifcgNameEng LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
+        
+        
+        
 		
 		
 			
@@ -35,7 +38,8 @@
 	
 	<update id="update">
 		UPDATE codegroup SET
-			ifcgName = #{ifcgName}
+			ifcgName = #{ifcgName},
+			modDateTime = NOW()  <!-- 현재 시간으로 업데이트 -->
 		WHERE
 			cdgSeq = #{cdgSeq}
 			
@@ -81,7 +85,9 @@
 			gender,
 			usedOrNot,
 			registration,
-			correction
+			correction,
+	        regDateTime,
+	        modDateTime
 			
 			
 		) value (
@@ -91,7 +97,9 @@
 			#{gender},
 			#{usedOrNot},
 			#{registration},
-			#{correction}
+			#{correction},
+	        NOW(),
+	        NOW()
 		
 		)
 		 <!-- <include refid="selectCommon"></include>  -->

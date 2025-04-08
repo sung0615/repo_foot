@@ -1,5 +1,9 @@
 package com.aaa000.demo.module.codegroup;
 
+import java.sql.Date;
+
+import javax.xml.crypto.Data;
+
 public class CodeGroupVo {
 	
 //	paging
@@ -21,12 +25,19 @@ public class CodeGroupVo {
 //	search
 	private Integer shUseNy = 1; 									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer shDelNy = 0; 								/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
-	private Integer shOptionDate = 2;							/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
+	private Integer shOptionDate;							/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String shDateStart;
 	private String shDateEnd;
 	private Integer shOption;									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private String shValue;
 //	-----
+	
+//	검색 날짜
+	private Data regDateTime;
+	private Data modDateTime;
+//	----
+	private Date shQptionDate;
+//	----
 	
 	
 	public int getThisPage() {
@@ -149,19 +160,21 @@ public class CodeGroupVo {
 		
 		
 		
-		System.out.println("getThisPage():" + getThisPage());
-		System.out.println("getTotalRows():" + getTotalRows());
-		System.out.println("getRowNumToShow():" + getRowNumToShow());
-		System.out.println("getTotalPages():" + getTotalPages());
-		System.out.println("getStartPage():" + getStartPage());
-		System.out.println("getEndPage():" + getEndPage());		
+//		System.out.println("getThisPage():" + getThisPage());
+//		System.out.println("getTotalRows():" + getTotalRows());
+//		System.out.println("getRowNumToShow():" + getRowNumToShow());
+//		System.out.println("getTotalPages():" + getTotalPages());
+//		System.out.println("getStartPage():" + getStartPage());
+//		System.out.println("getEndPage():" + getEndPage());		
 //		System.out.println("getStartRnumForOracle():" + getStartRnumForOracle());
 //		System.out.println("getEndRnumForOracle():" + getEndRnumForOracle());
 //		System.out.println("getStartRnumForMysql(): " + getStartRnumForMysql());
 		
 	}
 
-
+	
+	
+	
 
 	public Integer getShUseNy() {
 		return shUseNy;
@@ -225,5 +238,29 @@ public class CodeGroupVo {
 
 	public void setCdgSeq(String cdgSeq) {
 		this.cdgSeq = cdgSeq;
+	}
+
+	public Data getRegDateTime() {
+		return regDateTime;
+	}
+
+	public void setRegDateTime(Data regDateTime) {
+		this.regDateTime = regDateTime;
+	}
+
+	public Data getModDateTime() {
+		return modDateTime;
+	}
+
+	public void setModDateTime(Data modDateTime) {
+		this.modDateTime = modDateTime;
+	}
+
+	public Date getShQptionDate() {
+		return shQptionDate;
+	}
+
+	public void setShQptionDate(Date shQptionDate) {
+		this.shQptionDate = shQptionDate;
 	}
 }

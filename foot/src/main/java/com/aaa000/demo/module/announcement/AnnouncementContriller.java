@@ -54,6 +54,7 @@ public class AnnouncementContriller {
 	//등록후 관리자 리스트에 보여주리
 	@RequestMapping(value="/AnnouncementInst")
 	public String AnnouncementInst(AnnouncementDto announcementDto) {
+		
 		announcementService.insert(announcementDto);
 		
 		return "redirect:/AnnouncementXdmList";
@@ -68,6 +69,7 @@ public class AnnouncementContriller {
 	//수정한 데이터를 리스트에 화면으로 옴겨야됨
 	@RequestMapping(value="/AnnouncementUpdt")
 	public String AnnouncementUpdt (AnnouncementDto announcementDto) {
+		
 		announcementService.update(announcementDto);
 		
 		return "redirect:/AnnouncementXdmList";

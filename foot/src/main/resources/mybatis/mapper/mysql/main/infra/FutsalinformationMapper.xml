@@ -19,25 +19,41 @@
 		    a.futsalFacilityUsageRules,
 		    a.futsalCancellationPolicy,
 		    a.fiDelMy,
+		    a.regDateTime,
+		    a.modDateTime,
 		    region.cdSeq AS regionCdSeq,
 		    region.ifcdName AS regionName
+		   
 		  
 		FROM
 			futsalinformation a
 			LEFT JOIN code region ON a.futsalRegion = region.cdSeq
 		WHERE 1=1
 			<if test="shDelNy != null and !shDelNy.equals('')">AND a.fiDelMy = #{shDelNy}</if>
-			<if test="shValue != null and !shValue.equals('')">
+			<!-- <if test="shValue != null and !shValue.equals('')">
 			    AND a.futsalName LIKE CONCAT('%', #{shValue}, '%')
-			</if>
+			</if> -->
 			
 			<choose>
            	    <when test="shOption == 1">AND a.futsalName LIKE CONCAT('%',#{shValue},'%')</when>
             	<when test="shOption == 2">AND a.futsalAddress LIKE CONCAT('%',#{shValue},'%')</when>
          	    <when test="shOption == 3">AND a.futsalPrice LIKE CONCAT('%',#{shValue},'%')</when>
-         	    
+         	    <when test="shOption == 4">
+			        AND a.futsalRegion = (
+			            CASE 
+			                WHEN #{shValue} = '서울' THEN 8
+			                WHEN #{shValue} = '경기' THEN 9
+			                ELSE -1  <!-- 매칭 안 될 경우 검색 안 되게 함 -->
+			            END
+			        )
+			    </when>
          	    
       		</choose>
+      			<!-- 날짜 검색 -->			
+		<choose>								
+			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose> 
 				AND fiDelMy = 0  
 			 
 			
@@ -67,7 +83,9 @@
 			futsalBusinessHours,
 			futsalFacilityUsageRules,
 			futsalCancellationPolicy,
-			fiDelMy
+			fiDelMy,
+	        regDateTime,
+	        modDateTime
 		
 		
 		) value (
@@ -79,7 +97,9 @@
 			#{futsalBusinessHours},
 			#{futsalFacilityUsageRules},
 			#{futsalCancellationPolicy},
-			0
+			0,
+	        NOW(),
+	        NOW()
 		)
 		
 		  <selectKey resultType="String" keyProperty="fiSeq" order="AFTER">
@@ -92,12 +112,18 @@
 	UPDATE futsalinformation SET
 		futsalName = #{futsalName},
 		futsalPrice = #{futsalPrice},
-		futsalRegion = #{futsalRegion},
+		futsalRegion = 
+            CASE 
+                WHEN #{futsalRegion} = '서울' THEN 8
+                WHEN #{futsalRegion} = '경기' THEN 9
+                ELSE #{futsalRegion}  <!-- 숫자면 그대로 저장 -->
+            END,
 		futsalAddress = #{futsalAddress},
 		futsalPhoneNumbar = #{futsalPhoneNumbar},
 		futsalBusinessHours = #{futsalBusinessHours},
 		futsalFacilityUsageRules = #{futsalFacilityUsageRules},
-		futsalCancellationPolicy = #{futsalCancellationPolicy}
+		futsalCancellationPolicy = #{futsalCancellationPolicy},
+		 modDateTime = NOW()  <!-- 현재 시간으로 업데이트 -->
 	WHERE
 		fiSeq = #{fiSeq}
 	

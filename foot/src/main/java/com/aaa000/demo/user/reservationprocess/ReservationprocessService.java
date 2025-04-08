@@ -12,8 +12,8 @@ public class ReservationprocessService {
 	ReservationprocessDao reservationprocessDao;
 	
 	// 리스트 보여주기
-	public List<ReservationprocessDto> selectList(){
-		return reservationprocessDao.selectList();
+	public List<ReservationprocessDto> selectList(ReservationprocessDto reservationprocessDto){
+		return reservationprocessDao.selectList(reservationprocessDto);
 	}
 	
 	// 한개씩 뽑기

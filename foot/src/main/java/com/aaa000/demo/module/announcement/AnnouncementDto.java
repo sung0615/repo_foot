@@ -1,5 +1,7 @@
 package com.aaa000.demo.module.announcement;
 
+import java.sql.Date;
+
 public class AnnouncementDto {
 	
 	private String annoSeq;//공지사항 Seq
@@ -9,6 +11,11 @@ public class AnnouncementDto {
 	private Integer annoDelMy; //업데이트 삭제
 	private String title; // 공지사랑 제목
 //	-----
+//	검색 날짜
+	private Date regDateTime;
+	private Date modDateTime;
+//	----
+	
 	public String getAnnoSeq() {
 		return annoSeq;
 	}
@@ -44,6 +51,18 @@ public class AnnouncementDto {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public Date getRegDateTime() {
+		return regDateTime;
+	}
+	public void setRegDateTime(Date regDateTime) {
+		this.regDateTime = regDateTime;
+	}
+	public Date getModDateTime() {
+		return modDateTime;
+	}
+	public void setModDateTime(Date modDateTime) {
+		this.modDateTime = modDateTime;
 	}
 	
 	

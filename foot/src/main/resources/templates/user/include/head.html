@@ -28,7 +28,11 @@
 	<link rel="stylesheet" href="/user/template/assets/css/theme.min.css">
 	
 	 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=14e0e814070aaeeefafccf74fcf23c86"></script>
-
+	 <script src="/xdm/jquery/jquery-3.7.1.min.js"></script>									
+	 
+	 <!-- datetimepicker CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-datetimepicker@2.5.20/jquery.datetimepicker.min.css">
+	
 
 </head>
 
@@ -80,7 +84,7 @@
 					<div class="col-lg-2 col-xxl-2 text-end col-md-6 col-7">
 						<div class="list-inline">
 							<div class="list-inline-item me-5">
-								<a href="/FavoritesUserList" class="text-muted position-relative">
+								<!-- <a href="/FavoritesUserList" class="text-muted position-relative">
 									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
 										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
 										stroke-linejoin="round" class="feather feather-heart">
@@ -93,7 +97,7 @@
 										1
 										<span class="visually-hidden">unread messages</span>
 									</span>
-								</a>
+								</a> -->
 							</div>
 							<!-- <div class="list-inline-item me-5">
 								<a href="#!" class="text-muted" data-bs-toggle="modal" data-bs-target="#userModal">
@@ -106,18 +110,24 @@
 								</a>
 							</div> -->
 							<div class="list-inline-item me-5">
-							<h6 class="mt-2 text-black">Name : [[${session.sessNameUser}]]</h6>
-							</div>
-							<div class="list-inline-item me-5">
-							<h6 class="mt-2 text-black">ID : [[${session.sessIdUser}]]</h6>
+							 <th:block th:if="${session.sessIdUser != null}">
+								<h6 class="mt-2 text-black">([[${session.sessNameUser}]]) [[${session.sessIdUser}]]</h6>
+							 </th:block>
 							</div>
 							
+							<!-- <div class="list-inline-item me-5">
+								<a class="nav-link" href="/SigninUser" id="logout-menu">
+										<i class="feather-icon icon-log-in me-2"></i>
+										로그인
+									</a>
+							</div>
 							<div class="list-inline-item me-5">
 								<a class="nav-link" href="javascript:void(0);" id="btnSignout">
 										<i class="feather-icon icon-log-out me-2"></i>
 										로그아웃
 									</a>
-							</div>
+							</div> -->
+							
 							<!-- <div class="list-inline-item me-5 me-lg-0">
 								<a class="text-muted position-relative" data-bs-toggle="offcanvas"
 									data-bs-target="#offcanvasRight" href="#offcanvasExample" role="button"
@@ -392,13 +402,33 @@
 								</li> -->
 								<li class="nav-item dropdown w-100 w-lg-auto">
 									<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-										aria-expanded="false">계정</a>
+										aria-expanded="false">my페이지</a>
 									<ul class="dropdown-menu">
-										<li><a class="dropdown-item" href="/SigninUser">로그인</a></li>
-										<li><a class="dropdown-item" href="/SignupUserForm">회원가입</a></li>
-										<li><a class="dropdown-item" href="/user/template/pages/forgot-password.html">비밀번호 찾기
-												</a></li>
-										<li class="dropdown-submenu dropend">
+									 <!-- 로그인하지 않은 상태 -->
+									 <th:block th:if="${session.sessIdUser == null}">
+										<li><a class="dropdown-item" href="/SigninUser" >로그인</a></li>
+										<li><a class="dropdown-item" href="/SignupUserForm" >회원가입</a></li>
+									 </th:block>
+									    <!-- 로그인한 상태 -->
+								    <th:block th:if="${session.sessIdUser != null}">
+								        <li><a class="dropdown-item" id="btnSignout" onclick="logoutUser(); return false;">로그아웃</a></li>
+								    </th:block>
+								    
+								     <!-- 로그인하지 않은 상태 -->
+									 <th:block th:if="${session.sessIdUser == null}">
+										<li><a class="dropdown-item" href="/user/template/pages/forgot-password.html">비밀번호 찾기</a></li>
+									</th:block>
+									 <!-- 로그인한 상태 -->
+								    <th:block th:if="${session.sessIdUser != null}">
+										<li><a class="dropdown-item" href="/ReservationDetailsUserList">예약내역</a></li>
+										<li><a class="dropdown-item" href="/SocialMatchDetailsUserList">소셜매칭 내역</a></li>
+										<li><a class="dropdown-item" href="/FavoritesUserList">즐겨찾기</a></li>
+										<li><a class="dropdown-item" href="/AccountSettingsUserMfom">계정 설정</a></li>
+										<li><a class="dropdown-item" href="/PasswordChangeUserMfom">비밀번호 변경</a></li>
+										
+										<li><a class="dropdown-item" href="/SecessionUserUele">계정 탈퇴</a></li>
+									</th:block>
+										<!-- <li class="dropdown-submenu dropend">
 											<a class="dropdown-item dropdown-list-group-item dropdown-toggle"
 												href="#">내 계정</a>
 											<ul class="dropdown-menu">
@@ -423,7 +453,7 @@
 														href="/user/template/pages/account-notification.html">Notification</a>
 												</li>
 											</ul>
-										</li>
+										</li> -->
 									</ul>
 								</li>
 								<!-- <li class="nav-item w-100 w-lg-auto">
@@ -477,38 +507,34 @@
 	</div>
 	
 	
-	<script src="/xdm/jquery/jquery-3.7.1.min.js"></script>
+	
 
 <script type="text/javascript">
+    const URL_SIGNIN_FORM_XDM = "/SigninUser"; // 로그인 주소
+    const URL_SIGNOUT_PROC_XDM = "/SignoutUser1"; // 로그아웃 컨트롤러 주소
+    const URL_INDEX_VIEW_XDM = "/indexUserView"; // 로그아웃 후 이동할 페이지
 
-	const URL_SIGNIN_FORM_XDM = "/SigninUser" //로그인 주소
-	const URL_SIGNOUT_PROC_XDM = "/SignoutUser1" // 컨트롤로 사인 주소
-	
-	const URL_INDEX_VIEW_XDM = "/indexUserView" //넘어갈 페이지
-
-
-	
-		$("#btnSignout").on("click", function(){
-			$.ajax({
-				async: true 
-				,cache: false
-				,type: "post"
-				,url: URL_SIGNOUT_PROC_XDM
-				,data: {}
-				,success: function(response) {
-					if(response.rt == "success") {
-						location.href = URL_SIGNIN_FORM_XDM;
-					} else {
-						// by pass
-					}
-				}
-				,error : function(jqXHR, textStatus, errorThrown){
-					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
-				}
-			});
-		});
-	
-
-
-
+    $(document).ready(function () {
+        $(document).on("click", "#btnSignout", function () {
+            $.ajax({
+                type: "POST",
+                url: URL_SIGNOUT_PROC_XDM,
+                data: {},
+               /*  dataType: "json", // 응답 데이터를 JSON으로 처리 */
+                success: function (response) {
+                    if (response.rt === "success") {
+                       
+                        window.location.href = URL_INDEX_VIEW_XDM; // 로그아웃 후 이동
+                    } else {
+                       
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX 요청 실패:", textStatus, errorThrown);
+                    alert("서버 오류 발생. 다시 시도해주세요.");
+                }
+            });
+        });
+    });
 </script>
+

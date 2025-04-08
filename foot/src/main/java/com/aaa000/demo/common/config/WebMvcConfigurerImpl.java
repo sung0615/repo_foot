@@ -26,6 +26,9 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer{
 				"/SigninUser", // 로그인 폼
 				"/SignupUserForm", //회원 가입폼
 				"/SigninUser1", //로그인 동작 
+				"/SignupUserInst", //회원가입 회원가입Inst
+				"/SignupUserForm1",
+				"/SignupUserForm1",
 			
 				
 				// 관리자 로그인하기전에 로그인 폼만 보여주고 나머지 XX

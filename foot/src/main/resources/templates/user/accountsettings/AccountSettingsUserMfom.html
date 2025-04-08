@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{user/include/head :: head}"></div>
-
+<br>
 	<!-- Modal -->
 	<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -441,6 +441,7 @@
 	</div>
 
 	<script src="/user/template/assets/js/vendors/validation.js"></script>
+		<form action="/AccountSettingsUserUpdt" method="post" id="form">	
 	<main>
 		<!-- section -->
 		<section>
@@ -469,7 +470,7 @@
 					
 					
 					
-					
+			
 					
 					
 					
@@ -485,76 +486,98 @@
 								<div class="row "  >
 									<div class="col-lg-6">
 										<!-- form -->
-										<form>
+										
 											<!-- input -->
 											<div class="mb-5 ">
 												<label class="form-label">이름</label>
-												<input type="text" class="form-control" placeholder="이름" disabled>
+												<input type="text" class="form-control" placeholder="이름"  name="userName" disabled  th:value="${item?.userName}">
 											</div>
 											<div class="mb-5">
 												<label class="form-label">성별</label>
-												<input type="text" class="form-control" placeholder="성별" disabled>
+												<input type="text" class="form-control" placeholder="성별"  name="userGender"  disabled th:value="${@codeService.selectOneCachedCode(item?.userGender)}">
 											</div>
 											
 											<div class="mb-5">
 												<label class="form-label">아이디</label>
-												<input type="text" class="form-control" disabled placeholder="아이디" />
+												<input type="text" class="form-control"  disabled  name="userId" placeholder="아이디" th:value="${item?.userId}"/>
 											</div>
 											<div class="mb-5">
 												<label class="form-label">생년월일</label>
-												<input type="text" class="form-control" disabled placeholder="생년월일" />
+												<input type="text" class="form-control"  disabled  name="userBirthday" placeholder="생년월일" th:value="${item?.userBirthday}"/>
 											</div>
 
 										
 											<!-- input -->
 											<div class="mb-5">
 												<label class="form-label">이메일</label>
-												<input type="email" class="form-control"
-													placeholder="이메일" />
+												<input type="email" class="form-control" placeholder="이메일" id="userEmail" name="userEmail" th:value="${item?.userEmail}"/>
+												<div id="userEmailError" style="color: red; font-size: 10px;"></div>
 											</div>
 											<!-- input -->
 											<div class="mb-5">
-												<label class="form-label">통신사</label>
-												<select type="" class="form-select" id="newsagency"  >
-													<option selected disabled value="">통신사 선택</option>
-													<option>KT</option>
-													<option>LG U+</option>
-													<option>SKT</option>
-													<option>알뜰폰</option>
-											  </select>
+											    <label class="form-label">통신사</label>
+											    <select class="form-select" id="userNewsAgency" name="userNewsAgency">
+											        <option selected value="">통신사 선택</option>
+											         <option th:each="listAgency : ${@codeService.selectListCachedCode(1)}" 
+											                th:text="${listAgency.ifcdName}" 
+											                th:value="${listAgency.cdSeq}" 
+											                th:selected="${listAgency.cdSeq == item.userNewsAgency}">
+											        </option>
+											       </select>
+											      <div id="userNewsAgencyError" style="color: red; font-size: 10px;"></div>
 											</div>
 											<div class="mb-5">
 												
 												<label class="form-label">휴대폰</label>
-												<input type="text" class="form-control" placeholder="휴대폰 번호" />
+												<input type="text" class="form-control" placeholder="휴대폰 번호" id="userPhoneNumber" name="userPhoneNumber" th:value="${item?.userPhoneNumber}"/>
+												<div id="userPhoneNumberError" style="color: red; font-size: 10px;"></div>
 											</div>
 											
 											<!-- button -->
-											<div class="mb-3">
-												<button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">변경 저장하기</button>
+										<div class="mb-3">
+    <button class="btn btn-primary" type="button" id="btnSave">변경 저장하기</button>
 
-												<!-- Modal -->
-												<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-													<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header">
-														<h1 class="modal-title fs-5" id="exampleModalLabel">개인정보 변경</h1>
-														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-														</div>
-														<div class="modal-body">
-														정보를 변경하시겠습니까?
-														</div>
-														<div class="modal-footer">
-														<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
-														<button type="button" class="btn btn-primary">예</button>
-														</div>
-													</div>
-													</div>
-												</div>
+    <!-- 변경 확인 모달 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">개인정보 변경</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    정보 변경을 완료하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+                    <button type="button" class="btn btn-primary" id="btnModalConfirm">예</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 변경 완료 모달 -->
+    <div class="modal fade" id="modalSuccess" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalSuccessTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSuccessTitle">개인정보 변경 완료</h5>
+                </div>
+                <div class="modal-body" id="modalSuccessBody">
+                    개인 정보가 성공적으로 변경되었습니다.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnSuccessConfirm">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 											</div>
 
 
-										</form>
+									
 									</div>
 								</div>
 							</div>
@@ -565,6 +588,7 @@
 				</div>
 			</div>
 		</section>
+		</form>
 	</main>
 
 	<!-- modal -->
@@ -606,13 +630,13 @@
 				</li>
 				<!-- nav item -->
 
-				<li class="nav-item">
+				<!-- <li class="nav-item">
 					<a class="nav-link" href="account-address.html">
 						<i class="feather-icon icon-map-pin me-2"></i>
 						Address
 					</a>
 				</li>
-				<!-- nav item -->
+				nav item
 
 				<li class="nav-item">
 					<a class="nav-link" href="account-payment-method.html">
@@ -620,14 +644,14 @@
 						Payment Method
 					</a>
 				</li>
-				<!-- nav item -->
+				nav item
 
 				<li class="nav-item">
 					<a class="nav-link" href="account-notification.html">
 						<i class="feather-icon icon-bell me-2"></i>
 						Notification
 					</a>
-				</li>
+				</li> -->
 			</ul>
 			<hr class="my-6" />
 			<div>
@@ -729,6 +753,7 @@
 			</div>
 		</div>
 	</footer>
+
 	<!-- Javascript-->
 	<!-- Libs JS -->
 	<!-- <script src="/user/template/assets/libs/jquery/dist/jquery.min.js"></script> -->
@@ -737,6 +762,91 @@
 
 	<!-- Theme JS -->
 	<script src="/user/template/assets/js/theme.min.js"></script>
+	
+	
+	<script type="text/javascript">
+	document.getElementById("btnSave").onclick = function () {
+	    let userEmail = document.getElementById("userEmail"); 
+	    let userEmailError = document.getElementById("userEmailError");
+
+	    let userNewsAgency = document.getElementById("userNewsAgency"); 
+	    let userNewsAgencyError = document.getElementById("userNewsAgencyError");
+
+	    let userPhoneNumber = document.getElementById("userPhoneNumber"); 
+	    let userPhoneNumberError = document.getElementById("userPhoneNumberError");
+
+	    let isValid = true;
+
+	    // 이메일 검증
+	    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	    if (userEmail.value.trim() === "") {
+	        userEmailError.innerText = "이메일을 입력하세요";
+	        userEmail.classList.add("is-invalid");
+	        isValid = false;
+	    } else if (!emailPattern.test(userEmail.value.trim())) {
+	        userEmailError.innerText = "올바른 이메일 형식이 아닙니다 (예: example@email.com)";
+	        userEmail.classList.add("is-invalid");
+	        isValid = false;
+	    } else {
+	        userEmailError.innerText = "";
+	        userEmail.classList.remove("is-invalid");
+	    }
+
+	    // 통신사 검증
+	    if (userNewsAgency.value.trim() === "") {
+	        userNewsAgencyError.innerText = "통신사를 선택하세요";
+	        userNewsAgency.classList.add("is-invalid");
+	        isValid = false;
+	    } else {
+	        userNewsAgencyError.innerText = "";
+	        userNewsAgency.classList.remove("is-invalid");
+	    }
+
+	    // 휴대폰 번호 검증
+	    let phonePattern = /^[0-9]{10,11}$/;
+	    if (userPhoneNumber.value.trim() === "") {
+	        userPhoneNumberError.innerText = "휴대폰 번호를 입력하세요";
+	        userPhoneNumber.classList.add("is-invalid");
+	        isValid = false;
+	    } else if (!phonePattern.test(userPhoneNumber.value.trim())) {
+	        userPhoneNumberError.innerText = "휴대폰 번호는 숫자 10~11자리로 입력하세요";
+	        userPhoneNumber.classList.add("is-invalid");
+	        isValid = false;
+	    } else {
+	        userPhoneNumberError.innerText = "";
+	        userPhoneNumber.classList.remove("is-invalid");
+	    }
+
+	    // 🚨 유효성 검사 실패 시 변경 확인 모달을 띄우지 않음
+	    if (!isValid) {
+	        return;
+	    }
+
+	    // ✅ 모든 검증이 통과한 경우에만 변경 확인 모달 띄우기
+	    let confirmModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+	    confirmModal.show();
+	};
+
+	// "예" 버튼 클릭 시 변경 완료 모달 표시
+	document.getElementById("btnModalConfirm").onclick = function () {
+	    let confirmModal = bootstrap.Modal.getInstance(document.getElementById("exampleModal"));
+	    confirmModal.hide(); // 기존 모달 닫기
+
+	    setTimeout(function () {
+	        let successModal = new bootstrap.Modal(document.getElementById("modalSuccess"));
+	        successModal.show();
+	    }, 500);
+	};
+
+	// "확인" 버튼 클릭 시 폼 제출
+	document.getElementById("btnSuccessConfirm").onclick = function () {
+	    let successModal = bootstrap.Modal.getInstance(document.getElementById("modalSuccess"));
+	    successModal.hide(); // 모달 닫기
+	    document.getElementById("form").submit(); // 폼 제출
+	};
+
+	</script>
+	
 
 </body>
 
