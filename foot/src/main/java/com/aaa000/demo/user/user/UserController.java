@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aaa000.demo.common.util.UtilDateTiem;
@@ -55,8 +55,11 @@ public class UserController {
 		return "user/signup/SignupUserForm";
 	}
 	@RequestMapping(value="/SignupUserInst")
-	public String SignupUserInst(UserDto userDto) {
+	public String SignupUserInst(UserDto userDto,UserVo vo) {
 		
+		// 암호화
+		userDto.setUserPassword(encodeBcrypt(userDto.getUserPassword(), 10));
+		 
 		userService.insert(userDto);
 								// 회원 가입이 됬을때 로그인창으로 넘경됨
 		return "redirect:/SigninUser";
@@ -116,8 +119,12 @@ public class UserController {
 	@RequestMapping(value="/PasswordChangeUserMfom")
 	public String PasswordChangeUserMfom(Model model,UserDto userDto, HttpSession httpSession) {
 		httpSession.getAttribute("sessSeqUser");
+		
+
 		userDto.setSuSeq((String) httpSession.getAttribute("sessSeqUser"));
 		
+		model.addAttribute("list", userService.selectOne(userDto));
+	
 		model.addAttribute("item", userService.selectOne(userDto)); //기존데이터 불러오기
 		return "/user/passwordchange/PasswordChangeUserMfom";
 	}
@@ -126,6 +133,9 @@ public class UserController {
 	public String PasswordChangeUserUpdt(UserDto userDto,HttpSession httpSession) {
 		httpSession.getAttribute("sessSeqUser");
 		userDto.setSuSeq((String) httpSession.getAttribute("sessSeqUser"));
+		
+		// 암호화
+		userDto.setUserPassword(encodeBcrypt(userDto.getUserPassword(), 10));
 		
 		userService.updatePassword(userDto); //페스워드 수정
 		return "redirect:/PasswordChangeUserMfom";
@@ -166,25 +176,32 @@ public class UserController {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 			
 		UserDto rtt = userService.selectId(userDto);
+	
 			
-		if (rtt != null) {
-			returnMap.put("rt", "success");
-			httpSession.setAttribute("sessSeqUser", rtt.getSuSeq()); //사용자Seq
-			httpSession.setAttribute("sessIdUser", rtt.getUserId()); // ID
-			httpSession.setAttribute("sessNameUser", rtt.getUserName());   //이름
-			httpSession.setAttribute("sessBirthdayUser", rtt.getUserBirthday()); //생일
+			if (matchesBcrypt(userDto.getUserPassword(), rtt.getUserPassword(), 10)) {
+				
+				returnMap.put("rt", "success");
+				httpSession.setAttribute("sessSeqUser", rtt.getSuSeq()); //사용자Seq
+				httpSession.setAttribute("sessIdUser", rtt.getUserId()); // ID
+				httpSession.setAttribute("sessNameUser", rtt.getUserName());   //이름
+				httpSession.setAttribute("sessBirthdayUser", rtt.getUserBirthday()); //생일
+				httpSession.setAttribute("sessUserPassword", rtt.getUserPassword()); //비밀번호
+				
+				
+				httpSession.setAttribute("sessGenderUser", rtt.getGenderName()); //성별 남자 여자
+				httpSession.setAttribute("sessUserGender", rtt.getUserGender()); //성별  5  6
+				
+				
+	
+			} else {
+				
+				
+			}
+			return returnMap;
 			
-			httpSession.setAttribute("sessGenderUser", rtt.getGenderName()); //성별 남자 여자
-			httpSession.setAttribute("sessUserGender", rtt.getUserGender()); //성별  5  6
-			
-			
-
-		} else {
-			
-			
-		}
 		
-		return returnMap;
+		
+		
 	}
 	
 	//사용자 로그아웃 구현
@@ -227,7 +244,7 @@ public class UserController {
 		
 		UserDto rtt = userService.selectId(userDto);
 		
-		if (rtt != null) {
+		if (matchesBcrypt(userDto.getUserPassword(), rtt.getUserPassword(), 10)) {
 			returnMap.put("rt", "success");
 			//httpSession.setMaxInactiveInterval(60 * Constants.SESSION_MINUTE_XDM); // 60second * 30 = 30minute
 			httpSession.setAttribute("sessSeqXdm", rtt.getSuSeq());
@@ -263,6 +280,22 @@ public class UserController {
 		return returnMap;
 		
 	}
+	
+	
+	
+	// 비밀번호 암포화
+	// 회원가입시 암포화
+	public String encodeBcrypt(String planeText, int strength) {
+		  return new BCryptPasswordEncoder(strength).encode(planeText);
+	}
+
+	// 로그인 했을때 암호화 비교 후 로그인		
+	public boolean matchesBcrypt(String planeText, String hashValue, int strength) {
+	  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(strength);
+	  return passwordEncoder.matches(planeText, hashValue);
+	}
+	
+	
 	
 	
 }

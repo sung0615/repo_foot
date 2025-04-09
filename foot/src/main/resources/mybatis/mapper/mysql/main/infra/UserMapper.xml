@@ -60,6 +60,7 @@
 			
 	</select>
 	
+	
 		<!--사용자 리스트 보여주기 -->
 	<select id="selectList" resultMap="resultMapObj">
 		SELECT 
@@ -179,6 +180,7 @@
 			</selectKey>
 	</insert>
 	
+	<!-- 로그인 화면 구현 -->
 	<select id="selectId" resultMap="resultMapObj">
 		SELECT 
 			suSeq,
@@ -198,11 +200,12 @@
 			
 		WHERE 1=1
 			AND userId = #{userId}
-			AND userPassword = #{userPassword}
+			<!-- AND userPassword = #{userPassword} -->
 			
 		ORDER BY suSeq DESC
 		
 	</select>
+	
 	
 	<select id="idDuplicate" resultType="Integer">
 			SELECT COUNT(*)

@@ -14,6 +14,8 @@ public interface UserDao {
 	// 회원가입 아이디 비교
 	public int idDuplicate(UserDto userDto);
 	
+	
+	
 	// 관리자 로그인 비교
 	public UserDto selectId(UserDto userDto);
 	
@@ -36,4 +38,7 @@ public interface UserDao {
 	public int uelete(UserDto userDto);
 	
 	public int selectOneCount(UserVo vo);
+	
+	
+	
 }

@@ -34,7 +34,7 @@ public class UserVo {
 //	----
 	private Date shQptionDate;
 //	----
-	
+	private String userPassword; //사용자 페스워드
 	
 	public int getThisPage() {
 		return thisPage;
@@ -254,5 +254,13 @@ public class UserVo {
 
 	public void setShQptionDate(Date shQptionDate) {
 		this.shQptionDate = shQptionDate;
+	}
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
 }
