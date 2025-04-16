@@ -442,7 +442,15 @@
 			</div>
 		</div>
 	</div>
-
+	
+	
+	<input type="hidden" id="fiSeq" name="fiSeq" th:value="${item?.fiSeq}">
+	
+ 
+	
+	
+	
+	
 	<script src="/user/template/assets/js/vendors/validation.js"></script>
 	<main>
 		
@@ -510,7 +518,9 @@
 							<!-- content -->
 							<!-- <a href="#!" class="mb-4 d-block">Bakery Biscuits</a> -->
 							<!-- heading -->
-							<h1 class="mb-1" th:text="${item.futsalName}" >풋살장</h1>
+							<h1 class="mb-1"  th:text="${item.futsalName}" >풋살장</h1>
+							
+							
 							<div class="mb-4">
 								<!-- rating -->
 								<!-- rating -->
@@ -539,99 +549,102 @@
 								<button type="button" class="btn btn-outline-secondary">1kg</button>
 							</div> -->
 							<div class="d-flex flex-column gap-4">
-								<form class="needs-validation row g-3" novalidate></form>
+								
 								
 							
 									<div class="col-lg-10 col-12">
 										<small>날짜 선택<span style="color: red;">*</span></small>
 										
-									<input type="text" class="form-control" id="reservationDate" placeholder="날짜를 선택하세요" required /> 
+									<input type="text" class="form-control"  placeholder="날짜를 선택하세요" required id="reservationDate" name="reservationDate"/> 
+									<div style="color: red;" id="reservationDateError"></div>
 										<!--  <input type="text" class="form-control"  id="reservationDate" name="reservationDate" placeholder="날짜를 선택하세요"/>	 -->
-										<div class="invalid-feedback">날짜 선택해주세요</div>
-									</div>
-									<!-- <div class="col-lg-10 col-12">
-										<small>시간 선택<span style="color: red;">*</span></small>
 										
-									<input type="text" class="form-control" id="datetimepicker2" placeholder="시간을 선택하세요" required /> 
-										 <input type="text" class="form-control"  id="reservationDate" name="reservationDate" placeholder="날짜를 선택하세요"/>	
-										<div class="invalid-feedback">시간을 선택해주세요</div>
-									</div> -->
+									</div>
 									
-								
 									<div class="col-lg-10 col-12">
 										<small>시간 선택<span style="color: red;">*</span></small>
 										<label for="" class="form-label visually-hidden">시간선택</label>
-											<select class="form-select" id="" value="" required>
+											<select class="form-select" id="reservationTime" name="reservationTime" required>
 												<option selected disabled value="">시간선택</option>
-												<option value="">오전06:00 ~ 오전08:00</option>
-												<option value="">오전08:00 ~ 오전10:00</option>
-												<option value="">오전10:00 ~ 오전12:00</option>
-												<option value="">오후12:00 ~ 오후02:00</option>
-												<option value=""ㄴ>오후02:00 ~ 오후04:00</option>
-												<option value="">오후04:00 ~ 오후06:00</option>
-												<option value="">오후06:00 ~ 오후08:00</option>
-												<option value="">오후10:00 ~ 오후12:00</option>
-												<option value="">오전12:00 ~ 오전02:00</option>                   						
+												<option value="오전06:00 ~ 오전08:00">오전06:00 ~ 오전08:00</option>
+												<option value="오전08:00 ~ 오전10:00">오전08:00 ~ 오전10:00</option>
+												<option value="오전10:00 ~ 오전12:00">오전10:00 ~ 오전12:00</option>
+												<option value="오후12:00 ~ 오후02:00">오후12:00 ~ 오후02:00</option>
+												<option value="오후02:00 ~ 오후04:00">오후02:00 ~ 오후04:00</option>
+												<option value="오후04:00 ~ 오후06:00">오후04:00 ~ 오후06:00</option>
+												<option value="오후06:00 ~ 오후08:00">오후06:00 ~ 오후08:00</option>
+												<option value="오후10:00 ~ 오후12:00">오후10:00 ~ 오후12:00</option>
+												<option value="오전12:00 ~ 오전02:00">오전12:00 ~ 오전02:00</option>                   						
 											</select>
-											<div class="invalid-feedback">아이디를 입력해주세요</div>
+										<div style="color: red;" id="reservationTimeError"></div>
+											
 									</div>
 								<div>
 							    <div class="col-lg-10 col-12">
-							        <small>소셜매칭 신청하기(선택사항)</small>
-							        <label for="socialMatching" class="form-label visually-hidden">소셜 매칭</label>
-							        <select class="form-select" id="socialMatching" required>
-							            <option selected value="">선택해주세요</option>
-							            <option value="yes">신청한다</option>
-							            <option value="no">신청하지 않는다</option>
-							        </select>
-							    </div>
-							
-							    <div id="socialMatchingDetails" style="display: none;">
-							        <div class="col-lg-10 col-12">
-							            <small>매칭시 상대팀 구장비용 청구 금액</small>
-							            <input type="text" class="form-control" placeholder="금액을 입력해주세요">
-							        </div>
-							        <div class="col-lg-10 col-12">
-							            <small>은행명 입력</small>
-							            <input type="text" class="form-control" placeholder="은행명 입력해주세요">
-							        </div>
-							        <div class="col-lg-10 col-12">
-							            <small>계좌 번호 입력</small>
-							            <input type="text" class="form-control" placeholder="계좌 번호 입력해주세요">
-							        </div>
-							        <div class="col-lg-10 col-12">
-							            <small>매칭 방식 선택</small>
-							            <select class="form-select" required>
-							                <option selected disabled value="">선택해주세요</option>
-							                <option>5 VS 5</option>
-							                <option>6 VS 6</option>
-							            </select>
-							        </div>
-							        <div class="col-lg-10 col-12">
-							            <small>팀 레벨 선택</small>
-							            <select class="form-select" required>
-							                <option selected disabled value="">팀 레벨 선택</option>
-							                <option>비기너</option>
-							                <option>아마C</option>
-							                <option>아마B</option>
-							                <option>아마A</option>
-							                <option>세미C</option>
-							                <option>세미B</option>
-							                <option>세미A</option>
-							                <option>프로C</option>
-							                <option>프로B</option>
-							                <option>프로A</option>
-							            </select>
-							        </div>
-							        <div class="col-lg-10 col-12">
-							            <small>팀 명 입력</small>
-							            <input type="text" class="form-control" placeholder="팀 명을 입력해 주세요">
-							        </div>
-							        <div class="col-lg-10 col-12">
-							            <small>팀 소개 입력</small>
-							            <textarea class="form-control" rows="3" placeholder="팀 소개, 주의사항 등등"></textarea>
-							        </div>
-							    </div>
+    <small>소셜매칭 신청하기(선택사항)</small>
+    <label for="matchingOnOff" class="form-label visually-hidden">소셜 매칭</label>
+    <select class="form-select" required name="matchingOnOff" id="matchingOnOff">
+        <option selected value="">선택해주세요</option>
+        <option value="신청한다">신청한다</option>
+        <option value="신청하지 않는다">신청하지 않는다</option>
+    </select>
+    <div style="color: red;" id="matchingOnOffError"></div>
+</div>
+
+<div id="socialMatchingDetails" style="display: none;">
+    <div class="col-lg-10 col-12">
+        <small>매칭시 상대팀 구장비용 청구 금액</small>
+        <input type="text" class="form-control" placeholder="금액을 입력해주세요" id="matchingDeposit" name="matchingDeposit">
+        <div style="color: red;" id="matchingDepositError"></div>
+    </div>
+    <div class="col-lg-10 col-12">
+        <small>은행명 입력</small>
+        <input type="text" class="form-control" placeholder="은행명 입력해주세요" id="matchingBankName" name="matchingBankName">
+         <div style="color: red;" id="matchingBankNameError"></div>
+    </div>
+    <div class="col-lg-10 col-12">
+        <small>계좌 번호 입력</small>
+        <input type="text" class="form-control" placeholder="계좌 번호 입력해주세요" id="matchingBankNumbar" name="matchingBankNumbar">
+         <div style="color: red;" id="matchingBankNumbarError"></div>
+    </div>
+    <div class="col-lg-10 col-12">
+        <small>매칭 방식 선택</small>
+        <select class="form-select" required id="matchingVs" name="matchingVs">
+            <option selected disabled value="">선택해주세요</option>
+            <option value="5 VS 5">5 VS 5</option>
+            <option value="6 VS 6">6 VS 6</option>
+        </select>
+         <div style="color: red;" id="matchingVsError"></div>
+    </div>
+    <div class="col-lg-10 col-12">
+        <small>팀 레벨 선택</small>
+        <select class="form-select" required id="matchingTeamLevel" name="matchingTeamLevel">
+            <option selected disabled value="">팀 레벨 선택</option>
+            <option value="비기너">비기너</option>
+            <option value="아마C">아마C</option>
+            <option value="아마B">아마B</option>
+            <option value="아마A">아마A</option>
+            <option value="세미C">세미C</option>
+            <option value="세미B">세미B</option>
+            <option value="세미A">세미A</option>
+            <option value="프로C">프로C</option>
+            <option value="프로B">프로B</option>
+            <option value="프로A">프로A</option>
+        </select>
+         <div style="color: red;" id="matchingTeamLevelError"></div>
+    </div>
+    <div class="col-lg-10 col-12">
+        <small>팀 명 입력</small>
+        <input type="text" class="form-control" placeholder="팀 명을 입력해 주세요" id="matchingTeamName" name="matchingTeamName">
+         <div style="color: red;" id="matchingTeamNameError"></div>
+    </div>
+    <div class="col-lg-10 col-12">
+        <small>팀 소개 입력</small>
+        <textarea class="form-control" rows="3" placeholder="팀 소개, 주의사항 등등" id="matchingTeamIntroduction" name="matchingTeamIntroduction"></textarea>
+         <div style="color: red;" id="matchingTeamIntroductionError"></div>
+    </div>
+</div>
+
 							</div>
 								</form>
 							</div>
@@ -658,13 +671,13 @@
 								<div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
 									<!-- button -->
 									<!-- btn -->
-									<button type="button-submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									<button type="button" class="btn btn-primary" id ="reservationSave">
 										<i class="feather-icon icon-shopping-bag me-2"></i>
 										예약하기
 									</button>
 
 									<!-- Modal -->
-									<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -682,7 +695,7 @@
 											</div>
 										</div>
 										</div>
-									</div>
+									</div> -->
 
 								</div>
 								<div class="col-md-4 col-4">
@@ -1007,170 +1020,25 @@
 															<i class="bi bi-star-fill text-warning"></i>
 															<i class="bi bi-star-fill text-warning"></i>
 															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<span class="ms-3 text-dark fw-bold">풋살장 굿굿
-																</span>
+															<i class="bi bi-star text-warning"></i>
+															<br>
+															
 														</div>
 														<!-- text-->
+														<p class="ms-3 text-dark fw-bold">풋살장 굿굿</p>
 														<p>
 															시설이 클린하고 좋네요
 														</p>
 														<div>
-															<!-- <div class="border icon-shape icon-lg border-2">
-															
-																<img src="/user/template/assets/images/products/product-img-1.jpg"
-																	alt="" class="img-fluid" />
-															</div>
-															<div class="border icon-shape icon-lg border-2 ms-1">
-																
-																<img src="/user/template/assets/images/products/product-img-2.jpg"
-																	alt="" class="img-fluid" />
-															</div>
-															<div class="border icon-shape icon-lg border-2 ms-1">
-															
-																<img src="/user/template/assets/images/products/product-img-3.jpg"
-																	alt="" class="img-fluid" />
-															</div> -->
+														
 														</div>
-														<!-- icon -->
-														<!-- <div class="d-flex justify-content-end mt-4">
-															<a href="#" class="text-muted">
-																<i class="feather-icon icon-thumbs-up me-1"></i>
-																Helpful
-															</a>
-															<a href="#" class="text-muted ms-4">
-																<i class="feather-icon icon-flag me-2"></i>
-																Report abuse
-															</a>
-														</div> -->
+														
 													</div>
 												</div>
-												<!-- <div class="d-flex border-bottom pb-6 mb-6 pt-4">
-													
-													<img src="/user/template/assets/images/avatar/avatar-12.jpg" alt=""
-														class="rounded-circle avatar-lg" />
-													<div class="ms-5">
-														<h6 class="mb-1">Robert Thomas</h6>
-														
-														<p class="small">
-															<span class="text-muted">29 December 2022</span>
-															<span class="text-primary ms-3 fw-bold">Verified
-																Purchase</span>
-														</p>
-														
-														<div class="mb-2">
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star text-warning"></i>
-															<span class="ms-3 text-dark fw-bold">Need to recheck the
-																weight at delivery point</span>
-														</div>
-
-														<p>
-															Product quality is good. But, weight seemed less than 1kg.
-															Since it is being sent in open package, there is a
-															possibility of pilferage in between. FreshCart sends the
-															veggies and fruits through sealed plastic covers and Barcode
-															on the weight etc. .
-														</p>
-
-														
-														<div class="d-flex justify-content-end mt-4">
-															<a href="#" class="text-muted">
-																<i class="feather-icon icon-thumbs-up me-1"></i>
-																Helpful
-															</a>
-															<a href="#" class="text-muted ms-4">
-																<i class="feather-icon icon-flag me-2"></i>
-																Report abuse
-															</a>
-														</div>
-													</div>
-												</div> -->
-												<!-- <div class="d-flex border-bottom pb-6 mb-6 pt-4">
-													
-													<img src="/user/template/assets/images/avatar/avatar-9.jpg" alt=""
-														class="rounded-circle avatar-lg" />
-													<div class="ms-5">
-														<h6 class="mb-1">Barbara Tay</h6>
-														
-														<p class="small">
-															<span class="text-muted">28 December 2022</span>
-															<span class="text-danger ms-3 fw-bold">Unverified
-																Purchase</span>
-														</p>
-														
-														<div class="mb-2">
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star text-warning"></i>
-															<span class="ms-3 text-dark fw-bold">Need to recheck the
-																weight at delivery point</span>
-														</div>
-
-														<p>Everytime i ordered from fresh i got greenish yellow bananas
-															just like i wanted so go for it , its happens very rare that
-															u get over riped ones.</p>
-
-														
-														<div class="d-flex justify-content-end mt-4">
-															<a href="#" class="text-muted">
-																<i class="feather-icon icon-thumbs-up me-1"></i>
-																Helpful
-															</a>
-															<a href="#" class="text-muted ms-4">
-																<i class="feather-icon icon-flag me-2"></i>
-																Report abuse
-															</a>
-														</div>
-													</div>
-												</div> -->
-												<!-- <div class="d-flex border-bottom pb-6 mb-6 pt-4">
-													
-													<img src="/user/template/assets/images/avatar/avatar-8.jpg" alt=""
-														class="rounded-circle avatar-lg" />
-													<div class="ms-5 flex-grow-1">
-														<h6 class="mb-1">Sandra Langevin</h6>
-													
-														<p class="small">
-															<span class="text-muted">8 December 2022</span>
-															<span class="text-danger ms-3 fw-bold">Unverified
-																Purchase</span>
-														</p>
-													
-														<div class="mb-2">
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star text-warning"></i>
-															<span class="ms-3 text-dark fw-bold">Great product</span>
-														</div>
-
-														<p>Great product & package. Delivery can be expedited.</p>
-
-													
-														<div class="d-flex justify-content-end mt-4">
-															<a href="#" class="text-muted">
-																<i class="feather-icon icon-thumbs-up me-1"></i>
-																Helpful
-															</a>
-															<a href="#" class="text-muted ms-4">
-																<i class="feather-icon icon-flag me-2"></i>
-																Report abuse
-															</a>
-														</div>
-													</div>
-												</div> -->
-												<!-- <div>
-													<a href="#" class="btn btn-outline-gray-400 text-muted">Read More
-														Reviews</a>
-												</div> -->
+												
 											</div>
+											
+											<!-- 리뷰 작성 폼 -->
 											<div>
 												<!-- rating -->
 												<h3 class="mb-5">리뷰 작성</h3>
@@ -1178,36 +1046,16 @@
 													<h4 class="mb-3">별점</h4>
 													<div class="rater"></div>
 												</div>
-												<!-- <div class="border-bottom py-4 mb-4">
-													<h4 class="mb-0">Rate Features</h4>
-													<div class="my-5">
-														<h5>Flavor</h5>
-														<div class="rater"></div>
-													</div>
-													<div class="my-5">
-														<h5>Value for money</h5>
-														<div class="rater"></div>
-													</div>
-													<div class="my-5">
-														<h5>Scent</h5>
-														<div class="rater"></div>
-													</div>
-												</div> -->
-												<!-- form control -->
+												
+												<!-- 리뷰 제목 -->
 												<div class="border-bottom py-4 mb-4">
 													<h5>리뷰 제목</h5>
 													<input type="text" class="form-control"
 														placeholder="리뷰 제목을 입력해주세요" />
 												</div>
-												<div class="border-bottom py-4 mb-4">
-													<h5>사진 또는 비디오 추가</h5>
-													<p>사진 or 비디오 추가하기</p>
-
-													<div id="my-dropzone"
-														class="dropzone mt-4 border-dashed rounded-2 min-h-0"></div>
-												</div>
+												
 												<div class="py-4 mb-4">
-													<!-- heading -->
+													
 													<h5>리뷰를 작성해주세요</h5>
 													<textarea class="form-control" rows="3"
 														placeholder="리뷰작성"></textarea>
@@ -1443,6 +1291,7 @@
 									</button>
 								</div>
 								<div>
+								
 									<!-- input -->
 									<!-- input -->
 									<div class="input-group input-spinner  ">
@@ -1540,7 +1389,7 @@
 	
 	
 	
-	    <script type="text/javascript">
+	<script type="text/javascript">
     //달력 
     $.datetimepicker.setLocale('ko'); //번역기
     jQuery(function(){
@@ -1554,17 +1403,127 @@
     
     </script>
 	
-	<script>
-	//소셜매칭 신청한다 했을때 보여주고 아니다 하면 숨기기
-    document.getElementById("socialMatching").addEventListener("change", function() {
-        var details = document.getElementById("socialMatchingDetails");
-        if (this.value === "yes") {
-            details.style.display = "block"; // 신청하면 보이기
+
+	
+<script type="text/javascript">
+$(document).ready(function () {
+
+    // 소셜매칭 선택 시 상세 입력칸 보이기/숨기기
+    $("#matchingOnOff").on("change", function () {
+        if ($(this).val() === "신청한다") {
+            $("#socialMatchingDetails").slideDown();
         } else {
-            details.style.display = "none"; // 신청 안 하면 숨기기
+            $("#socialMatchingDetails").slideUp();
         }
     });
+
+    // 공통 벨리데이션 함수
+    function validateField(field, errorField, message) {
+        if (field.value.trim() === "") {
+            errorField.innerText = message;
+            field.classList.add("is-invalid");
+            field.classList.remove("is-valid");
+            return false;
+        } else {
+            errorField.innerText = "";
+            field.classList.remove("is-invalid");
+            field.classList.add("is-valid");
+            return true;
+        }
+    }
+
+    $("#reservationSave").on("click", function () {
+
+        // 기본 필드
+        let reservationDate = document.getElementById("reservationDate");
+        let reservationTime = document.getElementById("reservationTime");
+        let matchingOnOff = document.getElementById("matchingOnOff");
+
+        let reservationDateError = document.getElementById("reservationDateError");
+        let reservationTimeError = document.getElementById("reservationTimeError");
+        let matchingOnOffError = document.getElementById("matchingOnOffError");
+
+        // 기본 필드 벨리데이션
+        let isDateValid = validateField(reservationDate, reservationDateError, "날짜를 선택하세요");
+        let isTimeValid = validateField(reservationTime, reservationTimeError, "시간을 선택하세요");
+        let isMatchingValid = validateField(matchingOnOff, matchingOnOffError, "소셜매칭 여부를 선택하세요");
+
+        // 소셜매칭 신청 시 필드 가져오기 및 벨리데이션
+        let additionalValid = true;
+        if (matchingOnOff.value === "신청한다") {
+            additionalValid &= validateField(
+                document.getElementById("matchingDeposit"),
+                document.getElementById("matchingDepositError"),
+                "금액을 입력하세요"
+            );
+            additionalValid &= validateField(
+                document.getElementById("matchingBankName"),
+                document.getElementById("matchingBankNameError"),
+                "은행명을 입력하세요"
+            );
+            additionalValid &= validateField(
+                document.getElementById("matchingBankNumbar"),
+                document.getElementById("matchingBankNumbarError"),
+                "계좌 번호를 입력하세요"
+            );
+            additionalValid &= validateField(
+                document.getElementById("matchingVs"),
+                document.getElementById("matchingVsError"),
+                "매칭 방식을 선택하세요"
+            );
+            additionalValid &= validateField(
+                document.getElementById("matchingTeamLevel"),
+                document.getElementById("matchingTeamLevelError"),
+                "팀 레벨을 선택하세요"
+            );
+            additionalValid &= validateField(
+                document.getElementById("matchingTeamName"),
+                document.getElementById("matchingTeamNameError"),
+                "팀 명을 입력하세요"
+            );
+            additionalValid &= validateField(
+                document.getElementById("matchingTeamIntroduction"),
+                document.getElementById("matchingTeamIntroductionError"),
+                "팀 소개를 입력하세요"
+            );
+        }
+
+        // 하나라도 실패하면 전송 중단
+        if (!isDateValid || !isTimeValid || !isMatchingValid || !additionalValid) {
+            return false;
+        }
+
+        // 유효성 통과하면 AJAX 전송
+        $.ajax({
+            async: true,
+            cache: false,
+            type: "post",
+            url: "/DetailedPageUser",
+            data: {
+                "fiSeq": $("#fiSeq").val(),
+                "reservationDate": $("#reservationDate").val(),
+                "reservationTime": $("#reservationTime").val(),
+                "matchingOnOff": $("#matchingOnOff").val(),
+                "futsalName": $("#futsalName").val(),
+                "matchingTeamIntroduction": $("#matchingTeamIntroduction").val(),
+                "matchingTeamName": $("#matchingTeamName").val(),
+                "matchingTeamLevel": $("#matchingTeamLevel").val(),
+                "matchingVs": $("#matchingVs").val(),
+                "matchingBankNumbar": $("#matchingBankNumbar").val(),
+                "matchingBankName": $("#matchingBankName").val(),
+                "matchingDeposit": $("#matchingDeposit").val()
+            },
+            success: function (response) {
+                window.location.href = '/PayUserForm?fiSeq=' + response.result;
+            }
+        });
+    });
+});
 </script>
+
+
+
+
 	
 
 

@@ -39,63 +39,58 @@
 					FROM
 					    reservationprocess a
 					    LEFT JOIN futsalinformation b ON a.futsalInformation_fiSeq = b.fiSeq;
-			       WHERE a.fpSeq = #{fpSeq}
+			       WHERE 1=1
+			       		  AND fpSeq = #{fpSeq} 
 			       ORDER BY fpSeq DESC
 		</select>
 		
 		
 		<select id="selectOne" resultMap="resultMapObj">
-			       SELECT
-					    a.fpSeq,
-					    a.reservationDate,
-					    a.reservationTime,
-					    a.matchingOnOff,
-					    a.matchingDeposit,
-					    a.matchingBankName,
-					    a.matchingBankNumbar,
-					    a.matchingVs,
-					    a.matchingTeamLevel,
-					    a.matchingTeamName,
-					    a.matchingTeamIntroduction,
-					    a.applicationTeamLevel,
-					    a.applicationTeamPhoneNumbar,
-					    a.applicationTeamName,
-					    a.applicationTeamIntroduction,
-					    a.rpDelMy,
-					    a.user_suSeq,
-					    a.futsalInformation_fiSeq,
-					    b.fiSeq,
-					    b.futsalName,
-					    b.futsalPrice,
-					    b.futsalRegion,
-					    b.futsalAddress,
-					    b.futsalPhoneNumbar,
-					    b.futsalBusinessHours,
-					    b.futsalFacilityUsageRules,
-					    b.futsalCancellationPolicy,
-					    b.fiDelMy
-					FROM
-					    reservationprocess a
-					    LEFT JOIN futsalinformation b ON a.futsalInformation_fiSeq = b.fiSeq;
-			       WHERE a.fpSeq = #{fpSeq}
-			       ORDER BY fpSeq DESC
+		    SELECT
+		        a.fpSeq,
+		        a.reservationDate,
+		        a.reservationTime,
+		        a.matchingOnOff,
+		        a.matchingDeposit,
+		        a.matchingBankName,
+		        a.matchingBankNumbar,
+		        a.matchingVs,
+		        a.matchingTeamLevel,
+		        a.matchingTeamName,
+		        a.matchingTeamIntroduction,
+		        a.applicationTeamLevel,
+		        a.applicationTeamPhoneNumbar,
+		        a.applicationTeamName,
+		        a.applicationTeamIntroduction,
+		        a.rpDelMy,
+		        a.user_suSeq,
+		        a.futsalInformation_fiSeq,
+		        b.fiSeq AS fiSeq,
+		        b.futsalName,
+		        b.futsalPrice,
+		        b.futsalRegion,
+		        b.futsalAddress,
+		        b.futsalPhoneNumbar,
+		        b.futsalBusinessHours,
+		        b.futsalFacilityUsageRules,
+		        b.futsalCancellationPolicy,
+		        b.fiDelMy,
+		        c.suSeq,
+		        c.userName,
+		        c.userId
+		    FROM
+		        reservationprocess a
+		        LEFT JOIN futsalinformation b ON a.futsalInformation_fiSeq = b.fiSeq
+		        LEFT JOIN user c ON a.user_suSeq = c.suSeq
+		    WHERE
+		        a.fpSeq = #{fpSeq}
+		        AND b.fiDelMy = 0
+		    ORDER BY a.fpSeq DESC
 		</select>
+
 		
 		
 		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

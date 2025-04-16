@@ -33,6 +33,15 @@ public class ReservationprocessDto {
 	private String user_suSeq; //유저 Seq
 	private String futsalInformation_fiSeq; // 풋살 결제 매칭 Seq	
 //	----
+// 유저 Seq 가져오기
+	private String suSeq; //유저Seq
+	private String userName; //유저 이름
+	private String userId; //유저 ID
+//	----	
+	
+	
+	
+	
 	public String getFpSeq() {
 		return fpSeq;
 	}
@@ -207,6 +216,24 @@ public class ReservationprocessDto {
 	}
 	public void setFutsalAddress(String futsalAddress) {
 		this.futsalAddress = futsalAddress;
+	}
+	public String getSuSeq() {
+		return suSeq;
+	}
+	public void setSuSeq(String suSeq) {
+		this.suSeq = suSeq;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	

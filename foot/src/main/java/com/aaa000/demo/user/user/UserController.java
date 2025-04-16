@@ -64,6 +64,7 @@ public class UserController {
 								// 회원 가입이 됬을때 로그인창으로 넘경됨
 		return "redirect:/SigninUser";
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/SignupUserForm1")
 	public Map<String, Object> SignupUserForm1(UserDto userDto) throws Exception {
@@ -140,6 +141,7 @@ public class UserController {
 		userService.updatePassword(userDto); //페스워드 수정
 		return "redirect:/PasswordChangeUserMfom";
 	}
+	
 	
 	
 	// 사용자 업데이트 삭제

@@ -62,6 +62,12 @@ public class UserService {
 	public int selectOneCount(UserVo vo) {
 		return userDao.selectOneCount(vo);
 	}
+
+
+	public int updatePassword(String sessIdUser, String userPassword) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	

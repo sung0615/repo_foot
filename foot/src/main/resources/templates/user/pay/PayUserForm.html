@@ -4,7 +4,7 @@
 
 	
 	
-
+	<input type="hidden" id="fiSeq" name="fiSeq" >
 	
 
 	<script src="/user/template/assets/js/vendors/validation.js"></script>
@@ -199,12 +199,12 @@
 												
 												<!-- Button -->
 												<div class="mt-5 d-flex justify-content-end">
-													<a href="#" class="btn btn-outline-gray-400 text-muted"
+													<a href="@{/ReservationUserList}" class="btn btn-outline-gray-400 text-muted"
 														data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
 														aria-expanded="false" aria-controls="flush-collapseThree">
 														이전
 													</a>
-													<a href="#" class="btn btn-primary ms-2">결제하기</a>
+													<button type="button" id="paymentButton" class="btn btn-primary ms-2">결제하기</button>
 												</div>
 											</div>
 										</div>
@@ -221,25 +221,80 @@
 										<!-- list group item -->
 										<li class="list-group-item px-4 py-3">
 											<div class="row align-items-center">
-												<div class="col-2 col-md-2">
+												<div class="col-2 col-md-4">
 													<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg"
 														alt="Ecommerce" class="img-fluid" />
 												</div>
-												<div class="col-6 col-md-5">
-													<h6 class="mb-0">HIP 풋살그라운드</h6>
-													<span><small class="text-muted"><strong>주소 : 경기도 의정부시 창포원로 67</strong></small></span><br>
-													<span><small class="text-muted"><strong>예약날짜 : 2025-02-15</strong></small></span><br>
-													<span><small class="text-muted"><strong>예약시간 : 오전08:00 ~ 오전10:00</strong></small></span>
+												<div class="col-6 col-md-6">
+													<h6 class="mb-0" th:text="${item.futsalName}"> HIP 풋살그라운드</h6><br>
+													<span><strong>주소: </strong><small class="text-muted"><strong th:text="${item.futsalAddress}"> </strong></small></span><br>
+													<span><strong>예약 날짜: </strong><small class="text-muted"><strong th:text="${reservationData.reservationDate}"></strong></small></span><br>
+													<span><strong>예약 시간: </strong><small class="text-muted"><strong th:text="${reservationData.reservationTime}"> </strong></small></span><br>
+													<!-- <span class="fw-bold" th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')}"></span><span>원</span> -->
+													<span><strong>예약 금액: </strong><small class="text-muted"><strong th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')}"></strong><span>원</span></small></span><br>
+													
 												</div>
 												
-												<div class="col-3 text-lg-end text-start text-md-end col-md-3">
-													<span class="fw-bold">130,000원</span>
-												</div>
+												<br>
+												<!-- <div class="col-3 text-lg-end text-start text-md-end col-md-3">
+													<span class="fw-bold" th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')}"></span><span>원</span>
+												</div> -->
 											</div>
 										</li>	
 									</ul>
 								</div>
 							</div>
+						
+							<div class="mt-4 mt-lg-0" th:if="${reservationData.matchingOnOff == '신청한다'}">
+								<div class="card shadow-sm">
+									<h5 class="px-6 py-4 bg-transparent mb-0">소셜매칭 상세</h5>
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item px-4 py-3">
+											<div class="row align-items-center">
+							
+												<!-- 매칭 신청 내역 블록: 신청한다일 때만 보여줌 -->
+												<div class="col-6 col-md-12" >
+													
+													<span>
+														<strong>매칭 신청:</strong>
+														<span class="text-muted" th:text="${reservationData.matchingOnOff}"></span>
+													</span><br>
+													<span>
+														<strong>구장 청구비용:</strong>
+														<span class="text-muted" th:text="${reservationData.matchingDeposit}"></span>
+													</span><br>
+													<span>
+														<strong>은행명:</strong>
+														<span class="text-muted" th:text="${reservationData.matchingBankName}"></span>
+													</span><br>
+													<span>
+														<strong>계좌번호:</strong>
+														<span class="text-muted" th:text="${reservationData.matchingBankNumbar}"></span>
+													</span><br>
+													<span>
+														<strong>매칭방식:</strong>
+														<span class="text-muted" th:text="${reservationData.matchingVs}"></span>
+													</span><br>
+													<span>
+														<strong>팀레벨:</strong>
+														<span class="text-muted" th:text="${reservationData.matchingTeamLevel}"></span>
+													</span><br>
+													<span>
+														<strong>팀명:</strong>
+														<span class="text-muted" th:text="${reservationData.matchingTeamName}"></span>
+													</span><br>
+													<span>
+														<strong>팀 소개:</strong>
+														<span class="text-muted" th:text="${reservationData.matchingTeamIntroduction}"></span>
+													</span><br>
+												</div>
+							
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>

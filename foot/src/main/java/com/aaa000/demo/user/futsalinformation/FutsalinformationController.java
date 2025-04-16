@@ -92,7 +92,7 @@ public class FutsalinformationController {
 	public String DetailedPageUserForm (Model model, FutsalinformationVo vo,FutsalinformationDto futsalinformationDto) {
 			
 		model.addAttribute("item", futsalinformationService.selectOne(futsalinformationDto));
-			
+		System.out.println(futsalinformationDto.getFiSeq());	
 		return "user/detailedpage/DetailedPageUserForm";
 	}
 	
