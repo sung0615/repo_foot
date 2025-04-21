@@ -1,11 +1,13 @@
 package com.aaa000.demo.user.futsalinformation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.aaa000.demo.user.reservationprocess.ReservationprocessDto;
+import com.aaa000.demo.user.review.ReviewDto;
 
 @Controller
 public class FutsalinformationController {
@@ -21,6 +23,8 @@ public class FutsalinformationController {
 		
 		return "user/index/indexUserView";
 	}
+	
+
 	
 	// 풋살장 정보 예약 Reservation 화면 뿌리기
 	@RequestMapping(value="/ReservationUserList")
@@ -87,19 +91,57 @@ public class FutsalinformationController {
 	
 	
 	
+	
+	
 	// 풋살장 상세 페이지
-	@RequestMapping(value="/DetailedPageUserForm")
-	public String DetailedPageUserForm (Model model, FutsalinformationVo vo,FutsalinformationDto futsalinformationDto) {
-			
-		model.addAttribute("item", futsalinformationService.selectOne(futsalinformationDto));
-		System.out.println(futsalinformationDto.getFiSeq());	
-		return "user/detailedpage/DetailedPageUserForm";
+	@RequestMapping(value = "/DetailedPageUserForm")
+	public String DetailedPageUserForm(Model model, FutsalinformationVo vo, FutsalinformationDto futsalinformationDto) {
+
+	    // 리뷰 목록을 가져옴
+	    List<FutsalinformationDto> reviewList = futsalinformationService.reviewList(futsalinformationDto);
+
+	    // 총 리뷰 개수 계산
+	    int totalReviews = reviewList.size();
+
+	    // 각 별점별 비율 계산 (1 ~ 5점)
+	    int[] ratingCounts = new int[5]; // 별점 1 ~ 5의 개수
+	    for (FutsalinformationDto review : reviewList) {
+	        int starScore = review.getStarScore();
+	        if (starScore >= 1 && starScore <= 5) {
+	            ratingCounts[starScore - 1]++;
+	        }
+	    }
+
+	    // 각 별점 비율 계산
+	    double[] ratingPercentages = new double[5];
+	    for (int i = 0; i < 5; i++) {
+	        ratingPercentages[i] = (totalReviews > 0) ? (double) ratingCounts[i] / totalReviews * 100 : 0.0;
+	    }
+
+	    // 평균 별점 계산 (리뷰가 있을 때만 계산)
+	    double averageRating = 0.0;
+	    if (totalReviews > 0) {
+	        double totalRating = 0.0;
+	        for (FutsalinformationDto review : reviewList) {
+	            totalRating += review.getStarScore(); // 각 리뷰의 별점 점수를 더함
+	        }
+	        averageRating = totalRating / totalReviews; // 평균 별점 계산
+	    }
+
+	    // 모델에 값 추가
+	    model.addAttribute("averageRating", averageRating); // 평균 별점
+	    model.addAttribute("ratingPercentages", ratingPercentages); // 별점별 비율
+	    model.addAttribute("reviewList", reviewList); // 리뷰 목록
+	    model.addAttribute("item", futsalinformationService.selectOne(futsalinformationDto)); // 풋살장 정보
+
+	    return "user/detailedpage/DetailedPageUserForm";
 	}
+
+	
+
 	
 	
-	
-	
-	
+
 	
 	
 

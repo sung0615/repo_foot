@@ -14,6 +14,10 @@ public class FutsalinformationDto {
 	private String futsalFacilityUsageRules; //풋살장 이용규칙
 	private String futsalCancellationPolicy; //풋살장 취소정책
 	private Integer fiDelMy; // 업데이트 삭제
+	private String zipCode; //우편번호
+	private String detailedAddress; //상세주소
+	private String latitude; //위도
+	private String hardness; //경도
 //	-----
 // 코드 에있는  코드 이름  코드 Seq 땡겨오기
 	private Integer  codeGroup_cdgSeq; // 코드 그룹 Seq
@@ -24,6 +28,21 @@ public class FutsalinformationDto {
 	private Date regDateTime;
 	private Date modDateTime;
 //	----
+	//리뷰
+	private String rSeq; //리뷰 Seq
+	private Integer starScore; //리뷰 별점
+	private String reviewTitle; //리뷰 제목
+	private String reviewText; // 리뷰 내용
+	private String user_suSeq; //사용자 정보 Seq
+	private String futsalInformation_fiSeq; //풋살장정보 Seq 
+//	-----
+	// 유저
+	private String suSeq; // 유저Seq 
+	private String userName; // 유저이름
+	private String userId; //유저ID
+//	----
+	
+	
 	
 	public String getFiSeq() {
 		return fiSeq;
@@ -86,12 +105,7 @@ public class FutsalinformationDto {
 		this.fiDelMy = fiDelMy;
 	}
 //	-----
-	//리뷰
-	private String rSeq; //리뷰 Seq
-	private Integer starScore; //리뷰 별점
-	private String user_suSeq; //사용자 정보 Seq
-	private String futsalInformation_fiSeq; //풋살장정보 Seq 
-//	-----
+
 	public String getrSeq() {
 		return rSeq;
 	}
@@ -145,6 +159,60 @@ public class FutsalinformationDto {
 	}
 	public void setModDateTime(Date modDateTime) {
 		this.modDateTime = modDateTime;
+	}
+	public String getZipCode() {
+		return zipCode;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+	public String getDetailedAddress() {
+		return detailedAddress;
+	}
+	public void setDetailedAddress(String detailedAddress) {
+		this.detailedAddress = detailedAddress;
+	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getHardness() {
+		return hardness;
+	}
+	public void setHardness(String hardness) {
+		this.hardness = hardness;
+	}
+	public String getReviewTitle() {
+		return reviewTitle;
+	}
+	public void setReviewTitle(String reviewTitle) {
+		this.reviewTitle = reviewTitle;
+	}
+	public String getReviewText() {
+		return reviewText;
+	}
+	public void setReviewText(String reviewText) {
+		this.reviewText = reviewText;
+	}
+	public String getSuSeq() {
+		return suSeq;
+	}
+	public void setSuSeq(String suSeq) {
+		this.suSeq = suSeq;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	

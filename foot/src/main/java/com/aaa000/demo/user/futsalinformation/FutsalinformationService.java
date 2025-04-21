@@ -26,6 +26,12 @@ public class FutsalinformationService {
 		return futsalinformationDao.insert(futsalinformationDto);
 	}
 	
+	//풋살장 상세에 리뷰 달기
+	public int reviewInsert(FutsalinformationDto futsalinformationDto) {
+		
+		return futsalinformationDao.reviewInsert(futsalinformationDto);
+	}
+	
 	//풋살장 수정하기
 	public int update(FutsalinformationDto futsalinformationDto) {
 		return futsalinformationDao.update(futsalinformationDto);
@@ -39,6 +45,11 @@ public class FutsalinformationService {
 	//페이지 네이션
 	public int selectOneCount(FutsalinformationVo vo) {
 		return futsalinformationDao.selectOneCount(vo);
+	}
+	
+	// 풋살장 리뷰 리스트 가져오기
+	public List<FutsalinformationDto> reviewList(FutsalinformationDto futsalinformationDto){
+		return futsalinformationDao.reviewList(futsalinformationDto);
 	}
 	
 	

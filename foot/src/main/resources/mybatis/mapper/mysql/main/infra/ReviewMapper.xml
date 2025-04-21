@@ -7,7 +7,30 @@
 	
 	
 	
+	<!-- 풋살장 상세 리뷰 등록 -->
+	<insert id="insert">
+		INSERT INTO review(
+		
+			starScore,
+			reviewTitle,
+			reviewText,
+			riDelMy,
+			user_suSeq,
+			futsalInformation_fiSeq,
+			regDateTime
+			
+		) value (
+			#{starScore},
+			#{reviewTitle},
+			#{reviewText},
+			0,
+			#{user_suSeq},
+			#{futsalInformation_fiSeq},
+			now()
+		)
 	
+	
+	</insert>
 	
 	
 	

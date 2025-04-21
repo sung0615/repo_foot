@@ -10,6 +10,10 @@ public class ReviewDto {
 	private String user_suSeq; //사용자 정보 Seq
 	private String futsalInformation_fiSeq; //풋살장정보 Seq
 //	-----
+	private String suSeq;//사용자 Seq
+	private String fiSeq; //풋살장 Seq
+//	----
+	
 	public String getrSeq() {
 		return rSeq;
 	}
@@ -51,6 +55,18 @@ public class ReviewDto {
 	}
 	public void setFutsalInformation_fiSeq(String futsalInformation_fiSeq) {
 		this.futsalInformation_fiSeq = futsalInformation_fiSeq;
+	}
+	public String getSuSeq() {
+		return suSeq;
+	}
+	public void setSuSeq(String suSeq) {
+		this.suSeq = suSeq;
+	}
+	public String getFiSeq() {
+		return fiSeq;
+	}
+	public void setFiSeq(String fiSeq) {
+		this.fiSeq = fiSeq;
 	}
 	
 }

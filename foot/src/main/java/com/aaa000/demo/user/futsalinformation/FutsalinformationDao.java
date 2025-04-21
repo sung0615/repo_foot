@@ -23,4 +23,11 @@ public interface FutsalinformationDao {
 	public int uelete(FutsalinformationDto futsalinformationDto);
 	
 	public int selectOneCount(FutsalinformationVo vo);
+	
+	// 풋살장 들록폼 리뷰 등록
+	public int reviewInsert (FutsalinformationDto futsalinformationDto);
+	
+	
+	// 풋살장 리뷰 리스트 가져오기
+	public List <FutsalinformationDto> reviewList(FutsalinformationDto futsalinformationDto);
 }

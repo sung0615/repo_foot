@@ -21,6 +21,10 @@
 		    a.fiDelMy,
 		    a.regDateTime,
 		    a.modDateTime,
+		    a.zipCode, <!-- 우편번호 -->
+		    a.detailedAddress, <!-- 상세주소 -->
+		    a.latitude, <!-- 위도 -->
+		    a.hardness, <!-- 경도 -->
 		    region.cdSeq AS regionCdSeq,
 		    region.ifcdName AS regionName
 		   
@@ -59,6 +63,29 @@
 			
 			 limit #{rowNumToShow} offset #{startRnumForMysql} 
 	</select>
+	<select id="reviewList" resultMap="resultMapObj">
+		SELECT
+		    a.rSeq,
+		    a.starScore,
+		    a.reviewTitle,
+		    a.reviewText,
+		    a.user_suSeq,
+		    a.futsalInformation_fiSeq,
+		    a.regDateTime,
+		    b.fiSeq,
+		    b.futsalName,         
+		    c.suSeq,
+		    c.userName,
+		    c.userId
+		FROM 
+		    review a
+		    JOIN futsalInformation b ON a.futsalInformation_fiSeq = b.fiSeq
+		    JOIN user c ON a.user_suSeq = c.suSeq
+		WHERE 1=1
+		
+		   AND futsalinformation_fiseq = #{fiSeq}
+	
+	</select>
 	
 	<sql id="selectCommon">
 		FROM
@@ -85,7 +112,11 @@
 			futsalCancellationPolicy,
 			fiDelMy,
 	        regDateTime,
-	        modDateTime
+	        modDateTime,
+	        zipCode, <!-- 우편번호 -->
+			detailedAddress, <!-- 상세주소 -->
+			latitude, <!-- 위도 -->
+			hardness <!-- 경도 -->
 		
 		
 		) value (
@@ -99,7 +130,11 @@
 			#{futsalCancellationPolicy},
 			0,
 	        NOW(),
-	        NOW()
+	        NOW(),
+	        #{zipCode},
+	        #{detailedAddress},
+	        #{latitude},
+        	#{hardness}
 		)
 		
 		  <selectKey resultType="String" keyProperty="fiSeq" order="AFTER">
@@ -107,6 +142,8 @@
 		</selectKey>  
 	
 	</insert>
+	
+
 	
 	<update id ="update">
 	UPDATE futsalinformation SET
@@ -123,7 +160,9 @@
 		futsalBusinessHours = #{futsalBusinessHours},
 		futsalFacilityUsageRules = #{futsalFacilityUsageRules},
 		futsalCancellationPolicy = #{futsalCancellationPolicy},
-		 modDateTime = NOW()  <!-- 현재 시간으로 업데이트 -->
+		 modDateTime = NOW(),  <!-- 현재 시간으로 업데이트 -->
+		 zipCode = #{zipCode},
+		 detailedAddress = #{detailedAddress}
 	WHERE
 		fiSeq = #{fiSeq}
 	
@@ -141,6 +180,11 @@
 		    a.futsalBusinessHours,
 		    a.futsalFacilityUsageRules,
 		    a.futsalCancellationPolicy,
+		    a.zipCode, <!-- 우편번호 -->
+		    a.detailedAddress, <!-- 상세주소 -->
+		    
+		   
+		    
 		    region.cdSeq AS regionCdSeq,
 		    region.ifcdName AS regionName
 		  

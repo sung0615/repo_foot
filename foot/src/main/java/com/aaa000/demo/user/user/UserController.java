@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aaa000.demo.common.util.UtilDateTiem;
@@ -21,6 +23,12 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	@Autowired
+	MailService mailService;
+
+	
+	
+
 	
 	// 사용자 회원 가입 리스트 관리자에서 보여주기
 	@RequestMapping(value="/MemberXdmList")
@@ -61,7 +69,20 @@ public class UserController {
 		userDto.setUserPassword(encodeBcrypt(userDto.getUserPassword(), 10));
 		 
 		userService.insert(userDto);
-								// 회원 가입이 됬을때 로그인창으로 넘경됨
+		// thread 사용해서 메일 전송 빠르게
+		Thread thread = new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+		        try {
+		            // 여기에 실행할 코드 작성
+		            mailService.sendMailWelcome(userDto);  //회원가입 축하 메일 전송
+		        } catch (Exception e) {
+		            e.printStackTrace(); // 예외 처리
+		        }
+		    }
+		});
+		thread.start(); //실행
+							
 		return "redirect:/SigninUser";
 	}
 	
@@ -205,6 +226,33 @@ public class UserController {
 		
 		
 	}
+//	// 카카오톡 로그인 구현 
+//	@GetMapping("/auth/kakao/callback")
+//	public String kakaoLogin(@RequestParam("code") String code, HttpSession session) throws Exception {
+//
+//	    // 1. code로 access token 요청
+//	    String accessToken = kakaoService.getAccessToken(code);
+//
+//	    // 2. access token으로 사용자 정보 요청
+//	    UserDto kakaoUser = kakaoService.getUserInfo(accessToken);
+//
+//	    // 3. 회원가입 or 기존 회원 로그인 처리
+//	    UserDto loginUser = userService.findOrCreateKakaoUser(kakaoUser);
+//
+//	    // 4. 세션 저장
+//	    session.setAttribute("sessSeqUser", loginUser.getSuSeq()); //사용자Seq
+//	    session.setAttribute("sessIdUser", loginUser.getUserId()); // ID
+//	    session.setAttribute("sessNameUser", loginUser.getUserName());   //이름
+//	    session.setAttribute("sessBirthdayUser", loginUser.getUserBirthday()); //생일
+//	    session.setAttribute("sessUserPassword", loginUser.getUserPassword()); //비밀번호
+//		
+//		
+//	    session.setAttribute("sessGenderUser", loginUser.getGenderName()); //성별 남자 여자
+//	    session.setAttribute("sessUserGender", loginUser.getUserGender()); //성별  5  6
+//
+//	    return "redirect:/SigninUser"; // 로그인 후 홈으로
+//	}
+
 	
 	//사용자 로그아웃 구현
 	@ResponseBody
