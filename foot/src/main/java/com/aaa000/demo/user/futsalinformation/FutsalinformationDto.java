@@ -2,7 +2,9 @@ package com.aaa000.demo.user.futsalinformation;
 
 import java.sql.Date;
 
-public class FutsalinformationDto {
+import com.aaa000.demo.module.base.BaseDto;
+
+public class FutsalinformationDto extends BaseDto{
 	
 	private String fiSeq; // 풋살장정보Seq
 	private String futsalName; //풋살장 이름

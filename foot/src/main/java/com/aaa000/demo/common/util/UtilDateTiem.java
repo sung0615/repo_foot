@@ -20,6 +20,12 @@ public class UtilDateTiem {
 	public static String add59TimeString(String date) {
 		return date + " 23:59:59";
 	}
+
+
+	public static String nowString() {
+		// TODO Auto-generated method stub
+		return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+	}
 	
 	
 	

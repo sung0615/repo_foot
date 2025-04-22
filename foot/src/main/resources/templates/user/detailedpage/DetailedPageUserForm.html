@@ -457,62 +457,83 @@
 		<section class="mt-8">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-5 col-xl-6">
-						<!-- img slide -->
-						<div class="product" id="product">
-							<div class="zoom" onmousemove="zoom(event)"
-								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)">
+<!-- 					<div class="col-md-5 col-xl-6"> -->
+<!-- 						img slide -->
+<!-- 						<div class="product" id="product"> -->
+<!-- 							<div class="zoom" onmousemove="zoom(event)" -->
+<!-- 								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)"> -->
 								
-								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-							</div>
-							<div class="zoom" onmousemove="zoom(event)"
-								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)">
+<!-- 								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" /> -->
+<!-- 							</div> -->
+<!-- 							<div class="zoom" onmousemove="zoom(event)" -->
+<!-- 								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)"> -->
 								
-								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-							</div>
-							<div class="zoom" onmousemove="zoom(event)"
-								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)">
+<!-- 								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" /> -->
+<!-- 							</div> -->
+<!-- 							<div class="zoom" onmousemove="zoom(event)" -->
+<!-- 								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)"> -->
 								
-								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-							</div>
-							<div class="zoom" onmousemove="zoom(event)"
-								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)">
+<!-- 								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" /> -->
+<!-- 							</div> -->
+<!-- 							<div class="zoom" onmousemove="zoom(event)" -->
+<!-- 								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)"> -->
 								
-								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-							</div>
+<!-- 								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" /> -->
+<!-- 							</div> -->
 							
-						</div>
-						<!-- product tools -->
-						<div class="product-tools">
-							<div class="thumbnails row g-3" id="productThumbnails">
-								<div class="col-3">
-									<div class="thumbnails-img">
+<!-- 						</div> -->
+<!-- 						product tools -->
+<!-- 						<div class="product-tools"> -->
+<!-- 							<div class="thumbnails row g-3" id="productThumbnails"> -->
+<!-- 								<div class="col-3"> -->
+<!-- 									<div class="thumbnails-img"> -->
 									
-										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="thumbnails-img">
+<!-- 										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" /> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-3"> -->
+<!-- 									<div class="thumbnails-img"> -->
 									
-										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="thumbnails-img">
+<!-- 										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" /> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-3"> -->
+<!-- 									<div class="thumbnails-img"> -->
 									
-										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="thumbnails-img">
+<!-- 										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" /> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-3"> -->
+<!-- 									<div class="thumbnails-img"> -->
 									
-										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-									</div>
-								</div>
+<!-- 										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" /> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 								
-							</div>
-						</div>
-					</div>
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<div class="col-md-5 col-xl-6">
+	<!-- img slide -->
+	<div class="product" id="product">
+		<div class="zoom" onmousemove="zoom(event)"
+			th:style="'background-image: url(' + @{${item.path}} + ')'" >
+			<img th:src="@{${item.path}}" alt="상품 이미지" />
+		</div>
+	</div>
+
+	<!-- product tools (미리보기 썸네일) -->
+	<div class="product-tools">
+		<div class="thumbnails row g-3" id="productThumbnails">
+			<div class="col-3">
+				<div class="thumbnails-img">
+					<img th:src="@{${item.path}}" alt="썸네일" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 					<div class="col-md-7 col-xl-6" >
 						<div class="ps-lg-10 mt-6 mt-md-0" >
 							<!-- content -->

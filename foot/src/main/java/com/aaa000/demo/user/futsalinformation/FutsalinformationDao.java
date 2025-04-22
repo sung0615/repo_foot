@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.aaa000.demo.module.base.BaseDao;
+import com.aaa000.demo.module.base.BaseDto;
+
 @Repository
-public interface FutsalinformationDao {
+public interface FutsalinformationDao extends BaseDao{
 	
 	// 풋살장 정보 리스트					
 	public List<FutsalinformationDto> selectList(FutsalinformationVo vo);
@@ -30,4 +33,12 @@ public interface FutsalinformationDao {
 	
 	// 풋살장 리뷰 리스트 가져오기
 	public List <FutsalinformationDto> reviewList(FutsalinformationDto futsalinformationDto);
+	
+	public int insertUploaded(BaseDto Dto);
+	
+	// 이미지 수정
+	public int imgupdate(FutsalinformationDto futsalinformationDto);
+	
+	
+	
 }

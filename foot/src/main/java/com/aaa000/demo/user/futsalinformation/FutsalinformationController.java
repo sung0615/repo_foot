@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.aaa000.demo.user.review.ReviewDto;
-
 @Controller
 public class FutsalinformationController {
 	
@@ -28,9 +26,17 @@ public class FutsalinformationController {
 	
 	// 풋살장 정보 예약 Reservation 화면 뿌리기
 	@RequestMapping(value="/ReservationUserList")
-	public String ReservationUserList(Model model, FutsalinformationVo vo) {
+	public String ReservationUserList(Model model, FutsalinformationVo vo, FutsalinformationDto futsalinformationDto) {
+		
+
+	   
+		
+
+
 		
 		vo.setParamsPaging(futsalinformationService.selectOneCount(vo));
+		
+	
 		
 		model.addAttribute("list", futsalinformationService.selectList(vo));
 		model.addAttribute("vo", vo);
@@ -55,11 +61,17 @@ public class FutsalinformationController {
 	// 풋살장 관리자 등록 폼 만들기 만들기
 	@RequestMapping(value="/FutsalXdmForm")
 	public String FutsalXdmForm() {
+		
+		
+		
 		return "xdm/futsal/FutsalXdmForm";
 	}
 	//풋살장 등록후 풋살장 리스트에 뿌리기
 	@RequestMapping(value="/FutsalInst")
-	public String FutsalInst(FutsalinformationDto futsalinformationDto) {
+	public String FutsalInst(FutsalinformationDto futsalinformationDto) throws Exception {
+		
+		
+		
 		
 		futsalinformationService.insert(futsalinformationDto);
 		return "redirect:/FutsalXdmList";

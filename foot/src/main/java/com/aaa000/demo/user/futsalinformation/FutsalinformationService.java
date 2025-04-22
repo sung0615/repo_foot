@@ -5,8 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aaa000.demo.module.base.BaseService;
+import com.amazonaws.services.s3.AmazonS3Client;
+
 @Service
-public class FutsalinformationService {
+public class FutsalinformationService extends BaseService{
+//	for aws.s3 fileupload s
+	@Autowired
+	private AmazonS3Client amazonS3Client;
 	
 	@Autowired
 	FutsalinformationDao futsalinformationDao;
@@ -22,8 +28,20 @@ public class FutsalinformationService {
 	}
 	
 	// 풋살장 등록폼
-	public int insert(FutsalinformationDto futsalinformationDto) {
-		return futsalinformationDao.insert(futsalinformationDto);
+	public int insert(FutsalinformationDto futsalinformationDto) throws Exception {
+		futsalinformationDao.insert(futsalinformationDto);
+		
+    	uploadFilesToS3(
+    			futsalinformationDto.getUploadImg1()
+    			, futsalinformationDto
+    			, "infrBannerUploaded"
+    			, futsalinformationDto.getUploadImg1Type()
+    			, futsalinformationDto.getUploadImg1MaxNumber()
+    			, futsalinformationDto.getFiSeq()
+    			, futsalinformationDao
+    			, amazonS3Client);
+    	
+		return 1;
 	}
 	
 	//풋살장 상세에 리뷰 달기
