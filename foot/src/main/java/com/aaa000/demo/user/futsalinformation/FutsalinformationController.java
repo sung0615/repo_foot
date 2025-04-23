@@ -87,7 +87,11 @@ public class FutsalinformationController {
 	}
 	//수정한 데이터를 리스트 화면으로 옴겨야됨
 	@RequestMapping(value="/FutsalUpdt")
-	public String FutsalUpdt (FutsalinformationDto futsalinformationDto) {
+	public String FutsalUpdt (FutsalinformationDto futsalinformationDto) throws Exception {
+		
+	
+	
+		// 업에이트 하면서 인설트 시ㅣ기
 		futsalinformationService.update(futsalinformationDto);
 		return "redirect:/FutsalXdmList";
 	}
@@ -145,6 +149,8 @@ public class FutsalinformationController {
 	    model.addAttribute("ratingPercentages", ratingPercentages); // 별점별 비율
 	    model.addAttribute("reviewList", reviewList); // 리뷰 목록
 	    model.addAttribute("item", futsalinformationService.selectOne(futsalinformationDto)); // 풋살장 정보
+	    vo.setParamsPaging(futsalinformationService.selectOneCount(vo)); // 페이지 네이션
+	    model.addAttribute("vo", vo);
 
 	    return "user/detailedpage/DetailedPageUserForm";
 	}

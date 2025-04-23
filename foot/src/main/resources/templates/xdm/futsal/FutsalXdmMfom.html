@@ -3,12 +3,12 @@
 
 <div th:replace="~{xdm/include/head :: head}"></div>
 
-<form action="/FutsalUpdt" method="post" id="form">
+<form action="/FutsalUpdt" method="post" id="form" enctype="multipart/form-data">
 <input type="hidden" id="fiSeq" name="fiSeq" th:value="${item?.fiSeq}" />
 <section class="content">
         <div class="container-fluid">
             <div class="block-header">
-                <h2>풋살장 등록</h2>
+                <h2>풋살장 수정</h2>
             </div>
             <!-- Input -->
             <div class="row clearfix">
@@ -133,12 +133,13 @@
                                     
                                 </div>
                                 <div class="fallback">
-                                    <input  id="uploadImg1" name="uploadImg1" type="file" multiple />
+                                    <input  id="uploadImg1" name="uploadImg1" type="file" multiple/>
                                     <input  id="uploadImg1Type" name="uploadImg1Type" value="1" type="hidden" />
                                     <input  id="uploadImg1MaxNumber" name="uploadImg1MaxNumber" value="1" type="hidden" />
                                     <input  id="ifbnSeq" name="ifbnSeq" th:value="fiSeq" type="hidden" />
                                     
                                 </div>
+                                
                             <!-- <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
                                 <div class="dz-message">
                                     <div class="drag-icon-cph">
@@ -303,6 +304,15 @@
 		let futsalCancellationPolicyError = document.getElementById("futsalCancellationPolicyError");//풋살장 환불 규정 잘못 적을 경우
 		
 		let isValid = true;
+	    const fileInput = document.getElementById("uploadImg1");
+
+	    if (!fileInput.files || fileInput.files.length === 0) {
+	        alert("이미지를 1장 업로드해주세요."); // 또는 커스텀 모달 사용 가능
+	        return;
+	    }
+
+	    // 정상적으로 업로드된 경우 → 저장 로직 실행
+	    document.forms[0].submit(); // 예시
 		
 		//풋살장 이름 검증
 		if (futsalName.value == ""){

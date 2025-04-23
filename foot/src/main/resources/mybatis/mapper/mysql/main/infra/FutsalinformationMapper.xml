@@ -8,48 +8,48 @@
 	<!-- 풋살장 정보 리스트 보여주기 -->
 	<select id="selectList" resultMap="resultMapObj">
 		
-SELECT 
-    a.fiSeq,
-    a.futsalName,
-    a.futsalPrice,
-    a.futsalRegion,
-    a.futsalAddress,
-    a.futsalPhoneNumbar,
-    a.futsalBusinessHours,
-    a.futsalFacilityUsageRules,
-    a.futsalCancellationPolicy,
-    a.fiDelMy,
-    a.regDateTime,
-    a.modDateTime,
-    a.zipCode,
-    a.detailedAddress,
-    a.latitude,
-    a.hardness,
-    region.cdSeq AS regionCdSeq,
-    region.ifcdName AS regionName,
-    COALESCE(review.avgStarScore, 0) AS avgStarScore,
-    COALESCE(review.reviewCount, 0) AS reviewCount,
-    (SELECT 
-    	
-    	path
-    FROM 
-    	uploaded
-    WHERE 1=1	
-    	AND pseq = fiSeq
-    ) AS path
-    
-FROM
-    futsalinformation a
-    LEFT JOIN code region ON a.futsalRegion = region.cdSeq
-    LEFT JOIN (
-        SELECT 
-            futsalInformation_fiSeq,
-            ROUND(AVG(starScore), 1) AS avgStarScore,
-            COUNT(*) AS reviewCount
-        FROM review
-        GROUP BY futsalInformation_fiSeq
-    ) review ON a.fiSeq = review.futsalInformation_fiSeq
-WHERE 1=1
+		SELECT 
+		    a.fiSeq,
+		    a.futsalName,
+		    a.futsalPrice,
+		    a.futsalRegion,
+		    a.futsalAddress,
+		    a.futsalPhoneNumbar,
+		    a.futsalBusinessHours,
+		    a.futsalFacilityUsageRules,
+		    a.futsalCancellationPolicy,
+		    a.fiDelMy,
+		    a.regDateTime,
+		    a.modDateTime,
+		    a.zipCode,
+		    a.detailedAddress,
+		    a.latitude,
+		    a.hardness,
+		    region.cdSeq AS regionCdSeq,
+		    region.ifcdName AS regionName,
+		    COALESCE(review.avgStarScore, 0) AS avgStarScore,
+		    COALESCE(review.reviewCount, 0) AS reviewCount,
+		    (SELECT 		    	
+		    	path
+		    FROM 
+		    	uploaded
+		    WHERE 1=1	
+		    	AND pseq = fiSeq
+		    	AND delNy = 0
+		    ) AS path
+		    
+		FROM
+		    futsalinformation a
+		    LEFT JOIN code region ON a.futsalRegion = region.cdSeq
+		    LEFT JOIN (
+		        SELECT 
+		            futsalInformation_fiSeq,
+		            ROUND(AVG(starScore), 1) AS avgStarScore,
+		            COUNT(*) AS reviewCount
+		        FROM review
+		        GROUP BY futsalInformation_fiSeq
+		    ) review ON a.fiSeq = review.futsalInformation_fiSeq
+		WHERE 1=1
 			<if test="shDelNy != null and !shDelNy.equals('')">AND a.fiDelMy = #{shDelNy}</if>
 			<!-- <if test="shValue != null and !shValue.equals('')">
 			    AND a.futsalName LIKE CONCAT('%', #{shValue}, '%')
@@ -76,6 +76,7 @@ WHERE 1=1
 			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
 		</choose> 
 				AND fiDelMy = 0  
+			
 			 
 			
 			 limit #{rowNumToShow} offset #{startRnumForMysql} 
@@ -144,7 +145,11 @@ WHERE 1=1
 		) value (
 			#{futsalName},
 			#{futsalPrice},
-			#{futsalRegion},
+			<choose>
+				<when test="futsalRegion == '서울'">8</when>
+				<when test="futsalRegion == '경기'">9</when>
+				<otherwise>0</otherwise> <!-- 기본값 또는 예외 -->
+			</choose>,
 			#{futsalAddress},
 			#{futsalPhoneNumbar},
 			#{futsalBusinessHours},
@@ -191,6 +196,13 @@ WHERE 1=1
 		
 	
 	</update>
+	<update id="imgUpdate">
+		UPDATE uploaded SET
+			delNy = 1
+		WHERE
+			pseq = #{fiSeq}
+			
+	</update>
 	
 	<select id="selectOne" resultMap="resultMapObj">
 	SELECT 
@@ -217,6 +229,7 @@ WHERE 1=1
     	uploaded
     WHERE 1=1	
     	AND pseq = fiSeq
+    	AND delNy = 0
     ) AS path
 		  
 		FROM

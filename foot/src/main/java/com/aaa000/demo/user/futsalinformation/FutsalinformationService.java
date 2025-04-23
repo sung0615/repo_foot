@@ -44,6 +44,11 @@ public class FutsalinformationService extends BaseService{
 		return 1;
 	}
 	
+	public int imgUpdate(FutsalinformationDto futsalinformationDto) {
+		
+		return futsalinformationDao.imgUpdate(futsalinformationDto);
+	}
+	
 	//풋살장 상세에 리뷰 달기
 	public int reviewInsert(FutsalinformationDto futsalinformationDto) {
 		
@@ -51,8 +56,22 @@ public class FutsalinformationService extends BaseService{
 	}
 	
 	//풋살장 수정하기
-	public int update(FutsalinformationDto futsalinformationDto) {
-		return futsalinformationDao.update(futsalinformationDto);
+	public int update(FutsalinformationDto futsalinformationDto) throws Exception {
+		futsalinformationDao.imgUpdate(futsalinformationDto);
+		futsalinformationDao.update(futsalinformationDto);
+    	uploadFilesToS3(
+    			futsalinformationDto.getUploadImg1()
+    			, futsalinformationDto
+    			, "infrBannerUploaded"
+    			, futsalinformationDto.getUploadImg1Type()
+    			, futsalinformationDto.getUploadImg1MaxNumber()
+    			, futsalinformationDto.getFiSeq()
+    			, futsalinformationDao
+    			, amazonS3Client);
+    	
+		return 1;
+		
+//		return futsalinformationDao.update(futsalinformationDto);
 	}
 	
 	//풋살장 업데이트 삭제

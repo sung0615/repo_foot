@@ -735,8 +735,10 @@
 									<tbody>
 										<tr>
 											<td>주소</td>
-											<td th:text="${item.futsalAddress}"></td>
+											<td th:text="${item.futsalAddress} + ${item.detailedAddress}"></td>
+											
 										</tr>
+
 										<tr>
 											<td>연락처</td>
 											<td th:text="${item.futsalPhoneNumbar}"></td>
@@ -749,35 +751,35 @@
 									</tbody>
 								</table>
 							</div>
-							<div class="mt-8">
+<!-- 							<div class="mt-8"> -->
 								
-								<div class="dropdown">
-									<a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button"
-										data-bs-toggle="dropdown" aria-expanded="false">공유하기</a>
+<!-- 								<div class="dropdown"> -->
+<!-- 									<a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" -->
+<!-- 										data-bs-toggle="dropdown" aria-expanded="false">공유하기</a> -->
 
-									<ul class="dropdown-menu">
+<!-- 									<ul class="dropdown-menu"> -->
 										
-										<li>
-											<a class="dropdown-item" href="#">
-												<i class="bi bi-facebook me-2"></i>
-												Facebook
-											</a>
-										</li>
-										<li>
-											<a class="dropdown-item" href="#">
-												<img src="./free-icon-kakao-talk-2111683.png" width="17">&nbsp;
-												카카오톡
-											</a>
-										</li>
-										<li>
-											<a class="dropdown-item" href="#">
-												<i class="bi bi-instagram me-2"></i>
-												Instagram
-											</a>
-										</li>
-									</ul>
-								</div>
-							</div>
+<!-- 										<li> -->
+<!-- 											<a class="dropdown-item" href="#"> -->
+<!-- 												<i class="bi bi-facebook me-2"></i> -->
+<!-- 												Facebook -->
+<!-- 											</a> -->
+<!-- 										</li> -->
+<!-- 										<li> -->
+<!-- 											<a class="dropdown-item" href="#"> -->
+<!-- 												<img src="./free-icon-kakao-talk-2111683.png" width="17">&nbsp; -->
+<!-- 												카카오톡 -->
+<!-- 											</a> -->
+<!-- 										</li> -->
+<!-- 										<li> -->
+<!-- 											<a class="dropdown-item" href="#"> -->
+<!-- 												<i class="bi bi-instagram me-2"></i> -->
+<!-- 												Instagram -->
+<!-- 											</a> -->
+<!-- 										</li> -->
+<!-- 									</ul> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 						</div>
 					</div>
 				</div>
@@ -998,7 +1000,8 @@
 
 
 
-		
+			<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 										<!-- col -->
 										<div class="col-md-8">
 											<div class="mb-10" >
@@ -1043,6 +1046,8 @@
 												</div>
 												
 											</div>
+			
+									
 											</th:block>
 										
 										<form action="/reviewUdate" method="post" id="form">	
@@ -1051,6 +1056,7 @@
 										<input type="hidden" id="futsalInformation_fiSeq" name="futsalInformation_fiSeq" th:value="${item.fiSeq}">
 										<input type="hidden" id="fiSeq" name="fiSeq" th:value="${item.fiSeq}">
 											<!-- 리뷰 작성 폼 -->
+											
 											<div >
 												<!-- rating -->
 												<h3 class="mb-5">리뷰 작성</h3>
@@ -1081,6 +1087,7 @@
 												<div class="d-flex justify-content-end">
 													<button type="button" id="reviewSave" class="btn btn-primary">리뷰 제출</button>
 												</div>
+											</div>
 											</div>
 										</form>
 										</div>
@@ -1724,6 +1731,19 @@ document.addEventListener("DOMContentLoaded", function () {
     loadReviewList();
 });
 </script>
+
+    <script type="text/javascript">
+    	// 페이지네이션 자바 스크립
+	    let form = document.querySelector("form[name=formList]");
+	 goList = function (thisPage) {
+	     document.querySelector("input[name=thisPage]").value = thisPage;
+	     form.action = "/DetailedPageUserForm";
+	     form.submit();
+	 }  
+
+		
+    
+    </script>
 
 
 

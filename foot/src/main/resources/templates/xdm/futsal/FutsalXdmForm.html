@@ -60,7 +60,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                             	
-                                                <textarea rows="4" class="form-control no-resize" placeholder="풋살장 지역을 입력하세요 예)서울 8번 or 경기 9번"  id="futsalRegion" name="futsalRegion"></textarea>
+                                                <textarea rows="4" class="form-control no-resize" placeholder="풋살장 지역을 입력하세요 예)서울  or 경기"   id="futsalRegion" name="futsalRegion"></textarea>
                                             	<span id="futsalRegionError" style="color: red; font-size: 10px;"></span>
                                             </div>
                                         </div>
@@ -286,19 +286,20 @@
 		 
 		
 		
-		 //풋살장 지역 8 서울 9 경기 입력
-		let result = /^[89]$/; // 8 또는 9만 허용
-		if(futsalRegion.value.trim() == ""){
-			futsalRegionError.innerText = "서울8 경기9 숫자를 입력해주세요";
-			futsalRegion.focus();
-			isValid = false;
-		}else if (!result.test(futsalRegion.value)) {
-			futsalRegionError.innerText = "8 또는 9만 입력 가능합니다.";
-			futsalRegion.focus();
-	        isValid = false;
-	    } else {
-	    	futsalRegionError.innerText = "";
-	    }
+		// 풋살장 지역: 서울 또는 경기만 허용
+		let result = /^(서울|경기)$/; // '서울' 또는 '경기'만 허용
+
+		if (futsalRegion.value.trim() === "") {
+		    futsalRegionError.innerText = "서울 또는 경기를 입력해주세요.";
+		    futsalRegion.focus();
+		    isValid = false;
+		} else if (!result.test(futsalRegion.value.trim())) {
+		    futsalRegionError.innerText = "올바른 지역명을 입력해주세요. (서울 또는 경기)";
+		    futsalRegion.focus();
+		    isValid = false;
+		} else {
+		    futsalRegionError.innerText = "";
+		}
 		
 		
 		//풋살장 주소 검사
