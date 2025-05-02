@@ -8,6 +8,7 @@ public class FavoritesDto {
 	private String futsalInformation_fiSeq; //풋살장 정보Seq
 	private String user_suSeq; // 사용자Seq
 //	-----	
+	 
 	public String getFavoritesSeq() {
 		return favoritesSeq;
 	}

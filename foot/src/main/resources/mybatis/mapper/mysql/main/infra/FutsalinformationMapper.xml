@@ -95,6 +95,7 @@
 		    a.user_suSeq,
 		    a.futsalInformation_fiSeq,
 		    a.regDateTime,
+		    a.riDelMy,
 		    b.fiSeq,
 		    b.futsalName,         
 		    c.suSeq,
@@ -107,6 +108,7 @@
 		WHERE 1=1
 		
 		   AND futsalinformation_fiseq = #{fiSeq}
+		   AND riDelMy = 0
 	
 	</select>
 	

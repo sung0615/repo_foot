@@ -29,13 +29,16 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer{
 				"/SignupUserInst", //회원가입 회원가입Inst
 				"/SignupUserForm1",
 				"/SignupUserForm1",
+				
 			
 				
 				// 관리자 로그인하기전에 로그인 폼만 보여주고 나머지 XX
 				"/*Xdm*/",
-			
+				"/publicCorona1JsonNodeList2",
+				"/publicCorona1JsonNodeList",
 				"/SigninAdimn", // 관리자 로그인화면
 				"/SigninAdimn1" // 관리 로그인 동작
+				
 				
 		);
 	

@@ -12,8 +12,8 @@ public class ReviewService {
 	ReviewDao reviewDao;
 	
 	// 리뷰 리스트 보여주기
-	public List<ReviewDto> selectList(){
-		return reviewDao.selectList();
+	public List<ReviewDto> reviewListByUser(int suSeq){
+		return reviewDao.reviewListByUser(suSeq);
 	}
 	
 	// 리뷰 데이터1개씩 뽑기
@@ -32,8 +32,8 @@ public class ReviewService {
 	}
 	
 	// 업데이트 삭제
-	public int uelete(ReviewDto reviewDto) {
-		return reviewDao.uelete(reviewDto);
+	public int uelete(List<Long> deleteIds) {
+		return reviewDao.uelete(deleteIds);
 	}
 	
 }

@@ -9,10 +9,14 @@ public class ReviewDto {
 	private Integer riDelMy; // 리뷰 업데이트 삭제
 	private String user_suSeq; //사용자 정보 Seq
 	private String futsalInformation_fiSeq; //풋살장정보 Seq
+	private String regDateTime;
 //	-----
 	private String suSeq;//사용자 Seq
 	private String fiSeq; //풋살장 Seq
 //	----
+	private String futsalName; //풋살장 이름
+	private String userName; //사용자 이름
+//	-----
 	
 	public String getrSeq() {
 		return rSeq;
@@ -67,6 +71,24 @@ public class ReviewDto {
 	}
 	public void setFiSeq(String fiSeq) {
 		this.fiSeq = fiSeq;
+	}
+	public String getFutsalName() {
+		return futsalName;
+	}
+	public void setFutsalName(String futsalName) {
+		this.futsalName = futsalName;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getRegDateTime() {
+		return regDateTime;
+	}
+	public void setRegDateTime(String regDateTime) {
+		this.regDateTime = regDateTime;
 	}
 	
 }

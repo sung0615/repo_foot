@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface ReviewDao {
 	
 	// 리뷰 리스트 보여주기
-	public List<ReviewDto> selectList();
+	public List<ReviewDto> reviewListByUser(int suSeq);
+	
 	
 	// 리뷰 1개만 뽑을때
 	public ReviewDto selectOne(ReviewDto reviewDto);
@@ -20,5 +21,5 @@ public interface ReviewDao {
 	public int update(ReviewDto reviewDto);
 	
 	// 리뷰 업데이트 삭제
-	public int uelete(ReviewDto reviewDto);
+	public int uelete(List<Long> deleteIds);
 }

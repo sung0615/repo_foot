@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{user/include/head :: head}"></div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content p-4">
+				<div class="modal-header border-0">
+					<h5 class="modal-title fs-3 fw-bold" id="userModalLabel">Sign Up</h5>
+
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form class="needs-validation" novalidate>
+						<div class="mb-3">
+							<label for="fullName" class="form-label">Name</label>
+							<input type="text" class="form-control" id="fullName" placeholder="Enter Your Name"
+								required />
+							<div class="invalid-feedback">Please enter name.</div>
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email address</label>
+							<input type="email" class="form-control" id="email" placeholder="Enter Email address"
+								required />
+							<div class="invalid-feedback">Please enter email.</div>
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label">Password</label>
+							<input type="password" class="form-control" id="password" placeholder="Enter Password"
+								required />
+							<div class="invalid-feedback">Please enter password.</div>
+							<small class="form-text">
+								By Signup, you agree to our
+								<a href="#!">Terms of Service</a>
+								&
+								<a href="#!">Privacy Policy</a>
+							</small>
+						</div>
+
+						<button type="submit" class="btn btn-primary">Sign Up</button>
+					</form>
+				</div>
+				<div class="modal-footer border-0 justify-content-center">
+					Already have an account?
+					<a href="#">Sign in</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Shop Cart -->
+
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+		<div class="offcanvas-header border-bottom">
+			<div class="text-start">
+				<h5 id="offcanvasRightLabel" class="mb-0 fs-4">Shop Cart</h5>
+				<small>Location in 382480</small>
+			</div>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body">
+			<div>
+				<!-- alert -->
+				<div class="alert alert-danger p-2" role="alert">
+					You’ve got FREE delivery. Start
+					<a href="#!" class="alert-link">checkout now!</a>
+				</div>
+				<ul class="list-group list-group-flush">
+					<!-- list group -->
+					<li class="list-group-item py-3 ps-0 border-top">
+						<!-- row -->
+						<div class="row align-items-center">
+							<div class="col-6 col-md-6 col-lg-7">
+								<div class="d-flex">
+									<img src="/user/template/assets/images/products/product-img-1.jpg" alt="Ecommerce"
+										class="icon-shape icon-xxl" />
+									<div class="ms-3">
+										<!-- title -->
+										<a href="/user/template/pages/shop-single.html" class="text-inherit">
+											<h6 class="mb-0">Haldiram's Sev Bhujia</h6>
+										</a>
+										<span><small class="text-muted">.98 / lb</small></span>
+										<!-- text -->
+										<div class="mt-2 small lh-1">
+											<a href="#!" class="text-decoration-none text-inherit">
+												<span class="me-1 align-text-bottom">
+													<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+														viewBox="0 0 24 24" fill="none" stroke="currentColor"
+														stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+														class="feather feather-trash-2 text-success">
+														<polyline points="3 6 5 6 21 6"></polyline>
+														<path
+															d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+														</path>
+														<line x1="10" y1="11" x2="10" y2="17"></line>
+														<line x1="14" y1="11" x2="14" y2="17"></line>
+													</svg>
+												</span>
+												<span class="text-muted">Remove</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- input group -->
+							<div class="col-4 col-md-3 col-lg-3">
+								<!-- input -->
+								<!-- input -->
+								<div class="input-group input-spinner">
+									<input type="button" value="-" class="button-minus btn btn-sm"
+										data-field="quantity" />
+									<input type="number" step="1" max="10" value="1" name="quantity"
+										class="quantity-field form-control-sm form-input" />
+									<input type="button" value="+" class="button-plus btn btn-sm"
+										data-field="quantity" />
+								</div>
+							</div>
+							<!-- price -->
+							<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+								<span class="fw-bold">$5.00</span>
+							</div>
+						</div>
+					</li>
+					<!-- list group -->
+					<li class="list-group-item py-3 ps-0">
+						<!-- row -->
+						<div class="row align-items-center">
+							<div class="col-6 col-md-6 col-lg-7">
+								<div class="d-flex">
+									<img src="/user/template/assets/images/products/product-img-2.jpg" alt="Ecommerce"
+										class="icon-shape icon-xxl" />
+									<div class="ms-3">
+										<a href="/user/template/pages/shop-single.html" class="text-inherit">
+											<h6 class="mb-0">NutriChoice Digestive</h6>
+										</a>
+										<span><small class="text-muted">250g</small></span>
+										<!-- text -->
+										<div class="mt-2 small lh-1">
+											<a href="#!" class="text-decoration-none text-inherit">
+												<span class="me-1 align-text-bottom">
+													<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+														viewBox="0 0 24 24" fill="none" stroke="currentColor"
+														stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+														class="feather feather-trash-2 text-success">
+														<polyline points="3 6 5 6 21 6"></polyline>
+														<path
+															d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+														</path>
+														<line x1="10" y1="11" x2="10" y2="17"></line>
+														<line x1="14" y1="11" x2="14" y2="17"></line>
+													</svg>
+												</span>
+												<span class="text-muted">Remove</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- input group -->
+							<div class="col-4 col-md-3 col-lg-3">
+								<!-- input -->
+								<!-- input -->
+								<div class="input-group input-spinner">
+									<input type="button" value="-" class="button-minus btn btn-sm"
+										data-field="quantity" />
+									<input type="number" step="1" max="10" value="1" name="quantity"
+										class="quantity-field form-control-sm form-input" />
+									<input type="button" value="+" class="button-plus btn btn-sm"
+										data-field="quantity" />
+								</div>
+							</div>
+							<!-- price -->
+							<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+								<span class="fw-bold text-danger">$20.00</span>
+								<div class="text-decoration-line-through text-muted small">$26.00</div>
+							</div>
+						</div>
+					</li>
+					<!-- list group -->
+					<li class="list-group-item py-3 ps-0">
+						<!-- row -->
+						<div class="row align-items-center">
+							<div class="col-6 col-md-6 col-lg-7">
+								<div class="d-flex">
+									<img src="/user/template/assets/images/products/product-img-3.jpg" alt="Ecommerce"
+										class="icon-shape icon-xxl" />
+									<div class="ms-3">
+										<!-- title -->
+										<a href="/user/template/pages/shop-single.html" class="text-inherit">
+											<h6 class="mb-0">Cadbury 5 Star Chocolate</h6>
+										</a>
+										<span><small class="text-muted">1 kg</small></span>
+										<!-- text -->
+										<div class="mt-2 small lh-1">
+											<a href="#!" class="text-decoration-none text-inherit">
+												<span class="me-1 align-text-bottom">
+													<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+														viewBox="0 0 24 24" fill="none" stroke="currentColor"
+														stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+														class="feather feather-trash-2 text-success">
+														<polyline points="3 6 5 6 21 6"></polyline>
+														<path
+															d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+														</path>
+														<line x1="10" y1="11" x2="10" y2="17"></line>
+														<line x1="14" y1="11" x2="14" y2="17"></line>
+													</svg>
+												</span>
+												<span class="text-muted">Remove</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- input group -->
+							<div class="col-4 col-md-3 col-lg-3">
+								<!-- input -->
+								<!-- input -->
+								<div class="input-group input-spinner">
+									<input type="button" value="-" class="button-minus btn btn-sm"
+										data-field="quantity" />
+									<input type="number" step="1" max="10" value="1" name="quantity"
+										class="quantity-field form-control-sm form-input" />
+									<input type="button" value="+" class="button-plus btn btn-sm"
+										data-field="quantity" />
+								</div>
+							</div>
+							<!-- price -->
+							<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+								<span class="fw-bold">$15.00</span>
+								<div class="text-decoration-line-through text-muted small">$20.00</div>
+							</div>
+						</div>
+					</li>
+					<!-- list group -->
+					<li class="list-group-item py-3 ps-0">
+						<!-- row -->
+						<div class="row align-items-center">
+							<div class="col-6 col-md-6 col-lg-7">
+								<div class="d-flex">
+									<img src="/user/template/assets/images/products/product-img-4.jpg" alt="Ecommerce"
+										class="icon-shape icon-xxl" />
+									<div class="ms-3">
+										<!-- title -->
+										<!-- title -->
+										<a href="/user/template/pages/shop-single.html" class="text-inherit">
+											<h6 class="mb-0">Onion Flavour Potato</h6>
+										</a>
+										<span><small class="text-muted">250g</small></span>
+										<!-- text -->
+										<div class="mt-2 small lh-1">
+											<a href="#!" class="text-decoration-none text-inherit">
+												<span class="me-1 align-text-bottom">
+													<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+														viewBox="0 0 24 24" fill="none" stroke="currentColor"
+														stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+														class="feather feather-trash-2 text-success">
+														<polyline points="3 6 5 6 21 6"></polyline>
+														<path
+															d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+														</path>
+														<line x1="10" y1="11" x2="10" y2="17"></line>
+														<line x1="14" y1="11" x2="14" y2="17"></line>
+													</svg>
+												</span>
+												<span class="text-muted">Remove</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- input group -->
+							<div class="col-4 col-md-3 col-lg-3">
+								<!-- input -->
+								<!-- input -->
+								<div class="input-group input-spinner">
+									<input type="button" value="-" class="button-minus btn btn-sm"
+										data-field="quantity" />
+									<input type="number" step="1" max="10" value="1" name="quantity"
+										class="quantity-field form-control-sm form-input" />
+									<input type="button" value="+" class="button-plus btn btn-sm"
+										data-field="quantity" />
+								</div>
+							</div>
+							<!-- price -->
+							<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+								<span class="fw-bold">$15.00</span>
+								<div class="text-decoration-line-through text-muted small">$20.00</div>
+							</div>
+						</div>
+					</li>
+					<!-- list group -->
+					<li class="list-group-item py-3 ps-0 border-bottom">
+						<!-- row -->
+						<div class="row align-items-center">
+							<div class="col-6 col-md-6 col-lg-7">
+								<div class="d-flex">
+									<img src="/user/template/assets/images/products/product-img-5.jpg" alt="Ecommerce"
+										class="icon-shape icon-xxl" />
+									<div class="ms-3">
+										<!-- title -->
+										<a href="/user/template/pages/shop-single.html" class="text-inherit">
+											<h6 class="mb-0">Salted Instant Popcorn</h6>
+										</a>
+										<span><small class="text-muted">100g</small></span>
+										<!-- text -->
+										<div class="mt-2 small lh-1">
+											<a href="#!" class="text-decoration-none text-inherit">
+												<span class="me-1 align-text-bottom">
+													<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+														viewBox="0 0 24 24" fill="none" stroke="currentColor"
+														stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+														class="feather feather-trash-2 text-success">
+														<polyline points="3 6 5 6 21 6"></polyline>
+														<path
+															d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+														</path>
+														<line x1="10" y1="11" x2="10" y2="17"></line>
+														<line x1="14" y1="11" x2="14" y2="17"></line>
+													</svg>
+												</span>
+												<span class="text-muted">Remove</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- input group -->
+							<div class="col-4 col-md-3 col-lg-3">
+								<!-- input -->
+								<!-- input -->
+								<div class="input-group input-spinner">
+									<input type="button" value="-" class="button-minus btn btn-sm"
+										data-field="quantity" />
+									<input type="number" step="1" max="10" value="1" name="quantity"
+										class="quantity-field form-control-sm form-input" />
+									<input type="button" value="+" class="button-plus btn btn-sm"
+										data-field="quantity" />
+								</div>
+							</div>
+							<!-- price -->
+							<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+								<span class="fw-bold">$15.00</span>
+								<div class="text-decoration-line-through text-muted small">$25.00</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<!-- btn -->
+				<div class="d-flex justify-content-between mt-4">
+					<a href="#!" class="btn btn-primary">Continue Shopping</a>
+					<a href="#!" class="btn btn-dark">Update Cart</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body p-6">
+					<div class="d-flex justify-content-between align-items-start">
+						<div>
+							<h5 class="mb-1" id="locationModalLabel">Choose your Delivery Location</h5>
+							<p class="mb-0 small">Enter your address and we will specify the offer you area.</p>
+						</div>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="my-5">
+						<input type="search" class="form-control" placeholder="Search your area" />
+					</div>
+					<div class="d-flex justify-content-between align-items-center mb-2">
+						<h6 class="mb-0">Select Location</h6>
+						<a href="#" class="btn btn-outline-gray-400 text-muted btn-sm">Clear All</a>
+					</div>
+					<div>
+						<div data-simplebar style="height: 300px">
+							<div class="list-group list-group-flush">
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action active">
+									<span>Alabama</span>
+									<span>Min:$20</span>
+								</a>
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+									<span>Alaska</span>
+									<span>Min:$30</span>
+								</a>
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+									<span>Arizona</span>
+									<span>Min:$50</span>
+								</a>
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+									<span>California</span>
+									<span>Min:$29</span>
+								</a>
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+									<span>Colorado</span>
+									<span>Min:$80</span>
+								</a>
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+									<span>Florida</span>
+									<span>Min:$90</span>
+								</a>
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+									<span>Arizona</span>
+									<span>Min:$50</span>
+								</a>
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+									<span>California</span>
+									<span>Min:$29</span>
+								</a>
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+									<span>Colorado</span>
+									<span>Min:$80</span>
+								</a>
+								<a href="#"
+									class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+									<span>Florida</span>
+									<span>Min:$90</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<form action="/ReviewUserUele" method="post" id="form">
+	<script src="/user/template/assets/js/vendors/validation.js"></script>
+	<main>
+		<!-- section -->
+		<section>
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- col -->
+					
+					<!-- col -->
+					
+					
+					
+					
+					<div th:replace="~{user/include/account :: account}"></div>
+					
+					
+					
+					
+					
+					<div class="col-lg-9 col-md-8 col-12">
+						<div class="py-6 p-md-6 p-lg-10">
+							<!-- heading -->
+							<h2 class="mb-6">리뷰 내역</h2>
+
+							<div class="table-responsive-xxl border-0" >
+								<!-- Table -->
+								<table class="table mb-0 text-nowrap table-centered" >
+									<!-- Table Head -->
+									<thead class="bg-light">
+										<tr>
+											<th>
+                                                <input class="form-check-input" type="checkbox" id="entire">
+                                                <label class="form-check-label" for="entire"></label>
+                                            </th>
+											<th>풋살장 이름</th>
+											<th>리뷰 제목</th>
+											<th>리뷰 내용</th>
+											<th>등록일</th>
+											
+											
+											
+										</tr>
+									</thead>
+									
+									<tbody th:each="list : ${list}">
+									    <tr>
+<!-- 									        <td><input type="checkbox" th:value="${list.rSeq}" class="form-check-input review-check"></td> -->
+									        
+									        <th>
+                                                <input class="form-check-input row-checkbox" type="checkbox" th:id="'chk_' + ${list.rSeq}" th:value="${list.rSeq}">
+                                                <label class="form-check-label" th:for="'chk_' + ${list.rSeq}"></label>
+                                            </th>
+
+									        <td th:text="${list.futsalName}">풋살장 이름</td>
+									        <td th:text="${list.reviewTitle}">제목</td>
+									        <td th:text="${list.reviewText}">내용</td>
+									        <td th:text="${list.regDateTime}">등록일</td>
+									    </tr>
+									</tbody>
+									
+								</table>
+								
+							</div>
+							<div>
+								<button class="btn btn-danger" type="button" id="btnUelete">
+									<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+										<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+									  </svg>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- 확인 모달 (Bootstrap 기반) -->
+<div class="modal fade" id="modalConfirm" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalConfirmTitle">확인</h5>
+      </div>
+      <div class="modal-body" id="modalConfirmBody">
+        선택한 리뷰를 삭제하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnModalCancel" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-danger" id="btnModalUelete">삭제</button>
+      </div>
+    </div>
+  </div>
+</div>
+					
+				</div>
+			</div>
+		</section>
+	</main>
+</form>
+
+	<!-- modal -->
+
+	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasAccount" aria-labelledby="offcanvasAccountLabel">
+		<!-- offcanvas header -->
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title" id="offcanvasAccountLabel">Offcanvas</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<!-- offcanvas body -->
+		<div class="offcanvas-body">
+			<ul class="nav flex-column nav-pills nav-pills-dark">
+				<!-- nav item -->
+				<li class="nav-item">
+					<a class="nav-link " aria-current="page" href="reservation-details.html">
+						<i class="feather-icon icon-shopping-bag me-2"></i>
+						예약내역
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " aria-current="page" href="social-match-details.html">
+						<i class="feather-icon icon-shopping-bag me-2"></i>
+						소셜매칭 내역
+					</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link " aria-current="page" href="favorites.html">
+						<i class="feather-icon icon-shopping-bag me-2"></i>
+						즐겨찾기
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " href="account-settings.html">
+						<i class="feather-icon icon-settings me-2"></i>
+						계정설정
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " href="password-change.html">
+						<i class="feather-icon icon-settings me-2"></i>
+						비밀번호 변경
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " href="secession.html">
+						<i class="feather-icon icon-settings me-2"></i>
+						계정 탈퇴
+					</a>
+				</li>
+				<!-- nav item -->
+				<li class="nav-item">
+					<a class="nav-link" href="account-settings.html">
+						<i class="feather-icon icon-settings me-2"></i>
+						Settings
+					</a>
+				</li>
+				<!-- nav item -->
+				<li class="nav-item">
+					<a class="nav-link" href="account-address.html">
+						<i class="feather-icon icon-map-pin me-2"></i>
+						Address
+					</a>
+				</li>
+				<!-- nav item -->
+				<li class="nav-item">
+					<a class="nav-link" href="account-payment-method.html">
+						<i class="feather-icon icon-credit-card me-2"></i>
+						Payment Method
+					</a>
+				</li>
+				<!-- nav item -->
+				<li class="nav-item">
+					<a class="nav-link" href="account-notification.html">
+						<i class="feather-icon icon-bell me-2"></i>
+						Notification
+					</a>
+				</li>
+			</ul>
+			<hr class="my-6" />
+			<div>
+				<!-- nav  -->
+				<ul class="nav flex-column nav-pills nav-pills-dark">
+					<!-- nav item -->
+					<li class="nav-item">
+						<a class="nav-link" href="/user/template/index.html">
+							<i class="feather-icon icon-log-out me-2"></i>
+							로그아웃
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<!-- footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row g-4 py-4">
+				
+				<div class="col-12 col-md-12 col-lg-8">
+					
+				</div>
+			</div>
+			<div class="border-top py-4">
+				<div class="row align-items-center">
+					<div class="col-lg-5 text-lg-start text-center mb-2 mb-lg-0">
+						<ul class="list-inline mb-0">
+							<li class="list-inline-item text-dark">Payment Partners</li>
+							<li class="list-inline-item">
+								<a href="#!"><img src="/user/template/assets/images/payment/amazonpay.svg" alt=""></a>
+							</li>
+							<li class="list-inline-item">
+								<a href="#!"><img src="/user/template/assets/images/payment/american-express.svg" alt=""></a>
+							</li>
+							<li class="list-inline-item">
+								<a href="#!"><img src="/user/template/assets/images/payment//mastercard.svg" alt=""></a>
+							</li>
+							<li class="list-inline-item">
+								<a href="#!"><img src="/user/template/assets/images/payment/paypal.svg" alt=""></a>
+							</li>
+							<li class="list-inline-item">
+								<a href="#!"><img src="/user/template/assets/images/payment/visa.svg" alt=""></a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-lg-7 mt-4 mt-md-0">
+						<ul class="list-inline mb-0 text-lg-end text-center">
+							<li class="list-inline-item mb-2 mb-md-0 text-dark">Get deliveries with FreshCart</li>
+							<li class="list-inline-item ms-4">
+								<a href="#!"> <img src="/user/template/assets/images/appbutton/appstore-btn.svg" alt=""
+										style="width: 140px;"></a>
+							</li>
+							<li class="list-inline-item">
+								<a href="#!"> <img src="/user/template/assets/images/appbutton/googleplay-btn.svg" alt=""
+										style="width: 140px;"></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+			<div class="border-top py-4">
+				<div class="row align-items-center">
+					<!-- <div class="col-md-6"><span class="small text-muted">© 2022 <span id="copyright"> -
+								<script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+							</span>FreshCart eCommerce HTML Template. All rights reserved. Powered by <a
+								href="https://codescandy.com/">Codescandy</a>.</span></div> -->
+					<div class="col-md-6">
+						<ul class="list-inline text-md-end mb-0 small mt-3 mt-md-0">
+							<li class="list-inline-item text-muted">Follow us on</li>
+							<li class="list-inline-item me-1">
+								<a href="#!" class="btn btn-xs btn-social btn-icon"> <svg
+										xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										class="bi bi-facebook" viewBox="0 0 16 16">
+										<path
+											d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+									</svg></a>
+							</li>
+							<li class="list-inline-item me-1">
+								<a href="#!" class="btn btn-xs btn-social btn-icon"> <svg
+										xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										class="bi bi-twitter" viewBox="0 0 16 16">
+										<path
+											d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+									</svg></a>
+							</li>
+							<li class="list-inline-item">
+								<a href="#!" class="btn btn-xs btn-social btn-icon"><svg
+										xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										class="bi bi-instagram" viewBox="0 0 16 16">
+										<path
+											d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+									</svg></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+
+	<!-- <script src="/user/template/assets/libs/jquery/dist/jquery.min.js"></script> -->
+	<script src="/user/template/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/user/template/assets/libs/simplebar/dist/simplebar.min.js"></script>
+
+	<!-- Theme JS -->
+	<script src="/user/template/assets/js/theme.min.js"></script>
+	
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+    const entireCheckbox = document.getElementById("entire");
+    const btnUelete = document.getElementById("btnUelete");
+    const btnModalUelete = document.getElementById("btnModalUelete");
+    const btnModalCancel = document.getElementById("btnModalCancel");
+
+    // 전체 선택/해제
+    if (entireCheckbox) {
+        entireCheckbox.addEventListener("change", function () {
+            document.querySelectorAll(".row-checkbox").forEach(cb => {
+                cb.checked = entireCheckbox.checked;
+            });
+        });
+    }
+
+    // 개별 체크 시 전체 체크 상태 조정
+    document.querySelectorAll(".row-checkbox").forEach(cb => {
+        cb.addEventListener("change", function () {
+            const all = document.querySelectorAll(".row-checkbox");
+            const checked = document.querySelectorAll(".row-checkbox:checked");
+            entireCheckbox.checked = all.length === checked.length;
+        });
+    });
+
+    // 삭제 버튼 클릭
+    btnUelete.addEventListener("click", function () {
+        const checked = document.querySelectorAll(".row-checkbox:checked");
+
+        if (checked.length === 0) {
+            alert("삭제할 항목을 선택해주세요.");
+            return;
+        }
+
+        // 확인 모달 열기
+        const modal = new bootstrap.Modal(document.getElementById('modalConfirm'));
+        modal.show();
+    });
+
+    // 모달 내 삭제 확정 버튼
+    btnModalUelete.addEventListener("click", function () {
+        const deleteIds = [];
+        document.querySelectorAll(".row-checkbox:checked").forEach(cb => {
+            deleteIds.push(cb.value);
+        });
+
+        if (deleteIds.length === 0) {
+            alert("삭제할 항목이 없습니다.");
+            return;
+        }
+
+        // Ajax 요청
+        $.ajax({
+            url: "/ReviewUserUele", // 실제 삭제 URL로 교체
+            type: "POST",
+            traditional: true,
+            data: { deleteIds: deleteIds },
+            success: function (response) {
+                alert("삭제가 완료되었습니다.");
+                location.reload(); // 성공 시 새로고침
+            },
+            error: function () {
+                alert("삭제 중 오류가 발생했습니다.");
+            }
+        });
+    });
+
+    // 모달 취소
+    btnModalCancel.addEventListener("click", function () {
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirm'));
+        modal.hide();
+    });
+});
+</script>
+
+
+	
+</body>
+
+</html>

@@ -32,6 +32,40 @@
 	
 	</insert>
 	
+	<!-- 리뷰 작성 리스트 가져오기 -->
+	<select id="reviewListByUser" resultMap="resultMapObj">
+		SELECT
+		    a.rSeq,
+		    a.reviewTitle,
+		    a.reviewText,
+		    a.user_suSeq,
+		    a.futsalInformation_fiSeq,
+		    a.regDateTime,
+		    a.riDelMy,
+		    b.fiSeq,
+		    b.futsalName,
+		    c.suSeq,
+		    c.userName  -- 예시로 사용자 이름 추가
+		FROM 
+		    review a
+		LEFT JOIN futsalInformation b ON a.futsalInformation_fiSeq = b.fiSeq
+		LEFT JOIN user c ON a.user_suSeq = c.suSeq
+		
+		WHERE 1=1
+			AND riDelMy = 0
+			AND a.user_suSeq = #{suSeq}
+	
+	</select>
+	
+	<!-- 업데이트 삭제 -->
+	 <update id="uelete">
+	 	UPDATE review SET
+	 		riDelMy = 1
+	 	    WHERE rSeq IN
+    <foreach item="id" collection="list" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+	 </update>
 	
 	
 	
