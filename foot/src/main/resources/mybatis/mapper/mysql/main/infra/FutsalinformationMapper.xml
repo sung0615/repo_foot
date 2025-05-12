@@ -226,13 +226,13 @@
 		    region.ifcdName AS regionName,
 		        (SELECT 
     	
-    	path
-    FROM 
-    	uploaded
-    WHERE 1=1	
-    	AND pseq = fiSeq
-    	AND delNy = 0
-    ) AS path
+			    	path
+			    FROM 
+			    	uploaded
+			    WHERE 1=1	
+			    	AND pseq = fiSeq
+			    	AND delNy = 0
+			    ) AS path
 		  
 		FROM
 			futsalinformation a

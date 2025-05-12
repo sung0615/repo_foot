@@ -36,6 +36,7 @@ public class ReviewController {
 //        return "success";
 //    }
 	
+	// 리뷰 업데이트
 	@ResponseBody
 	@RequestMapping(value = "/reviewUdate")
 	public Map<String, Object> reviewUdate(ReviewDto reviewDto, HttpSession httpSession) throws Exception {
