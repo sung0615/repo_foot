@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+
 <div th:replace="~{user/include/head :: head}"></div>
 
 	
@@ -56,145 +58,24 @@
 												<div class="card card-bordered shadow-none mb-2">
 													<!-- card body -->
 													<div class="card-body p-6">
-														<div class="d-flex">
-															<div class="form-check">
-																<!-- checkbox -->
-																<input class="form-check-input" type="radio" checked 
-																	name="flexRadioDefault" id="paypal" />
-																<label class="form-check-label ms-2"
-																	for="paypal" ></label>
-															</div>
-															<div>
-																<!-- title -->
-																<h5 class="mb-1 h6"><img src="/user/template/assets/images/payment/Toss_App_Icon.png" alt="" width="20"> 토스페이</h5>
-																<p class="mb-0 small"></p>
-															</div>
-														</div>
+<!-- 														<div class="d-flex"> -->
+														 <div id="payment-method"></div>
+<!-- 															<div class="form-check"> -->
+<!-- 																checkbox -->
+<!-- 																<input class="form-check-input" type="radio" checked  -->
+<!-- 																	name="flexRadioDefault" id="paypal" /> -->
+<!-- 																<label class="form-check-label ms-2" -->
+<!-- 																	for="paypal" ></label> -->
+<!-- 															</div> -->
+<!-- 															<div> -->
+<!-- 																title -->
+<!-- 																<h5 class="mb-1 h6"><img src="/user/template/assets/images/payment/Toss_App_Icon.png" alt="" width="20"> 토스페이</h5> -->
+<!-- 																<p class="mb-0 small"></p> -->
+<!-- 															</div> -->
+<!-- 														</div> -->
 													</div>
 												</div>
-<!-- 												<div class="card card-bordered shadow-none mb-2"> -->
-<!-- 													card body -->
-<!-- 													<div class="card-body p-6"> -->
-<!-- 														<div class="d-flex"> -->
-<!-- 															<div class="form-check"> -->
-<!-- 																checkbox -->
-<!-- 																<input class="form-check-input" type="radio" -->
-<!-- 																	name="flexRadioDefault" id="paypal" /> -->
-<!-- 																<label class="form-check-label ms-2" -->
-<!-- 																	for="paypal"></label> -->
-<!-- 															</div> -->
-<!-- 															<div> -->
-<!-- 																title -->
-<!-- 																<h5 class="mb-1 h6" ><img src="/user/template/assets/images/payment/payment_icon_yellow_medium.png" alt="" width="50"> 카카오페이</h5> -->
-<!-- 																<p class="mb-0 small"></p> -->
-<!-- 															</div> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
-<!-- 												<div class="card card-bordered shadow-none mb-2"> -->
-<!-- 													card body -->
-<!-- 													<div class="card-body p-6"> -->
-<!-- 														<div class="d-flex"> -->
-<!-- 															<div class="form-check"> -->
-<!-- 																checkbox -->
-<!-- 																<input class="form-check-input" type="radio" -->
-<!-- 																	name="flexRadioDefault" id="paypal" /> -->
-<!-- 																<label class="form-check-label ms-2" -->
-<!-- 																	for="paypal"></label> -->
-<!-- 															</div> -->
-<!-- 															<div> -->
-<!-- 																title -->
-<!-- 																<h5 class="mb-1 h6"><img src="/user/template/assets/images/payment/badge_npay.svg" alt="" width="50"> 네이버페이</h5> -->
-<!-- 																<p class="mb-0 small"></p> -->
-<!-- 															</div> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
-<!-- 												<div class="card card-bordered shadow-none mb-2"> -->
-<!-- 													card body -->
-<!-- 													<div class="card-body p-6"> -->
-<!-- 														<div class="d-flex"> -->
-<!-- 															<div class="form-check"> -->
-<!-- 																checkbox -->
-<!-- 																<input class="form-check-input" type="radio" -->
-<!-- 																	name="flexRadioDefault" id="paypal" /> -->
-<!-- 																<label class="form-check-label ms-2" -->
-<!-- 																	for="paypal"></label> -->
-<!-- 															</div> -->
-<!-- 															<div> -->
-<!-- 																title -->
-<!-- 																<h5 class="mb-1 h6"><img src="/user/template/assets/images/payment/image.png" alt="" width="50"> 페이코</h5> -->
-<!-- 																<p class="mb-0 small"></p> -->
-<!-- 															</div> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
-<!-- 												card -->
-<!-- 												<div class="card card-bordered shadow-none mb-2"> -->
-<!-- 													card body -->
-<!-- 													<div class="card-body p-6"> -->
-<!-- 														<div class="d-flex mb-4"> -->
-<!-- 															<div class="form-check"> -->
-<!-- 																input -->
-<!-- 																<input class="form-check-input" type="radio" -->
-<!-- 																	name="flexRadioDefault" id="creditdebitcard" /> -->
-<!-- 																<label class="form-check-label ms-2" -->
-<!-- 																	for="creditdebitcard"></label> -->
-<!-- 															</div> -->
-<!-- 															<div> -->
-<!-- 																<h5 class="mb-1 h6">신용 카드</h5> -->
-<!-- 																<p class="mb-0 small"></p> -->
-<!-- 															</div> -->
-<!-- 														</div> -->
-<!-- 														<div class="row g-2"> -->
-<!-- 															<div class="col-12"> -->
-<!-- 																input -->
-<!-- 																<div class="mb-3"> -->
-<!-- 																	<label for="card-mask" class="form-label">카드번호 -->
-<!-- 																		</label> -->
-<!-- 																	<input type="text" class="form-control" -->
-<!-- 																		id="card-mask" placeholder="xxxx-xxxx-xxxx-xxxx" -->
-<!-- 																		required /> -->
-<!-- 																</div> -->
-<!-- 															</div> -->
-<!-- 															<div class="col-md-6 col-12"> -->
-<!-- 																input -->
-<!-- 																<div class="mb-3 mb-lg-0"> -->
-<!-- 																	<label class="form-label" for="nameoncard">카드 소유자 이름 -->
-<!-- 																		</label> -->
-<!-- 																	<input type="text" class="form-control" -->
-<!-- 																		placeholder="성명" id="nameoncard" /> -->
-<!-- 																</div> -->
-<!-- 															</div> -->
-<!-- 															<div class="col-md-3 col-12"> -->
-<!-- 																input -->
-<!-- 																<div class="mb-3 mb-lg-0 position-relative"> -->
-<!-- 																	<label class="form-label" for="expirydate">만료일 -->
-<!-- 																		</label> -->
-<!-- 																	<input type="text" class="form-control" -->
-<!-- 																		id="expirydate" placeholder="MM/YY" /> -->
-<!-- 																</div> -->
-<!-- 															</div> -->
-<!-- 															<div class="col-md-3 col-12"> -->
-<!-- 																input -->
-<!-- 																<div class="mb-3 mb-lg-0"> -->
-<!-- 																	<label for="digit-mask" class="form-label"> -->
-<!-- 																		CVV -->
-<!-- 																		<i class="fe fe-help-circle ms-1" -->
-<!-- 																			data-bs-toggle="tooltip" -->
-<!-- 																			data-placement="top" -->
-<!-- 																			title="A 3 - digit number, typically printed on the back of a card."></i> -->
-<!-- 																	</label> -->
-<!-- 																	<input type="password" class="form-control" -->
-<!-- 																		name="digit-mask" id="digit-mask" -->
-<!-- 																		placeholder="xxx" maxlength="3" -->
-<!-- 																		inputmode="numeric" required /> -->
-<!-- 																</div> -->
-<!-- 															</div> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
-												<!-- card -->
+<!-- 												
 												
 												
 												<!-- Button -->
@@ -204,7 +85,8 @@
 														aria-expanded="false" aria-controls="flush-collapseThree">
 														이전
 													</a>
-													<button type="button" id="paymentButton" class="btn btn-primary ms-2">결제하기</button>
+													
+													<button type="button" id="payment-button" class="btn btn-primary ms-2">결제하기</button>
 												</div>
 											</div>
 										</div>
@@ -212,6 +94,8 @@
 								</div>
 							</div>
 						</div>
+						<!-- 결제 모달 (숨김 상태로 시작) -->
+
 
 						<div class="col-md-12 offset-xl-1 col-xl-4 col-lg-6">
 							<div class="mt-4 mt-lg-0">
@@ -400,6 +284,59 @@
 
 	<script src="/user/template/assets/libs/imask/dist/imask.min.js"></script>
 	<script src="/user/template/assets/js/vendors/inputmask.js"></script>
+	
+	
+	<script src="https://js.tosspayments.com/v2/standard"></script>
+	
+	
+    <script>
+      main();
+
+      async function main() {
+        const button = document.getElementById("payment-button");
+
+        // ------  결제위젯 초기화 ------
+        const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; // 테스트용 clientKey
+        const tossPayments = TossPayments(clientKey);
+        
+        // 회원 결제 (혹은 비회원 결제)
+        const customerKey = "LGEnbu3OoUhFTd4b5MZr6"; // 회원 고객 키
+        const widgets = tossPayments.widgets({
+          customerKey,
+        });
+
+        // ------ 결제 금액 설정 (예약 금액 동적으로 설정) ------
+        const price = /*[[${item.futsalPrice}]]*/ 50000;  // 예시: item.futsalPrice에서 동적으로 금액을 가져옵니다.
+        await widgets.setAmount({
+          currency: "KRW",  // 통화: 원화
+          value: price,     // 결제 금액
+        });
+
+        // ------ 결제 UI 렌더링 ------
+        await widgets.renderPaymentMethods({
+          selector: "#payment-method",  // 결제 방법 UI를 렌더링할 요소
+          variantKey: "DEFAULT",        // 기본 UI
+        });
+
+        // ------ 결제하기 버튼 클릭 시 결제 요청 ------
+        button.addEventListener("click", async function () {
+          await widgets.requestPayment({
+            orderId: "8NLmhLqXPWQRHTrAzeDMI",  // 주문 ID
+            orderName: "풋살 예약 결제",  // 예시: 예약한 풋살 이름 또는 예약 정보로 동적으로 설정
+            successUrl: window.location.origin + "/success",  // 결제 성공 후 리다이렉트할 URL
+            failUrl: window.location.origin + "/fail",        // 결제 실패 후 리다이렉트할 URL
+            customerEmail: "customer123@gmail.com",  // 고객 이메일 (예시: ${reservationData.customerEmail})
+            customerName: "김토스",  // 고객 이름 (예시: ${reservationData.customerName})
+            customerMobilePhone: "01012341234",  // 고객 전화번호 (예시: ${reservationData.customerMobilePhone})
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+
+
+
 </body>
 
 </html>
