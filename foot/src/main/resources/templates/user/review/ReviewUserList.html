@@ -486,6 +486,11 @@
 									</thead>
 									
 									<tbody th:each="list : ${list}">
+									<tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">    	
+                                    		<td colspan="10">
+                                    			<p class="fs-0" style="padding-top: 12px">작성한 리뷰정보가 없습니다</p>
+                                    		</td>
+                                    	</tr>
 									    <tr>
 <!-- 									        <td><input type="checkbox" th:value="${list.rSeq}" class="form-check-input review-check"></td> -->
 									        

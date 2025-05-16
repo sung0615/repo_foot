@@ -89,9 +89,98 @@
 		</select>
 
 		
+		<insert id="Payinsert">
+			INSERT INTO reservationprocess(
+			reservationDate, <!-- 예약 날짜 -->
+			reservationTime, <!-- 예약 시간 -->
+			matchingOnOff, <!-- 매칭신청 한다 or 안한다 -->
+			matchingDeposit, <!-- 매칭 신청시 금액 청구할 금액 -->
+			matchingBankName, <!-- 매칭 신청시 청구 받을 은행명 -->
+			matchingBankNumbar, <!-- 매칭신청시 청구 받을 계좌번호 -->
+			matchingVs, <!-- VS 55 , 66 -->
+			matchingTeamLevel, <!-- 매칭 My팀 레벨선택 -->
+			matchingTeamName, <!-- 나의 팀 이름 -->
+			matchingTeamIntroduction, <!-- 나의 팀 소개 -->
+			user_suSeq, <!-- 예약자 SEq -->
+			futsalInformation_fiSeq, <!-- 풋살장 SEq -->
+			rpDelMy, <!-- 업데이트 삭제 여부 -->
+			regDateTime <!-- 실시간 결제 날짜 -->
+			
+			) value (
+			#{reservationDate},
+			#{reservationTime},
+			#{matchingOnOff},
+			#{matchingDeposit},
+			#{matchingBankName},
+			#{matchingBankNumbar},
+			#{matchingVs},
+			#{matchingTeamLevel},
+			#{matchingTeamName},
+			#{matchingTeamIntroduction},
+			#{suSeq},
+			#{fiSeq},
+			0,
+			 NOW()
+			
+			)
+			<selectKey resultType="String" keyProperty="fpSeq" order="AFTER">
+			SELECT last_insert_id()
+			</selectKey>  
+<!-- 			<selectKey resultType="String" keyProperty="suSeq" order="AFTER"> -->
+<!-- 			SELECT last_insert_id() -->
+<!-- 			</selectKey>  -->
+<!-- 			<selectKey resultType="String" keyProperty="fiSeq" order="AFTER"> -->
+<!-- 			SELECT last_insert_id() -->
+<!-- 			</selectKey>  -->
+		</insert>
 		
 		
-	
+		<!-- 예약 내역 가져오기 -->
+		<select id="reservationList" resultMap="resultMapObj">
+			SELECT 
+				a.fpSeq,
+				a.reservationDate,
+				a.reservationTime,
+				a.matchingOnOff,
+				a.matchingDeposit,
+				a.matchingBankName,
+				a.matchingBankNumbar,
+				a.matchingVs,
+				a.matchingTeamLevel,
+				a.matchingTeamName,
+				a.matchingTeamIntroduction,
+				a.user_suSeq,
+				a.futsalInformation_fiSeq,
+				a.regDateTime,
+				a.rpDelMy,
+				b.fiSeq,
+				b.futsalName,
+				b.futsalPrice,
+				b.futsalAddress,
+				b.futsalPhoneNumbar,
+				c.suSeq,
+				c.userName
+			FROM 
+				reservationprocess a
+			LEFT JOIN futsalinformation b ON a.futsalInformation_fiSeq = b.fiSeq
+			LEFT JOIN user c ON a.user_suSeq = c.suSeq
+			
+			WHERE 1=1
+				AND rpDelMy = 0
+				AND a.user_suSeq = #{suSeq}
+		
+		
+		</select>
+		
+		<!-- 업데이트 삭제 -->
+	 <update id="uelete">
+	 	UPDATE reservationprocess SET
+	 		rpDelMy = 1
+	 	    WHERE fpSeq IN
+    <foreach item="id" collection="list" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+	 </update>
 	
 	
 	

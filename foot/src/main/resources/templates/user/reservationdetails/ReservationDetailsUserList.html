@@ -439,163 +439,132 @@
 			</div>
 		</div>
 	</div>
+<form action="/ReservationUserUele" method="post" id="form">
+  <script src="/user/template/assets/js/vendors/validation.js"></script>
+  <main>
+    <section>
+      <div class="container">
+        <div class="row">
+          <div th:replace="~{user/include/account :: account}"></div>
 
-	<script src="/user/template/assets/js/vendors/validation.js"></script>
-	<main>
-		<!-- section -->
-		<section>
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- col -->
-					
-					<!-- col -->
-					
-					
-					
-					
-					
-					
-					
-					
-					<div th:replace="~{user/include/account :: account}"></div>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					<div class="col-lg-9 col-md-8 col-12">
-						<div class="py-6 p-md-6 p-lg-10">
-							<!-- heading -->
-							<h2 class="mb-6">예약내역</h2>
+          <div class="col-lg-9 col-md-8 col-12">
+            <div class="py-6 p-md-6 p-lg-10">
+              <h2 class="mb-6">예약내역</h2>
 
-							<div class="table-responsive-xxl border-0">
-								<!-- Table -->
-								<table class="table mb-0 text-nowrap table-centered">
-									<!-- Table Head -->
-									<thead class="bg-light">
-										<tr>
-											<th><input class="form-check-input" type="checkbox" id="cbx_chkAll"></th>
-											<th>풋살장</th>
-											<th>주소</th>
-											<th>풋살장 연락처</th>
-											<th>예약 날짜</th>
-											<th>예약 시간</th>
-											<th>가격</th>
-											
-										</tr>
-									</thead>
-									<tbody>
-										<!-- Table body -->
-										<tr>
-											<td>
-												<input class="form-check-input" type="checkbox" name="chk">
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<h6 class="mb-0">라온 풋살장</h6>
-												</a>
-												
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<span><small class="text">서울특별시 도봉구 방학동 553-2</small></span>
-												</a>
-												
-											</td>
-											<td>010-1111-1111</td>
-											<td class="align-middle border-top-0">2025-02-12</td>
-											<td class="align-middle border-top-0">오후06:00 ~ 오후08:00</td>
-											<td class="align-middle border-top-0">120,000 원</td>
-											
-										</tr>
-										<tr>
-											<td>
-												<input class="form-check-input" type="checkbox" name="chk">
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<h6 class="mb-0">도봉산호원 풋살장</h6>
-												</a>
-												
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<span><small class="text">경기 의정부시 창포원로 67</small></span>
-												</a>
-												
-											</td>
-											<td>010-1111-1111</td>
-											<td class="align-middle border-top-0">2025-02-15</td>
-											<td class="align-middle border-top-0">오전08:00 ~ 오전10:00</td>
-											<td class="align-middle border-top-0">120,000 원</td>
-											
-										</tr>
-										
-										
-										
-										
-										<!-- <tr>
-											<td>
-												<input class="form-check-input" type="checkbox" value="" id="">
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<h6 class="mb-0">Blueberry Greek Yogurt</h6>
-												</a>
-												<span><small class="text-muted">500 g</small></span>
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="text-inherit">#12094</a>
-											</td>
-											<td class="align-middle border-top-0">Oct 03, 2023</td>
-											<td class="align-middle border-top-0">4</td>
-											<td class="align-middle border-top-0">
-												<span class="badge bg-success">Completed</span>
-											</td>
-											<td class="align-middle border-top-0">$18.00</td>
-											<td class="text-muted align-middle border-top-0">
-												<a href="#" class="text-inherit" data-bs-toggle="tooltip"
-													data-bs-placement="top" data-bs-title="View"><i
-														class="feather-icon icon-eye"></i></a>
-											</td>
-										</tr> -->
-									</tbody>
-									
-								</table>
-								
-							</div>
-							<div>
-								<a class="btn btn-danger" href="#" role="button" >
-									<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-										<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-									  </svg>
-								</a>
-							</div>
-						</div>
-						
-						
-					</div>
-				</div>
-			</div>
-		</section>
-	</main>
+              <div class="table-responsive-xxl border-0">
+                <table class="table mb-0 text-nowrap table-centered">
+                  <thead class="bg-light">
+                    <tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">
+                      <td colspan="10">
+                        <p class="fs-0" style="padding-top: 12px">예약정보가 없습니다</p>
+                      </td>
+                    </tr>
+                    <tr th:unless="${#lists.isEmpty(list)}">
+                      <th>
+                        <input class="form-check-input" type="checkbox" id="entire" />
+                        <label class="form-check-label" for="entire"></label>
+                      </th>
+                      <th>풋살장</th>
+                      <th>주소</th>
+                      <th>풋살장 연락처</th>
+                      <th>예약 날짜</th>
+                      <th>예약 시간</th>
+                      <th>가격</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="item : ${list}">
+                      <th>
+                        <input class="form-check-input row-checkbox" type="checkbox" 
+                               th:id="'chk_' + ${item.fpSeq}" th:name="selectedIds" th:value="${item.fpSeq}" />
+                        <label class="form-check-label" th:for="'chk_' + ${item.fpSeq}"></label>
+                      </th>
+                      <td class="align-middle border-top-0">
+                        <a href="javascript:void(0);" class="fw-semibold text-inherit"
+                           th:attr="onclick=|toggleDetail('detail_' + ${item.fpSeq})|">
+                          <h6 class="mb-0" th:text="${item.futsalName}">라온 풋살장</h6>
+                        </a>
+                      </td>
+                      <td class="align-middle border-top-0">
+                        <span><small class="text" th:text="${item.futsalAddress}">서울특별시 도봉구 방학동 553-2</small></span>
+                      </td>
+                      <td class="align-middle border-top-0" th:text="${item.futsalPhoneNumbar}">010-1111-1111</td>
+                      <td class="align-middle border-top-0" th:text="${item.reservationDate}">2025-02-12</td>
+                      <td class="align-middle border-top-0" th:text="${item.reservationTime}">오후06:00 ~ 오후08:00</td>
+                      <td class="align-middle border-top-0"
+                          th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')} + '원'"></td>
+                    </tr>
+                    <tr th:each="item : ${list}">
+                      <td colspan="7" style="padding: 0; border: none;">
+                        <div th:id="'detail_' + ${item.fpSeq}" style="display: none; margin-top: 15px;">
+                          <div style="border: 1px solid #ddd; border-radius: 10px; padding: 20px; background-color: #f9f9f9;">
+                            <h5 style="margin-bottom: 15px;" th:text="${item.futsalName}">풋살장 이름</h5>
 
+                            <ul style="list-style: none; padding-left: 0;">
+                              <li><strong>주소:</strong> <span th:text="${item.futsalAddress}">서울시 강남구...</span></li>
+                              <li><strong>연락처:</strong> <span th:text="${item.futsalPhoneNumbar}">010-1234-5678</span></li>
+                              <li><strong>예약 날짜:</strong> <span th:text="${item.reservationDate}">2025-05-20</span></li>
+                              <li><strong>예약 시간:</strong> <span th:text="${item.reservationTime}">18:00 ~ 20:00</span></li>
+                              <li><strong>가격:</strong> <span th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')} + '원'">₩50,000</span></li>
+                              <li><strong>매칭 여부:</strong> <span th:text="${item.matchingOnOff}">매칭 가능</span></li>
+                            </ul>
+
+                            <hr />
+
+                            <h6 style="margin-top: 20px; margin-bottom: 10px;">⚽ 매칭 팀 정보</h6>
+                            <ul style="list-style: none; padding-left: 0;">
+                              <li><strong>보증금:</strong> <span th:text="${#numbers.formatInteger(item.matchingDeposit, 3, 'COMMA')} + '원'">50,000</span></li>
+                              <li><strong>입금은행:</strong> <span th:text="${item.matchingBankName}">우리은행</span></li>
+                              <li><strong>계좌번호:</strong> <span th:text="${item.matchingBankNumbar}">1002-123-456789</span></li>
+                              <li><strong>대진 팀명:</strong> <span th:text="${item.matchingVs}">FC 용산</span></li>
+                              <li><strong>팀 레벨:</strong> <span th:text="${item.matchingTeamLevel}">중급</span></li>
+                              <li><strong>팀 이름:</strong> <span th:text="${item.matchingTeamName}">라온FC</span></li>
+                              <li><strong>팀 소개:</strong>
+                                <p style="margin: 5px 0 0;" th:text="${item.matchingTeamIntroduction}">저희 팀은 매너와 패스를 중시합니다!</p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="mt-3">
+                <button class="btn btn-danger" id="btnUelete" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                  </svg>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 확인 모달 (Bootstrap 기반) -->
+          <div class="modal fade" id="modalConfirm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalConfirmTitle">확인</h5>
+                </div>
+                <div class="modal-body" id="modalConfirmBody">
+                  선택한 예약 내역을 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" id="btnModalCancel" data-bs-dismiss="modal">취소</button>
+                  <button type="button" class="btn btn-danger" id="btnModalUelete">삭제</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+</form>
 	<!-- modal -->
 
 	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasAccount" aria-labelledby="offcanvasAccountLabel">
@@ -771,29 +740,98 @@
 			</div>
 		</div>
 	</footer>
-	<!-- 체크박스 전체 설정 전체 해제  -->
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			const checkAll = document.getElementById("cbx_chkAll");
-			const checkboxes = document.querySelectorAll('input[name="chk"]');
-		
-			checkAll.addEventListener("change", function () {
-				checkboxes.forEach(chk => {
-					chk.checked = checkAll.checked;
-				});
-			});
-		});
-		document.addEventListener("DOMContentLoaded", function () {
-			const checkAll = document.getElementById("cbx_chkAll1");
-			const checkboxes = document.querySelectorAll('input[name="chk1"]');
-		
-			checkAll.addEventListener("change", function () {
-				checkboxes.forEach(chk => {
-					chk.checked = checkAll.checked;
-				});
-			});
-		});
-		</script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+    const entireCheckbox = document.getElementById("entire");
+    const btnUelete = document.getElementById("btnUelete");
+    const btnModalUelete = document.getElementById("btnModalUelete");
+    const btnModalCancel = document.getElementById("btnModalCancel");
+
+    // 전체 선택/해제
+    if (entireCheckbox) {
+        entireCheckbox.addEventListener("change", function () {
+            document.querySelectorAll(".row-checkbox").forEach(cb => {
+                cb.checked = entireCheckbox.checked;
+            });
+        });
+    }
+
+    // 개별 체크 시 전체 체크 상태 조정
+    document.querySelectorAll(".row-checkbox").forEach(cb => {
+        cb.addEventListener("change", function () {
+            const all = document.querySelectorAll(".row-checkbox");
+            const checked = document.querySelectorAll(".row-checkbox:checked");
+            entireCheckbox.checked = all.length === checked.length;
+        });
+    });
+
+    // 삭제 버튼 클릭
+    btnUelete.addEventListener("click", function () {
+        const checked = document.querySelectorAll(".row-checkbox:checked");
+
+        if (checked.length === 0) {
+            alert("삭제할 항목을 선택해주세요.");
+            return;
+        }
+
+        // 확인 모달 열기
+        const modal = new bootstrap.Modal(document.getElementById('modalConfirm'));
+        modal.show();
+    });
+
+    // 모달 내 삭제 확정 버튼
+    btnModalUelete.addEventListener("click", function () {
+        const deleteIds = [];
+        document.querySelectorAll(".row-checkbox:checked").forEach(cb => {
+            deleteIds.push(cb.value);
+        });
+
+        if (deleteIds.length === 0) {
+            alert("삭제할 항목이 없습니다.");
+            return;
+        }
+
+        // Ajax 요청
+        $.ajax({
+            url: "/ReservationUserUele", // 실제 삭제 URL로 교체
+            type: "POST",
+            traditional: true,
+            data: { deleteIds: deleteIds },
+            success: function (response) {
+               
+                location.reload(); // 성공 시 새로고침
+            },
+            error: function () {
+                alert("삭제 중 오류가 발생했습니다.");
+            }
+        });
+    });
+
+    // 모달 취소
+    btnModalCancel.addEventListener("click", function () {
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirm'));
+        modal.hide();
+    });
+});
+</script>
+
+<script>
+function toggleDetail(id) {
+	  // 모든 상세 영역을 가져와서 닫기
+	  const allDetails = document.querySelectorAll("[id^='detail_']");
+	  allDetails.forEach(detail => {
+	    if (detail.id !== id) {
+	      detail.style.display = 'none';
+	    }
+	  });
+
+	  // 클릭한 상세 영역 토글
+	  const elem = document.getElementById(id);
+	  if (elem) {
+	    elem.style.display = (elem.style.display === 'none' || elem.style.display === '') ? 'block' : 'none';
+	  }
+	}
+</script>
 	<!-- Javascript-->
 	<!-- Libs JS -->
 	<!-- <script src="/user/template/assets/libs/jquery/dist/jquery.min.js"></script> -->

@@ -4,9 +4,24 @@
 
 <div th:replace="~{user/include/head :: head}"></div>
 
-	
-	
-	<input type="hidden" id="fiSeq" name="fiSeq" >
+	<form action="/PayUserInst" method="post" id="form" >
+	  <!-- 예약 날짜 -->
+    <input type="hidden" name="reservationDate" th:value="${reservationData.reservationDate}" />
+    <input type="hidden" name="reservationTime" th:value="${reservationData.reservationTime}" />
+    <!-- 매칭 관련 -->
+    <input type="hidden" name="matchingOnOff" th:value="${reservationData.matchingOnOff}" />
+    <input type="hidden" name="matchingDeposit" th:value="${reservationData.matchingDeposit}" />
+    <input type="hidden" name="matchingBankName" th:value="${reservationData.matchingBankName}" />
+    <input type="hidden" name="matchingBankNumbar" th:value="${reservationData.matchingBankNumbar}" />
+    <input type="hidden" name="matchingVs" th:value="${reservationData.matchingVs}" />
+    <input type="hidden" name="matchingTeamLevel" th:value="${reservationData.matchingTeamLevel}" />
+    <input type="hidden" name="matchingTeamName" th:value="${reservationData.matchingTeamName}" />
+    <input type="hidden" name="matchingTeamIntroduction" th:value="${reservationData.matchingTeamIntroduction}" />
+    <!-- 결제 관련 -->
+	<!-- 풋살장 SEq -->
+	<input type="text" id="fiSeq" name="fiSeq" th:value="${item?.fiSeq}">
+	<!-- 유저 Seq -->
+	<input type="text" id="suSeq" name="suSeq"  th:value="${session.sessSeqUser}" >
 	
 
 	<script src="/user/template/assets/js/vendors/validation.js"></script>
@@ -58,21 +73,21 @@
 												<div class="card card-bordered shadow-none mb-2">
 													<!-- card body -->
 													<div class="card-body p-6">
-<!-- 														<div class="d-flex"> -->
-														 <div id="payment-method"></div>
-<!-- 															<div class="form-check"> -->
-<!-- 																checkbox -->
-<!-- 																<input class="form-check-input" type="radio" checked  -->
-<!-- 																	name="flexRadioDefault" id="paypal" /> -->
-<!-- 																<label class="form-check-label ms-2" -->
-<!-- 																	for="paypal" ></label> -->
-<!-- 															</div> -->
-<!-- 															<div> -->
-<!-- 																title -->
-<!-- 																<h5 class="mb-1 h6"><img src="/user/template/assets/images/payment/Toss_App_Icon.png" alt="" width="20"> 토스페이</h5> -->
-<!-- 																<p class="mb-0 small"></p> -->
-<!-- 															</div> -->
-<!-- 														</div> -->
+														<div class="d-flex">
+<!-- 														 <div id="payment-method"></div> -->
+															<div class="form-check">
+																
+																<input class="form-check-input" type="radio" checked 
+																	name="flexRadioDefault" id="paypal" />
+																<label class="form-check-label ms-2"
+																	for="paypal" ></label>
+															</div>
+															<div>
+																
+																<h5 class="mb-1 h6"><img src="/user/template/assets/images/payment/Toss_App_Icon.png" alt="" width="20"> 토스페이</h5>
+																<p class="mb-0 small"></p>
+															</div>
+														</div>
 													</div>
 												</div>
 <!-- 												
@@ -80,13 +95,13 @@
 												
 												<!-- Button -->
 												<div class="mt-5 d-flex justify-content-end">
-													<a href="@{/ReservationUserList}" class="btn btn-outline-gray-400 text-muted"
-														data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
-														aria-expanded="false" aria-controls="flush-collapseThree">
-														이전
-													</a>
+<!-- 													<a href="@{/ReservationUserList}" class="btn btn-outline-gray-400 text-muted" -->
+<!-- 														data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" -->
+<!-- 														aria-expanded="false" aria-controls="flush-collapseThree"> -->
+<!-- 														이전 -->
+<!-- 													</a> -->
 													
-													<button type="button" id="payment-button" class="btn btn-primary ms-2">결제하기</button>
+													<button type="button" id="btuSave" class="btn btn-primary ms-2">결제하기</button>
 												</div>
 											</div>
 										</div>
@@ -110,12 +125,12 @@
 														alt="Ecommerce" class="img-fluid" />
 												</div>
 												<div class="col-6 col-md-6">
-													<h6 class="mb-0" th:text="${item.futsalName}"> HIP 풋살그라운드</h6><br>
+													<h6 class="mb-0"  th:text="${item.futsalName}"> HIP 풋살그라운드</h6><br>
 													<span><strong>주소: </strong><small class="text-muted"><strong th:text="${item.futsalAddress}"> </strong></small></span><br>
-													<span><strong>예약 날짜: </strong><small class="text-muted"><strong th:text="${reservationData.reservationDate}"></strong></small></span><br>
-													<span><strong>예약 시간: </strong><small class="text-muted"><strong th:text="${reservationData.reservationTime}"> </strong></small></span><br>
+													<span><strong>예약 날짜: </strong><small class="text-muted"><strong th:text="${reservationData.reservationDate}" id="reservationDate" name="reservationDate"></strong></small></span><br>
+													<span><strong>예약 시간: </strong><small class="text-muted"><strong th:text="${reservationData.reservationTime}" id="reservationTime" name="reservationTime"> </strong></small></span><br>
 													<!-- <span class="fw-bold" th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')}"></span><span>원</span> -->
-													<span><strong>예약 금액: </strong><small class="text-muted"><strong th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')}"></strong><span>원</span></small></span><br>
+													<span><strong>예약 금액: </strong><small class="text-muted"><strong th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')}" ></strong><span>원</span></small></span><br>
 													
 												</div>
 												
@@ -129,7 +144,7 @@
 								</div>
 							</div>
 						
-							<div class="mt-4 mt-lg-0" th:if="${reservationData.matchingOnOff == '신청한다'}">
+							<div class="mt-4 mt-lg-0" th:if="${reservationData.matchingOnOff == '신청한다'}" >
 								<div class="card shadow-sm">
 									<h5 class="px-6 py-4 bg-transparent mb-0">소셜매칭 상세</h5>
 									<ul class="list-group list-group-flush">
@@ -141,35 +156,35 @@
 													
 													<span>
 														<strong>매칭 신청:</strong>
-														<span class="text-muted" th:text="${reservationData.matchingOnOff}"></span>
+														<span class="text-muted" id="matchingOnOff" name="matchingOnOff" th:text="${reservationData.matchingOnOff}"></span>
 													</span><br>
 													<span>
 														<strong>구장 청구비용:</strong>
-														<span class="text-muted" th:text="${reservationData.matchingDeposit}"></span>
+														<span class="text-muted" id="matchingDeposit" name="matchingDeposit" th:text="${reservationData.matchingDeposit}"></span>
 													</span><br>
 													<span>
 														<strong>은행명:</strong>
-														<span class="text-muted" th:text="${reservationData.matchingBankName}"></span>
+														<span class="text-muted" id="matchingBankName" name="matchingBankName" th:text="${reservationData.matchingBankName}"></span>
 													</span><br>
 													<span>
 														<strong>계좌번호:</strong>
-														<span class="text-muted" th:text="${reservationData.matchingBankNumbar}"></span>
+														<span class="text-muted" id="matchingBankNumbar" name="matchingBankNumbar" th:text="${reservationData.matchingBankNumbar}"></span>
 													</span><br>
 													<span>
 														<strong>매칭방식:</strong>
-														<span class="text-muted" th:text="${reservationData.matchingVs}"></span>
+														<span class="text-muted" id="matchingVs" name="matchingVs" th:text="${reservationData.matchingVs}"></span>
 													</span><br>
 													<span>
 														<strong>팀레벨:</strong>
-														<span class="text-muted" th:text="${reservationData.matchingTeamLevel}"></span>
+														<span class="text-muted" id="matchingTeamLevel" name="matchingTeamLevel" th:text="${reservationData.matchingTeamLevel}"></span>
 													</span><br>
 													<span>
 														<strong>팀명:</strong>
-														<span class="text-muted" th:text="${reservationData.matchingTeamName}"></span>
+														<span class="text-muted" id="matchingTeamName" name="matchingTeamName" th:text="${reservationData.matchingTeamName}"></span>
 													</span><br>
 													<span>
 														<strong>팀 소개:</strong>
-														<span class="text-muted" th:text="${reservationData.matchingTeamIntroduction}"></span>
+														<span class="text-muted" id="matchingTeamIntroduction" name="matchingTeamIntroduction" th:text="${reservationData.matchingTeamIntroduction}"></span>
 													</span><br>
 												</div>
 							
@@ -185,6 +200,7 @@
 			</div>
 		</section>
 	</main>
+</form>
 
 	
 
@@ -290,53 +306,59 @@
 	
 	
     <script>
-      main();
+//       main();
 
-      async function main() {
-        const button = document.getElementById("payment-button");
+//       async function main() {
+//         const button = document.getElementById("payment-button");
 
-        // ------  결제위젯 초기화 ------
-        const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; // 테스트용 clientKey
-        const tossPayments = TossPayments(clientKey);
+//         // ------  결제위젯 초기화 ------
+//         const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; // 테스트용 clientKey
+//         const tossPayments = TossPayments(clientKey);
         
-        // 회원 결제 (혹은 비회원 결제)
-        const customerKey = "LGEnbu3OoUhFTd4b5MZr6"; // 회원 고객 키
-        const widgets = tossPayments.widgets({
-          customerKey,
-        });
+//         // 회원 결제 (혹은 비회원 결제)
+//         const customerKey = "LGEnbu3OoUhFTd4b5MZr6"; // 회원 고객 키
+//         const widgets = tossPayments.widgets({
+//           customerKey,
+//         });
 
-        // ------ 결제 금액 설정 (예약 금액 동적으로 설정) ------
-        const price = /*[[${item.futsalPrice}]]*/ 50000;  // 예시: item.futsalPrice에서 동적으로 금액을 가져옵니다.
-        await widgets.setAmount({
-          currency: "KRW",  // 통화: 원화
-          value: price,     // 결제 금액
-        });
+//         // ------ 결제 금액 설정 (예약 금액 동적으로 설정) ------
+//         const price = /*[[${item.futsalPrice}]]*/ 50000;  // 예시: item.futsalPrice에서 동적으로 금액을 가져옵니다.
+//         await widgets.setAmount({
+//           currency: "KRW",  // 통화: 원화
+//           value: price,     // 결제 금액
+//         });
 
-        // ------ 결제 UI 렌더링 ------
-        await widgets.renderPaymentMethods({
-          selector: "#payment-method",  // 결제 방법 UI를 렌더링할 요소
-          variantKey: "DEFAULT",        // 기본 UI
-        });
+//         // ------ 결제 UI 렌더링 ------
+//         await widgets.renderPaymentMethods({
+//           selector: "#payment-method",  // 결제 방법 UI를 렌더링할 요소
+//           variantKey: "DEFAULT",        // 기본 UI
+//         });
 
-        // ------ 결제하기 버튼 클릭 시 결제 요청 ------
-        button.addEventListener("click", async function () {
-          await widgets.requestPayment({
-            orderId: "8NLmhLqXPWQRHTrAzeDMI",  // 주문 ID
-            orderName: "풋살 예약 결제",  // 예시: 예약한 풋살 이름 또는 예약 정보로 동적으로 설정
-            successUrl: window.location.origin + "/success",  // 결제 성공 후 리다이렉트할 URL
-            failUrl: window.location.origin + "/fail",        // 결제 실패 후 리다이렉트할 URL
-            customerEmail: "customer123@gmail.com",  // 고객 이메일 (예시: ${reservationData.customerEmail})
-            customerName: "김토스",  // 고객 이름 (예시: ${reservationData.customerName})
-            customerMobilePhone: "01012341234",  // 고객 전화번호 (예시: ${reservationData.customerMobilePhone})
-          });
-        });
-      }
+//         // ------ 결제하기 버튼 클릭 시 결제 요청 ------
+//         button.addEventListener("click", async function () {
+//           await widgets.requestPayment({
+//             orderId: "8NLmhLqXPWQRHTrAzeDMI",  // 주문 ID
+//             orderName: "풋살 예약 결제",  // 예시: 예약한 풋살 이름 또는 예약 정보로 동적으로 설정
+//             successUrl: window.location.origin + "/success",  // 결제 성공 후 리다이렉트할 URL
+//             failUrl: window.location.origin + "/fail",        // 결제 실패 후 리다이렉트할 URL
+//             customerEmail: "customer123@gmail.com",  // 고객 이메일 (예시: ${reservationData.customerEmail})
+//             customerName: "김토스",  // 고객 이름 (예시: ${reservationData.customerName})
+//             customerMobilePhone: "01012341234",  // 고객 전화번호 (예시: ${reservationData.customerMobilePhone})
+//           });
+//         });
+//       }
+    </script>
+    
+    
+    <script type="text/javascript">
+    document.getElementById("btuSave").onclick = function() {
+    	 document.getElementById("form").submit();
+    }
+    
+    
     </script>
   </body>
 </html>
 
 
 
-</body>
-
-</html>

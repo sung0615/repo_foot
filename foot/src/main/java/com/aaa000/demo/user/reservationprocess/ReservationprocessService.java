@@ -22,8 +22,8 @@ public class ReservationprocessService {
 	}
 	
 	// 등록하기
-	public int insert(ReservationprocessDto reservationprocessDto) {
-		return reservationprocessDao.insert(reservationprocessDto);
+	public int Payinsert(ReservationprocessDto reservationprocessDto) {
+		return reservationprocessDao.Payinsert(reservationprocessDto);
 	}
 	
 	
@@ -33,7 +33,12 @@ public class ReservationprocessService {
 	}
 	
 	//업데이트 삭제
-	public int uelete(ReservationprocessDto reservationprocessDto) {
-		return reservationprocessDao.uelete(reservationprocessDto);
+	public int uelete(List<Long> deleteIds) {
+		return reservationprocessDao.uelete(deleteIds);
 	}
+	// 예약 리스트 보여주기
+	public List<ReservationprocessDto> reservationList(int suSeq){
+		return reservationprocessDao.reservationList(suSeq);
+	}
+	
 }

@@ -14,12 +14,15 @@ public interface ReservationprocessDao {
 	public ReservationprocessDto selectOne(ReservationprocessDto reservationprocessDto);
 	
 	// 등록폼
-	public int insert(ReservationprocessDto reservationprocessDto);
+	public int Payinsert(ReservationprocessDto reservationprocessDto);
 	
 	// 수정하기
 	public int update(ReservationprocessDto reservationprocessDto);
 	
 	// 업데이트 삭제
-	public int uelete(ReservationprocessDto reservationprocessDto); 
+	public int uelete(List<Long> deleteIds); 
+	
+	//예약 리스트 가져오기
+	public List<ReservationprocessDto>reservationList(int suSeq);
 	
 }

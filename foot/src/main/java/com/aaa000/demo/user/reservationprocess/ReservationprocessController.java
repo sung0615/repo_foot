@@ -1,13 +1,15 @@
 package com.aaa000.demo.user.reservationprocess;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aaa000.demo.user.futsalinformation.FutsalinformationDto;
@@ -35,8 +37,16 @@ public class ReservationprocessController {
 	
 	// 풋살장 예약내역 my페이지 상세에 예약내역에 뿌리기
 	@RequestMapping(value="/ReservationDetailsUserList")
-	public String ReservationDetailsUserList() {
+	public String ReservationDetailsUserList(Model model,HttpSession session) {
 		
+		// 세션에서 로그인한 사용자 suSeq 꺼내기
+    	String suSeqStr = (String) session.getAttribute("sessSeqUser");
+    	
+    	int suSeq = Integer.parseInt(suSeqStr);
+    	// 해당 사용자 예약 리스트 가져오기
+    	List<ReservationprocessDto> reList =  reservationprocessService.reservationList(suSeq);
+		
+		model.addAttribute("list", reList);
 		return "user/reservationdetails/ReservationDetailsUserList";
 	}
 	
@@ -77,6 +87,7 @@ public class ReservationprocessController {
 	public String PayUserForm(HttpSession session, Model model,FutsalinformationDto futsalinformationDto) {
 		
 	    // 세션에서 예약 정보 꺼내기
+		
 	    ReservationprocessDto reservationData = (ReservationprocessDto) session.getAttribute("reservationData");
 	    FutsalinformationDto futsalInfoData = (FutsalinformationDto) session.getAttribute("futsalInfoData");
 		
@@ -97,8 +108,8 @@ public class ReservationprocessController {
 	
 	@RequestMapping(value="/PayUserInst")
 	public String PayUserInst(ReservationprocessDto reservationprocessDto) {
-		reservationprocessService.insert(reservationprocessDto);
-		return "redirect:/user/socialMatch/SocialMatchUserList";
+		reservationprocessService.Payinsert(reservationprocessDto);
+		return "redirect:/ReservationDetailsUserList"; // 예약 내역으로 가라
 	}
 	
 	
@@ -109,12 +120,15 @@ public class ReservationprocessController {
 	public String SocialMatchBookingUserForm() {
 		return "user/socialmatchbooking/SocialMatchBookingUserForm";
 	}
-	@RequestMapping(value="/SocialMatchBookingUserInst")
-	public String SocialMatchBookingUserInst(ReservationprocessDto reservationprocessDto) {
-		reservationprocessService.insert(reservationprocessDto);
-		return "redirect:/user/socialMatch/SocialMatchUserList";
-	}
+
 	
+	
+	// 예약 내역 업데이트 삭제
+    @PostMapping("/ReservationUserUele")
+    public String ReservationUserUele(@RequestParam("deleteIds") List<Long> deleteIds) {
+    	reservationprocessService.uelete(deleteIds);  // 
+        return "redirect:/ReservationDetailsUserList";
+    }
 	
 	
 	

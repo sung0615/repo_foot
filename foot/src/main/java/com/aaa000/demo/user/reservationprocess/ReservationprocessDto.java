@@ -38,8 +38,15 @@ public class ReservationprocessDto {
 	private String userName; //유저 이름
 	private String userId; //유저 ID
 //	----	
-	
-	
+//	---- 
+	//풋살장 정보
+	private String fiSeq; // 풋살장정보Seq
+	private String futsalName; //풋살장 이름
+	private String futsalRegion; //서울or경기 지역
+	private String futsalAddress; //풋살장 주소
+	private String futsalPhoneNumbar;
+	private Integer futsalPrice;
+//	-----
 	
 	
 	public String getFpSeq() {
@@ -186,13 +193,7 @@ public class ReservationprocessDto {
 	public void setFutsalInformation_fiSeq(String futsalInformation_fiSeq) {
 		this.futsalInformation_fiSeq = futsalInformation_fiSeq;
 	}
-//	---- 
-	//풋살장 정보
-	private String fiSeq; // 풋살장정보Seq
-	private String futsalName; //풋살장 이름
-	private String futsalRegion; //서울or경기 지역
-	private String futsalAddress; //풋살장 주소
-//	-----
+
 	public String getFiSeq() {
 		return fiSeq;
 	}
@@ -234,6 +235,18 @@ public class ReservationprocessDto {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getFutsalPhoneNumbar() {
+		return futsalPhoneNumbar;
+	}
+	public void setFutsalPhoneNumbar(String futsalPhoneNumbar) {
+		this.futsalPhoneNumbar = futsalPhoneNumbar;
+	}
+	public Integer getFutsalPrice() {
+		return futsalPrice;
+	}
+	public void setFutsalPrice(Integer futsalPrice) {
+		this.futsalPrice = futsalPrice;
 	}
 
 	

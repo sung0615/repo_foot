@@ -48,7 +48,7 @@
 		    c.userName  -- 예시로 사용자 이름 추가
 		FROM 
 		    review a
-		LEFT JOIN futsalInformation b ON a.futsalInformation_fiSeq = b.fiSeq
+		LEFT JOIN futsalinformation b ON a.futsalInformation_fiSeq = b.fiSeq
 		LEFT JOIN user c ON a.user_suSeq = c.suSeq
 		
 		WHERE 1=1
