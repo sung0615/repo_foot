@@ -5,83 +5,144 @@
 
 	<resultMap id="resultMapObj" type="com.aaa000.demo.user.futsalinformation.FutsalinformationDto"></resultMap>
 
-	<!-- 풋살장 정보 리스트 보여주기 -->
-	<select id="selectList" resultMap="resultMapObj">
-		
-		SELECT 
-		    a.fiSeq,
-		    a.futsalName,
-		    a.futsalPrice,
-		    a.futsalRegion,
-		    a.futsalAddress,
-		    a.futsalPhoneNumbar,
-		    a.futsalBusinessHours,
-		    a.futsalFacilityUsageRules,
-		    a.futsalCancellationPolicy,
-		    a.fiDelMy,
-		    a.regDateTime,
-		    a.modDateTime,
-		    a.zipCode,
-		    a.detailedAddress,
-		    a.latitude,
-		    a.hardness,
-		    region.cdSeq AS regionCdSeq,
-		    region.ifcdName AS regionName,
-		    COALESCE(review.avgStarScore, 0) AS avgStarScore,
-		    COALESCE(review.reviewCount, 0) AS reviewCount,
-		    (SELECT 		    	
-		    	path
-		    FROM 
-		    	uploaded
-		    WHERE 1=1	
-		    	AND pseq = fiSeq
-		    	AND delNy = 0
-		    ) AS path
-		    
-		FROM
-		    futsalinformation a
-		    LEFT JOIN code region ON a.futsalRegion = region.cdSeq
-		    LEFT JOIN (
-		        SELECT 
-		            futsalinformation_fiSeq,
-		            ROUND(AVG(starScore), 1) AS avgStarScore,
-		            COUNT(*) AS reviewCount
-		        FROM review
-		        GROUP BY futsalinformation_fiSeq
-		    ) review ON a.fiSeq = review.futsalinformation_fiSeq
-		WHERE 1=1
-			<if test="shDelNy != null and !shDelNy.equals('')">AND a.fiDelMy = #{shDelNy}</if>
-			<!-- <if test="shValue != null and !shValue.equals('')">
-			    AND a.futsalName LIKE CONCAT('%', #{shValue}, '%')
-			</if> -->
-			
-			<choose>
-           	    <when test="shOption == 1">AND a.futsalName LIKE CONCAT('%',#{shValue},'%')</when>
-            	<when test="shOption == 2">AND a.futsalAddress LIKE CONCAT('%',#{shValue},'%')</when>
-         	    <when test="shOption == 3">AND a.futsalPrice LIKE CONCAT('%',#{shValue},'%')</when>
-         	    <when test="shOption == 4">
-			        AND a.futsalRegion = (
-			            CASE 
-			                WHEN #{shValue} = '서울' THEN 8
-			                WHEN #{shValue} = '경기' THEN 9
-			                ELSE -1  <!-- 매칭 안 될 경우 검색 안 되게 함 -->
-			            END
-			        )
-			    </when>
-         	    
-      		</choose>
-      			<!-- 날짜 검색 -->			
-		<choose>								
-			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-		</choose> 
-				AND fiDelMy = 0  
-			
-			 
-			
-			 limit #{rowNumToShow} offset #{startRnumForMysql} 
-			 
-	</select>
+<select id="selectList" resultMap="resultMapObj">
+    SELECT 
+        a.fiSeq,
+        a.futsalName,
+        a.futsalPrice,
+        a.futsalRegion,
+        a.futsalAddress,
+        a.futsalPhoneNumbar,
+        a.futsalBusinessHours,
+        a.futsalFacilityUsageRules,
+        a.futsalCancellationPolicy,
+        a.fiDelMy,
+        a.regDateTime,
+        a.modDateTime,
+        a.zipCode,
+        a.detailedAddress,
+        a.latitude,
+        a.hardness,
+        region.cdSeq AS regionCdSeq,
+        region.ifcdName AS regionName,
+        COALESCE(review.avgStarScore, 0) AS avgStarScore,
+        COALESCE(review.reviewCount, 0) AS reviewCount,
+        (
+            SELECT path
+            FROM uploaded
+            WHERE pseq = a.fiSeq
+              AND delNy = 0
+            LIMIT 1
+        ) AS path
+    FROM
+        futsalinformation a
+        LEFT JOIN code region ON a.futsalRegion = region.cdSeq
+        LEFT JOIN (
+            SELECT 
+                futsalinformation_fiSeq,
+                ROUND(AVG(starScore), 1) AS avgStarScore,
+                COUNT(*) AS reviewCount
+            FROM review
+            GROUP BY futsalinformation_fiSeq
+        ) review ON a.fiSeq = review.futsalinformation_fiSeq
+    WHERE 1=1
+        AND a.fiDelMy = 0
+
+        <!-- 삭제 여부 필터 -->
+        <if test="shDelNy != null and shDelNy != ''">
+            AND a.fiDelMy = #{shDelNy}
+        </if>
+
+        <!-- 검색 옵션 -->
+        <choose>
+            <when test="shOption == 1">
+                AND a.futsalName LIKE CONCAT('%', #{shValue}, '%')
+            </when>
+            <when test="shOption == 2">
+                AND a.futsalAddress LIKE CONCAT('%', #{shValue}, '%')
+            </when>
+            <when test="shOption == 3">
+                AND a.futsalPrice LIKE CONCAT('%', #{shValue}, '%')
+            </when>
+            <when test="shOption == 4">
+                AND a.futsalRegion = (
+                    CASE 
+                        WHEN #{shValue} = '서울' THEN 8
+                        WHEN #{shValue} = '경기' THEN 9
+                        ELSE -1
+                    END
+                )
+            </when>
+            
+        </choose>
+
+        <!-- 날짜 필터 -->
+        <choose>
+            <when test="shOptionDate == 1">
+                AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}
+            </when>
+            <when test="shOptionDate == 2">
+                AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}
+            </when>
+        </choose>
+
+        <!-- 다중 지역 필터 -->
+        <if test="regions != null and regions.size > 0">
+            AND a.futsalRegion IN
+            <foreach collection="regions" item="region" open="(" separator="," close=")">
+                #{region}
+            </foreach>
+        </if>
+
+    LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+</select>
+<select id="selectList1" resultMap="resultMapObj">
+    SELECT 
+        a.fiSeq,
+        a.futsalName,
+        a.futsalPrice,
+        a.futsalRegion,
+        a.futsalAddress,
+        a.futsalPhoneNumbar,
+        a.futsalBusinessHours,
+        a.futsalFacilityUsageRules,
+        a.futsalCancellationPolicy,
+        a.fiDelMy,
+        a.regDateTime,
+        a.modDateTime,
+        a.zipCode,
+        a.detailedAddress,
+        a.latitude,
+        a.hardness,
+        region.cdSeq AS regionCdSeq,
+        region.ifcdName AS regionName,
+        COALESCE(review.avgStarScore, 0) AS avgStarScore,
+        COALESCE(review.reviewCount, 0) AS reviewCount,
+        (
+            SELECT path
+            FROM uploaded
+            WHERE pseq = a.fiSeq
+              AND delNy = 0
+            LIMIT 1
+        ) AS path
+    FROM
+        futsalinformation a
+        LEFT JOIN code region ON a.futsalRegion = region.cdSeq
+        LEFT JOIN (
+            SELECT 
+                futsalinformation_fiSeq,
+                ROUND(AVG(starScore), 1) AS avgStarScore,
+                COUNT(*) AS reviewCount
+            FROM review
+            GROUP BY futsalinformation_fiSeq
+        ) review ON a.fiSeq = review.futsalinformation_fiSeq
+    WHERE 1=1
+        AND a.fiDelMy = 0
+
+    
+
+   
+</select>
 	
 	
 	

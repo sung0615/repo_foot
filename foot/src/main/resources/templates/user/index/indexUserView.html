@@ -502,7 +502,8 @@
 
 				<div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-3" >
 					
-					<div class="col" th:each="list : ${list}">
+					<div class="col" th:each="list, iterStat : ${list}"
+     th:if="${iterStat.index} < 5">
 				  <input type="hidden" class="futsal-data" data-name="${list.futsalName}"   th:value="${list.latitude}"  />
 	  			   <input type="hidden" class="futsal-data1" data-name="${list.futsalName}"   th:value="${list.hardness}" />
                         <!-- card -->
@@ -585,7 +586,7 @@
 <!-- 서버에서 넘긴 list를 이용해서 hidden input 렌더링 -->
 
 	<section class="my-lg-14 my-8">
-			<div class="container" >
+			<div class="container"  >
 				<div class="row" >
 					<div class="col-12 mb-6" >
 						<h3 class="mb-0">풋살장 지도</h3>
@@ -593,9 +594,18 @@
 				</div>
 
 	
-					<div style="width: 100%; text-align: center;">
-					    <div id="map" name="map" style="display: inline-block; width: 100%; height: 400px; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);"></div>
-					</div>
+<!-- 					<div style="width: 100%; text-align: center;"> -->
+<!-- 					    <div id="map" name="map" style="display: inline-block; width: 100%; height: 400px; border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);"></div> -->
+<!-- 					</div> -->
+					<!-- 지도 하나만 표시 -->
+<div id="map" style="width: 100%; height: 500px;"></div>
+
+<!-- 마커용 데이터는 JS에서 사용할 수 있도록 hidden 요소나 dataset에 저장 -->
+<div class="markerData" th:each="list1 : ${list1}"
+     th:attr="data-lat=${list1.latitude}, 
+              data-lng=${list1.hardness},
+              data-url=@{/DetailedPageUserForm(fiSeq=${list1.fiSeq})}">
+</div>
 			</div>
 		</section>
 	<!-- 풋살장 데이터 리스트 (서버에서 받은 list를 반복문으로 출력) -->
@@ -1014,71 +1024,57 @@
 	
 
 <script type="text/javascript">
-//마커 추가 (수기로 위도, 경도 설정)
-const locations1 = document.querySelectorAll(".futsal-data1"); //위도
-const locations2 = document.querySelectorAll(".futsal-data"); // 겯오
-const locations3 = document.querySelectorAll(".fName"); // 이름
-// const locations = []; 
-//  for (let i = 0; i < locations1.length; i++) {
-
-//         locations.push({
-//             name: locations3[i].innerText,
-//             latitude: parseFloat(locations1[i].value),
-//             longitude: parseFloat(locations2[i].value)
-//         });
-// }   
-const locations = [
-    {
-        name: "HIP 풋살그라운드",  // 풋살장 이름
-        latitude: 37.7102010493838,      // 위도
-        longitude: 127.04628974814      // 경도
-    },
-    {
-        name: "라온 풋살장",  // 풋살장 이름
-        latitude: 37.660521964993,      // 위도
-        longitude: 127.01881220439      // 경도
-    }
-    // 다른 풋살장들도 여기에 추가할 수 있음
-];    
-// alert(locations[1].name + locations[1].latitude + locations[1].longitude);
-// alert(Array.isArray(locations));
-
-
-    // 지도 초기화
+  window.onload = function () {
     const mapContainer = document.getElementById('map');
+
     const mapOption = {
-    		center: new kakao.maps.LatLng(36.5665, 127.9780),  // 대한민국 중심 좌표 (중부 지역)
-    		level: 13  // 확대 레벨 조정 (숫자가 클수록 더 멀리서 보임)
+      center: new kakao.maps.LatLng(37.5665, 126.9780),
+      level: 6
     };
+
     const map = new kakao.maps.Map(mapContainer, mapOption);
-    const bounds = new kakao.maps.LatLngBounds();  // 마커들의 범위를 담을 객체
-    // 각 위치에 마커 추가
-        locations.forEach(function(location) {
-            const markerPosition = new kakao.maps.LatLng(location.latitude , location.longitude);
-            const marker = new kakao.maps.Marker({
-                position: markerPosition,
-                map: map
-            });
-           
-            // 마커의 범위를 추가
-            bounds.extend(markerPosition);
-            const infowindow = new kakao.maps.InfoWindow({
-                content: `<div style="padding:5px;">${location.name}</div>`  // 마커 클릭 시 풋살장 이름 표시
-            });
-      
-            kakao.maps.event.addListener(marker, 'click', function() {
-                infowindow.open(map, marker);  // 마커 클릭 시 인포윈도우 열기
-            });
-        });
-       	
-         map.setBounds(bounds);
-        
-        
-        // 마커들이 모두 추가된 후, 지도에 표시된 마커들을 모두 포함하는 범위로 지도 이동
- 
+    const bounds = new kakao.maps.LatLngBounds();
 
+    const markerImageSrc = '/user/template/assets/images/logo/ball.png';
+    const imageSize = new kakao.maps.Size(24, 24);
+    const imageOption = { offset: new kakao.maps.Point(12, 24) };
+    const markerImage = new kakao.maps.MarkerImage(markerImageSrc, imageSize, imageOption);
+
+    const markerDataElements = document.querySelectorAll('.markerData'); // ✅ class 사용
+
+    markerDataElements.forEach(function (el) {
+      const lat = parseFloat(el.getAttribute('data-lat'));
+      const lng = parseFloat(el.getAttribute('data-lng'));
+      const url = el.getAttribute('data-url'); // ✅ 이동할 URL
+
+      if (isNaN(lat) || isNaN(lng)) {
+        console.error("위도 또는 경도 값이 유효하지 않습니다.");
+        return;
+      }
+
+      const position = new kakao.maps.LatLng(lat, lng);
+
+      const marker = new kakao.maps.Marker({
+        position: position,
+        map: map,
+        image: markerImage
+      });
+
+      // ✅ 마커 클릭 시 URL 이동
+      kakao.maps.event.addListener(marker, 'click', function () {
+        if (url) {
+          window.location.href = url;
+        }
+      });
+
+      bounds.extend(position);
+    });
+
+    if (!bounds.isEmpty()) {
+      map.setBounds(bounds);
+    }
+  };
 </script>
-
 
 
 

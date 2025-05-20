@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{user/include/head :: head}"></div>
-<form name="formList" id="formList" method="post" autocomplete="off">
+<form name="formList" method="get" action="/ReservationUserList">
 	<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
 
@@ -425,6 +425,7 @@
             </div>
          </div>
       </div> -->
+ 
       <!-- section -->
       <div class="mt-8 mb-lg-14 mb-8">
          <!-- container -->
@@ -439,37 +440,46 @@
                         <h5 class="offcanvas-title" id="offcanvasCategoryLabel">Filter</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                      </div>
+                     <form action="/ReservationUserList" method="get">
                      <div class="offcanvas-body ps-lg-2 pt-lg-0">
                         
 
-                        <div class="mb-8">
-						    <h5 class="mb-3">풋살장 검색</h5>
-						    <div class="d-flex align-items-center">
-						        <!-- input -->
-						        <input type="search" class="form-control me-2" placeholder="구장 검색" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()"/>
-						        
-						        <button type="button" class="btn btn-default waves-effect" id="btnSearch">
-						            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
-						                <circle cx="11" cy="11" r="8"></circle>
-						                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-						            </svg>
-						        </button>
-						    </div>
-						</div>
-                        
+<!-- 검색어 입력 -->
+  <div class="mb-8">
+      <h5 class="mb-3">풋살장 검색</h5>
+      <div class="d-flex align-items-center">
+          <input type="search" class="form-control me-2" placeholder="구장 검색" 
+                 name="shValue" id="keyword" th:value="${vo.shValue}" />
+          <!-- shOption을 숨긴 input으로 고정 -->
+          <input type="hidden" name="shOption" value="1" />
+        
+          <button type="reset" class="btn btn-default waves-effect" id="btnReset">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1" viewBox="0 0 24 24">
+    <path d="M21 2v6h-6"></path>
+    <path d="M3.51 12a8.49 8.49 0 0 1 14.13-6.36L21 8"></path>
+    <path d="M21 12a8.5 8.5 0 1 1-8.49-8.49"></path>
+  </svg>
+          </button>
+      </div>
+  </div>
 
-                       <!-- 지역 체크박스 -->
-						<div class="mb-8">
-						    <h5 class="mb-3">지역</h5>
-						    <div class="form-check mb-2">
-						        <input class="form-check-input region-filter" type="checkbox" value="서울" id="seoulCheck" checked />
-						        <label class="form-check-label" for="seoulCheck">서울</label>
-						    </div>
-						    <div class="form-check mb-2">
-						        <input class="form-check-input region-filter" type="checkbox" value="경기" id="gyeonggiCheck" />
-						        <label class="form-check-label" for="gyeonggiCheck">경기</label>
-						    </div>
-						</div>
+<!-- 체크박스 -->
+<div class="mb-8">
+    <h5 class="mb-3">지역</h5>
+    <div class="form-check mb-2">
+       <input class="form-check-input region-filter" type="checkbox" name="regions" value="8" id="seoulCheck"
+       th:checked="${vo.regions != null and vo.regions.contains('8')}" />
+
+        <label class="form-check-label" for="seoulCheck">서울</label>
+    </div>
+    <div class="form-check mb-2">
+        <input class="form-check-input region-filter" type="checkbox" name="regions" value="9" id="gyeonggiCheck"
+       th:checked="${vo.regions != null and vo.regions.contains('9')}" />
+
+        <label class="form-check-label" for="gyeonggiCheck">경기</label>
+    </div>
+</div>
+
 <!--                         <div class="mb-8"> -->
                            
 <!--                            <h5 class="mb-3">금액</h5> -->
@@ -486,91 +496,22 @@
                            <label class="form-check-label" for="">즐겨찾기</label>
 
                         </div>
-                        <!-- rating -->
-<!--                         <div class="mb-8"> -->
-<!--                            <h5 class="mb-3">별점</h5> -->
-<!--                            <div> -->
-<!--                               form check -->
-<!--                               <div class="form-check mb-2"> -->
-<!--                                  input -->
-<!--                                  <input class="form-check-input" type="checkbox" value="" id="ratingFive" /> -->
-<!--                                  <label class="form-check-label" for="ratingFive"> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                  </label> -->
-<!--                               </div> -->
-<!--                               form check -->
-<!--                               <div class="form-check mb-2"> -->
-<!--                                  input                                                                 checked  -->
-<!--                                  <input class="form-check-input" type="checkbox" value="" id="ratingFour"  /> -->
-<!--                                  <label class="form-check-label" for="ratingFour"> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                  </label> -->
-<!--                               </div> -->
-<!--                               form check -->
-<!--                               <div class="form-check mb-2"> -->
-<!--                                  input -->
-<!--                                  <input class="form-check-input" type="checkbox" value="" id="ratingThree" /> -->
-<!--                                  <label class="form-check-label" for="ratingThree"> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                  </label> -->
-<!--                               </div> -->
-<!--                               form check -->
-<!--                               <div class="form-check mb-2"> -->
-<!--                                  input -->
-<!--                                  <input class="form-check-input" type="checkbox" value="" id="ratingTwo" /> -->
-<!--                                  <label class="form-check-label" for="ratingTwo"> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                  </label> -->
-<!--                               </div> -->
-<!--                               form check -->
-<!--                               <div class="form-check mb-2"> -->
-<!--                                  input -->
-<!--                                  <input class="form-check-input" type="checkbox" value="" id="ratingOne" /> -->
-<!--                                  <label class="form-check-label" for="ratingOne"> -->
-<!--                                     <i class="bi bi-star-fill text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                     <i class="bi bi-star text-warning"></i> -->
-<!--                                  </label> -->
-<!--                               </div> -->
-<!--                            </div> -->
-<!--                         </div> -->
-                        <!-- 광고 버튼 -->
-                        <!-- <div class="mb-8 position-relative">
-                           
-                           <div class="position-absolute p-5 py-8">
-                              <h3 class="mb-0">Fresh Fruits</h3>
-                              <p>Get Upto 25% Off</p>
-                              <a href="#" class="btn btn-dark">
-                                 Shop Now
-                                 <i class="feather-icon icon-arrow-right ms-1"></i>
-                              </a>
-                           </div>
-                          
-                           <img src="/user/template/assets/images/banner/assortment-citrus-fruits.png" alt=""
-                              class="img-fluid rounded" />
-                          
-                        </div> -->
+                        
+                         <h5 class="mb-3">풋살장 지도</h5>
+                        <div class="mb-8" id="map" style="width: 100%; height: 300px;"></div>
+
+						<!-- 마커용 데이터는 JS에서 사용할 수 있도록 hidden 요소나 dataset에 저장 -->
+						<div class="markerData" th:each="list : ${list}"
+						     th:attr="data-lat=${list.latitude}, 
+						              data-lng=${list.hardness},
+						              data-url=@{/DetailedPageUserForm(fiSeq=${list.fiSeq})}">
+						</div>
+                      
                      </div>
+                     </form>
                   </div>
                </aside>
+             
                <section class="col-lg-9 col-md-12">
                   <!-- card -->
                   <div class="card mb-4 bg-light border-0">
@@ -615,13 +556,13 @@
 					            <div class="card card-product">
 					                <div class="card-body">
 					                    <div class="text-center position-relative">
-					                        <a href="#">
+					                        <a th:href="@{/DetailedPageUserForm(fiSeq=${list.fiSeq})}">
 					                            <img th:src="${list.path}"
 					                                alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
 					                        </a>
 					                    </div>
 					                    <h2 class="fs-6">
-										    <a href="#" class="text-inherit text-decoration-none futsal-name" th:text="${list.futsalName}"></a>
+										    <a th:href="@{/DetailedPageUserForm(fiSeq=${list.fiSeq})}" class="text-inherit text-decoration-none futsal-name" th:text="${list.futsalName}"></a>
 										</h2>
 <!-- 							<div class="mb-4" > -->
    							
@@ -981,62 +922,110 @@
    <script src="/user/template/assets/js/vendors/tns-slider.js"></script>
    <script src="/user/template/assets/js/vendors/zoom.js"></script>
    
-    <script type="text/javascript">
-    	// 페이지네이션 자바 스크립
-	    let form = document.querySelector("form[name=formList]");
-	 goList = function (thisPage) {
-	     document.querySelector("input[name=thisPage]").value = thisPage;
-	     form.action = "/ReservationUserList";
-	     form.submit();
-	 }  
-
-	
-		
-	
-		
-    
-    </script>
-<script>
+<script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () {
-    let checkboxes = document.querySelectorAll(".region-filter");
-    let futsalItems = document.querySelectorAll(".futsal-item");
-    let searchButton = document.getElementById("btnSearch");
-    let searchInput = document.getElementById("shValue");
+    const form = document.querySelector("form[name=formList]");
+    const keywordInput = document.getElementById("keyword");
+    const checkboxes = document.querySelectorAll(".region-filter");
+    const resetButton = document.getElementById("btnReset");
 
-    // 🔥 초기 화면에서 모든 체크박스를 해제
-    checkboxes.forEach(checkbox => checkbox.checked = false);
-
-    function filterFutsalList() {
-        let selectedRegions = Array.from(checkboxes)
-            .filter(checkbox => checkbox.checked)
-            .map(checkbox => checkbox.value);
-
-        futsalItems.forEach(item => {
-            let itemRegion = item.getAttribute("data-region");
-            let itemName = item.querySelector(".futsal-name").textContent.toLowerCase();
-            let searchText = searchInput.value.toLowerCase();
-
-            let matchesRegion = selectedRegions.length === 0 || selectedRegions.includes(itemRegion);
-            let matchesSearch = searchText === "" || itemName.includes(searchText);
-
-            item.style.display = matchesRegion && matchesSearch ? "block" : "none";
-        });
-    }
-
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener("change", filterFutsalList);
+    // 검색창 엔터 누르면 form submit
+    keywordInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            form.submit();
+        }
     });
 
-    searchInput.addEventListener("keyup", filterFutsalList);
+    // 체크박스 변경 시 자동 검색 실행
+    checkboxes.forEach(cb => {
+        cb.addEventListener("change", function () {
+            form.submit();
+        });
+    });
 
-    searchButton.onclick = function () {
-        filterFutsalList();
-    };
-
-    filterFutsalList(); // 초기 실행 시 필터링 적용
+    // 초기화 버튼 클릭 시 기본 동작 막고 직접 초기화 및 submit
+    resetButton.addEventListener("click", function (e) {
+        e.preventDefault();  // 기본 reset 동작 막기
+        keywordInput.value = '';
+        checkboxes.forEach(cb => cb.checked = false);
+        form.submit();
+    });
 });
 
+// 페이지 이동 함수
+function goList(page) {
+    const form = document.querySelector("form[name=formList]");
+    let thisPageInput = form.querySelector('input[name="thisPage"]');
+    if (!thisPageInput) {
+        thisPageInput = document.createElement('input');
+        thisPageInput.type = 'hidden';
+        thisPageInput.name = 'thisPage';
+        form.appendChild(thisPageInput);
+    }
+    thisPageInput.value = page;
+    form.submit();
+}
 </script>
+
+
+
+
+<script type="text/javascript">
+  window.onload = function () {
+    const mapContainer = document.getElementById('map');
+
+    const mapOption = {
+      center: new kakao.maps.LatLng(37.5665, 126.9780),
+      level: 6
+    };
+
+    const map = new kakao.maps.Map(mapContainer, mapOption);
+    const bounds = new kakao.maps.LatLngBounds();
+
+    const markerImageSrc = '/user/template/assets/images/logo/ball.png';
+    const imageSize = new kakao.maps.Size(24, 24);
+    const imageOption = { offset: new kakao.maps.Point(12, 24) };
+    const markerImage = new kakao.maps.MarkerImage(markerImageSrc, imageSize, imageOption);
+
+    const markerDataElements = document.querySelectorAll('.markerData'); // ✅ class 사용
+
+    markerDataElements.forEach(function (el) {
+      const lat = parseFloat(el.getAttribute('data-lat'));
+      const lng = parseFloat(el.getAttribute('data-lng'));
+      const url = el.getAttribute('data-url'); // ✅ 이동할 URL
+
+      if (isNaN(lat) || isNaN(lng)) {
+        console.error("위도 또는 경도 값이 유효하지 않습니다.");
+        return;
+      }
+
+      const position = new kakao.maps.LatLng(lat, lng);
+
+      const marker = new kakao.maps.Marker({
+        position: position,
+        map: map,
+        image: markerImage
+      });
+
+      // ✅ 마커 클릭 시 URL 이동
+      kakao.maps.event.addListener(marker, 'click', function () {
+        if (url) {
+          window.location.href = url;
+        }
+      });
+
+      bounds.extend(position);
+    });
+
+    if (!bounds.isEmpty()) {
+      map.setBounds(bounds);
+    }
+  };
+</script>
+
+
+
        
 </body>
 

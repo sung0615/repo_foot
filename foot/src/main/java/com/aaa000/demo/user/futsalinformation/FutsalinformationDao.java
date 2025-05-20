@@ -13,6 +13,8 @@ public interface FutsalinformationDao extends BaseDao{
 	// 풋살장 정보 리스트					
 	public List<FutsalinformationDto> selectList(FutsalinformationVo vo);
 	
+	public List<FutsalinformationDto> selectList1();
+	
 	//정보 1개씩 뽑기
 	public FutsalinformationDto selectOne(FutsalinformationDto futsalinformationDto);
 	

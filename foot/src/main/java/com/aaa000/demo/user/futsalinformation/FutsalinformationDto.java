@@ -18,8 +18,8 @@ public class FutsalinformationDto extends BaseDto{
 	private Integer fiDelMy; // 업데이트 삭제
 	private String zipCode; //우편번호
 	private String detailedAddress; //상세주소
-	private String latitude; //위도
-	private String hardness; //경도
+	private Double latitude; //위도
+	private Double hardness; //경도
 //	-----
 // 코드 에있는  코드 이름  코드 Seq 땡겨오기
 	private Integer  codeGroup_cdgSeq; // 코드 그룹 Seq
@@ -174,16 +174,16 @@ public class FutsalinformationDto extends BaseDto{
 	public void setDetailedAddress(String detailedAddress) {
 		this.detailedAddress = detailedAddress;
 	}
-	public String getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(String latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
-	public String getHardness() {
+	public Double getHardness() {
 		return hardness;
 	}
-	public void setHardness(String hardness) {
+	public void setHardness(Double hardness) {
 		this.hardness = hardness;
 	}
 	public String getReviewTitle() {

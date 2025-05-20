@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FutsalinformationController {
@@ -18,31 +19,61 @@ public class FutsalinformationController {
 	public String futsalinformationList(Model model, FutsalinformationVo vo) {
 		
 		model.addAttribute("list", futsalinformationService.selectList(vo));
+		model.addAttribute("list1", futsalinformationService.selectList1());
 		
 		return "user/index/indexUserView";
 	}
 	
 
 	
-	// 풋살장 정보 예약 Reservation 화면 뿌리기
-	@RequestMapping(value="/ReservationUserList")
-	public String ReservationUserList(Model model, FutsalinformationVo vo, FutsalinformationDto futsalinformationDto) {
-		
+//	// 풋살장 정보 예약 Reservation 화면 뿌리기
+//	@RequestMapping(value="/ReservationUserList")
+//	public String ReservationUserList(Model model, FutsalinformationVo vo, FutsalinformationDto futsalinformationDto) {
+//		
+//
+//	   
+//		
+//
+//
+//		
+//		vo.setParamsPaging(futsalinformationService.selectOneCount(vo));
+//		
+//	
+//		
+//		model.addAttribute("list", futsalinformationService.selectList(vo));
+//		model.addAttribute("vo", vo);
+//			
+//		return "user/reservation/ReservationUserList";
+//	}
+	@RequestMapping(value = "/ReservationUserList")
+	public String ReservationUserList(
+	        Model model, 
+	        FutsalinformationVo vo,
+	        @RequestParam(name = "region", required = false) String region,          // 단일 지역 (기존 호환용)
+	        @RequestParam(name = "regions", required = false) List<String> regions,  // 복수 지역
+	        @RequestParam(name = "shValue", required = false) String shValue,
+	        @RequestParam(name = "shOption", required = false) Integer shOption,
+	        @RequestParam(name = "shOptionDate", required = false) Integer shOptionDate,
+	        @RequestParam(name = "shDateStart", required = false) String shDateStart,
+	        @RequestParam(name = "shDateEnd", required = false) String shDateEnd
+	) {
+	    vo.setRegion(region);
+	    vo.setRegions(regions);
+	    vo.setShValue(shValue);
+	    vo.setShOption(shOption);
+	    vo.setShOptionDate(shOptionDate);
+	    vo.setShDateStart(shDateStart);
+	    vo.setShDateEnd(shDateEnd);
 
-	   
-		
+	    vo.setParamsPaging(futsalinformationService.selectOneCount(vo));
+	    model.addAttribute("list", futsalinformationService.selectList(vo));
+	    model.addAttribute("vo", vo);
 
-
-		
-		vo.setParamsPaging(futsalinformationService.selectOneCount(vo));
-		
-	
-		
-		model.addAttribute("list", futsalinformationService.selectList(vo));
-		model.addAttribute("vo", vo);
-			
-		return "user/reservation/ReservationUserList";
+	    return "user/reservation/ReservationUserList";
 	}
+
+	
+
 	
 	
 	

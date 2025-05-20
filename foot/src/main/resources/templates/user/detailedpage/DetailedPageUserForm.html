@@ -1436,19 +1436,17 @@
 	
 	
 	
-	<script type="text/javascript">
-    //달력 
-    $.datetimepicker.setLocale('ko'); //번역기
-    jQuery(function(){
-    	 jQuery('#reservationDate').datetimepicker({
-    	  format:'Y/m/d',
-    	  
-    	  timepicker:false
-    	 });
-    	
+<script type="text/javascript">
+  // 달력 
+  $.datetimepicker.setLocale('ko'); // 번역기
+  jQuery(function(){
+    jQuery('#reservationDate').datetimepicker({
+      format: 'Y/m/d',
+      timepicker: false,
+      minDate: 0  // 오늘 날짜부터 선택 가능 (0 = 오늘)
     });
-    
-    </script>
+  });
+</script>
 	
 
 	

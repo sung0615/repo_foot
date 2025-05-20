@@ -1,6 +1,7 @@
 package com.aaa000.demo.user.futsalinformation;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.xml.crypto.Data;
 
@@ -8,7 +9,7 @@ public class FutsalinformationVo {
 	
 //	paging
 	private int thisPage = 1;									// 현재 페이지
-	private int rowNumToShow = 4;								// 화면에 보여줄 데이터 줄 갯수
+	private int rowNumToShow = 6;								// 화면에 보여줄 데이터 줄 갯수
 	private int pageNumToShow = 5;								// 화면에 보여줄 페이징 번호 갯수
 
 	private int totalRows;										// 전체 데이터 갯수
@@ -37,7 +38,22 @@ public class FutsalinformationVo {
 //	----
 	private Date shQptionDate;
 //	----
+	private double latitude;
+	private double hardness;
+//	---
+	private boolean paging = true;
+//	----
+	private List<String> regions;
+	private String region;  // 지역
+// ---- 
 	
+	public boolean isPaging() {
+	    return paging;
+	}
+
+	public void setPaging(boolean paging) {
+	    this.paging = paging;
+	}
 	
 	public int getThisPage() {
 		return thisPage;
@@ -268,6 +284,38 @@ public class FutsalinformationVo {
 
 	public void setShQptionDate(Date shQptionDate) {
 		this.shQptionDate = shQptionDate;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getHardness() {
+		return hardness;
+	}
+
+	public void setHardness(double hardness) {
+		this.hardness = hardness;
+	}
+
+	public List<String> getRegions() {
+		return regions;
+	}
+
+	public void setRegions(List<String> regions) {
+		this.regions = regions;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 	
 }

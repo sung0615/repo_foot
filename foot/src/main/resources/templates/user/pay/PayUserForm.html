@@ -19,9 +19,9 @@
     <input type="hidden" name="matchingTeamIntroduction" th:value="${reservationData.matchingTeamIntroduction}" />
     <!-- 결제 관련 -->
 	<!-- 풋살장 SEq -->
-	<input type="text" id="fiSeq" name="fiSeq" th:value="${item?.fiSeq}">
+	<input type="hidden" id="fiSeq" name="fiSeq" th:value="${item?.fiSeq}">
 	<!-- 유저 Seq -->
-	<input type="text" id="suSeq" name="suSeq"  th:value="${session.sessSeqUser}" >
+	<input type="hidden" id="suSeq" name="suSeq"  th:value="${session.sessSeqUser}" >
 	
 
 	<script src="/user/template/assets/js/vendors/validation.js"></script>

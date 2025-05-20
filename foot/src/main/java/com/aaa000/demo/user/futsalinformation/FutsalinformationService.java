@@ -22,6 +22,11 @@ public class FutsalinformationService extends BaseService{
 		return futsalinformationDao.selectList(vo);
 	}
 	
+	//풋살자 위도 경도
+	public List<FutsalinformationDto> selectList1(){
+		return futsalinformationDao.selectList1();
+	}
+	
 	// 풋살장 1개씩 보여주기
 	public FutsalinformationDto selectOne(FutsalinformationDto futsalinformationDto) {
 		return futsalinformationDao.selectOne(futsalinformationDto);
