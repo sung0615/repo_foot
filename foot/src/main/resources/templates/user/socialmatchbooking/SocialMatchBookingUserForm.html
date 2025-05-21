@@ -440,72 +440,35 @@
 		</div>
 	</div>
 
+	<input type="hidden" id="fpSeq" name="fpSeq" th:value="${item?.fpSeq}">
+	
 	<script src="/user/template/assets/js/vendors/validation.js"></script>
 	<main>
 		
 		<section class="mt-8">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-5 col-xl-6">
-						<!-- img slide -->
-						<div class="product" id="product">
-							<div class="zoom" onmousemove="zoom(event)"
-								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)">
-								
-								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
+					
+						<div class="col-md-5 col-xl-6">
+						
+							<div class="product" id="product">
+								<div class="zoom" onmousemove="zoom(event)"
+									th:style="'background-image: url(' + @{${item.path}} + ')'" >
+									<img th:src="@{${item.path}}" alt="상품 이미지" />
+								</div>
 							</div>
-							<div class="zoom" onmousemove="zoom(event)"
-								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)">
-								
-								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-							</div>
-							<div class="zoom" onmousemove="zoom(event)"
-								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)">
-								
-								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-							</div>
-							<div class="zoom" onmousemove="zoom(event)"
-								style="background-image: url(/user/template/assets/images/products/HIP\ 풋살그라운드.jpg)">
-								
-								<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-							</div>
-							
-						</div>
-						<!-- product tools -->
-						<div class="product-tools">
-							<div class="thumbnails row g-3" id="productThumbnails">
-								<div class="col-3">
-									<div class="thumbnails-img">
-									
-										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
+						
+						
+							<div class="product-tools">
+								<div class="thumbnails row g-3" id="productThumbnails">
+									<div class="col-3">
+										<div class="thumbnails-img">
+											<img th:src="@{${item.path}}" alt="썸네일" />
+										</div>
 									</div>
 								</div>
-								<div class="col-3">
-									<div class="thumbnails-img">
-									
-										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="thumbnails-img">
-									
-										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-									</div>
-								</div>
-								<div class="col-3">
-									<div class="thumbnails-img">
-									
-										<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg" alt="" />
-									</div>
-								</div>
-
-								
-								
 							</div>
-
-							
-							<br>
-						</div>
+						
 
 						<hr class="my-6" />
 							<div>
@@ -514,43 +477,43 @@
 									<tbody>
 										<tr>
 											<td><strong style="color: black;">매칭 날짜 :</strong></td>
-											<td style="color: black;">2025-03-01</td>
+											<td style="color: black;" th:text="${#dates.format(item.reservationDate, 'yyyy-MM-dd')}">2025-03-01</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">시간 :</strong></td>
-											<td style="color: black;">오전08:00 ~ 오전10:00</td>
+											<td style="color: black;" th:text="${item.reservationTime}">오전08:00 ~ 오전10:00</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">매장 구장 비용 :</strong></td>
-											<td style="color: black;">65,000 원</td>
+											<td style="color: black;" th:text="${#numbers.formatInteger(item.matchingDeposit, 3, 'COMMA')} + '원'">65,000 원</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">은행명 : </strong></td>
-											<td style="color: black;">우리은행</td>
+											<td style="color: black;" th:text="${item.matchingBankName}">우리은행</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">계좌번호 : </strong></td>
-											<td style="color: black;">1005-465456-45646</td>
+											<td style="color: black;" th:text="${item.matchingBankNumbar}">1005-465456-45646</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">VS : </strong></td>
-											<td style="color: black;"> 5 VS 5</td>
+											<td style="color: black;" th:text="${item.matchingVs}"> 5 VS 5</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">레벨 :</strong></td>
-											<td style="color: black;"> 비기니</td>
+											<td style="color: black;" th:text="${item.matchingTeamLevel}"> 비기니</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">팀 명 :<strong></td>
-											<td style="color: black;"> 강북FD</td>
+											<td style="color: black;" th:text="${item.matchingTeamName}"> 강북FD</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">연락처 :<strong></td>
-											<td style="color: black;"> 010-1111-1234</td>
+											<td style="color: black;" th:text="${item.userPhoneNumber}"> 010-1111-1234</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">팀소개  :<strong></td>
-											<td style="color: black;">매너 최상상상 블라블라블라</td>
+											<td style="color: black;" th:text="${item.matchingTeamIntroduction}">매너 최상상상 블라블라블라</td>
 										</tr>
 										
 										
@@ -558,140 +521,7 @@
 								</table>
 							</div>
 
-						<!-- <div class="col-md-10">
-							<p>
-								<h5 >
-									<strong style="color: black;">매칭 날짜 : </strong> <small>2025-03-01</small>
-								</h5>
-							</p>
-						</div>
-
-						<div class="col-md-10">
-							<h5 style="color: black;">
-								<strong>시간: </strong><small>오전08:00 ~ 오전10:00</small>
-							</h5>
-						</div>
-						
-						<div class="col-md-10">
-							<p>
-								<h5 >
-									<strong style="color: black;">매장 구장 비용 : </strong> <small>65,000 원</small>
-								</h5>
-							</p>
-						</div>
-						<div class="col-md-10">
-							<p>
-								<h5 >
-									<strong style="color: black;">은행명 : </strong> <small>우리은행</small>
-								</h5>
-							</p>
-						</div>
-						<div class="col-md-10">
-							<p>
-								<h5 >
-									<strong style="color: black;">계좌번호 : </strong> <small>1005-465456-45646</small>
-								</h5>
-							</p>
-						</div>
-						<div class="col-md-10">
-							<p>
-								<h5 >
-									<strong style="color: black;">VS : </strong> <small>5 VS 5</small>
-								</h5>
-							</p>
-						</div>
-						<div class="col-md-10">
-							<p>
-								<h5 >
-									<strong style="color: black;">레벨 : </strong> <small>비기니</small>
-								</h5>
-							</p>
-						</div>
-						<div class="col-md-10">
-							<p>
-								<h5 >
-									<strong style="color: black;">팀 명 : </strong> <small>강북FD</small>
-								</h5>
-							</p>
-						</div>
-						<div class="col-md-10">
-							<p>
-								<h5 >
-									<strong style="color: black;">연락처 : </strong> <small>010-1111-1234</small>
-								</h5>
-							</p>
-						</div>
-						<div class="col-md-10">
-							<p>
-								<h5 >
-									<strong style="color: black;">팀소개 : </strong> <small>매너 최상상상 블라블라블라</small>
-								</h5>
-							</p>
-						</div> -->
-
-
-						<!-- <div class="col-md-10">
-							<small>시간</small>
-							<label for="" class="form-label"></label>
-							  <input type="email" class="form-control" id="" placeholder="오전08:00 ~ 오전10:00" disabled>
-								
-								
-								
-						</div>
 					
-						<div class="col-md-10">
-							
-							<small>매칭 구장 비용</small>
-							<label for="" class="form-label"></label>
-							  <input type="email" class="form-control" id="" placeholder="65,000 원" disabled>
-																			   
-						</div>
-						<div class="col-md-10">
-							
-							<small>은행명</small>
-							<label for="" class="form-label"></label>
-							  <input type="text" class="form-control" id="" placeholder="우리은행" disabled>
-																			   
-						</div>
-						<div class="col-md-10">
-							
-							<small>계좌번호</small>
-							<label for="" class="form-label"></label>
-							  <input type="text" class="form-control" id="" placeholder="1005-46456-465465" disabled>
-																			   
-						</div>
-						<div class="col-md-10">
-							<small>VS</small>
-							<label for="" class="form-label"></label>
-							  <input type="text" class="form-control" id="" placeholder="5 VS 5" disabled>
-								
-
-						</div>
-						<div class="col-md-10">
-							<small>레벨</small>
-							<label for="" class="form-label"></label>
-							  <input type="text" class="form-control" id="" placeholder="비기너" disabled>
-								
-
-						</div>
-						<div class="col-md-10">
-							<small>팀 명</small>
-							<label for="" class="form-label"></label>
-							  <input type="text" class="form-control" id="" placeholder="강북FD" disabled>
-																			   
-						</div>
-						<div class="col-md-10">
-							<small>연락처</small>
-							<label for="" class="form-label"></label>
-							  <input type="tel" class="form-control" id="" placeholder="010-1234-1234" disabled>
-																			   
-						</div>
-						<div class="col-md-10">
-							<small>팀 소개</small>
-							<label for="" class="form-label"></label>
-							<textarea class="form-control" id="" rows="3" placeholder="" disabled>매너 최상상상상 블라블라블라블라</textarea>
-																			   
-						</div> -->
 						
 					</div>
 					<div class="col-md-7 col-xl-6">
@@ -699,10 +529,10 @@
 							<!-- content -->
 							<!-- <a href="#!" class="mb-4 d-block">Bakery Biscuits</a> -->
 							<!-- heading -->
-							<h1 class="mb-1">HIP 풋살그라운드</h1>
+							<h1 class="mb-1" th:text="${item.futsalName}">HIP 풋살그라운드</h1>
 							
 							<p class="text-dark fw-semibold mb-4">
-								<small>주소 : 경기도 의정부시 호암로 95</small>
+								<small th:text="${item.futsalAddress}">주소 : 경기도 의정부시 호암로 95</small>
 							</p>
 							
 							<!-- hr -->
@@ -720,7 +550,7 @@
 									<small>내팀 레벨 선택해주세요<span style="color: red;">*</span></small>
 									<label for="" class="form-label visually-hidden">소셜 매칭</label>
 										<select type="" class="form-select" id=""  required >
-											<option selected disabled value="">레벨</option>
+											<option selected  value="">레벨 선택해주세요</option>
 											<option>비기너</option>
 											<option>아마C</option>
 											<option>아마B</option>
@@ -818,15 +648,15 @@
 									<tbody>
 										<tr>
 											<td>주소</td>
-											<td>경기도 의정부시 호암로 95 신한대학교 내 (HIP 풋살그라운드)</td>
+											<td th:text="${item.futsalAddress}">경기도 의정부시 호암로 95 신한대학교 내 (HIP 풋살그라운드)</td>
 										</tr>
 										<tr>
 											<td>풋살장 연락처</td>
-											<td>010-4331-0250</td>
+											<td th:text="${item.futsalPhoneNumbar}">010-4331-0250</td>
 										</tr>
 										<tr>
 											<td>영업시간</td>
-											<td>오전 06:00 ~ 오전 02:00</td>
+											<td th:text="${item.futsalBusinessHours}">오전 06:00 ~ 오전 02:00</td>
 										</tr>
 										
 									</tbody>
@@ -834,32 +664,32 @@
 							</div>
 							<div class="mt-8">
 								<!-- dropdown -->
-								<div class="dropdown">
-									<a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button"
-										data-bs-toggle="dropdown" aria-expanded="false">공유하기</a>
+<!-- 								<div class="dropdown"> -->
+<!-- 									<a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" -->
+<!-- 										data-bs-toggle="dropdown" aria-expanded="false">공유하기</a> -->
 
-									<ul class="dropdown-menu">
+<!-- 									<ul class="dropdown-menu"> -->
 										
-										<li>
-											<a class="dropdown-item" href="#">
-												<i class="bi bi-facebook me-2"></i>
-												Facebook
-											</a>
-										</li>
-										<li>
-											<a class="dropdown-item" href="#">
-												<img src="./free-icon-kakao-talk-2111683.png" width="17">&nbsp;
-												카카오톡
-											</a>
-										</li>
-										<li>
-											<a class="dropdown-item" href="#">
-												<i class="bi bi-instagram me-2"></i>
-												Instagram
-											</a>
-										</li>
-									</ul>
-								</div>
+<!-- 										<li> -->
+<!-- 											<a class="dropdown-item" href="#"> -->
+<!-- 												<i class="bi bi-facebook me-2"></i> -->
+<!-- 												Facebook -->
+<!-- 											</a> -->
+<!-- 										</li> -->
+<!-- 										<li> -->
+<!-- 											<a class="dropdown-item" href="#"> -->
+<!-- 												<img src="./free-icon-kakao-talk-2111683.png" width="17">&nbsp; -->
+<!-- 												카카오톡 -->
+<!-- 											</a> -->
+<!-- 										</li> -->
+<!-- 										<li> -->
+<!-- 											<a class="dropdown-item" href="#"> -->
+<!-- 												<i class="bi bi-instagram me-2"></i> -->
+<!-- 												Instagram -->
+<!-- 											</a> -->
+<!-- 										</li> -->
+<!-- 									</ul> -->
+<!-- 								</div> -->
 							</div>
 						</div>
 					</div>
@@ -881,32 +711,7 @@
 								</button>
 							</li>
 							
-							<!-- <li class="nav-item" role="presentation">
-								
-								<button class="nav-link" id="details-tab" data-bs-toggle="tab"
-									data-bs-target="#details-tab-pane" type="button" role="tab"
-									aria-controls="details-tab-pane" aria-selected="false">
-									예약 취소 및 환불 규정
-								</button>
-							</li>
-							
-							<li class="nav-item" role="presentation">
-								
-								<button class="nav-link" id="reviews-tab" data-bs-toggle="tab"
-									data-bs-target="#reviews-tab-pane" type="button" role="tab"
-									aria-controls="reviews-tab-pane" aria-selected="false">
-									리뷰
-								</button>
-							</li> -->
-							<!-- nav item -->
-							<!-- <li class="nav-item" role="presentation">
-								
-								<button class="nav-link" id="sellerInfo-tab" data-bs-toggle="tab"
-									data-bs-target="#sellerInfo-tab-pane" type="button" role="tab"
-									aria-controls="sellerInfo-tab-pane" aria-selected="false" disabled>
-									Seller Info
-								</button>
-							</li> -->
+						
 						</ul>
 						<!-- tab content -->
 						<div class="tab-content" id="myTabContent">
@@ -917,77 +722,13 @@
 									<div class="mb-5">
 										<!-- text -->
 										<h4 class="mb-1">특이사항</h4><br>
-										<p class="mb-0">
-											<strong>[주차 안내]</strong>
-										</p><br>
-										<p class="mb-0">
-											신한대학교 내 모든 주차장 공간에 주차 가능
+										
+										<p class="mb-0" style="white-space: pre-line;" th:text="${item.futsalFacilityUsageRules}" >
+											
 										</p>
-										<p class="mb-0">
-											주차 요금 : 3시간 1,000원 (할인권 구매시)
-										</p>
-										<p class="mb-0">
-											안내데스크에서 주차할인권(3시간) 구매가능 (1,000원)
-										</p>
-										<p class="mb-0">
-											주차할인권을 구매하지 않는 경우 신한대 정상주차요금 발생 (시간당 2,000원)
-										</p><br>
-										<p class="mb-0">
-											<strong>[꼭 지켜주세요요]</strong>
-										</p><br>
-										<p class="mb-0">
-											경기장 및 시설 내 흡연은 절대 불가하며, 지정된 흡연구역에서만 흡연이 가능합니다.
-										</p>
-										<p class="mb-0">
-											흡연구역은 'A구장 옆'에 위치하고 있습니다.
-										</p>
-										<p class="mb-0">
-											이용 시 발생한 쓰레기는 모두 정리하여, 안내데스크 앞 쓰레기봉투에 분리배출 부탁드립니다.
-										</p><br>
-										<p class="mb-0">
-											<strong>[물품대여 서비스]</strong>
-										</p><br>
-										<p class="mb-0">
-											풋살공 및 조끼 대여 : 무료
-										</p>
-										<p class="mb-0">
-											풋살화 대여 : 4,000원
-										</p>
-										<p class="mb-0">
-											풋살화 사이즈는 255~285까지 구비되어 있으며, 우천 시 대여 불가합니다.
-										</p>
-										<p class="mb-0"><br>
-											<strong>[판매물품 안내]</strong>
-										</p><br>
-										<p class="mb-0">
-											<strong>생수, 음료, 주차할인권 등</strong>
-										</p>
+										
 									</div>
-									<!-- <div class="mb-5">
-										<h5 class="mb-1">Storage Tips</h5>
-										<p class="mb-0">
-											Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae
-											varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus.
-											Consequat risus facilisis
-											ante ipsum netus risus adipiscing sagittis sed.Lorem ipsum dolor sit amet,
-											consectetur adipiscing elit.
-										</p>
-									</div>
-									
-									<div class="mb-5">
-										<h5 class="mb-1">Unit</h5>
-										<p class="mb-0">3 units</p>
-									</div>
-									<div class="mb-5">
-										<h5 class="mb-1">Seller</h5>
-										<p class="mb-0">DMart Pvt. LTD</p>
-									</div>
-									<div>
-										<h5 class="mb-1">Disclaimer</h5>
-										<p class="mb-0">Image shown is a representation and may slightly vary from the
-											actual product. Every effort is made to maintain accuracy of all information
-											displayed.</p>
-									</div> -->
+								
 								</div>
 							</div>
 							<!-- tab pane -->

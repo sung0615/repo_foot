@@ -44,6 +44,79 @@
 			       ORDER BY fpSeq DESC
 		</select>
 		
+		<!-- 매칭 신청시 매칭 리스트 보여주기 -->
+		<select id="matchList" resultMap="resultMapObj">
+		select 
+			a.fpSeq,
+		    a.reservationDate,
+		    a.reservationTime,
+		    a.matchingOnOff,
+		    a.matchingVs,
+		    a.matchingTeamLevel,
+		    a.matchingTeamName,
+		    a.rpDelMy,
+		    a.user_suSeq,
+		    a.futsalInformation_fiSeq,
+		    b.fiSeq,
+		    b.futsalName,
+		    b.futsalAddress,
+		    b.detailedAddress,
+		    c.suSeq,
+		    c.userName
+		From
+			reservationprocess a
+		left join futsalinformation b ON  a.futsalInformation_fiSeq = b.fiSeq
+		left join user c ON a.user_suSeq = c.suSeq
+			where 1=1
+		and rpDelMy = 0
+		and matchingOnOff = "신청한다"
+		
+		
+		</select>
+		
+		<select id="matchOne" resultMap="resultMapObj">
+			SELECT 
+			    a.fpSeq,
+			    a.reservationDate,
+			    a.reservationTime,
+			    a.matchingOnOff,
+			    a.matchingDeposit,
+			    a.matchingBankName,
+			    a.matchingBankNumbar,
+			    a.matchingVs,
+			    a.matchingTeamLevel,
+			    a.matchingTeamName,
+			    a.matchingTeamIntroduction,
+			    a.user_suSeq,
+			    a.futsalInformation_fiSeq,
+			    b.fiSeq,
+			    b.futsalName,
+			    b.futsalAddress,
+			    b.detailedAddress,
+			    b.futsalPhoneNumbar,
+			    b.futsalFacilityUsageRules,
+			    b.futsalBusinessHours,
+			    
+			    c.suSeq,
+			    c.userPhoneNumber,
+			    (
+			        SELECT path
+			        FROM uploaded
+			        WHERE pseq = b.fiSeq
+			        AND delNy = 0
+			        LIMIT 1
+			    ) AS path
+			FROM
+			    reservationprocess a
+			LEFT JOIN futsalinformation b ON a.futsalInformation_fiSeq = b.fiSeq
+			LEFT JOIN user c ON a.user_suSeq = c.suSeq
+			WHERE 1=1
+			
+			AND fpSeq = #{fpSeq}
+		
+		
+		
+		</select>
 		
 		<select id="selectOne" resultMap="resultMapObj">
 		    SELECT

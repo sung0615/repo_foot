@@ -1,10 +1,14 @@
 package com.aaa000.demo.user.reservationprocess;
 
-public class ReservationprocessDto {
+import java.util.Date;
+
+import com.aaa000.demo.module.base.BaseDto;
+
+public class ReservationprocessDto extends BaseDto{
 	
 	private String fpSeq;
 //	풋살장 예약
-	private String reservationDate; //풋살장 예약날짜
+	private Date reservationDate; //풋살장 예약날짜
 	private String reservationTime; //풋살장 예약시간
 // 풋살장 매칭 등록
 	private String matchingOnOff; //풋살매칭 등록 신청OnOff
@@ -32,11 +36,13 @@ public class ReservationprocessDto {
 // Seq
 	private String user_suSeq; //유저 Seq
 	private String futsalInformation_fiSeq; // 풋살 결제 매칭 Seq	
+	private String user_suSeq1; // 매칭 신청 유저Seq
 //	----
 // 유저 Seq 가져오기
 	private String suSeq; //유저Seq
 	private String userName; //유저 이름
 	private String userId; //유저 ID
+	private String userPhoneNumber;
 //	----	
 //	---- 
 	//풋살장 정보
@@ -46,7 +52,11 @@ public class ReservationprocessDto {
 	private String futsalAddress; //풋살장 주소
 	private String futsalPhoneNumbar;
 	private Integer futsalPrice;
+	private String detailedAddress;
+	private String futsalBusinessHours;
+	private String futsalFacilityUsageRules;
 //	-----
+	
 	
 	
 	public String getFpSeq() {
@@ -55,12 +65,7 @@ public class ReservationprocessDto {
 	public void setFpSeq(String fpSeq) {
 		this.fpSeq = fpSeq;
 	}
-	public String getReservationDate() {
-		return reservationDate;
-	}
-	public void setReservationDate(String reservationDate) {
-		this.reservationDate = reservationDate;
-	}
+	
 	public String getReservationTime() {
 		return reservationTime;
 	}
@@ -247,6 +252,43 @@ public class ReservationprocessDto {
 	}
 	public void setFutsalPrice(Integer futsalPrice) {
 		this.futsalPrice = futsalPrice;
+	}
+	public String getDetailedAddress() {
+		return detailedAddress;
+	}
+	public void setDetailedAddress(String detailedAddress) {
+		this.detailedAddress = detailedAddress;
+	}
+	public String getUserPhoneNumber() {
+		return userPhoneNumber;
+	}
+	public void setUserPhoneNumber(String userPhoneNumber) {
+		this.userPhoneNumber = userPhoneNumber;
+	}
+	public String getFutsalBusinessHours() {
+		return futsalBusinessHours;
+	}
+	public void setFutsalBusinessHours(String futsalBusinessHours) {
+		this.futsalBusinessHours = futsalBusinessHours;
+	}
+	public String getFutsalFacilityUsageRules() {
+		return futsalFacilityUsageRules;
+	}
+	public void setFutsalFacilityUsageRules(String futsalFacilityUsageRules) {
+		this.futsalFacilityUsageRules = futsalFacilityUsageRules;
+	}
+
+	public String getUser_suSeq1() {
+		return user_suSeq1;
+	}
+	public void setUser_suSeq1(String user_suSeq1) {
+		this.user_suSeq1 = user_suSeq1;
+	}
+	public Date getReservationDate() {
+		return reservationDate;
+	}
+	public void setReservationDate(Date reservationDate) {
+		this.reservationDate = reservationDate;
 	}
 
 	

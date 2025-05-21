@@ -488,159 +488,79 @@
 								<!-- Table -->
 								
 
+<table class="table mb-0 text-nowrap table-centered">
+  <!-- 날짜 버튼 표시 영역 -->
+  <thead class="bg-light">
+    <tr>
+      <th colspan="5" class="text-center p-3">
+        <button id="prevBtn" class="btn btn-outline-secondary me-2">&laquo;</button>
+        <span id="dateButtons"></span>
+        <button id="nextBtn" class="btn btn-outline-secondary ms-2">&raquo;</button>
+      </th>
+    </tr>
+  </thead>
+<br>
+ <tbody id="reservationTableBody">
+   <!-- 오늘 날짜 예약 없을 때 표시할 메시지 -->
+  <tr id="noReservationMessage" style="display:none;">
+    <td colspan="5" class="text-center text-muted py-4">
+      날짜에 매칭 신청이 없습니다.
+    </td>
+  </tr>
+  <tr th:each="reservation : ${list}" 
+      th:attr="data-date=${#dates.format(reservation.reservationDate, 'MM/dd (E)')}">
 
-								<table class="table mb-0 text-nowrap table-centered">
-									<!-- Table Head -->
-									<thead class="bg-light">
-										<tr>
-											
-											<th>
-												<label for="" class="form-label visually-hidden">지역</label>
-										<select type="" class="form-select" id=""  required>
-											<option selected disabled value="">지역</option>
-											<option>서울</option>
-											<option>경기</option>
-										                  						
-										</select><br>
+    <!-- 예약 일시 -->
+    <td class="align-middle border-top-0">
+      <div>
+        <p class="res-date fw-bold mb-1" th:text="${#dates.format(reservation.reservationDate, 'yyyy-MM-dd')}">
+          2025-03-01
+        </p>
+        <p class="mb-0" th:text="${reservation.reservationTime}">
+          오전08:00 ~ 오전10:00
+        </p>
+      </div>
+    </td>
 
-										<label for="" class="form-label visually-hidden">레벨</label>
-										<select type="" class="form-select" id=""  required>
-											<option selected disabled value="">시간선택</option>
-											<option>오전06:00 ~ 오전08:00</option>
-											<option>오전08:00 ~ 오전10:00</option>
-											<option>오전10:00 ~ 오전12:00</option>
-											<option>오후12:00 ~ 오후02:00</option>
-											<option>오후02:00 ~ 오후04:00</option>
-											<option>오후04:00 ~ 오후06:00</option>
-											<option>오후06:00 ~ 오후08:00</option>
-											<option>오후10:00 ~ 오후12:00</option>
-											<option>오전12:00 ~ 오전02:00</option>                   						
-										</select>
-											</th>
-											<th>
-												<label for="" class="form-label visually-hidden">소셜 매칭</label>
-												<select type="" class="form-select" id=""  required>
-													<option selected disabled value="">시설</option>
-													<option>도봉구 라온 풋살장</option>
-													<option>HIP 풋살그라운드</option>
-													<option>....</option>
-													<option>....</option>
-													<option>....</option>
-											
-											                   						
-												</select>
+    <!-- 풋살장 정보 -->
+    <td class="align-middle border-top-0">
+      <div>
+        <strong class="d-block fs-5" th:text="${reservation.futsalName}">HIP 풋살그라운드</strong>
+        <p class="mb-1" th:text="${reservation.matchingVs}">5vs5</p>
+        <p class="mb-1">
+          <span>주소 : </span>
+          <span th:text="${reservation.futsalAddress}">경기도 의정부시 호암로 95 신한대학교</span>
+          <span th:text="${reservation.detailedAddress}"></span>
+        </p>
+        <p class="mb-0">
+          <span>실력 : </span>
+          <span th:text="${reservation.matchingTeamLevel}">비기너</span>
+        </p>
+      </div>
+    </td>
 
-												<label class="form-label" for="creatCustomerDate"></label>
-												<input type="date" class="form-control flatpickr" id="creatCustomerDate" placeholder="dd/mm/yyyy" required />
-											
-											</th>
-											<th></th>
-											<th></th>
-											<th><label for="" class="form-label visually-hidden" width="150px">소셜 매칭</label>
-												<select type="" class="form-select" id=""  required >
-													<option selected disabled value="">레벨</option>
-													<option>비기너</option>
-													<option>아마C</option>
-													<option>아마B</option>
-													<option>아마A</option>
-													<option>세미C</option>
-													<option>세미B</option>
-													<option>세미A</option>
-													<option>프로C</option>
-													<option>프로B</option>
-													<option>프로A</option>
-																							   
-												</select>
-												<br>
-												<a class="btn btn-social" href="#" role="button" >검색하기</a>
-											</th>
-											
-											
-											
-										</tr>
-									</thead>
-									<tbody>
-										<!-- Table body -->
-										<tr>
-											
-											<td class="align-middle border-top-0"><p>매칭 시간 : 2025-02-25</p><p>오전08:00 ~ 오전10:00</p></td>
+    <!-- 추가 항목 1 -->
+    <td class="align-middle border-top-0">
+      <!-- 필요 시 내용 추가 -->
+    </td>
 
-											<td class="align-middle border-top-0"><p><strong>도봉구 라온 풋살장</strong> <br>일반매치/6vs6<br>주소 : 서울특별시 도봉구 방학동 553-2<br>실력 : 세미C</p></td>
-											
-											<td class="align-middle border-top-0"></td>
-											<td class="align-middle border-top-0"></td>
-											<td class="align-middle border-top-0">
-												<a class="btn btn-danger btn-lg disabled" href="#" role="button" aria-disabled="true">예약마감</a>
-											</td>
-											
-										</tr>
-										<tr>
-											
-											<td class="align-middle border-top-0"><p>매칭 시간 : 2025-03-01</p><p>오전08:00 ~ 오전10:00</p></td>
+    <!-- 추가 항목 2 -->
+    <td class="align-middle border-top-0">
+      <!-- 필요 시 내용 추가 -->
+    </td>
 
-											<td class="align-middle border-top-0"><p><strong>HIP 풋살그라운드</strong> <br>일반매치/5vs5<br>주소 : 경기도 의정부시 호암로 95 신한대학교 내 (HIP 풋살그라운드)<br>실력 : 비기너</p></td>
-											
-											<td class="align-middle border-top-0"></td>
-											<td class="align-middle border-top-0"></td>
-											<td class="align-middle border-top-0">
-												<a class="btn btn-success btn-lg" href="social-match-booking.html" role="button" >신청하기</a>
-											</td>
-											
-										</tr>
-										<!-- <tr>
-											<td>
-												<input class="form-check-input" type="checkbox" name="chk">
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<h6 class="mb-0">도봉산호원 풋살장</h6>
-												</a>
-												
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<span><small class="text">경기 의정부시 창포원로 67</small></span>
-												</a>
-												
-											</td>
-											<td>010-1111-1111</td>
-											<td class="align-middle border-top-0">2025-02-15</td>
-											<td class="align-middle border-top-0">오전08:00 ~ 오전10:00</td>
-											<td class="align-middle border-top-0">120,000 원</td>
-											
-										</tr> -->
-										
-										
-										
-										
-										<!-- <tr>
-											<td>
-												<input class="form-check-input" type="checkbox" value="" id="">
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<h6 class="mb-0">Blueberry Greek Yogurt</h6>
-												</a>
-												<span><small class="text-muted">500 g</small></span>
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="text-inherit">#12094</a>
-											</td>
-											<td class="align-middle border-top-0">Oct 03, 2023</td>
-											<td class="align-middle border-top-0">4</td>
-											<td class="align-middle border-top-0">
-												<span class="badge bg-success">Completed</span>
-											</td>
-											<td class="align-middle border-top-0">$18.00</td>
-											<td class="text-muted align-middle border-top-0">
-												<a href="#" class="text-inherit" data-bs-toggle="tooltip"
-													data-bs-placement="top" data-bs-title="View"><i
-														class="feather-icon icon-eye"></i></a>
-											</td>
-										</tr> -->
-									</tbody>
-									
-								</table>
+    <!-- 신청 버튼 -->
+    <td class="align-middle border-top-0 text-center">
+      <a class="btn btn-success btn-lg"
+         th:href="@{/SocialMatchBookingUserForm(fpSeq=${reservation.fpSeq})}">
+        신청하기
+      </a>
+    </td>
+  </tr>
+</tbody>
+
+</table>
+
 								
 							</div>
 							<!-- <div>
@@ -856,7 +776,106 @@
 
 	<script src="/user/template/assets/libs/flatpickr/dist/flatpickr.min.js"></script>
 	<script src="/user/template/assets/libs/dropzone/dist/min/dropzone.min.js"></script>
-	
+	<!-- jQuery (먼저 jQuery CDN 필요) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+const today = new Date();
+let startDate = new Date(today); // 초기 날짜 기준
+
+// 날짜를 yyyy-MM-dd로 포맷
+function formatDate(date) {
+  return date.toISOString().split('T')[0];
+}
+
+// 날짜를 MM/dd (E) 형식으로 표시 (한국 요일 포함)
+function formatDisplayDate(date) {
+  const options = { month: '2-digit', day: '2-digit', weekday: 'short' };
+  return date.toLocaleDateString('ko-KR', options);
+}
+
+// 버튼 영역 생성
+function renderDateButtons() {
+  $('#dateButtons').empty();
+
+  for (let i = 0; i < 7; i++) {
+    let currentDate = new Date(startDate);
+    currentDate.setDate(startDate.getDate() + i);
+    const formatted = formatDisplayDate(currentDate); // 버튼 표시용
+    const dataDate = formatDate(currentDate);         // 비교용
+
+    const btn = $('<button>')
+      .addClass('btn btn-outline-primary mx-1 date-btn')
+      .attr('data-date', dataDate)
+      .text(formatted);
+
+    // 오늘 날짜 버튼 활성화
+    if (dataDate === formatDate(today)) {
+      btn.removeClass('btn-outline-primary').addClass('btn-primary');
+    }
+
+    $('#dateButtons').append(btn);
+  }
+}
+
+// 예약 표시 함수 (특정 날짜만 보여주고 없으면 메시지 표시)
+function filterReservationsByDate(selectedDate) {
+  let hasReservation = false;
+
+  $('#reservationTableBody tr').each(function () {
+    if ($(this).attr('id') === 'noReservationMessage') return;
+
+    const rowDate = $(this).find('.res-date').text().trim();
+    const formattedRowDate = new Date(rowDate).toISOString().split('T')[0];
+
+    if (formattedRowDate === selectedDate) {
+      $(this).show();
+      hasReservation = true;
+    } else {
+      $(this).hide();
+    }
+  });
+
+  if (!hasReservation) {
+    $('#noReservationMessage').show();
+  } else {
+    $('#noReservationMessage').hide();
+  }
+}
+
+// 버튼 클릭 시 해당 날짜만 필터링
+$(document).on('click', '.date-btn', function () {
+  const selectedDate = $(this).attr('data-date');
+
+  filterReservationsByDate(selectedDate);
+
+  $('.date-btn').removeClass('btn-primary').addClass('btn-outline-primary');
+  $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+});
+
+// 이전 날짜 버튼
+$('#prevBtn').on('click', function () {
+  startDate.setDate(startDate.getDate() - 7);
+  renderDateButtons();
+});
+
+// 다음 날짜 버튼
+$('#nextBtn').on('click', function () {
+  startDate.setDate(startDate.getDate() + 7);
+  renderDateButtons();
+});
+
+// 초기 실행
+$(document).ready(function () {
+  renderDateButtons();
+
+  const todayFormatted = formatDate(today);
+  filterReservationsByDate(todayFormatted);
+});
+
+
+</script>
+
 
 </body>
 

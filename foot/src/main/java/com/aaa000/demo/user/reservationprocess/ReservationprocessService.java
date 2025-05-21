@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aaa000.demo.module.base.BaseService;
+
 @Service
-public class ReservationprocessService {
+public class ReservationprocessService extends BaseService {
 	
 	@Autowired
 	ReservationprocessDao reservationprocessDao;
@@ -14,6 +16,16 @@ public class ReservationprocessService {
 	// 리스트 보여주기
 	public List<ReservationprocessDto> selectList(ReservationprocessDto reservationprocessDto){
 		return reservationprocessDao.selectList(reservationprocessDto);
+	}
+	
+	//매칭 신청시 리스트 보여주기
+	public List<ReservationprocessDto> matchList(){
+		return reservationprocessDao.matchList();
+	}
+	
+	//매칭 신청 리스트 상세
+	public ReservationprocessDto matchOne(int fpSeq) {
+		return reservationprocessDao.matchOne(fpSeq);
 	}
 	
 	// 한개씩 뽑기

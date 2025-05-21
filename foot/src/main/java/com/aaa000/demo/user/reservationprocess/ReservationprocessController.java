@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aaa000.demo.module.base.BaseDao;
 import com.aaa000.demo.user.futsalinformation.FutsalinformationDto;
 import com.aaa000.demo.user.futsalinformation.FutsalinformationService;
 
@@ -55,8 +56,10 @@ public class ReservationprocessController {
 	
 	// 풋살장 예약에서 매칭 리스트  화면 뿌리기
 	@RequestMapping(value="/SocialMatchUserList")
-	public String SocialMatchList() {		
-			
+	public String SocialMatchList(Model model) {		
+		
+		
+		model.addAttribute("list", reservationprocessService.matchList());
 		return "user/socialMatch/SocialMatchUserList";
 	}
 	
@@ -117,7 +120,10 @@ public class ReservationprocessController {
 	
 	// 풋살 매칭 신청 폼 등록하기 매칭신청했으면 매칭 리스트로 가라
 	@RequestMapping(value="/SocialMatchBookingUserForm")
-	public String SocialMatchBookingUserForm() {
+	public String SocialMatchBookingUserForm(@RequestParam(value = "fpSeq", required = false) Integer fpSeq,Model model) {
+		
+		model.addAttribute("item", reservationprocessService.matchOne(fpSeq));
+		
 		return "user/socialmatchbooking/SocialMatchBookingUserForm";
 	}
 

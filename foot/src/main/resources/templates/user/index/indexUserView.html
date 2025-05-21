@@ -514,7 +514,7 @@
                                  <!-- <div class="position-absolute top-0 start-0">
                                     <span class="badge bg-danger">Sale</span>
                                  </div> -->
-                                 <a href="#">
+                                 <a th:href="@{/DetailedPageUserForm(fiSeq=${list.fiSeq})}">
                                     <!-- img -->
                                     <img th:src="${list.path}"
                                        alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
@@ -525,21 +525,21 @@
                               <div class="text-small mb-1">
                                  
                               </div>
-                              <h2 class="fs-6"><a href="Detailed-page.html"
+                              <h2 class="fs-6"><a th:href="@{/DetailedPageUserForm(fiSeq=${list.fiSeq})}"
                                     class="text-inherit text-decoration-none fName"  th:text="${list.futsalName}"></a></h2>
                                     
-                              <div>
-                                 <!-- rating -->
-                                 <small class="text-warning">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-half"></i>
-                                 </small>
-                                 <span class="text-muted small">4.5(149)</span>
+<!--                               <div> -->
+<!--                                  rating -->
+<!--                                  <small class="text-warning"> -->
+<!--                                     <i class="bi bi-star-fill"></i> -->
+<!--                                     <i class="bi bi-star-fill"></i> -->
+<!--                                     <i class="bi bi-star-fill"></i> -->
+<!--                                     <i class="bi bi-star-fill"></i> -->
+<!--                                     <i class="bi bi-star-half"></i> -->
+<!--                                  </small> -->
+<!--                                  <span class="text-muted small">4.5(149)</span> -->
                                 
-                              </div>
+<!--                               </div> -->
                               <div>
                                  <p th:text="${list.futsalAddress}"></p>
                               </div>

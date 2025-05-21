@@ -10,6 +10,12 @@ public interface ReservationprocessDao {
 	// 리스트 보여주기
 	public List<ReservationprocessDto> selectList(ReservationprocessDto reservationprocessDto);
 	
+	// 매칭 신청시 매칭 리스트 보여주기
+	public List<ReservationprocessDto> matchList();
+	
+	//매칭 신청시 매칭리스트 상세
+	public ReservationprocessDto matchOne(int fpSeq);
+	
 	// 한데이터만 뽑아을때
 	public ReservationprocessDto selectOne(ReservationprocessDto reservationprocessDto);
 	

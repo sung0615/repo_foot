@@ -25,26 +25,7 @@ public class FutsalinformationController {
 	}
 	
 
-	
-//	// 풋살장 정보 예약 Reservation 화면 뿌리기
-//	@RequestMapping(value="/ReservationUserList")
-//	public String ReservationUserList(Model model, FutsalinformationVo vo, FutsalinformationDto futsalinformationDto) {
-//		
-//
-//	   
-//		
-//
-//
-//		
-//		vo.setParamsPaging(futsalinformationService.selectOneCount(vo));
-//		
-//	
-//		
-//		model.addAttribute("list", futsalinformationService.selectList(vo));
-//		model.addAttribute("vo", vo);
-//			
-//		return "user/reservation/ReservationUserList";
-//	}
+	//풋살장 정보 예약 리스트
 	@RequestMapping(value = "/ReservationUserList")
 	public String ReservationUserList(
 	        Model model, 
@@ -67,6 +48,7 @@ public class FutsalinformationController {
 
 	    vo.setParamsPaging(futsalinformationService.selectOneCount(vo));
 	    model.addAttribute("list", futsalinformationService.selectList(vo));
+	    model.addAttribute("list1", futsalinformationService.selectList1());
 	    model.addAttribute("vo", vo);
 
 	    return "user/reservation/ReservationUserList";
