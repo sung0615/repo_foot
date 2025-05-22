@@ -222,17 +222,17 @@
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                                       </svg>
                                     </a>
-                               <!--  <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;">
+                                 <button class="btn btn-success" onclick="downloadExcel()" type="button" style="float: right; margin-right:  5px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
                                         <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
                                         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
                                       </svg>
-                                    </a>                                
-                                <a class="btn btn-primary" href="" role="button" style="float: right; margin-right:  5px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16">
-                                        <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57s-2.687-1.08-2.687-2.57zM12.5 15h-9v-1h9z"/>
-                                      </svg>
-                                    </a>  -->  
+                                   </button>                                
+<!--                                 <a class="btn btn-primary" href="" role="button" style="float: right; margin-right:  5px;"> -->
+<!--                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16"> -->
+<!--                                         <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57s-2.687-1.08-2.687-2.57zM12.5 15h-9v-1h9z"/> -->
+<!--                                       </svg> -->
+<!--                                     </a>     -->
                                 
                             </div>
                         </div>
@@ -241,6 +241,7 @@
             </div>   
         </div>
     </section>
+    </form>
     <section class="content">
         <div class="container-fluid">
             
@@ -362,6 +363,24 @@
     	});
     
     </script>
+    
+    
+<script>
+function downloadExcel() {
+    const rowNumToShow = document.getElementById("changeRowNum").value; // 현재 선택된 행 수
+    const searchKeyword = document.getElementById("searchKeyword")?.value || ""; // 검색어(있다면)
+    const searchOption = document.getElementById("searchOption")?.value || "";   // 검색조건(있다면)
+
+    const params = new URLSearchParams({
+        rowNumToShow: rowNumToShow,
+        searchKeyword: searchKeyword,
+        searchOption: searchOption
+    });
+
+    // 주소에 파라미터를 붙여 요청
+    window.location.href = '/blogXdmExcel?' + params.toString();
+}
+</script>
 
 </body>
 </html>

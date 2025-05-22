@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aaa000.demo.common.util.UtilDateTiem;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @Controller
 public class CodeGroupController {
 	
@@ -17,7 +19,7 @@ public class CodeGroupController {
 	
 	//리스트 보여주고 
 	@RequestMapping(value = "/codeGroup/codeGroupXdmList")
-	public String codeGroupXdmList(CodeGroupVo vo,Model model,CodeGroupDto  codeGroupDto) {
+	public String codeGroupXdmList(CodeGroupVo vo,Model model,CodeGroupDto  codeGroupDto, HttpServletResponse httpServletResponse) {
 		// 토탈 가져와야되는 값이 먼저 돌아야된다
 		// 본데이터 값이 그다음 돌아야된다
 		
@@ -29,6 +31,9 @@ public class CodeGroupController {
 		
 		vo.setShDateStart(vo.getShDateStart() == null || vo.getShDateStart() == "" ? null : UtilDateTiem.add00TimeString(vo.getShDateStart()));
 		vo.setShDateEnd(vo.getShDateEnd() == null || vo.getShDateEnd() == "" ? null : UtilDateTiem.add59TimeString(vo.getShDateEnd()));
+		
+		
+		
 		
 
 		return "xdm/codeGroup/codeGroupXdmList";
@@ -77,6 +82,11 @@ public class CodeGroupController {
 		codeGroupService.uelete(codeGroupDto);
 		return "redirect:/codeGroup/codeGroupXdmList";
 	}
+	
+	
+	
+	
+	
 	
 	
 

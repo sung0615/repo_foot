@@ -1,20 +1,22 @@
 package com.aaa000.demo.user.user;
 
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aaa000.demo.common.util.UtilDateTiem;
 import com.aaa000.demo.module.code.CodeVo;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -344,6 +346,57 @@ public class UserController {
 	  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(strength);
 	  return passwordEncoder.matches(planeText, hashValue);
 	}
+	
+	
+	
+	
+	@RequestMapping(value = "/blogXdmExcel")
+	public void exportBlogsToCsv(HttpServletResponse response, UserVo vo) throws Exception {
+	    // 페이징 무시: rowNumToShow를 Integer.MAX_VALUE로 설정하거나,
+	    
+	    vo.setParamsPaging(userService.selectOneCount(vo));
+	    List<UserDto> blogs = userService.selectList(vo);
+
+	    response.setContentType("text/xls; charset=UTF-8");
+	    response.setHeader("Content-Disposition", "attachment; filename=\"user.xls\"");
+
+	    OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream(), StandardCharsets.UTF_8);
+	    writer.write('\uFEFF'); // BOM
+
+	    // 헤더
+	    writer.write("이름,성별,통신사,폰번호,생일,ID,이메일,등록일,수정일\n");
+
+	    // 내용
+	    for (UserDto blog : blogs) {
+	        String phone = "=" + "\"" + blog.getUserPhoneNumber() + "\""; // 문자로 강제 처리
+	        String birthday = "=" + "\"" + blog.getUserBirthday() + "\"";
+	        String regDate = "=" + "\"" + blog.getRegDateTime() + "\"";
+	        String modDate = "=" + "\"" + blog.getModDateTime() + "\"";
+
+	        writer.write(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+	            blog.getUserName(),
+	            blog.getUserGender(),
+	            blog.getUserNewsAgency(),
+	            phone,
+	            birthday,
+	            blog.getUserId(),
+	            blog.getUserEmail(),
+	            regDate,
+	            modDate
+	        ));
+	    }
+
+	    writer.flush();
+	    writer.close();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -20,7 +20,7 @@ public class FutsalinformationVo {
 	private int startRnumForMysql = 0;							// 쿼리 시작 row
 //	----
 	private String fiSeq;
-
+	private boolean isFavorited;
 //	search
 	private Integer shUseNy = 1; 									/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
 	private Integer shDelNy = 0; 								/* null 값을 받아야 되는 경우가 있어서 int 대신 Integer 사용 */
@@ -42,6 +42,7 @@ public class FutsalinformationVo {
 	private double hardness;
 //	---
 	private boolean paging = true;
+	private String suSeq ;
 //	----
 	private List<String> regions;
 	private String region;  // 지역
@@ -316,6 +317,22 @@ public class FutsalinformationVo {
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+	public String getSuSeq() {
+		return suSeq;
+	}
+
+	public void setSuSeq(String suSeq) {
+		this.suSeq = suSeq;
+	}
+
+	public boolean isFavorited() {
+		return isFavorited;
+	}
+
+	public void setFavorited(boolean isFavorited) {
+		this.isFavorited = isFavorited;
 	}
 	
 }

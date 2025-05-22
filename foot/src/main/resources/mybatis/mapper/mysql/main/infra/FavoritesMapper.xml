@@ -6,17 +6,35 @@
 	<resultMap id="resultMapObj" type="com.aaa000.demo.user.favorites.FavoritesDto"></resultMap>
 	
 
-	<select id="selectList" resultMap="resultMapObj">
-		SELECT 
-			favoritesSeq,
-		    futsalInformation_fiSeq,
-		    user_suSeq
-		FROM
-			favorites
-		WHERE 1=1
-		ORDER BY favoritesSeq ASC
+
 	
-	</select>
+<!-- 즐겨찾기 개수 확인 -->
+<select id="countFavorite" resultType="int" parameterType="map">
+  SELECT COUNT(*) FROM favorites 
+  WHERE user_suSeq = #{suSeq} AND futsalInformation_fiSeq = #{fiSeq} AND fdelMy = 0
+</select>
+
+<!-- 즐겨찾기 추가 -->
+<insert id="insertFavorite" parameterType="map">
+  INSERT INTO favorites (user_suSeq, futsalInformation_fiSeq, fdelMy)
+  VALUES (#{suSeq}, #{fiSeq}, 0)
+</insert>
+
+<!-- 즐겨찾기 삭제 -->
+<update id="deleteFavorite" parameterType="map">
+  UPDATE favorites SET fdelMy = 1 
+  WHERE user_suSeq = #{suSeq} AND futsalInformation_fiSeq = #{fiSeq}
+</update>
+
+<!-- 사용자별 즐겨찾기 리스트 -->
+<select id="selectListByUser" parameterType="int" resultType="com.aaa000.demo.user.favorites.FavoritesDto">
+  SELECT * FROM favorites WHERE user_suSeq = #{suSeq} AND fdelMy = 0
+</select>
+
+<!-- 전체 리스트 -->
+<select id="selectList" resultType="com.aaa000.demo.user.favorites.FavoritesDto">
+  SELECT * FROM favorites WHERE fdelMy = 0
+</select>
 	
 	
 	

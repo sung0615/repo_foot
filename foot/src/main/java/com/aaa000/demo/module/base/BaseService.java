@@ -15,7 +15,7 @@ public class BaseService {
 	@Value("${cloud_aws_bucket}")
     private String bucket;
     
-public void uploadFilesToS3(MultipartFile[] multipartFiles, BaseDto dto, String tableName, int type, int maxNumber, String pSeq, BaseDao dao, AmazonS3Client amazonS3Client) throws Exception {
+public void uploadFilesToS3(MultipartFile[] multipartFiles, BaseDto dto, String tableName, int type, int maxNumber, int pSeq, BaseDao dao, AmazonS3Client amazonS3Client) throws Exception {
 		
 		for(int i=0; i<multipartFiles.length; i++) {
 			

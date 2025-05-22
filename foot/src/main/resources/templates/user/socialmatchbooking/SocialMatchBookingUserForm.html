@@ -477,7 +477,7 @@
 									<tbody>
 										<tr>
 											<td><strong style="color: black;">매칭 날짜 :</strong></td>
-											<td style="color: black;" th:text="${#dates.format(item.reservationDate, 'yyyy-MM-dd')}">2025-03-01</td>
+											<td style="color: black;" th:text="|${item.reservationDate.substring(0,4)}년 ${item.reservationDate.substring(5,7)}월 ${item.reservationDate.substring(8,10)}일|">2025-03-01</td>
 										</tr>
 										<tr>
 											<td><strong style="color: black;">시간 :</strong></td>
@@ -549,7 +549,7 @@
 								<div class="col-md-10">
 									<small>내팀 레벨 선택해주세요<span style="color: red;">*</span></small>
 									<label for="" class="form-label visually-hidden">소셜 매칭</label>
-										<select type="" class="form-select" id=""  required >
+										<select type="" class="form-select" id="applicationTeamLevel" name="applicationTeamLevel"  required >
 											<option selected  value="">레벨 선택해주세요</option>
 											<option>비기너</option>
 											<option>아마C</option>
@@ -563,24 +563,25 @@
 											<option>프로A</option>
 											                   						
 										</select>
+										<div style="color: red;" id="applicationTeamLevelError"></div>
 
 								</div>
 								<div class="col-md-10">
 									<small>연락처<span style="color: red;">*</span></small>
 									<label for="" class="form-label"></label>
-  									<input type="text" class="form-control" id="" placeholder="휴대폰 번호 입력해주세요" >
-											                   						
+  									<input type="text" class="form-control"  placeholder="휴대폰 번호 입력해주세요" id="applicationTeamPhoneNumbar" name="applicationTeamPhoneNumbar">
+											    <div style="color: red;" id="applicationTeamPhoneNumbarError"></div>               						
 								</div>
 								<div class="col-md-10">
 									<small>내팀 명<span style="color: red;">*</span></small>
 									<label for="" class="form-label"></label>
-  									<input type="email" class="form-control" id="" placeholder="팀명을 입력해주세요" >
-											                   						
+  									<input type="email" class="form-control"  placeholder="팀명을 입력해주세요" id="applicationTeamName" name="applicationTeamName">
+										 <div style="color: red;" id="applicationTeamNameError"></div>           	                   						
 								</div>
 								<div class="col-md-10">
 									<small>내팀 소개글</small>
 									<label for="" class="form-label"></label>
-									<textarea class="form-control" id="" rows="3" placeholder="팀 소개 글 입력해주세요" ></textarea>
+									<textarea class="form-control"  rows="3" placeholder="팀 소개 글 입력해주세요" id="applicationTeamIntroduction" name="applicationTeamIntroduction"></textarea>
 											                   						
 								</div>
 							</div>
@@ -607,7 +608,7 @@
 								<div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
 									<!-- button -->
 									<!-- btn -->
-									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+									<button type="button" class="btn btn-primary" id="applyButton" >
 										<i class="feather-icon icon-shopping-bag me-2"></i>
 										신청하기
 									</button>
@@ -1480,6 +1481,85 @@
 	<script src="/user/template/assets/js/vendors/tns-slider.js"></script>
 	<script src="/user/template/assets/js/vendors/zoom.js"></script>
 	<script src="/user/template/assets/js/vendors/dropzone.js"></script>
+	
+<script>
+$(document).ready(function () {
+	  $('#applyButton').on('click', function () {
+	    // 입력값 가져오기
+	    const levelEl = document.getElementById("applicationTeamLevel");
+	    const phoneEl = document.getElementById("applicationTeamPhoneNumbar");
+	    const nameEl = document.getElementById("applicationTeamName");
+
+	    const level = levelEl.value;
+	    const phone = phoneEl.value.trim();
+	    const name = nameEl.value.trim();
+
+	    // 에러 메시지 영역
+	    const levelError = document.getElementById("applicationTeamLevelError");
+	    const phoneError = document.getElementById("applicationTeamPhoneNumbarError");
+	    const nameError = document.getElementById("applicationTeamNameError");
+
+	    // 에러 초기화
+	    levelError.textContent = "";
+	    phoneError.textContent = "";
+	    nameError.textContent = "";
+
+	    levelEl.classList.remove("is-invalid");
+	    phoneEl.classList.remove("is-invalid");
+	    nameEl.classList.remove("is-invalid");
+
+	    let isValid = true;
+
+	    // 레벨 유효성 검사
+	    if (!level) {
+	      levelError.textContent = "레벨을 선택해주세요.";
+	      levelEl.classList.add("is-invalid");
+	      isValid = false;
+	    }
+
+	    // 전화번호 유효성 검사
+	    const phonePattern = /^010-\d{3,4}-\d{4}$/;
+	    if (!phone) {
+	      phoneError.textContent = "연락처를 입력해주세요.";
+	      phoneEl.classList.add("is-invalid");
+	      isValid = false;
+	    } else if (!phonePattern.test(phone)) {
+	      phoneError.textContent = "유효한 연락처 형식이 아닙니다.";
+	      phoneEl.classList.add("is-invalid");
+	      isValid = false;
+	    }
+
+	    // 팀명 유효성 검사
+	    if (name === "") {
+	      nameError.textContent = "팀명을 입력해주세요.";
+	      nameEl.classList.add("is-invalid");
+	      isValid = false;
+	    }
+
+	    // 유효할 때만 모달 표시
+	    if (isValid) {
+	      const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+	      modal.show();
+	    }
+	  });
+	});
+
+  
+  
+  $('#applicationTeamPhoneNumbar').on('input', function () {
+	  let raw = $(this).val().replace(/\D/g, '');
+	  if (raw.length < 4) {
+	    $(this).val(raw);
+	  } else if (raw.length < 8) {
+	    $(this).val(raw.slice(0, 3) + '-' + raw.slice(3));
+	  } else if (raw.length <= 11) {
+	    $(this).val(raw.slice(0, 3) + '-' + raw.slice(3, 7) + '-' + raw.slice(7));
+	  } else {
+	    $(this).val(raw.slice(0, 3) + '-' + raw.slice(3, 7) + '-' + raw.slice(7, 11));
+	  }
+	});
+</script>
+	
 </body>
 
 </html>

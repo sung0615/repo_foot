@@ -499,67 +499,71 @@
       </th>
     </tr>
   </thead>
-<br>
- <tbody id="reservationTableBody">
-   <!-- 오늘 날짜 예약 없을 때 표시할 메시지 -->
-  <tr id="noReservationMessage" style="display:none;">
-    <td colspan="5" class="text-center text-muted py-4">
-      날짜에 매칭 신청이 없습니다.
-    </td>
-  </tr>
-  <tr th:each="reservation : ${list}" 
-      th:attr="data-date=${#dates.format(reservation.reservationDate, 'MM/dd (E)')}">
 
-    <!-- 예약 일시 -->
-    <td class="align-middle border-top-0">
-      <div>
-        <p class="res-date fw-bold mb-1" th:text="${#dates.format(reservation.reservationDate, 'yyyy-MM-dd')}">
-          2025-03-01
-        </p>
-        <p class="mb-0" th:text="${reservation.reservationTime}">
-          오전08:00 ~ 오전10:00
-        </p>
-      </div>
-    </td>
+  <tbody id="reservationTableBody">
+    <!-- 오늘 날짜 예약 없을 때 표시할 메시지 -->
+    <tr id="noReservationMessage" style="display:none;">
+      <td colspan="5" class="text-center text-muted py-4">
+        날짜에 매칭 신청이 없습니다.
+      </td>
+    </tr>
 
-    <!-- 풋살장 정보 -->
-    <td class="align-middle border-top-0">
-      <div>
-        <strong class="d-block fs-5" th:text="${reservation.futsalName}">HIP 풋살그라운드</strong>
-        <p class="mb-1" th:text="${reservation.matchingVs}">5vs5</p>
-        <p class="mb-1">
-          <span>주소 : </span>
-          <span th:text="${reservation.futsalAddress}">경기도 의정부시 호암로 95 신한대학교</span>
-          <span th:text="${reservation.detailedAddress}"></span>
-        </p>
-        <p class="mb-0">
-          <span>실력 : </span>
-          <span th:text="${reservation.matchingTeamLevel}">비기너</span>
-        </p>
-      </div>
-    </td>
+    <!-- 예약 데이터 반복 출력 -->
+    <tr th:each="reservation : ${list}"
+        th:attr="data-date=${reservation.reservationDate.substring(0,10)}">  <!-- yyyy-MM-dd 날짜만 data-date에 저장 -->
 
-    <!-- 추가 항목 1 -->
-    <td class="align-middle border-top-0">
-      <!-- 필요 시 내용 추가 -->
-    </td>
+      <!-- 예약 일시 -->
+      <td class="align-middle border-top-0">
+        <div>
+          <p class="res-date fw-bold mb-1"
+             th:text="|${reservation.reservationDate.substring(0,4)}년 ${reservation.reservationDate.substring(5,7)}월 ${reservation.reservationDate.substring(8,10)}일|">
+            2025-03-01
+          </p>
+          <p class="mb-0" th:text="${reservation.reservationTime}">
+            오전08:00 ~ 오전10:00
+          </p>
+        </div>
+      </td>
 
-    <!-- 추가 항목 2 -->
-    <td class="align-middle border-top-0">
-      <!-- 필요 시 내용 추가 -->
-    </td>
+      <!-- 풋살장 정보 -->
+      <td class="align-middle border-top-0">
+        <div>
+          <strong class="d-block fs-5" th:text="${reservation.futsalName}">HIP 풋살그라운드</strong>
+          <p class="mb-1" th:text="${reservation.matchingVs}">5vs5</p>
+          <p class="mb-1">
+            <span>주소 : </span>
+            <span th:text="${reservation.futsalAddress}">경기도 의정부시 호암로 95 신한대학교</span>
+            <span th:text="${reservation.detailedAddress}"></span>
+          </p>
+          <p class="mb-0">
+            <span>실력 : </span>
+            <span th:text="${reservation.matchingTeamLevel}">비기너</span>
+          </p>
+        </div>
+      </td>
 
-    <!-- 신청 버튼 -->
-    <td class="align-middle border-top-0 text-center">
-      <a class="btn btn-success btn-lg"
-         th:href="@{/SocialMatchBookingUserForm(fpSeq=${reservation.fpSeq})}">
-        신청하기
-      </a>
-    </td>
-  </tr>
-</tbody>
+      <!-- 추가 항목 1 -->
+      <td class="align-middle border-top-0">
+        <!-- 필요 시 내용 추가 -->
+      </td>
 
+      <!-- 추가 항목 2 -->
+      <td class="align-middle border-top-0">
+        <!-- 필요 시 내용 추가 -->
+      </td>
+
+      <!-- 신청 버튼 -->
+      <td class="align-middle border-top-0 text-center">
+        <a class="btn btn-success btn-lg"
+           th:href="@{/SocialMatchBookingUserForm(fpSeq=${reservation.fpSeq})}">
+          신청하기
+        </a>
+      </td>
+    </tr>
+  </tbody>
 </table>
+
+
 
 								
 							</div>
@@ -783,33 +787,34 @@
 const today = new Date();
 let startDate = new Date(today); // 초기 날짜 기준
 
-// 날짜를 yyyy-MM-dd로 포맷
+// 날짜를 yyyy-MM-dd로 포맷 (예: 2025-05-23)
 function formatDate(date) {
   return date.toISOString().split('T')[0];
 }
 
-// 날짜를 MM/dd (E) 형식으로 표시 (한국 요일 포함)
+// 날짜를 MM/dd (E) 형식으로 표시 (예: 05/23 (금), 한국 요일 포함)
 function formatDisplayDate(date) {
   const options = { month: '2-digit', day: '2-digit', weekday: 'short' };
   return date.toLocaleDateString('ko-KR', options);
 }
 
-// 버튼 영역 생성
+// 날짜 버튼 생성 및 렌더링 함수
 function renderDateButtons() {
   $('#dateButtons').empty();
 
   for (let i = 0; i < 7; i++) {
     let currentDate = new Date(startDate);
     currentDate.setDate(startDate.getDate() + i);
-    const formatted = formatDisplayDate(currentDate); // 버튼 표시용
-    const dataDate = formatDate(currentDate);         // 비교용
+
+    const formatted = formatDisplayDate(currentDate); // 버튼에 보여질 텍스트
+    const dataDate = formatDate(currentDate);         // 비교용 yyyy-MM-dd
 
     const btn = $('<button>')
       .addClass('btn btn-outline-primary mx-1 date-btn')
       .attr('data-date', dataDate)
       .text(formatted);
 
-    // 오늘 날짜 버튼 활성화
+    // 오늘 날짜면 기본 활성화
     if (dataDate === formatDate(today)) {
       btn.removeClass('btn-outline-primary').addClass('btn-primary');
     }
@@ -818,17 +823,16 @@ function renderDateButtons() {
   }
 }
 
-// 예약 표시 함수 (특정 날짜만 보여주고 없으면 메시지 표시)
+// 예약 목록에서 선택 날짜와 같은 날짜만 보이게 필터링
 function filterReservationsByDate(selectedDate) {
   let hasReservation = false;
 
   $('#reservationTableBody tr').each(function () {
-    if ($(this).attr('id') === 'noReservationMessage') return;
+    if ($(this).attr('id') === 'noReservationMessage') return; // 메시지 행 제외
 
-    const rowDate = $(this).find('.res-date').text().trim();
-    const formattedRowDate = new Date(rowDate).toISOString().split('T')[0];
+    const rowDate = $(this).attr('data-date'); // yyyy-MM-dd 형태
 
-    if (formattedRowDate === selectedDate) {
+    if (rowDate === selectedDate) {
       $(this).show();
       hasReservation = true;
     } else {
@@ -843,7 +847,7 @@ function filterReservationsByDate(selectedDate) {
   }
 }
 
-// 버튼 클릭 시 해당 날짜만 필터링
+// 날짜 버튼 클릭 시 필터 적용 및 버튼 스타일 변경
 $(document).on('click', '.date-btn', function () {
   const selectedDate = $(this).attr('data-date');
 
@@ -853,28 +857,34 @@ $(document).on('click', '.date-btn', function () {
   $(this).removeClass('btn-outline-primary').addClass('btn-primary');
 });
 
-// 이전 날짜 버튼
+// 이전 날짜 7일치로 이동
 $('#prevBtn').on('click', function () {
   startDate.setDate(startDate.getDate() - 7);
   renderDateButtons();
+
+  // 변경된 날짜 기준으로 필터링 (처음 날짜 기준)
+  filterReservationsByDate(formatDate(startDate));
 });
 
-// 다음 날짜 버튼
+// 다음 날짜 7일치로 이동
 $('#nextBtn').on('click', function () {
   startDate.setDate(startDate.getDate() + 7);
   renderDateButtons();
+
+  // 변경된 날짜 기준으로 필터링 (처음 날짜 기준)
+  filterReservationsByDate(formatDate(startDate));
 });
 
-// 초기 실행
+// 문서 준비 완료 시 초기 실행
 $(document).ready(function () {
   renderDateButtons();
 
-  const todayFormatted = formatDate(today);
-  filterReservationsByDate(todayFormatted);
+  // 기본 오늘 날짜 기준 필터링
+  filterReservationsByDate(formatDate(today));
 });
-
-
 </script>
+
+
 
 
 </body>

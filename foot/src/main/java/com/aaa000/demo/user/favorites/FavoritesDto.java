@@ -8,7 +8,11 @@ public class FavoritesDto {
 	private String futsalInformation_fiSeq; //풋살장 정보Seq
 	private String user_suSeq; // 사용자Seq
 //	-----	
-	 
+	private String suSeq;
+	private String fiSeq;
+//	----
+	 private boolean isFavorited;
+	
 	public String getFavoritesSeq() {
 		return favoritesSeq;
 	}
@@ -32,6 +36,24 @@ public class FavoritesDto {
 	}
 	public void setFdelMy(Integer fdelMy) {
 		this.fdelMy = fdelMy;
+	}
+	public String getSuSeq() {
+		return suSeq;
+	}
+	public void setSuSeq(String suSeq) {
+		this.suSeq = suSeq;
+	}
+	public String getFiSeq() {
+		return fiSeq;
+	}
+	public void setFiSeq(String fiSeq) {
+		this.fiSeq = fiSeq;
+	}
+	public boolean isFavorited() {
+		return isFavorited;
+	}
+	public void setFavorited(boolean isFavorited) {
+		this.isFavorited = isFavorited;
 	}
 	
 

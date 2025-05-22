@@ -8,7 +8,8 @@ public class ReservationprocessDto extends BaseDto{
 	
 	private String fpSeq;
 //	풋살장 예약
-	private Date reservationDate; //풋살장 예약날짜
+	
+	private String reservationDate; //풋살장 예약날짜
 	private String reservationTime; //풋살장 예약시간
 // 풋살장 매칭 등록
 	private String matchingOnOff; //풋살매칭 등록 신청OnOff
@@ -284,10 +285,10 @@ public class ReservationprocessDto extends BaseDto{
 	public void setUser_suSeq1(String user_suSeq1) {
 		this.user_suSeq1 = user_suSeq1;
 	}
-	public Date getReservationDate() {
+	public String getReservationDate() {
 		return reservationDate;
 	}
-	public void setReservationDate(Date reservationDate) {
+	public void setReservationDate(String reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 

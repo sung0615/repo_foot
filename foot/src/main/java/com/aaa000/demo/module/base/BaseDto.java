@@ -17,7 +17,7 @@ public class BaseDto {
 	private String ext;
 	private long size;
 	private Integer delNy;
-	private String pseq;
+	private int pseq;
 
 //	-----
 	private MultipartFile[] uploadImg1;
@@ -94,10 +94,10 @@ public class BaseDto {
 	public void setDelNy(Integer delNy) {
 		this.delNy = delNy;
 	}
-	public String getPseq() {
+	public int getPseq() {
 		return pseq;
 	}
-	public void setPseq(String pseq) {
+	public void setPseq(int pseq) {
 		this.pseq = pseq;
 	}
 

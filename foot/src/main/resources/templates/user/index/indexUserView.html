@@ -1,7 +1,8 @@
  <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <!-- 스타일 -->
-
+<!-- Font Awesome CDN 추가 (없으면 넣기) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <div th:replace="~{user/include/head :: head}"></div>
 	<!-- Modal -->
 	<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
@@ -544,10 +545,19 @@
                                  <p th:text="${list.futsalAddress}"></p>
                               </div>
                               <br>
-                              <div>
-						        <input type="checkbox" class="btn-check" th:id="'btn-check-' + ${list.fiSeq}" autocomplete="off">
-						        <label class="btn btn-outline-primary btn-sm px-2 py-1" th:for="'btn-check-' + ${list.fiSeq}">즐겨찾기</label>
-							 </div>
+<div>
+  <input type="checkbox" 
+         class="btn-check favorite-checkbox" 
+         th:id="'btn-check-' + ${list.fiSeq}" 
+         th:data-fiseq="${list.fiSeq}"
+         autocomplete="off"
+        th:checked="${list.isFavorited}" />
+  <label class="btn btn-outline-primary btn-sm px-2 py-1" 
+         th:for="'btn-check-' + ${list.fiSeq}">
+    <i class="fa-regular fa-star"></i>  <!-- 빈 별 아이콘 -->
+    <i class="fa-solid fa-star d-none"></i> <!-- 채워진 별 아이콘 (기본 숨김) -->
+  </label>
+</div>
                               <!-- price -->
                               <div class="d-flex justify-content-between align-items-center mt-3">
                                  <div>
@@ -659,95 +669,6 @@
 		</section>
 		<br>
 
-		<!-- <section class="mb-lg-10 mt-lg-14 my-8" th:each="list : ${list}">
-			<div class="container">
-				<div class="row">
-					<div class="col-12 mb-6">
-						<h3 class="mb-0">모든 풋살장 List</h3>
-					</div>
-				</div>
-				<div class="category-slider" >
-					<div class="item">
-						<a href="#" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/products/라온구장 이미지.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
-									<div class="text-truncate" th:text="${list.futsalName}">라온 풋살장</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					 <div class="item">
-						<a href="#" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/products/HIP 풋살그라운드.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
-									<div class="text-truncate">HIP 풋살그라운드</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="#" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/products/서경대 풋살.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
-									<div class="text-truncate">서경대 풋살장</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="#" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/products/도봉산효원풋살장.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
-									<div class="text-truncate">효원 풋살장</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="#" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/products/라온구장 이미지.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
-									<div class="text-truncate">라온 풋살장</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="#" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/products/서경대 풋살.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
-									<div class="text-truncate">서경대 풋살장</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="item">
-						<a href="#" class="text-decoration-none text-inherit">
-							<div class="card card-product mb-lg-4">
-								<div class="card-body text-center py-8">
-									<img src="/user/template/assets/images/products/서경대 풋살.jpg"
-										alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
-									<div class="text-truncate">서경대 풋살장</div>
-								</div>
-							</div>
-						</a>
-					</div> 
-					
-				</div>
-			</div>
-		</section> -->
 		
 	</main>
 
@@ -1074,6 +995,41 @@
       map.setBounds(bounds);
     }
   };
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // 페이지 로딩 시, 즐겨찾기 상태에 따라 체크박스 초기화 필요
+    // (별도 API에서 즐겨찾기 상태 받아와서 체크박스 checked 처리 가능)
+
+    $('.favorite-checkbox').on('change', function() {
+        const fiSeq = $(this).data('fiseq');
+        const isChecked = $(this).is(':checked');
+
+        $.ajax({
+            url: '/favorites/toggle',
+            type: 'POST',
+            data: { fiSeq: fiSeq },
+            success: function(response) {
+                if (response.status === 'added') {
+                    alert("즐겨찾기에 추가되었습니다.");
+                } else if (response.status === 'deleted') {
+                    alert("즐겨찾기에서 삭제되었습니다.");
+                } else if (response.status === 'error') {
+                    alert(response.message);
+                    // 상태 복구 (체크박스 원래대로)
+                    $(this).prop('checked', !isChecked);
+                }
+            }.bind(this),
+            error: function() {
+                alert("서버와 통신 중 오류가 발생했습니다.");
+                // 상태 복구
+                $(this).prop('checked', !isChecked);
+            }.bind(this)
+        });
+    });
+});
+
 </script>
 
 

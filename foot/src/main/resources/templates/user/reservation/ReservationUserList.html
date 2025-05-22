@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Font Awesome CDN 추가 (없으면 넣기) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <div th:replace="~{user/include/head :: head}"></div>
 <form name="formList" method="get" action="/ReservationUserList">
 	<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
@@ -490,22 +493,22 @@
 <!--                               <span id="priceRange-value" class="small"></span> -->
 <!--                            </div> -->
 <!--                         </div> -->
-                        <div class="mb-8">
-                           <h5 class="mb-3">즐겨찾기</h5>
-                           <input class="form-check-input" type="checkbox" value="" id="" />
-                           <label class="form-check-label" for="">즐겨찾기</label>
-
-                        </div>
+                       <div class="mb-8">
+						    <h5 class="mb-3">즐겨찾기</h5>
+						    <input class="form-check-input" type="checkbox" id="filterFavorite" />
+						    <label class="form-check-label" for="filterFavorite">즐겨찾기</label>
+						</div>
+                        
                         
                          <h5 class="mb-3">풋살장 지도</h5>
                         <div class="mb-8" id="map" style="width: 100%; height: 300px;"></div>
 
 						<!-- 마커용 데이터는 JS에서 사용할 수 있도록 hidden 요소나 dataset에 저장 -->
 					<div class="markerData" th:each="list1 : ${list1}"
-     th:attr="data-lat=${list1.latitude}, 
-              data-lng=${list1.hardness},
-              data-url=@{/DetailedPageUserForm(fiSeq=${list1.fiSeq})}">
-</div>
+					     th:attr="data-lat=${list1.latitude}, 
+					              data-lng=${list1.hardness},
+					              data-url=@{/DetailedPageUserForm(fiSeq=${list1.fiSeq})}">
+					</div>
                       
                      </div>
                      </form>
@@ -552,7 +555,7 @@
                   <!-- 풋살장 리스트 -->
 					<div id="futsalList">
 					    <div class="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
-					        <div class="col futsal-item" th:each="list : ${list}" th:data-region="${@codeService.selectOneCachedCode(list.futsalRegion)}">
+					        <div class="col futsal-item" th:each="list : ${list}" th:data-region="${@codeService.selectOneCachedCode(list.futsalRegion)}"   th:attr="data-favorite=${list.isFavorited}">
 					            <div class="card card-product">
 					                <div class="card-body">
 					                    <div class="text-center position-relative">
@@ -605,10 +608,20 @@
 					                    </div>
 					                          <br>
 					                   <div class="d-flex justify-content-between align-items-center">
-										    <div>
-										        <input type="checkbox" class="btn-check" th:id="'btn-check-' + ${list.fiSeq}" autocomplete="off">
-										        <label class="btn btn-outline-primary btn-sm px-2 py-1" th:for="'btn-check-' + ${list.fiSeq}">즐겨찾기</label>
-										    </div>
+<div>
+<input type="checkbox"
+       class="btn-check favorite-checkbox"
+       th:id="'btn-check-' + ${list.fiSeq}"
+       th:data-fiseq="${list.fiSeq}"
+       autocomplete="off"
+       th:checked="${list.isFavorited} ? 'checked' : null" />
+        
+  <label class="btn btn-outline-primary btn-sm px-2 py-1" 
+         th:for="'btn-check-' + ${list.fiSeq}">
+    <i class="fa-regular fa-star"></i>  <!-- 빈 별 아이콘 -->
+    <i class="fa-solid fa-star d-none"></i> <!-- 채워진 별 아이콘 (기본 숨김) -->
+  </label>
+</div>
 										    <div>
 										        <a th:href="@{/DetailedPageUserForm(fiSeq=${list.fiSeq})}" class="btn btn-primary btn-sm">예약하기</a>
 										    </div>
@@ -1023,6 +1036,61 @@ function goList(page) {
     }
   };
 </script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    function toggleStarIcon($checkbox) {
+        const label = $("label[for='" + $checkbox.attr('id') + "']");
+        if ($checkbox.is(':checked')) {
+            label.find('.fa-regular').addClass('d-none');
+            label.find('.fa-solid').removeClass('d-none');
+        } else {
+            label.find('.fa-regular').removeClass('d-none');
+            label.find('.fa-solid').addClass('d-none');
+        }
+    }
+
+    // 초기 상태 아이콘 세팅
+    $('.favorite-checkbox').each(function() {
+        toggleStarIcon($(this));
+    });
+
+    $('.favorite-checkbox').on('change', function() {
+        const $checkbox = $(this);
+        const fiSeq = $checkbox.data('fiseq');
+        const isChecked = $checkbox.is(':checked');
+
+        $.ajax({
+            url: '/favorites/toggle',
+            type: 'POST',
+            data: { fiSeq: fiSeq },
+            success: function(response) {
+                if (response.status === 'added') {
+                    alert("즐겨찾기에 추가되었습니다.");
+                    toggleStarIcon($checkbox); // 아이콘 업데이트
+                } else if (response.status === 'deleted') {
+                    alert("즐겨찾기에서 삭제되었습니다.");
+                    toggleStarIcon($checkbox); // 아이콘 업데이트
+                } else if (response.status === 'error') {
+                    alert(response.message);
+                    // 상태 복구 (체크박스 원래대로)
+                    $checkbox.prop('checked', !isChecked);
+                    toggleStarIcon($checkbox); // 아이콘도 복구
+                }
+            },
+            error: function() {
+                alert("서버와 통신 중 오류가 발생했습니다.");
+                // 상태 복구
+                $checkbox.prop('checked', !isChecked);
+                toggleStarIcon($checkbox); // 아이콘도 복구
+            }
+        });
+    });
+});
+
+</script>
+
 
 
 

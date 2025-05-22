@@ -6,7 +6,7 @@ import com.aaa000.demo.module.base.BaseDto;
 
 public class FutsalinformationDto extends BaseDto{
 	
-	private String fiSeq; // 풋살장정보Seq
+	private Integer fiSeq; // 풋살장정보Seq
 	private String futsalName; //풋살장 이름
 	private Integer futsalPrice; //가격
 	private String futsalRegion; //서울or경기 지역
@@ -43,13 +43,13 @@ public class FutsalinformationDto extends BaseDto{
 	private String userName; // 유저이름
 	private String userId; //유저ID
 //	----
+	 private boolean isFavorited;
 	
 	
-	
-	public String getFiSeq() {
+	public Integer getFiSeq() {
 		return fiSeq;
 	}
-	public void setFiSeq(String fiSeq) {
+	public void setFiSeq(Integer fiSeq) {
 		this.fiSeq = fiSeq;
 	}
 	public String getFutsalName() {
@@ -215,6 +215,16 @@ public class FutsalinformationDto extends BaseDto{
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public boolean isFavorited() {
+		return isFavorited;
+	}
+	public void setFavorited(boolean isFavorited) {
+		this.isFavorited = isFavorited;
+	}
+	public void setIsFavorited(boolean isFavorited2) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

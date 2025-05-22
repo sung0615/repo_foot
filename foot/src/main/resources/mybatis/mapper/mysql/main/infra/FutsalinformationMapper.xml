@@ -5,7 +5,7 @@
 
 	<resultMap id="resultMapObj" type="com.aaa000.demo.user.futsalinformation.FutsalinformationDto"></resultMap>
 
-<select id="selectList" resultMap="resultMapObj">
+<select id="selectList" resultMap="resultMapObj" parameterType="map">
     SELECT 
         a.fiSeq,
         a.futsalName,
@@ -27,6 +27,9 @@
         region.ifcdName AS regionName,
         COALESCE(review.avgStarScore, 0) AS avgStarScore,
         COALESCE(review.reviewCount, 0) AS reviewCount,
+        
+        COALESCE(fav.fdelMy, 0) AS isFavorited,  <!-- 여기 추가 -->
+
         (
             SELECT path
             FROM uploaded
@@ -45,6 +48,12 @@
             FROM review
             GROUP BY futsalinformation_fiSeq
         ) review ON a.fiSeq = review.futsalinformation_fiSeq
+
+        LEFT JOIN favorites fav 
+            ON fav.futsalInformation_fiSeq = a.fiSeq 
+            AND fav.user_suSeq = #{suSeq} 
+            AND fav.fdelMy = 0
+
     WHERE 1=1
         AND a.fiDelMy = 0
 
@@ -96,6 +105,7 @@
 
     LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 </select>
+
 <select id="selectList1" resultMap="resultMapObj">
     SELECT 
         a.fiSeq,

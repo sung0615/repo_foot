@@ -88,18 +88,7 @@ public class CodeController {
 	}
 	
 	
-	/*
-	 * //데이터 1개씩 뽑아서 폼 화면 뿌리기
-	 * 
-	 * @RequestMapping(value="/code/CodeView") public String CodeView(Model
-	 * model,CodeDto codeDto,CodeVo vo) {
-	 * 
-	 * 
-	 * model.addAttribute("item", codeService.selectOne(codeDto,vo));
-	 * 
-	 * return"xdm/code/CodeXdmForm"; }
-	 */
-	
+
 		
 	
 	

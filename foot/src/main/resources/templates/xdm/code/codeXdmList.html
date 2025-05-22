@@ -219,12 +219,13 @@
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                                       </svg>
                                     </button>
-                                <a class="btn btn-success" href="" role="button" style="float: right; margin-right:  5px;">
+                                    <!-- 엑셀 다운 -->
+                                <button class="btn btn-success" href="" type="button" style="float: right; margin-right:  5px;" onclick="exportTableToExcel()">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
                                         <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
                                         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
                                       </svg>
-                                    </a>                                
+                                    </button>                                
                                 <a class="btn btn-primary" href="" role="button" style="float: right; margin-right:  5px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16">
                                         <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57s-2.687-1.08-2.687-2.57zM12.5 15h-9v-1h9z"/>
@@ -287,6 +288,9 @@
         
         <!-- 달력 플러그인 추가 -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+		
+		
+		<script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
    
    
     <!--체크박스 전체 체크 단독 체크-->
@@ -381,5 +385,40 @@
     	});
     
     </script>
+    
+    <script>
+function exportTableToExcel() {
+    const table = document.querySelector('.dataTable');
+    const data = [];
+    
+    // 📌 1. 헤더 수집
+    const headers = Array.from(table.querySelectorAll('thead tr th'))
+        .map(th => th.innerText.trim());
+    data.push(headers);
+
+    // 📌 2. tbody 데이터 수집
+    const rows = table.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+        const rowData = [];
+        const tds = row.querySelectorAll('td');
+
+        // "데이터가 없습니다"인 경우 제외
+        if (tds.length === 1 && tds[0].innerText.includes("데이터가 없습니다")) return;
+
+        tds.forEach(td => {
+            rowData.push(td.innerText.trim());
+        });
+        data.push(rowData);
+    });
+
+    // 📌 3. SheetJS로 엑셀 생성
+    const worksheet = XLSX.utils.aoa_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "코드목록");
+
+    // 📌 4. 다운로드
+    XLSX.writeFile(workbook, "코드_데이터.xlsx");
+}
+</script>
 </body>
 </html>
