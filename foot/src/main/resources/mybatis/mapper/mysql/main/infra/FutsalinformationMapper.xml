@@ -28,7 +28,7 @@
         COALESCE(review.avgStarScore, 0) AS avgStarScore,
         COALESCE(review.reviewCount, 0) AS reviewCount,
         
-        COALESCE(fav.fdelMy, 0) AS isFavorited,  <!-- 여기 추가 -->
+       COALESCE(fav.fdelMy, 1) AS isFavorited,  <!-- 여기 추가 -->
 
         (
             SELECT path

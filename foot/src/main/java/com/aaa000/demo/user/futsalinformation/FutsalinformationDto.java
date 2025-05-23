@@ -2,6 +2,8 @@ package com.aaa000.demo.user.futsalinformation;
 
 import java.sql.Date;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.aaa000.demo.module.base.BaseDto;
 
 public class FutsalinformationDto extends BaseDto{
@@ -43,8 +45,14 @@ public class FutsalinformationDto extends BaseDto{
 	private String userName; // 유저이름
 	private String userId; //유저ID
 //	----
-	 private boolean isFavorited;
-	
+	 private Integer  isFavorited;
+	 @Value("${toss.client-key}")
+	 private String clientKey;
+
+	 @Value("${toss.secret-key}")
+	 private String secretKey;
+//	----
+	 
 	
 	public Integer getFiSeq() {
 		return fiSeq;
@@ -216,15 +224,30 @@ public class FutsalinformationDto extends BaseDto{
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public boolean isFavorited() {
+	public Integer  isFavorited() {
 		return isFavorited;
 	}
-	public void setFavorited(boolean isFavorited) {
+	public void setFavorited(Integer  isFavorited) {
 		this.isFavorited = isFavorited;
 	}
-	public void setIsFavorited(boolean isFavorited2) {
+	public void setIsFavorited(Integer  isFavorited2) {
 		// TODO Auto-generated method stub
 		
+	}
+	public String getClientKey() {
+		return clientKey;
+	}
+	public void setClientKey(String clientKey) {
+		this.clientKey = clientKey;
+	}
+	public String getSecretKey() {
+		return secretKey;
+	}
+	public void setSecretKey(String secretKey) {
+		this.secretKey = secretKey;
+	}
+	public Integer getIsFavorited() {
+		return isFavorited;
 	}
 	
 	

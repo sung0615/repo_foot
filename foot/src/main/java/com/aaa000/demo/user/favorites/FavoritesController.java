@@ -49,14 +49,15 @@ public class FavoritesController {
         }
 
         try {
-            boolean isFavorited = favoritesService.isFavorited(userSeq, fiSeq);
-            if (isFavorited) {
-                favoritesService.deleteFavorite(userSeq, fiSeq);
-                result.put("status", "deleted");
-            } else {
-                favoritesService.addFavorite(userSeq, fiSeq);
-                result.put("status", "added");
-            }
+        	int status = favoritesService.getFavoriteStatus(userSeq, fiSeq);
+        	if (status == 0) {
+        	    favoritesService.deleteFavorite(userSeq, fiSeq);
+        	    result.put("status", "deleted");
+        	} else {
+        	    favoritesService.addFavorite(userSeq, fiSeq);
+        	    result.put("status", "added");
+        	}
+
         } catch (Exception e) {
             e.printStackTrace();
             result.put("status", "error");

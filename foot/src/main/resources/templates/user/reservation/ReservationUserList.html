@@ -614,14 +614,19 @@
        th:id="'btn-check-' + ${list.fiSeq}"
        th:data-fiseq="${list.fiSeq}"
        autocomplete="off"
-       th:checked="${list.isFavorited} ? 'checked' : null" />
-        
-  <label class="btn btn-outline-primary btn-sm px-2 py-1" 
+       th:checked="${list.isFavorited != null and list.isFavorited == 1}" />
+
+  <label class="btn btn-outline-primary btn-sm px-2 py-1"
          th:for="'btn-check-' + ${list.fiSeq}">
-    <i class="fa-regular fa-star"></i>  <!-- 빈 별 아이콘 -->
-    <i class="fa-solid fa-star d-none"></i> <!-- 채워진 별 아이콘 (기본 숨김) -->
+
+<i class="fa-regular fa-star"
+   th:classappend="${list.isFavorited == 1} ? ' d-none' : ''"></i>
+<i class="fa-solid fa-star"
+   th:classappend="${list.isFavorited == 1} ? '' : ' d-none'"></i>
+
   </label>
 </div>
+
 										    <div>
 										        <a th:href="@{/DetailedPageUserForm(fiSeq=${list.fiSeq})}" class="btn btn-primary btn-sm">예약하기</a>
 										    </div>

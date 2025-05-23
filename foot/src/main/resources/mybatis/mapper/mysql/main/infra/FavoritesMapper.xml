@@ -36,7 +36,17 @@
   SELECT * FROM favorites WHERE fdelMy = 0
 </select>
 	
-	
+<select id="selectFavoriteStatus" resultType="int">
+  SELECT 
+  		fdelMy 
+  FROM 
+  		favorites
+  WHERE 
+  		user_suSeq = #{suSeq} 
+  		AND futsalInformation_fiSeq = #{fiSeq}
+  ORDER BY favoritesSeq DESC
+    LIMIT 1
+</select>
 	
 
 	

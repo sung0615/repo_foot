@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.aaa000.demo.module.base.BaseDao;
 import com.aaa000.demo.user.futsalinformation.FutsalinformationDto;
 import com.aaa000.demo.user.futsalinformation.FutsalinformationService;
+import com.aaa000.demo.user.toos.TossConfig;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -82,7 +82,14 @@ public class ReservationprocessController {
 	    
 	    return returnMap;
 	}
-	
+	@Autowired
+    TossConfig tossConfig;
+   
+
+    public void PaymentController(TossConfig tossConfig, FutsalinformationService futsalinformationService) {
+        this.tossConfig = tossConfig;
+        this.futsalinformationService = futsalinformationService;
+    }
 	
 	
 	// 풋살장 예약 결제 했을때 인덱스 화면으로 가라
@@ -102,6 +109,10 @@ public class ReservationprocessController {
 	    
 
 	    model.addAttribute("item", futsalinformationService.selectOne(futsalinformationDto));
+	    
+	    
+	    // 💡 토스 clientKey 전달
+        model.addAttribute("clientKey", tossConfig.getClientKey());
 	  
 	   
 	    

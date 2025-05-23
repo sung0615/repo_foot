@@ -17,6 +17,11 @@ public interface FavoritesDao {
     int insertFavorite(@Param("suSeq") int suSeq, @Param("fiSeq") int fiSeq);
 
     int deleteFavorite(@Param("suSeq") int suSeq, @Param("fiSeq") int fiSeq);
-	
+    
+    
+    int getFavoriteStatus(int suSeq, int fiSeq);
+    
+    
+    int selectFavoriteStatus(@Param("suSeq") int suSeq, @Param("fiSeq") int fiSeq);
 	
 }

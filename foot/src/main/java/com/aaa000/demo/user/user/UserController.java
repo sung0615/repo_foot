@@ -108,7 +108,7 @@ public class UserController {
 	public String MemberXdmView(Model model,UserDto userDto) {
 		
 		model.addAttribute("item", userService.selectOne(userDto));
-		return "/xdm/usermember/MemberXdmView";
+		return "xdm/usermember/MemberXdmView";
 	}
 	
 	
@@ -124,7 +124,7 @@ public class UserController {
 		model.addAttribute("item", userService.selectOne(userDto)); //기존 데이터 불러 오기
 		
 		
-		return "/user/accountsettings/AccountSettingsUserMfom";
+		return "user/accountsettings/AccountSettingsUserMfom";
 	}
 	//수정한 데이터를 수정하고 my페이지 정보수정페이지  찾아라
 	@RequestMapping(value="/AccountSettingsUserUpdt")
@@ -150,7 +150,7 @@ public class UserController {
 		model.addAttribute("list", userService.selectOne(userDto));
 	
 		model.addAttribute("item", userService.selectOne(userDto)); //기존데이터 불러오기
-		return "/user/passwordchange/PasswordChangeUserMfom";
+		return "user/passwordchange/PasswordChangeUserMfom";
 	}
 	// 수정한 데이터 수정하고 my페이지 비밀번호 수정페이지를 찾아라
 	@RequestMapping(value="/PasswordChangeUserUpdt")

@@ -25,7 +25,7 @@ public class AnnouncementContriller {
 	@RequestMapping(value="/AnnouncementUserView")
 	public String AnnouncementUserView(Model model, AnnouncementDto announcementDto) {
 		model.addAttribute("item", announcementService.selectOne(announcementDto));
-		return "/user/announcement/AnnouncementUserView";
+		return "user/announcement/AnnouncementUserView";
 	}
 	
 	

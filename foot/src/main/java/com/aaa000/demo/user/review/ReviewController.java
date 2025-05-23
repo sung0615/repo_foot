@@ -68,7 +68,7 @@ public class ReviewController {
         // 모델에 리스트 담아서 뷰로 전달
         model.addAttribute("list", reviewList);
 
-        return "/user/review/ReviewUserList"; // JSP or Thymeleaf 경로에 맞게 수정
+        return "user/review/ReviewUserList"; // JSP or Thymeleaf 경로에 맞게 수정
     }
 	
 	// 리뷰 업데이트 삭제

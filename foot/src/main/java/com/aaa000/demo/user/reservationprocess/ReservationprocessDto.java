@@ -1,6 +1,6 @@
 package com.aaa000.demo.user.reservationprocess;
 
-import java.util.Date;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.aaa000.demo.module.base.BaseDto;
 
@@ -57,7 +57,14 @@ public class ReservationprocessDto extends BaseDto{
 	private String futsalBusinessHours;
 	private String futsalFacilityUsageRules;
 //	-----
-	
+	 private Integer  isFavorited;
+	 @Value("${toss.client-key}")
+	 private String clientKey;
+
+	 @Value("${toss.secret-key}")
+	 private String secretKey;
+//	----	
+	 
 	
 	
 	public String getFpSeq() {
@@ -290,6 +297,24 @@ public class ReservationprocessDto extends BaseDto{
 	}
 	public void setReservationDate(String reservationDate) {
 		this.reservationDate = reservationDate;
+	}
+	public Integer getIsFavorited() {
+		return isFavorited;
+	}
+	public void setIsFavorited(Integer isFavorited) {
+		this.isFavorited = isFavorited;
+	}
+	public String getClientKey() {
+		return clientKey;
+	}
+	public void setClientKey(String clientKey) {
+		this.clientKey = clientKey;
+	}
+	public String getSecretKey() {
+		return secretKey;
+	}
+	public void setSecretKey(String secretKey) {
+		this.secretKey = secretKey;
 	}
 
 	
