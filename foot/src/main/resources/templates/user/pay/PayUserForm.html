@@ -71,22 +71,22 @@
 										<div class="mt-5">
 											<div>
 												<div class="card card-bordered shadow-none mb-2">
-												 <div id="payment-method"></div>
+<!-- 												 <div id="payment-method"></div> -->
 													<!-- card body -->
 													<div class="card-body p-6">
 														<div class="d-flex">
 														
-<!-- 															<div class="form-check"> -->
+															<div class="form-check">
 																
-<!-- 																<input class="form-check-input" type="radio" checked  -->
-<!-- 																	name="flexRadioDefault" id="paypal" /> -->
-<!-- 																<label class="form-check-label ms-2" -->
-<!-- 																	for="paypal" ></label> -->
-<!-- 															</div> -->
+																<input class="form-check-input" type="radio" checked 
+																	name="flexRadioDefault" id="paypal" />
+																<label class="form-check-label ms-2"
+																	for="paypal" ></label>
+															</div>
 															<div>
 																
-<!-- 																<h5 class="mb-1 h6"><img src="/user/template/assets/images/payment/Toss_App_Icon.png" alt="" width="20"> 토스페이</h5> -->
-<!-- 																<p class="mb-0 small"></p> -->
+																<h5 class="mb-1 h6"><img src="/user/template/assets/images/payment/Toss_App_Icon.png" alt="" width="20"> 토스페이</h5>
+																<p class="mb-0 small"></p>
 															</div>
 														</div>
 													</div>
@@ -102,7 +102,7 @@
 <!-- 														이전 -->
 <!-- 													</a> -->
 													
-													<button type="button" id="payment-button" class="btn btn-primary ms-2">결제하기</button>
+													<button type="button" id="payment-button" onclick="requestPayment()" class="btn btn-primary ms-2">결제하기</button>
 												</div>
 											</div>
 										</div>
@@ -302,40 +302,84 @@
 	<script src="/user/template/assets/libs/imask/dist/imask.min.js"></script>
 	<script src="/user/template/assets/js/vendors/inputmask.js"></script>
 	
-	
 	<script src="https://js.tosspayments.com/v2/standard"></script>
 	
-<script>
-  window.addEventListener('DOMContentLoaded', async () => {
-    const button = document.getElementById("payment-button");
+<script th:inline="javascript">
+  // 랜덤 주문번호 생성 함수
+  function generateRandomOrderId(length = 16) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
 
-    const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; // 테스트용
-    const tossPayments = TossPayments(clientKey);
-    const customerKey = "LGEnbu3OoUhFTd4b5MZr6"; 
-    const widgets = tossPayments.widgets({ customerKey });
+  const clientKey = "test_ck_DLJOpm5Qrl79qWKOQGaPVPNdxbWn";
+  const customerKey = "H9d7Gg0GhrEj4-eZQp00D";
+  const tossPayments = TossPayments(clientKey);
+  const payment = tossPayments.payment({ customerKey });
+  const price = /*[[${item.futsalPrice}]]*/ 0;
+  const orderName = /*[[${item.futsalName}]]*/ '기본값';
 
-    const price = /*[[${item.futsalPrice}]]*/ 0;
-    await widgets.setAmount({ currency: "KRW", value: price });
+  async function requestPayment() {
+    const orderId = generateRandomOrderId();
 
-    await widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" });
+ // 결제 요청 전에 reservationData를 localStorage에 저장
+    const reservationData = {
+      fiSeq: document.getElementById("fiSeq").value,
+      suSeq: document.getElementById("suSeq").value,
+      reservationDate: document.getElementsByName("reservationDate")[0].value,
+      reservationTime: document.getElementsByName("reservationTime")[0].value,
+      matchingOnOff: document.getElementsByName("matchingOnOff")[0].value,
+      matchingDeposit: document.getElementsByName("matchingDeposit")[0].value,
+      matchingBankName: document.getElementsByName("matchingBankName")[0].value,
+      matchingBankNumbar: document.getElementsByName("matchingBankNumbar")[0].value,
+      matchingVs: document.getElementsByName("matchingVs")[0].value,
+      matchingTeamLevel: document.getElementsByName("matchingTeamLevel")[0].value,
+      matchingTeamName: document.getElementsByName("matchingTeamName")[0].value,
+      matchingTeamIntroduction: document.getElementsByName("matchingTeamIntroduction")[0].value,
+      rpDelMy: document.getElementsByName("rpDelMy").value,
+      regDateTime: document.getElementsByName("regDateTime").value
+    };
 
-    button.addEventListener("click", async () => {
-      try {
-        await widgets.requestPayment({
-          orderId: "8NLmhLqXPWQRHTrAzeDMI", 
-          orderName: "풋살 예약 결제",
-          successUrl: window.location.origin + "/success",
-          failUrl: window.location.origin + "/fail",
-          customerEmail: "customer123@gmail.com",
-          customerName: "김토스",
-          customerMobilePhone: "01012341234",
-        });
-      } catch (error) {
-        console.error("결제 요청 실패:", error);
-      }
-    });
-  });
+    localStorage.setItem("reservationData", JSON.stringify(reservationData));
+
+    // 이후 payment.requestPayment 호출
+
+
+    try {
+
+
+      // 결제 요청 (orderId만 넘김)
+      await payment.requestPayment({
+        method: "CARD",
+        amount: {
+          currency: "KRW",
+          value: price,
+        },
+        orderId: orderId,
+        orderName: orderName,
+//         successUrl: window.location.origin + "/success?orderId=" + encodeURIComponent(orderId),
+        successUrl: window.location.origin + "/finalSuccess",
+        failUrl: window.location.origin + "/fail",
+        customerEmail: "customer123@gmail.com",
+        customerName: "김토스",
+        customerMobilePhone: "01012341234",
+        card: {
+          useEscrow: false,
+          flowMode: "DEFAULT",
+          useCardPoint: false,
+          useAppCardOnly: false,
+        },
+      });
+    } catch (error) {
+      alert("결제 요청 중 오류 발생: " + error.message);
+    }
+  }
 </script>
+
+
 
     
     

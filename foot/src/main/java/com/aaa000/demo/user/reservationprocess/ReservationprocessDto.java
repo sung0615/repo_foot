@@ -1,5 +1,8 @@
 package com.aaa000.demo.user.reservationprocess;
 
+import javax.xml.crypto.Data;
+
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.aaa000.demo.module.base.BaseDto;
@@ -57,6 +60,12 @@ public class ReservationprocessDto extends BaseDto{
 	private String futsalBusinessHours;
 	private String futsalFacilityUsageRules;
 //	-----
+    private String paymentKey;
+    private String orderId;
+    private Integer amount;
+	
+	
+	
 	 private Integer  isFavorited;
 	 @Value("${toss.client-key}")
 	 private String clientKey;
@@ -315,6 +324,28 @@ public class ReservationprocessDto extends BaseDto{
 	}
 	public void setSecretKey(String secretKey) {
 		this.secretKey = secretKey;
+	}
+	public void setReservationDate(LocalDateTime localDateTime) {
+		// TODO Auto-generated method stub
+		
+	}
+	public String getPaymentKey() {
+		return paymentKey;
+	}
+	public void setPaymentKey(String paymentKey) {
+		this.paymentKey = paymentKey;
+	}
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	public Integer getAmount() {
+		return amount;
+	}
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
 
 	

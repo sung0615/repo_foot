@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aaa000.demo.user.pay.PayDao">
+
+	<resultMap id="resultMapObj" type="com.aaa000.demo.user.pay.PaymentResultDto"></resultMap>
+
+	
+			<insert id="save" >
+			INSERT INTO reservationprocess(
+			reservationDate, <!-- 예약 날짜 -->
+			reservationTime, <!-- 예약 시간 -->
+			matchingOnOff, <!-- 매칭신청 한다 or 안한다 -->
+			matchingDeposit, <!-- 매칭 신청시 금액 청구할 금액 -->
+			matchingBankName, <!-- 매칭 신청시 청구 받을 은행명 -->
+			matchingBankNumbar, <!-- 매칭신청시 청구 받을 계좌번호 -->
+			matchingVs, <!-- VS 55 , 66 -->
+			matchingTeamLevel, <!-- 매칭 My팀 레벨선택 -->
+			matchingTeamName, <!-- 나의 팀 이름 -->
+			matchingTeamIntroduction, <!-- 나의 팀 소개 -->
+			user_suSeq, <!-- 예약자 SEq -->
+			futsalInformation_fiSeq, <!-- 풋살장 SEq -->
+			rpDelMy, <!-- 업데이트 삭제 여부 -->
+			regDateTime <!-- 실시간 결제 날짜 -->
+			
+			) value (
+			#{reservationDate},
+			#{reservationTime},
+			#{matchingOnOff},
+			#{matchingDeposit},
+			#{matchingBankName},
+			#{matchingBankNumbar},
+			#{matchingVs},
+			#{matchingTeamLevel},
+			#{matchingTeamName},
+			#{matchingTeamIntroduction},
+			#{suSeq},
+			#{fiSeq},
+			0,
+			 NOW()
+			
+			)
+			<selectKey resultType="String" keyProperty="fpSeq" order="AFTER">
+			SELECT last_insert_id()
+			</selectKey>  
+<!-- 			<selectKey resultType="String" keyProperty="suSeq" order="AFTER"> -->
+<!-- 			SELECT last_insert_id() -->
+<!-- 			</selectKey>  -->
+<!-- 			<selectKey resultType="String" keyProperty="fiSeq" order="AFTER"> -->
+<!-- 			SELECT last_insert_id() -->
+<!-- 			</selectKey>  -->
+		</insert>
+		
+
+	
+	
+	
+	
+</mapper>

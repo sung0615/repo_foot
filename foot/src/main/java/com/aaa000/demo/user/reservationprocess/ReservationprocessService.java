@@ -33,10 +33,7 @@ public class ReservationprocessService extends BaseService {
 		return reservationprocessDao.selectOne(reservationprocessDto);
 	}
 	
-	// 등록하기
-	public int Payinsert(ReservationprocessDto reservationprocessDto) {
-		return reservationprocessDao.Payinsert(reservationprocessDto);
-	}
+
 	
 	
 	// 수정하기

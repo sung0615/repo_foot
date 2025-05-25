@@ -44,6 +44,7 @@ public class FutsalinformationDto extends BaseDto{
 	private String suSeq; // 유저Seq 
 	private String userName; // 유저이름
 	private String userId; //유저ID
+	private String userEmail;
 //	----
 	 private Integer  isFavorited;
 	 @Value("${toss.client-key}")
@@ -248,6 +249,12 @@ public class FutsalinformationDto extends BaseDto{
 	}
 	public Integer getIsFavorited() {
 		return isFavorited;
+	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	
 	

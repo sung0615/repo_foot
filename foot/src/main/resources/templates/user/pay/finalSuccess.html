@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+</head>
+<body>
+<!-- redirect-success.html -->
+
+<form id="successForm" method="POST" action="/success">
+  <input type="hidden" name="orderId" th:value="${data.orderId}" />
+  <input type="hidden" name="paymentKey" th:value="${data.paymentKey}" />
+  <input type="hidden" name="amount" th:value="${data.amount}" />
+  <input type="hidden" name="fiSeq"  th:text="${data['fiSeq']}" />
+  <input type="hidden" name="suSeq" th:value="${session.sessSeqUser}" />
+  <input type="hidden" name="reservationDate" th:text="${data['reservationDate']}" />
+  <input type="hidden" name="reservationTime" th:text="${data['reservationTime']}" />
+  <input type="hidden" name="matchingOnOff" th:text="${data['matchingOnOff']}" />
+  <input type="hidden" name="matchingDeposit" th:text="${data['matchingDeposit']}" />
+  <input type="hidden" name="matchingBankName" th:text="${data['matchingBankName']}"/>
+  <input type="hidden" name="matchingBankNumbar" th:text="${data['matchingBankNumbar']}" />
+  <input type="hidden" name="matchingVs"  th:text="${data['matchingVs']}" />
+  <input type="hidden" name="matchingTeamLevel"  th:text="${data['matchingTeamLevel']}"/>
+  <input type="hidden" name="matchingTeamName" th:text="${data['matchingTeamName']}" />
+  <input type="hidden" name="matchingTeamIntroduction" th:text="${data['matchingTeamIntroduction']}" />
+  <input type="hidden" name="matchingTeamIntroduction" th:text="${data['regDateTime']}" />
+  <input type="hidden" name="matchingTeamIntroduction" th:text="${data['rpDelMy']}" />
+</form>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get("orderId");
+  const paymentKey = params.get("paymentKey");
+  const amount = params.get("amount");
+
+  // 원래 예약 시 저장한 값을 localStorage에서 가져온다
+  const reservationData = JSON.parse(localStorage.getItem("reservationData"));
+
+  const form = document.getElementById("successForm");
+  form.orderId.value = orderId;
+  form.paymentKey.value = paymentKey;
+  form.amount.value = amount;
+  for (let key in reservationData) {
+    if (form[key]) {
+      form[key].value = reservationData[key];
+    }
+  }
+
+  form.submit(); // 자동 전송
+</script>
+
+
+
+</body>
+</html>

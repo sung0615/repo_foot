@@ -19,8 +19,7 @@ public interface ReservationprocessDao {
 	// 한데이터만 뽑아을때
 	public ReservationprocessDto selectOne(ReservationprocessDto reservationprocessDto);
 	
-	// 등록폼
-	public int Payinsert(ReservationprocessDto reservationprocessDto);
+
 	
 	// 수정하기
 	public int update(ReservationprocessDto reservationprocessDto);
