@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class FutsalinformationController {
 	
@@ -29,7 +31,7 @@ public class FutsalinformationController {
 	@RequestMapping(value = "/ReservationUserList")
 	public String ReservationUserList(
 	        Model model, 
-	        FutsalinformationVo vo,
+	        FutsalinformationVo vo,HttpSession session,
 	        @RequestParam(name = "region", required = false) String region,          // 단일 지역 (기존 호환용)
 	        @RequestParam(name = "regions", required = false) List<String> regions,  // 복수 지역
 	        @RequestParam(name = "shValue", required = false) String shValue,
@@ -38,6 +40,18 @@ public class FutsalinformationController {
 	        @RequestParam(name = "shDateStart", required = false) String shDateStart,
 	        @RequestParam(name = "shDateEnd", required = false) String shDateEnd
 	) {
+		
+		Object sessSeqUser = session.getAttribute("sessSeqUser");
+		if (sessSeqUser != null) {
+		    vo.setSuSeq(sessSeqUser.toString());
+		} else {
+		    // 필요시 예외 처리 또는 기본값 설정
+		    vo.setSuSeq(null); // 또는 "", "0" 등
+		}
+		
+	
+	    
+	    
 	    vo.setRegion(region);
 	    vo.setRegions(regions);
 	    vo.setShValue(shValue);

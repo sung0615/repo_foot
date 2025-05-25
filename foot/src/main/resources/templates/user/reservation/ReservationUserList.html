@@ -555,7 +555,7 @@
                   <!-- 풋살장 리스트 -->
 					<div id="futsalList">
 					    <div class="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
-					        <div class="col futsal-item" th:each="list : ${list}" th:data-region="${@codeService.selectOneCachedCode(list.futsalRegion)}"   th:attr="data-favorite=${list.isFavorited}">
+					        <div class="col futsal-item" th:each="list : ${list}" th:data-region="${@codeService.selectOneCachedCode(list.futsalRegion)}"   th:attr="data-favorite=${list.fdelMy}">
 					            <div class="card card-product">
 					                <div class="card-body">
 					                    <div class="text-center position-relative">
@@ -609,22 +609,16 @@
 					                          <br>
 					                   <div class="d-flex justify-content-between align-items-center">
 <div>
-<input type="checkbox"
-       class="btn-check favorite-checkbox"
-       th:id="'btn-check-' + ${list.fiSeq}"
-       th:data-fiseq="${list.fiSeq}"
-       autocomplete="off"
-       th:checked="${list.isFavorited != null and list.isFavorited == 1}" />
+<a href="#" 
+   class="favorite-toggle" th:id="dd+${list.fdelMy}"
+   th:data-fiseq="${list.fiSeq}" 
+   th:data-favorited="${list.fdelMy == 0} ? 'true' : 'false'">
+    <i class="fa-regular fa-star" 
+       th:classappend="${list.fdelMy == 0} ? ' d-none' : ''"></i>
+    <i class="fa-solid fa-star" 
+       th:classappend="${list.fdelMy == 0} ? '' : ' d-none'"></i>
+</a>
 
-  <label class="btn btn-outline-primary btn-sm px-2 py-1"
-         th:for="'btn-check-' + ${list.fiSeq}">
-
-<i class="fa-regular fa-star"
-   th:classappend="${list.isFavorited == 1} ? ' d-none' : ''"></i>
-<i class="fa-solid fa-star"
-   th:classappend="${list.isFavorited == 1} ? '' : ' d-none'"></i>
-
-  </label>
 </div>
 
 										    <div>
@@ -1044,51 +1038,37 @@ function goList(page) {
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-    function toggleStarIcon($checkbox) {
-        const label = $("label[for='" + $checkbox.attr('id') + "']");
-        if ($checkbox.is(':checked')) {
-            label.find('.fa-regular').addClass('d-none');
-            label.find('.fa-solid').removeClass('d-none');
-        } else {
-            label.find('.fa-regular').removeClass('d-none');
-            label.find('.fa-solid').addClass('d-none');
-        }
+$(document).ready(function () {
+    function toggleStarIcon($anchor, isFavorited) {
+        $anchor.find('.fa-regular').toggleClass('d-none', isFavorited);
+        $anchor.find('.fa-solid').toggleClass('d-none', !isFavorited);
+        $anchor.attr('data-favorited', isFavorited);
     }
 
-    // 초기 상태 아이콘 세팅
-    $('.favorite-checkbox').each(function() {
-        toggleStarIcon($(this));
-    });
+    $('.favorite-toggle').on('click', function (e) {
+        e.preventDefault(); // a 태그 기본 동작 막기
 
-    $('.favorite-checkbox').on('change', function() {
-        const $checkbox = $(this);
-        const fiSeq = $checkbox.data('fiseq');
-        const isChecked = $checkbox.is(':checked');
+        const $anchor = $(this);
+        const fiSeq = $anchor.data('fiseq');
+        const isFavorited = $anchor.data('favorited') === true || $anchor.data('favorited') === 'true';
 
         $.ajax({
             url: '/favorites/toggle',
             type: 'POST',
             data: { fiSeq: fiSeq },
-            success: function(response) {
+            success: function (response) {
                 if (response.status === 'added') {
                     alert("즐겨찾기에 추가되었습니다.");
-                    toggleStarIcon($checkbox); // 아이콘 업데이트
+                    toggleStarIcon($anchor, true);
                 } else if (response.status === 'deleted') {
                     alert("즐겨찾기에서 삭제되었습니다.");
-                    toggleStarIcon($checkbox); // 아이콘 업데이트
+                    toggleStarIcon($anchor, false);
                 } else if (response.status === 'error') {
                     alert(response.message);
-                    // 상태 복구 (체크박스 원래대로)
-                    $checkbox.prop('checked', !isChecked);
-                    toggleStarIcon($checkbox); // 아이콘도 복구
                 }
             },
-            error: function() {
+            error: function () {
                 alert("서버와 통신 중 오류가 발생했습니다.");
-                // 상태 복구
-                $checkbox.prop('checked', !isChecked);
-                toggleStarIcon($checkbox); // 아이콘도 복구
             }
         });
     });

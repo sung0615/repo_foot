@@ -1,6 +1,8 @@
 package com.aaa000.demo.user.favorites;
 
-public class FavoritesDto {
+import com.aaa000.demo.module.base.BaseDto;
+
+public class FavoritesDto extends BaseDto{
 	
 	// 즐겨찾기
 	private String favoritesSeq; // 즐겨찾기Seq
@@ -11,7 +13,12 @@ public class FavoritesDto {
 	private String suSeq;
 	private String fiSeq;
 //	----
-	 private boolean isFavorited;
+	private boolean isFavorited;
+//	----
+	private String futsalName; //풋살장 이름
+	private Integer futsalPrice; // 풋살장 가격
+	private String futsalAddress;
+//	----
 	
 	public String getFavoritesSeq() {
 		return favoritesSeq;
@@ -54,6 +61,24 @@ public class FavoritesDto {
 	}
 	public void setFavorited(boolean isFavorited) {
 		this.isFavorited = isFavorited;
+	}
+	public String getFutsalName() {
+		return futsalName;
+	}
+	public void setFutsalName(String futsalName) {
+		this.futsalName = futsalName;
+	}
+	public Integer getFutsalPrice() {
+		return futsalPrice;
+	}
+	public void setFutsalPrice(Integer futsalPrice) {
+		this.futsalPrice = futsalPrice;
+	}
+	public String getFutsalAddress() {
+		return futsalAddress;
+	}
+	public void setFutsalAddress(String futsalAddress) {
+		this.futsalAddress = futsalAddress;
 	}
 	
 

@@ -545,19 +545,7 @@
                                  <p th:text="${list.futsalAddress}"></p>
                               </div>
                               <br>
-<div>
-  <input type="checkbox" 
-         class="btn-check favorite-checkbox" 
-         th:id="'btn-check-' + ${list.fiSeq}" 
-         th:data-fiseq="${list.fiSeq}"
-         autocomplete="off"
-        th:checked="${list.isFavorited}" />
-  <label class="btn btn-outline-primary btn-sm px-2 py-1" 
-         th:for="'btn-check-' + ${list.fiSeq}">
-    <i class="fa-regular fa-star"></i>  <!-- 빈 별 아이콘 -->
-    <i class="fa-solid fa-star d-none"></i> <!-- 채워진 별 아이콘 (기본 숨김) -->
-  </label>
-</div>
+
                               <!-- price -->
                               <div class="d-flex justify-content-between align-items-center mt-3">
                                  <div>
@@ -997,40 +985,6 @@
   };
 </script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-    // 페이지 로딩 시, 즐겨찾기 상태에 따라 체크박스 초기화 필요
-    // (별도 API에서 즐겨찾기 상태 받아와서 체크박스 checked 처리 가능)
-
-    $('.favorite-checkbox').on('change', function() {
-        const fiSeq = $(this).data('fiseq');
-        const isChecked = $(this).is(':checked');
-
-        $.ajax({
-            url: '/favorites/toggle',
-            type: 'POST',
-            data: { fiSeq: fiSeq },
-            success: function(response) {
-                if (response.status === 'added') {
-                    alert("즐겨찾기에 추가되었습니다.");
-                } else if (response.status === 'deleted') {
-                    alert("즐겨찾기에서 삭제되었습니다.");
-                } else if (response.status === 'error') {
-                    alert(response.message);
-                    // 상태 복구 (체크박스 원래대로)
-                    $(this).prop('checked', !isChecked);
-                }
-            }.bind(this),
-            error: function() {
-                alert("서버와 통신 중 오류가 발생했습니다.");
-                // 상태 복구
-                $(this).prop('checked', !isChecked);
-            }.bind(this)
-        });
-    });
-});
-
-</script>
 
 
 

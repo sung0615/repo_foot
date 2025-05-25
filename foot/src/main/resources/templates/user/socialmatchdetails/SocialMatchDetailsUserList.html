@@ -439,7 +439,7 @@
 			</div>
 		</div>
 	</div>
-
+<form action="maUserUele" method="post" id="form">
 	<script src="/user/template/assets/js/vendors/validation.js"></script>
 	<main>
 		<!-- section -->
@@ -469,8 +469,16 @@
 								<table class="table mb-0 text-nowrap table-centered">
 									<!-- Table Head -->
 									<thead class="bg-light">
-										<tr>
-											<th><input class="form-check-input" type="checkbox" id="cbx_chkAll1"></th>
+									<tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">
+				                      <td colspan="10">
+				                        <p class="fs-0" style="padding-top: 12px">매칭정보가 없습니다</p>
+				                      </td>
+				                    </tr>
+										<tr th:unless="${#lists.isEmpty(list)}">
+										 <th>
+					                        <input class="form-check-input" type="checkbox" id="entire" />
+					                        <label class="form-check-label" for="entire"></label>
+					                      </th>
 											
 											<th>풋살장</th>
 											<th>매칭 팀</th>
@@ -479,37 +487,75 @@
 											<th>예약 날짜</th>
 											<th>예약 시간</th>
 											<th>입금 계좌</th>
-											<th>금액</th>
+											<th>은행명</th>
+											<th>입금 할 금액</th>
 											
 											
 										</tr>
 									</thead>
 									<tbody>
 										<!-- Table body -->
-										<tr>
-											<td>
-												<input class="form-check-input" type="checkbox" name="chk1">
-											</td>
+										<tr th:each="item : ${list}">
+											<th>
+						                        <input class="form-check-input row-checkbox" type="checkbox" 
+						                               th:id="'chk_' + ${item.fpSeq}" th:name="selectedIds" th:value="${item.fpSeq}" />
+						                        <label class="form-check-label" th:for="'chk_' + ${item.fpSeq}"></label>
+						                      </th>
 											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<h6 class="mb-0">라온 풋살장</h6>
-												</a>
+												<a href="javascript:void(0);" class="fw-semibold text-inherit"
+						                           th:attr="onclick=|toggleDetail('detail_' + ${item.fpSeq})|">
+						                          <h6 class="mb-0" th:text="${item.futsalName}">라온 풋살장</h6>
+						                        </a>
 												
 											</td>
 											
-											<td>강북 FD</td>
-											<td>010-1111-1234</td>
+											<td th:text="${item.matchingTeamName}">강북 FD</td>
+											<td th:text="${item.userPhoneNumber}">010-1111-1234</td>
 											
-											<td class="align-middle border-top-0">2025-02-12</td>
-											<td class="align-middle border-top-0">오후06:00 ~ 오후08:00</td>
-											<td>
+											<td class="align-middle border-top-0" th:text="${#strings.substring(item.reservationDate, 0, 10)}">2025-02-12</td>
+											<td class="align-middle border-top-0" th:text="${item.reservationTime}">오후06:00 ~ 오후08:00</td>
+											<td th:text="${item.matchingBankName}">
+												
+											</td>
+											<td th:text="${item.matchingBankNumbar}">
 												우리 1000-1561651-161561
 											</td>
-											<td>65,000원</td>
+											<td th:text="${#numbers.formatInteger(item.matchingDeposit, 3, 'COMMA')} + '원'">65,000원</td>
 											
 											
 										</tr>
-										
+										<tr th:each="item : ${list}">
+                      <td colspan="7" style="padding: 0; border: none;">
+                        <div th:id="'detail_' + ${item.fpSeq}" style="display: none; margin-top: 15px;">
+                          <div style="border: 1px solid #ddd; border-radius: 10px; padding: 20px; background-color: #f9f9f9;">
+                            <h5 style="margin-bottom: 15px;" th:text="${item.futsalName}">풋살장 이름</h5>
+							<h6 style="margin-top: 20px; margin-bottom: 10px;">⚽ 나의 팀 정보</h6>
+                            <ul style="list-style: none; padding-left: 0;">
+                              <li><strong>팀 이름:</strong> <span th:text="${item.applicationTeamName}">라온FC</span></li>
+                             
+                              <li><strong>팀 레벨:</strong> <span th:text="${item.applicationTeamLevel}">중급</span></li>
+                              
+                              <li><strong>팀 소개:</strong>
+                                <p style="margin: 5px 0 0;" th:text="${item.applicationTeamIntroduction}">저희 팀은 매너와 패스를 중시합니다!</p>
+                              </li>
+                            </ul>
+
+                            <hr />
+
+                            <h6 style="margin-top: 20px; margin-bottom: 10px;">⚽ 상대 팀 정보</h6>
+                            <ul style="list-style: none; padding-left: 0;">
+                             <li><strong>팀 이름:</strong> <span th:text="${item.matchingTeamName}">라온FC</span></li>
+                             
+                              <li><strong>팀 레벨:</strong> <span th:text="${item.matchingTeamLevel}">중급</span></li>
+                              
+                              <li><strong>팀 소개:</strong>
+                                <p style="margin: 5px 0 0;" th:text="${item.matchingTeamIntroduction}">저희 팀은 매너와 패스를 중시합니다!</p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
 										
 										
 										
@@ -545,18 +591,41 @@
 								
 							</div>
 							<div>
-								<a class="btn btn-danger" href="#" role="button" >
+								<button class="btn btn-danger" id="btnUelete" type="button" >
 									<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
 										<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
 									  </svg>
-								</a>
+								</button>
 							</div>
 						</div>
 					</div>
+					
+					
 				</div>
 			</div>
+			        <!-- 확인 모달 (Bootstrap 기반) -->
+          <div class="modal fade" id="modalConfirm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalConfirmTitle">확인</h5>
+                </div>
+                <div class="modal-body" id="modalConfirmBody">
+                  선택한 예약 내역을 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" id="btnModalCancel" data-bs-dismiss="modal">취소</button>
+                  <button type="button" class="btn btn-danger" id="btnModalUelete">삭제</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
 		</section>
 	</main>
+	</form>
 
 	<!-- modal -->
 
@@ -758,7 +827,98 @@
 
 	<!-- Theme JS -->
 	<script src="/user/template/assets/js/theme.min.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+    const entireCheckbox = document.getElementById("entire");
+    const btnUelete = document.getElementById("btnUelete");
+    const btnModalUelete = document.getElementById("btnModalUelete");
+    const btnModalCancel = document.getElementById("btnModalCancel");
 
+    // 전체 선택/해제
+    if (entireCheckbox) {
+        entireCheckbox.addEventListener("change", function () {
+            document.querySelectorAll(".row-checkbox").forEach(cb => {
+                cb.checked = entireCheckbox.checked;
+            });
+        });
+    }
+
+    // 개별 체크 시 전체 체크 상태 조정
+    document.querySelectorAll(".row-checkbox").forEach(cb => {
+        cb.addEventListener("change", function () {
+            const all = document.querySelectorAll(".row-checkbox");
+            const checked = document.querySelectorAll(".row-checkbox:checked");
+            entireCheckbox.checked = all.length === checked.length;
+        });
+    });
+
+    // 삭제 버튼 클릭
+    btnUelete.addEventListener("click", function () {
+        const checked = document.querySelectorAll(".row-checkbox:checked");
+
+        if (checked.length === 0) {
+            alert("삭제할 항목을 선택해주세요.");
+            return;
+        }
+
+        // 확인 모달 열기
+        const modal = new bootstrap.Modal(document.getElementById('modalConfirm'));
+        modal.show();
+    });
+
+    // 모달 내 삭제 확정 버튼
+    btnModalUelete.addEventListener("click", function () {
+        const deleteIds = [];
+        document.querySelectorAll(".row-checkbox:checked").forEach(cb => {
+            deleteIds.push(cb.value);
+        });
+
+        if (deleteIds.length === 0) {
+            alert("삭제할 항목이 없습니다.");
+            return;
+        }
+
+        // Ajax 요청
+        $.ajax({
+            url: "/maUserUele", // 실제 삭제 URL로 교체
+            type: "POST",
+            traditional: true,
+            data: { deleteIds: deleteIds },
+            success: function (response) {
+               
+                location.reload(); // 성공 시 새로고침
+            },
+            error: function () {
+                alert("삭제 중 오류가 발생했습니다.");
+            }
+        });
+    });
+
+    // 모달 취소
+    btnModalCancel.addEventListener("click", function () {
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirm'));
+        modal.hide();
+    });
+});
+</script>
+
+<script>
+function toggleDetail(id) {
+	  // 모든 상세 영역을 가져와서 닫기
+	  const allDetails = document.querySelectorAll("[id^='detail_']");
+	  allDetails.forEach(detail => {
+	    if (detail.id !== id) {
+	      detail.style.display = 'none';
+	    }
+	  });
+
+	  // 클릭한 상세 영역 토글
+	  const elem = document.getElementById(id);
+	  if (elem) {
+	    elem.style.display = (elem.style.display === 'none' || elem.style.display === '') ? 'block' : 'none';
+	  }
+	}
+</script>
 </body>
 
 </html>

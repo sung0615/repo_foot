@@ -5,12 +5,16 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.aaa000.demo.module.base.BaseDao;
+
 @Repository
-public interface FavoritesDao {
+public interface FavoritesDao extends BaseDao{
 	
     List<FavoritesDto> selectList();
 
     List<FavoritesDto> selectListByUser(@Param("suSeq") int suSeq);
+    
+    List<FavoritesDto> favoritesList(@Param("suSeq") int suSeq);
 
     int countFavorite(@Param("suSeq") int suSeq, @Param("fiSeq") int fiSeq);
 
@@ -23,5 +27,8 @@ public interface FavoritesDao {
     
     
     int selectFavoriteStatus(@Param("suSeq") int suSeq, @Param("fiSeq") int fiSeq);
+    
+	// 리뷰 업데이트 삭제
+	public int uelete(List<String> deleteIds);
 	
 }

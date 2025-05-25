@@ -23,11 +23,12 @@
   <input type="hidden" name="matchingTeamLevel"  th:text="${data['matchingTeamLevel']}"/>
   <input type="hidden" name="matchingTeamName" th:text="${data['matchingTeamName']}" />
   <input type="hidden" name="matchingTeamIntroduction" th:text="${data['matchingTeamIntroduction']}" />
-  <input type="hidden" name="matchingTeamIntroduction" th:text="${data['regDateTime']}" />
-  <input type="hidden" name="matchingTeamIntroduction" th:text="${data['rpDelMy']}" />
+  <input type="hidden" name="regDateTime" th:text="${data['regDateTime']}" />
+  <input type="hidden" name="rpDelMy" th:text="${data['rpDelMy']}" />
 </form>
 
 <script>
+
   const params = new URLSearchParams(window.location.search);
   const orderId = params.get("orderId");
   const paymentKey = params.get("paymentKey");

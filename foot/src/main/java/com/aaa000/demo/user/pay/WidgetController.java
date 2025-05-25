@@ -46,8 +46,8 @@ public class WidgetController {
 
 	@RequestMapping("/success")
 	public String success(@ModelAttribute("item") PaymentResultDto dto,HttpSession session, Model model,FutsalinformationDto futsalinformationDto) {
-
-	    return "user/pay/success"; // 🚫 여기가 문제
+		System.out.println(dto.getMatchingTeamIntroduction());
+	    return "user/pay/success"; 
 	}
 	
 	
@@ -77,7 +77,7 @@ public class WidgetController {
 	    dto.setRegDateTime((String) payload.get("regDateTime"));
 	    dto.setRpDelMy((Integer) payload.get("rpDelMy"));
 	    
-	    
+	    System.out.println(dto.getMatchingTeamIntroduction());
 	    
 	   
 	    String json = String.format("{\"paymentKey\":\"%s\",\"amount\":%d,\"orderId\":\"%s\"}",
@@ -125,6 +125,7 @@ public class WidgetController {
 	@RequestMapping("/finalSuccess")
 	public String finalSuccess(@RequestParam Map<String, String> paramMap, Model model) {
 	    // paramMap에 모든 값이 들어 있음
+		
 	    model.addAttribute("data", paramMap);
 	    return "user/pay/finalSuccess"; // 결제 성공 페이지
 	}

@@ -1,6 +1,7 @@
 package com.aaa000.demo.user.favorites;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -27,12 +28,10 @@ public class FavoritesController {
     @GetMapping("/FavoritesUserList")
     public String FavoritesUserList(Model model, HttpSession session) {
         Integer userSeq = getUserSeqFromSession(session);
-        if (userSeq == null) {
-            model.addAttribute("list", null);
-            return "user/favorites/FavoritesUserList";
-        }
-        model.addAttribute("list", favoritesService.selectListByUser(userSeq));
+
+        model.addAttribute("list", favoritesService.favoritesList(userSeq));
         return "user/favorites/FavoritesUserList";
+               
     }
 
     // 즐겨찾기 토글 AJAX 처리 (추가/삭제)
@@ -81,6 +80,14 @@ public class FavoritesController {
             }
         }
         return null;
+    }
+    
+	// 즐겨찾기 업데이트 삭제
+//    @ResponseBody
+    @PostMapping("/FavoritesUele")
+    public String FavoritesUele(@RequestParam("deleteIds") List<String> deleteIds) {
+    	favoritesService.uelete(deleteIds);  // 
+    	return "redirect:/favorites/FavoritesUserList";
     }
 	
 	

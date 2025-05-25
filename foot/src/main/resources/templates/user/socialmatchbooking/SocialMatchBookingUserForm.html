@@ -440,7 +440,10 @@
 		</div>
 	</div>
 
+
+	<form id="applicationForm" action="/reservationUpdate" method="post">
 	<input type="hidden" id="fpSeq" name="fpSeq" th:value="${item?.fpSeq}">
+	<input type="hidden" id="suSeq" name="suSeq"  th:value="${session.sessSeqUser}" >
 	
 	<script src="/user/template/assets/js/vendors/validation.js"></script>
 	<main>
@@ -551,16 +554,16 @@
 									<label for="" class="form-label visually-hidden">소셜 매칭</label>
 										<select type="" class="form-select" id="applicationTeamLevel" name="applicationTeamLevel"  required >
 											<option selected  value="">레벨 선택해주세요</option>
-											<option>비기너</option>
-											<option>아마C</option>
-											<option>아마B</option>
-											<option>아마A</option>
-											<option>세미C</option>
-											<option>세미B</option>
-											<option>세미A</option>
-											<option>프로C</option>
-											<option>프로B</option>
-											<option>프로A</option>
+											<option value="비기너">비기너</option>
+											<option value="아마C">아마C</option>
+											<option value="아마B">아마B</option>
+											<option value="아마A">아마A</option>
+											<option value="세미C">세미C</option>
+											<option value="세미B">세미B</option>
+											<option value="세미A">세미A</option>
+											<option value="프로C">프로C</option>
+											<option value="프로B">프로B</option>
+											<option value="프로A">프로A</option>
 											                   						
 										</select>
 										<div style="color: red;" id="applicationTeamLevelError"></div>
@@ -582,7 +585,7 @@
 									<small>내팀 소개글</small>
 									<label for="" class="form-label"></label>
 									<textarea class="form-control"  rows="3" placeholder="팀 소개 글 입력해주세요" id="applicationTeamIntroduction" name="applicationTeamIntroduction"></textarea>
-											                   						
+											             <div style="color: red;" id="applicationTeamIntroductionError"></div>         						
 								</div>
 							</div>
 							
@@ -627,7 +630,7 @@
 										</div>
 										<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
-										<button type="button" class="btn btn-primary">예</button>
+										<button type="button" id="save" class="btn btn-primary">예</button>
 										</div>
 									</div>
 									</div>
@@ -946,10 +949,7 @@
 													</div>
 												</div>
 												<div class="d-flex border-bottom pb-6 mb-6">
-													<!-- img -->
-													<!-- img -->
-													<!-- <img src="/user/template/assets/images/avatar/avatar-10.jpg" alt=""
-														class="rounded-circle avatar-lg" /> -->
+												
 													<div class="ms-5">
 														<h6 class="mb-1">kk1hhh1fff1</h6>
 														<!-- select option -->
@@ -974,160 +974,12 @@
 															시설이 클린하고 좋네요
 														</p>
 														<div>
-															<!-- <div class="border icon-shape icon-lg border-2">
-															
-																<img src="/user/template/assets/images/products/product-img-1.jpg"
-																	alt="" class="img-fluid" />
-															</div>
-															<div class="border icon-shape icon-lg border-2 ms-1">
-																
-																<img src="/user/template/assets/images/products/product-img-2.jpg"
-																	alt="" class="img-fluid" />
-															</div>
-															<div class="border icon-shape icon-lg border-2 ms-1">
-															
-																<img src="/user/template/assets/images/products/product-img-3.jpg"
-																	alt="" class="img-fluid" />
-															</div> -->
+														
 														</div>
-														<!-- icon -->
-														<!-- <div class="d-flex justify-content-end mt-4">
-															<a href="#" class="text-muted">
-																<i class="feather-icon icon-thumbs-up me-1"></i>
-																Helpful
-															</a>
-															<a href="#" class="text-muted ms-4">
-																<i class="feather-icon icon-flag me-2"></i>
-																Report abuse
-															</a>
-														</div> -->
+													
 													</div>
 												</div>
-												<!-- <div class="d-flex border-bottom pb-6 mb-6 pt-4">
-													
-													<img src="/user/template/assets/images/avatar/avatar-12.jpg" alt=""
-														class="rounded-circle avatar-lg" />
-													<div class="ms-5">
-														<h6 class="mb-1">Robert Thomas</h6>
-														
-														<p class="small">
-															<span class="text-muted">29 December 2022</span>
-															<span class="text-primary ms-3 fw-bold">Verified
-																Purchase</span>
-														</p>
-														
-														<div class="mb-2">
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star text-warning"></i>
-															<span class="ms-3 text-dark fw-bold">Need to recheck the
-																weight at delivery point</span>
-														</div>
-
-														<p>
-															Product quality is good. But, weight seemed less than 1kg.
-															Since it is being sent in open package, there is a
-															possibility of pilferage in between. FreshCart sends the
-															veggies and fruits through sealed plastic covers and Barcode
-															on the weight etc. .
-														</p>
-
-														
-														<div class="d-flex justify-content-end mt-4">
-															<a href="#" class="text-muted">
-																<i class="feather-icon icon-thumbs-up me-1"></i>
-																Helpful
-															</a>
-															<a href="#" class="text-muted ms-4">
-																<i class="feather-icon icon-flag me-2"></i>
-																Report abuse
-															</a>
-														</div>
-													</div>
-												</div> -->
-												<!-- <div class="d-flex border-bottom pb-6 mb-6 pt-4">
-													
-													<img src="/user/template/assets/images/avatar/avatar-9.jpg" alt=""
-														class="rounded-circle avatar-lg" />
-													<div class="ms-5">
-														<h6 class="mb-1">Barbara Tay</h6>
-														
-														<p class="small">
-															<span class="text-muted">28 December 2022</span>
-															<span class="text-danger ms-3 fw-bold">Unverified
-																Purchase</span>
-														</p>
-														
-														<div class="mb-2">
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star text-warning"></i>
-															<span class="ms-3 text-dark fw-bold">Need to recheck the
-																weight at delivery point</span>
-														</div>
-
-														<p>Everytime i ordered from fresh i got greenish yellow bananas
-															just like i wanted so go for it , its happens very rare that
-															u get over riped ones.</p>
-
-														
-														<div class="d-flex justify-content-end mt-4">
-															<a href="#" class="text-muted">
-																<i class="feather-icon icon-thumbs-up me-1"></i>
-																Helpful
-															</a>
-															<a href="#" class="text-muted ms-4">
-																<i class="feather-icon icon-flag me-2"></i>
-																Report abuse
-															</a>
-														</div>
-													</div>
-												</div> -->
-												<!-- <div class="d-flex border-bottom pb-6 mb-6 pt-4">
-													
-													<img src="/user/template/assets/images/avatar/avatar-8.jpg" alt=""
-														class="rounded-circle avatar-lg" />
-													<div class="ms-5 flex-grow-1">
-														<h6 class="mb-1">Sandra Langevin</h6>
-													
-														<p class="small">
-															<span class="text-muted">8 December 2022</span>
-															<span class="text-danger ms-3 fw-bold">Unverified
-																Purchase</span>
-														</p>
-													
-														<div class="mb-2">
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star-fill text-warning"></i>
-															<i class="bi bi-star text-warning"></i>
-															<span class="ms-3 text-dark fw-bold">Great product</span>
-														</div>
-
-														<p>Great product & package. Delivery can be expedited.</p>
-
-													
-														<div class="d-flex justify-content-end mt-4">
-															<a href="#" class="text-muted">
-																<i class="feather-icon icon-thumbs-up me-1"></i>
-																Helpful
-															</a>
-															<a href="#" class="text-muted ms-4">
-																<i class="feather-icon icon-flag me-2"></i>
-																Report abuse
-															</a>
-														</div>
-													</div>
-												</div> -->
-												<!-- <div>
-													<a href="#" class="btn btn-outline-gray-400 text-muted">Read More
-														Reviews</a>
-												</div> -->
+											
 											</div>
 											<div>
 												<!-- rating -->
@@ -1136,21 +988,7 @@
 													<h4 class="mb-3">별점</h4>
 													<div class="rater"></div>
 												</div>
-												<!-- <div class="border-bottom py-4 mb-4">
-													<h4 class="mb-0">Rate Features</h4>
-													<div class="my-5">
-														<h5>Flavor</h5>
-														<div class="rater"></div>
-													</div>
-													<div class="my-5">
-														<h5>Value for money</h5>
-														<div class="rater"></div>
-													</div>
-													<div class="my-5">
-														<h5>Scent</h5>
-														<div class="rater"></div>
-													</div>
-												</div> -->
+											
 												<!-- form control -->
 												<div class="border-bottom py-4 mb-4">
 													<h5>리뷰 제목</h5>
@@ -1191,6 +1029,7 @@
 		<!-- section -->
 		
 	</main>
+	</form>
 	<!-- Footer -->
 	<!-- footer -->
 	<footer class="footer">
@@ -1482,83 +1321,112 @@
 	<script src="/user/template/assets/js/vendors/zoom.js"></script>
 	<script src="/user/template/assets/js/vendors/dropzone.js"></script>
 	
-<script>
-$(document).ready(function () {
-	  $('#applyButton').on('click', function () {
-	    // 입력값 가져오기
-	    const levelEl = document.getElementById("applicationTeamLevel");
-	    const phoneEl = document.getElementById("applicationTeamPhoneNumbar");
-	    const nameEl = document.getElementById("applicationTeamName");
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#applyButton').on('click', function () {
+      // 입력값 가져오기
+      const levelEl = document.getElementById("applicationTeamLevel");
+      const phoneEl = document.getElementById("applicationTeamPhoneNumbar");
+      const nameEl = document.getElementById("applicationTeamName");
+      const introEl = document.getElementById("applicationTeamIntroduction");
 
-	    const level = levelEl.value;
-	    const phone = phoneEl.value.trim();
-	    const name = nameEl.value.trim();
+      const level = levelEl.value;
+      const phone = phoneEl.value.trim();
+      const name = nameEl.value.trim();
+      const intro = introEl.value.trim();
 
-	    // 에러 메시지 영역
-	    const levelError = document.getElementById("applicationTeamLevelError");
-	    const phoneError = document.getElementById("applicationTeamPhoneNumbarError");
-	    const nameError = document.getElementById("applicationTeamNameError");
+      // 에러 메시지 영역
+      const levelError = document.getElementById("applicationTeamLevelError");
+      const phoneError = document.getElementById("applicationTeamPhoneNumbarError");
+      const nameError = document.getElementById("applicationTeamNameError");
+      const introError = document.getElementById("applicationTeamIntroductionError");
 
-	    // 에러 초기화
-	    levelError.textContent = "";
-	    phoneError.textContent = "";
-	    nameError.textContent = "";
+      // 에러 초기화
+      levelError.textContent = "";
+      phoneError.textContent = "";
+      nameError.textContent = "";
+      introError.textContent = "";
 
-	    levelEl.classList.remove("is-invalid");
-	    phoneEl.classList.remove("is-invalid");
-	    nameEl.classList.remove("is-invalid");
+      // 기존 is-invalid / is-valid 모두 제거
+      levelEl.classList.remove("is-invalid", "is-valid");
+      phoneEl.classList.remove("is-invalid", "is-valid");
+      nameEl.classList.remove("is-invalid", "is-valid");
+      introEl.classList.remove("is-invalid", "is-valid");
 
-	    let isValid = true;
+      let isValid = true;
 
-	    // 레벨 유효성 검사
-	    if (!level) {
-	      levelError.textContent = "레벨을 선택해주세요.";
-	      levelEl.classList.add("is-invalid");
-	      isValid = false;
-	    }
+      // 레벨 유효성 검사
+      if (!level) {
+        levelError.textContent = "레벨을 선택해주세요.";
+        levelEl.classList.add("is-invalid");
+        isValid = false;
+      } else {
+        levelEl.classList.add("is-valid");
+      }
 
-	    // 전화번호 유효성 검사
-	    const phonePattern = /^010-\d{3,4}-\d{4}$/;
-	    if (!phone) {
-	      phoneError.textContent = "연락처를 입력해주세요.";
-	      phoneEl.classList.add("is-invalid");
-	      isValid = false;
-	    } else if (!phonePattern.test(phone)) {
-	      phoneError.textContent = "유효한 연락처 형식이 아닙니다.";
-	      phoneEl.classList.add("is-invalid");
-	      isValid = false;
-	    }
+      // 전화번호 유효성 검사
+      const phonePattern = /^010-\d{3,4}-\d{4}$/;
+      if (!phone) {
+        phoneError.textContent = "연락처를 입력해주세요.";
+        phoneEl.classList.add("is-invalid");
+        isValid = false;
+      } else if (!phonePattern.test(phone)) {
+        phoneError.textContent = "유효한 연락처 형식이 아닙니다.";
+        phoneEl.classList.add("is-invalid");
+        isValid = false;
+      } else {
+        phoneEl.classList.add("is-valid");
+      }
 
-	    // 팀명 유효성 검사
-	    if (name === "") {
-	      nameError.textContent = "팀명을 입력해주세요.";
-	      nameEl.classList.add("is-invalid");
-	      isValid = false;
-	    }
+      // 팀명 유효성 검사
+      if (name === "") {
+        nameError.textContent = "팀명을 입력해주세요.";
+        nameEl.classList.add("is-invalid");
+        isValid = false;
+      } else {
+        nameEl.classList.add("is-valid");
+      }
 
-	    // 유효할 때만 모달 표시
-	    if (isValid) {
-	      const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
-	      modal.show();
-	    }
-	  });
-	});
+      // 소개글 유효성 검사
+      if (intro === "") {
+        introError.textContent = "소개글을 입력해주세요.";
+        introEl.classList.add("is-invalid");
+        isValid = false;
+      } else {
+        introEl.classList.add("is-valid");
+      }
 
-  
-  
-  $('#applicationTeamPhoneNumbar').on('input', function () {
-	  let raw = $(this).val().replace(/\D/g, '');
-	  if (raw.length < 4) {
-	    $(this).val(raw);
-	  } else if (raw.length < 8) {
-	    $(this).val(raw.slice(0, 3) + '-' + raw.slice(3));
-	  } else if (raw.length <= 11) {
-	    $(this).val(raw.slice(0, 3) + '-' + raw.slice(3, 7) + '-' + raw.slice(7));
-	  } else {
-	    $(this).val(raw.slice(0, 3) + '-' + raw.slice(3, 7) + '-' + raw.slice(7, 11));
-	  }
-	});
+      // 유효할 때만 모달 표시
+      if (isValid) {
+        const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        modal.show();
+      }
+    });
+
+    // 전화번호 자동 포맷
+    $('#applicationTeamPhoneNumbar').on('input', function () {
+      let raw = $(this).val().replace(/\D/g, '');
+      if (raw.length < 4) {
+        $(this).val(raw);
+      } else if (raw.length < 8) {
+        $(this).val(raw.slice(0, 3) + '-' + raw.slice(3));
+      } else if (raw.length <= 11) {
+        $(this).val(raw.slice(0, 3) + '-' + raw.slice(3, 7) + '-' + raw.slice(7));
+      } else {
+        $(this).val(raw.slice(0, 3) + '-' + raw.slice(3, 7) + '-' + raw.slice(7, 11));
+      }
+    });
+
+    // ✅ 예 버튼 클릭 시 form 제출
+    document.getElementById("save").addEventListener("click", function () {
+      const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+      modal.hide(); // 모달 닫기
+      document.getElementById("applicationForm").submit(); // 폼 제출
+    });
+  });
 </script>
+
+
 	
 </body>
 

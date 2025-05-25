@@ -29,8 +29,8 @@ public class FutsalinformationDto extends BaseDto{
 	private String ifcdName;//코드 이름
 //	-----
 //	검색 날짜
-	private Date regDateTime;
-	private Date modDateTime;
+	private String regDateTime;
+	private String modDateTime;
 //	----
 	//리뷰
 	private String rSeq; //리뷰 Seq
@@ -45,8 +45,9 @@ public class FutsalinformationDto extends BaseDto{
 	private String userName; // 유저이름
 	private String userId; //유저ID
 	private String userEmail;
+	private String favoritesSeq;
 //	----
-	 private Integer  isFavorited;
+	 private Integer  fdelMy;
 	 @Value("${toss.client-key}")
 	 private String clientKey;
 
@@ -159,16 +160,16 @@ public class FutsalinformationDto extends BaseDto{
 	public void setIfcdName(String ifcdName) {
 		this.ifcdName = ifcdName;
 	}
-	public Date getRegDateTime() {
+	public String getRegDateTime() {
 		return regDateTime;
 	}
-	public void setRegDateTime(Date regDateTime) {
+	public void setRegDateTime(String regDateTime) {
 		this.regDateTime = regDateTime;
 	}
-	public Date getModDateTime() {
+	public String getModDateTime() {
 		return modDateTime;
 	}
-	public void setModDateTime(Date modDateTime) {
+	public void setModDateTime(String modDateTime) {
 		this.modDateTime = modDateTime;
 	}
 	public String getZipCode() {
@@ -225,12 +226,6 @@ public class FutsalinformationDto extends BaseDto{
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public Integer  isFavorited() {
-		return isFavorited;
-	}
-	public void setFavorited(Integer  isFavorited) {
-		this.isFavorited = isFavorited;
-	}
 	public void setIsFavorited(Integer  isFavorited2) {
 		// TODO Auto-generated method stub
 		
@@ -247,14 +242,24 @@ public class FutsalinformationDto extends BaseDto{
 	public void setSecretKey(String secretKey) {
 		this.secretKey = secretKey;
 	}
-	public Integer getIsFavorited() {
-		return isFavorited;
-	}
+
 	public String getUserEmail() {
 		return userEmail;
 	}
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+	public String getFavoritesSeq() {
+		return favoritesSeq;
+	}
+	public void setFavoritesSeq(String favoritesSeq) {
+		this.favoritesSeq = favoritesSeq;
+	}
+	public Integer getFdelMy() {
+		return fdelMy;
+	}
+	public void setFdelMy(Integer fdelMy) {
+		this.fdelMy = fdelMy;
 	}
 	
 	

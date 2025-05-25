@@ -28,7 +28,7 @@
         COALESCE(review.avgStarScore, 0) AS avgStarScore,
         COALESCE(review.reviewCount, 0) AS reviewCount,
         
-       COALESCE(fav.fdelMy, 1) AS isFavorited,  <!-- 여기 추가 -->
+       fav.fdelMy,  <!-- 여기 추가 -->
 
         (
             SELECT path
@@ -51,7 +51,7 @@
 
         LEFT JOIN favorites fav 
             ON fav.futsalInformation_fiSeq = a.fiSeq 
-            AND fav.user_suSeq = #{suSeq} 
+            AND fav.user_suSeq = #{suSeq}
             AND fav.fdelMy = 0
 
     WHERE 1=1

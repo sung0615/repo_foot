@@ -93,6 +93,8 @@ public class FutsalinformationService extends BaseService{
 	public List<FutsalinformationDto> reviewList(FutsalinformationDto futsalinformationDto){
 		return futsalinformationDao.reviewList(futsalinformationDto);
 	}
+
+
 	
 	
 		

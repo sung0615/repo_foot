@@ -57,6 +57,7 @@
 		    a.rpDelMy,
 		    a.user_suSeq,
 		    a.futsalInformation_fiSeq,
+		    a.matchingvs,
 		    b.fiSeq,
 		    b.futsalName,
 		    b.futsalAddress,
@@ -70,6 +71,8 @@
 			where 1=1
 		and rpDelMy = 0
 		and matchingOnOff = "신청한다"
+		AND a.matchingVs IS NULL
+	
 		
 		
 		</select>
@@ -202,10 +205,78 @@
 		
 		</select>
 		
+		<!-- 매칭 리스트 내역 가져오기 -->
+		<select id="MatchList" resultMap="resultMapObj">
+			SELECT 
+				a.fpSeq,
+				a.reservationDate,
+				a.reservationTime,
+				a.matchingOnOff,
+				a.matchingDeposit,
+				a.matchingBankName,
+				a.matchingBankNumbar,
+				a.matchingVs,
+				a.matchingTeamLevel,
+				a.matchingTeamName,
+				a.matchingTeamIntroduction,
+				a.user_suSeq1,
+				a.futsalInformation_fiSeq,
+				
+				a.maDelNy, <!-- 매칭 삭제여부 -->
+				a.applicationTeamLevel,
+				a.applicationTeamPhoneNumbar,
+				a.applicationTeamName,
+				a.applicationTeamIntroduction,
+				b.fiSeq,
+				b.futsalName,
+				b.futsalPrice,
+				b.futsalAddress,
+				b.futsalPhoneNumbar,
+				c.suSeq,
+				c.userName,
+				c.userPhoneNumber
+			FROM 
+				reservationprocess a
+			LEFT JOIN futsalinformation b ON a.futsalInformation_fiSeq = b.fiSeq
+			LEFT JOIN user c ON a.user_suSeq = c.suSeq
+			
+			WHERE 1=1
+				AND maDelNy = 0
+				AND a.user_suSeq1 = #{suSeq}
+				AND matchingOnOff = '신청한다'
+		
+		
+		</select>
+		
+		
 		<!-- 업데이트 삭제 -->
 	 <update id="uelete">
 	 	UPDATE reservationprocess SET
 	 		rpDelMy = 1
+	 	    WHERE fpSeq IN
+    <foreach item="id" collection="list" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+	 </update>
+	 
+	 <!-- 매칭 신청시 업데이트 처리 -->
+	<update id="reservationUpdate">
+	  UPDATE reservationprocess SET 
+	    applicationTeamLevel = #{applicationTeamLevel},
+	    applicationTeamPhoneNumbar = #{applicationTeamPhoneNumbar},
+	    applicationTeamName = #{applicationTeamName},
+	    applicationTeamIntroduction = #{applicationTeamIntroduction},
+	    user_suSeq1 = #{suSeq},
+	    maDelNy = 0
+	  WHERE 
+	    fpSeq = #{fpSeq}
+	</update>
+	
+	
+			<!-- 업데이트 삭제 -->
+	 <update id="mauelete">
+	 	UPDATE reservationprocess SET
+	 		maDelNy = 1
 	 	    WHERE fpSeq IN
     <foreach item="id" collection="list" open="(" separator="," close=")">
         #{id}

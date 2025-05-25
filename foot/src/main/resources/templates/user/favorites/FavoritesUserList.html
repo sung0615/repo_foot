@@ -439,6 +439,7 @@
 			</div>
 		</div>
 	</div>
+<form action="/FavoritesUele" method="post" id="form">
 
 	<script src="/user/template/assets/js/vendors/validation.js"></script>
 	<main>
@@ -470,8 +471,16 @@
 								<table class="table mb-0 text-nowrap table-centered">
 									<!-- Table Head -->
 									<thead class="bg-light">
-										<tr>
-											<th><input class="form-check-input" type="checkbox" id="cbx_chkAll"></th>
+									<tr th:if="${#lists.isEmpty(list)}" class="hover-artions-trigger btn-reveal-trigger position-static">
+				                      <td colspan="10">
+				                        <p class="fs-0" style="padding-top: 12px">매칭정보가 없습니다</p>
+				                      </td>
+				                    </tr>
+										<tr th:unless="${#lists.isEmpty(list)}">
+											<th>
+					                        <input class="form-check-input" type="checkbox" id="entire" />
+					                        <label class="form-check-label" for="entire"></label>
+					                      </th>
 											<th> </th>
 											<th>풋살장</th>
 											<th>주소</th>
@@ -481,77 +490,69 @@
 											
 										</tr>
 									</thead>
-									<tbody>
+									<tbody th:each="list : ${list}">
+									
 										<!-- Table body -->
-										<tr>
-											<td>
-												<input class="form-check-input" type="checkbox" name="chk">
-											</td>
-											<td><img src="/user/template/assets/images/products/라온구장 이미지.jpg" width="80"></td>
+										<tr >
+											<th>
+						                        <input class="form-check-input row-checkbox" type="checkbox" 
+						                               th:id="'chk_' + ${list.favoritesSeq}" th:name="selectedIds" th:value="${list.favoritesSeq}" />
+						                        <label class="form-check-label" th:for="'chk_' + ${list.favoritesSeq}"></label>
+						                      </th>
+											<td><img th:src="${list.path}" width="80"></td>
 											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<h6 class="mb-0">라온 풋살장</h6>
+												<a th:href="@{/DetailedPageUserForm(fiSeq=${list.fiSeq})}" class="fw-semibold text-inherit">
+													<h6 class="mb-0" th:text="${list.futsalName}">라온 풋살장</h6>
 												</a>
 												
 											</td>
 											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<span><small class="text">서울특별시 도봉구 방학동 553-2</small></span>
+												<a th:href="@{/DetailedPageUserForm(fiSeq=${list.fiSeq})}" class="fw-semibold text-inherit">
+													<span><small class="text" th:text="${list.futsalAddress}">서울특별시 도봉구 방학동 553-2</small></span>
 												</a>
 												
 											</td>
 											
-											<td class="align-middle border-top-0">120,000 원</td>
+											<td class="align-middle border-top-0" th:text="${list.futsalPrice}">120,000 원</td>
 											
 										</tr>
 										
-										
-										
-										
-										
-										<!-- <tr>
-											<td>
-												<input class="form-check-input" type="checkbox" value="" id="">
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="fw-semibold text-inherit">
-													<h6 class="mb-0">Blueberry Greek Yogurt</h6>
-												</a>
-												<span><small class="text-muted">500 g</small></span>
-											</td>
-											<td class="align-middle border-top-0">
-												<a href="#" class="text-inherit">#12094</a>
-											</td>
-											<td class="align-middle border-top-0">Oct 03, 2023</td>
-											<td class="align-middle border-top-0">4</td>
-											<td class="align-middle border-top-0">
-												<span class="badge bg-success">Completed</span>
-											</td>
-											<td class="align-middle border-top-0">$18.00</td>
-											<td class="text-muted align-middle border-top-0">
-												<a href="#" class="text-inherit" data-bs-toggle="tooltip"
-													data-bs-placement="top" data-bs-title="View"><i
-														class="feather-icon icon-eye"></i></a>
-											</td>
-										</tr> -->
 									</tbody>
 									
 								</table>
 								
 							</div>
 							<div>
-								<a class="btn btn-danger" href="#" role="button" >
+								<button class="btn btn-danger" id="btnUelete" type="button" >
 									<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
 										<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
 									  </svg>
-								</a>
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+						        <!-- 확인 모달 (Bootstrap 기반) -->
+          <div class="modal fade" id="modalConfirm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalConfirmTitle">확인</h5>
+                </div>
+                <div class="modal-body" id="modalConfirmBody">
+                  선택한 즐겨찾기를 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" id="btnModalCancel" data-bs-dismiss="modal">취소</button>
+                  <button type="button" class="btn btn-danger" id="btnModalUelete">삭제</button>
+                </div>
+              </div>
+            </div>
+          </div>
 		</section>
 	</main>
+	</form>
 
 	<!-- modal -->
 
@@ -755,6 +756,82 @@
 
 	<!-- Theme JS -->
 	<script src="/user/template/assets/js/theme.min.js"></script>
+	
+	
+	<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+    const entireCheckbox = document.getElementById("entire");
+    const btnUelete = document.getElementById("btnUelete");
+    const btnModalUelete = document.getElementById("btnModalUelete");
+    const btnModalCancel = document.getElementById("btnModalCancel");
+
+    // 전체 선택/해제
+    if (entireCheckbox) {
+        entireCheckbox.addEventListener("change", function () {
+            document.querySelectorAll(".row-checkbox").forEach(cb => {
+                cb.checked = entireCheckbox.checked;
+            });
+        });
+    }
+
+    // 개별 체크 시 전체 체크 상태 조정
+    document.querySelectorAll(".row-checkbox").forEach(cb => {
+        cb.addEventListener("change", function () {
+            const all = document.querySelectorAll(".row-checkbox");
+            const checked = document.querySelectorAll(".row-checkbox:checked");
+            entireCheckbox.checked = all.length === checked.length;
+        });
+    });
+
+    // 삭제 버튼 클릭
+    btnUelete.addEventListener("click", function () {
+        const checked = document.querySelectorAll(".row-checkbox:checked");
+
+        if (checked.length === 0) {
+            alert("삭제할 항목을 선택해주세요.");
+            return;
+        }
+
+        // 확인 모달 열기
+        const modal = new bootstrap.Modal(document.getElementById('modalConfirm'));
+        modal.show();
+    });
+
+    // 모달 내 삭제 확정 버튼
+    btnModalUelete.addEventListener("click", function () {
+        const deleteIds = [];
+        document.querySelectorAll(".row-checkbox:checked").forEach(cb => {
+            deleteIds.push(cb.value);
+        });
+
+        if (deleteIds.length === 0) {
+            alert("삭제할 항목이 없습니다.");
+            return;
+        }
+
+        // Ajax 요청
+        $.ajax({
+            url: "/favorites/FavoritesUele", // 실제 삭제 URL로 교체
+            type: "post",
+            traditional: true,
+            data: { deleteIds: deleteIds },
+            success: function (response) {
+            	 location.reload(); // 성공 시 새로고침
+               // location.href ="/favorites/FavoritesUserList"
+            },
+            error: function () {
+                alert("삭제 중 오류가 발생했습니다.");
+            }
+        });
+    });
+
+    // 모달 취소
+    btnModalCancel.addEventListener("click", function () {
+        const modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirm'));
+        modal.hide();
+    });
+});
+</script>
 
 </body>
 

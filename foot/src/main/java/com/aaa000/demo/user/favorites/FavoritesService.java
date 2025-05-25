@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aaa000.demo.module.base.BaseService;
+
 @Service
-public class FavoritesService {
+public class FavoritesService extends BaseService{
 	
 	@Autowired
 	FavoritesDao favoritesDao;
@@ -14,6 +16,11 @@ public class FavoritesService {
     @Autowired
     public void FavoritesServiceImpl(FavoritesDao favoritesDao) {
         this.favoritesDao = favoritesDao;
+    }
+    
+    //즐겨찾기 리스트
+    public List<FavoritesDto> favoritesList(int suSeq){
+    	return favoritesDao.favoritesList(suSeq);
     }
 
     public List<FavoritesDto> selectListByUser(int suSeq) {
@@ -33,6 +40,11 @@ public class FavoritesService {
         Integer status = favoritesDao.selectFavoriteStatus(suSeq, fiSeq);
         return (status != null) ? status : 1;
     }
+    
+	// 업데이트 삭제
+	public int uelete(List<String> deleteIds) {
+		return favoritesDao.uelete(deleteIds);
+	}
 	
 	
 }

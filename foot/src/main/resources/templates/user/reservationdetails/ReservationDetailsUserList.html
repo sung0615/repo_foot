@@ -489,7 +489,7 @@
                         <span><small class="text" th:text="${item.futsalAddress}">서울특별시 도봉구 방학동 553-2</small></span>
                       </td>
                       <td class="align-middle border-top-0" th:text="${item.futsalPhoneNumbar}">010-1111-1111</td>
-                      <td class="align-middle border-top-0" th:text="${item.reservationDate}">2025-02-12</td>
+                      <td class="align-middle border-top-0" th:text="${#strings.substring(item.reservationDate, 0, 10)}">2025-02-12</td>
                       <td class="align-middle border-top-0" th:text="${item.reservationTime}">오후06:00 ~ 오후08:00</td>
                       <td class="align-middle border-top-0"
                           th:text="${#numbers.formatInteger(item.futsalPrice, 3, 'COMMA')} + '원'"></td>
@@ -511,7 +511,7 @@
 
                             <hr />
 
-                            <h6 style="margin-top: 20px; margin-bottom: 10px;">⚽ 매칭 팀 정보</h6>
+                            <h6 style="margin-top: 20px; margin-bottom: 10px;">⚽ 나의 팀 정보</h6>
                             <ul style="list-style: none; padding-left: 0;">
                               <li><strong>보증금:</strong> <span th:text="${#numbers.formatInteger(item.matchingDeposit, 3, 'COMMA')} + '원'">50,000</span></li>
                               <li><strong>입금은행:</strong> <span th:text="${item.matchingBankName}">우리은행</span></li>

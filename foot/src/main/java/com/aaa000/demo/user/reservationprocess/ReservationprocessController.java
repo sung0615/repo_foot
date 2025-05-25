@@ -29,7 +29,16 @@ public class ReservationprocessController {
 	
 	// 매칭신청시  my페이지 상세에 소셜매칭 신청내역 List 뿌리기
 	@RequestMapping(value="/SocialMatchDetailsUserList")
-	public String SocialMatchDetailsUserList() {
+	public String SocialMatchDetailsUserList(Model model,HttpSession session) {
+		
+		// 세션에서 로그인한 사용자 suSeq 꺼내기
+    	String suSeqStr = (String) session.getAttribute("sessSeqUser");
+    	
+    	int suSeq = Integer.parseInt(suSeqStr);
+    	// 해당 사용자 예약 리스트 가져오기
+    	List<ReservationprocessDto> reList =  reservationprocessService.MatchList(suSeq);
+		
+		model.addAttribute("list", reList);
 		
 		return "user/socialmatchdetails/SocialMatchDetailsUserList";
 	}
@@ -132,8 +141,27 @@ public class ReservationprocessController {
     	reservationprocessService.uelete(deleteIds);  // 
         return "redirect:/ReservationDetailsUserList";
     }
+    
+	// 예약 내역 업데이트 삭제
+    @PostMapping("/maUserUele")
+    public String maUserUele(@RequestParam("deleteIds") List<Long> deleteIds) {
+    	reservationprocessService.mauelete(deleteIds);  // 
+        return "redirect:/ReservationDetailsUserList";
+    }
 	
 	
+    // 풋살장 매칭 신청 업데이트처리
+    @RequestMapping(value="reservationUpdate")
+    public String reservationUpdate(ReservationprocessDto reservationprocessDto,HttpSession session) {
+    	
+        // 세션에서 사용자 식별자 꺼내기
+        Object sessSeqUser = session.getAttribute("sessSeqUser");
+    
+    	
+    	reservationprocessService.reservationUpdate(reservationprocessDto);
+    	return "redirect:/SocialMatchDetailsUserList";
+    }
+
 
 	
 	
