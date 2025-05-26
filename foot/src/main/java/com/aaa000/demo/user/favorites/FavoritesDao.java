@@ -26,7 +26,7 @@ public interface FavoritesDao extends BaseDao{
     int getFavoriteStatus(int suSeq, int fiSeq);
     
     
-    int selectFavoriteStatus(@Param("suSeq") int suSeq, @Param("fiSeq") int fiSeq);
+    Integer selectFavoriteStatus(@Param("suSeq") int suSeq, @Param("fiSeq") int fiSeq);
     
 	// 리뷰 업데이트 삭제
 	public int uelete(List<String> deleteIds);

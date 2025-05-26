@@ -16,7 +16,7 @@ public class FutsalinformationVo {
 	private int totalPages;										// 전체 페이지 번호
 	private int startPage;										// 시작 페이지 번호
 	private int endPage;										// 마지막 페이지 번호
-
+	private Integer fdelMy;
 	private int startRnumForMysql = 0;							// 쿼리 시작 row
 //	----
 	private String fiSeq;
@@ -333,6 +333,14 @@ public class FutsalinformationVo {
 
 	public void setFavorited(boolean isFavorited) {
 		this.isFavorited = isFavorited;
+	}
+
+	public Integer getFdelMy() {
+		return fdelMy;
+	}
+
+	public void setFdelMy(Integer fdelMy) {
+		this.fdelMy = fdelMy;
 	}
 	
 }

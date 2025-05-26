@@ -3,6 +3,7 @@ package com.aaa000.demo.user.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -68,6 +69,21 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
+   
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public void saveUsers(List<UserDto> userList) {
+        for (UserDto user : userList) {
+            // 비밀번호 암호화
+            user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+
+            userDao.insertUser(user);
+        }
+    }
 	
 	
 	

@@ -1,5 +1,6 @@
 package com.aaa000.demo.user.user;
 
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -10,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.aaa000.demo.common.util.UtilDateTiem;
 import com.aaa000.demo.module.code.CodeVo;
@@ -20,7 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class UserController {
+public class UserController<userService> {
 	
 	
 	@Autowired
@@ -390,8 +394,7 @@ public class UserController {
 	    writer.close();
 	}
 	
-	
-	
+
 	
 	
 	

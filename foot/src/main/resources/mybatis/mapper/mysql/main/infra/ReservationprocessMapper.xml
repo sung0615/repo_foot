@@ -57,7 +57,7 @@
 		    a.rpDelMy,
 		    a.user_suSeq,
 		    a.futsalInformation_fiSeq,
-		    a.matchingvs,
+		    a.applicationTeamLevel,
 		    b.fiSeq,
 		    b.futsalName,
 		    b.futsalAddress,
@@ -68,10 +68,11 @@
 			reservationprocess a
 		left join futsalinformation b ON  a.futsalInformation_fiSeq = b.fiSeq
 		left join user c ON a.user_suSeq = c.suSeq
+		
 			where 1=1
 		and rpDelMy = 0
-		and matchingOnOff = "신청한다"
-		AND a.matchingVs IS NULL
+		and a.matchingOnOff = "신청한다"
+		AND a.applicationTeamLevel IS NULL
 	
 		
 		

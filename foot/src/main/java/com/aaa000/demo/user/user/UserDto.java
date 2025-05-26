@@ -168,6 +168,7 @@ public class UserDto {
 	public void setModDateTime(Date modDateTime) {
 		this.modDateTime = modDateTime;
 	}
+
 	
 	
 

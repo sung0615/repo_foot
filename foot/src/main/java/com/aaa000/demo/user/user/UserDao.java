@@ -2,6 +2,9 @@ package com.aaa000.demo.user.user;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -39,6 +42,17 @@ public interface UserDao {
 	
 	public int selectOneCount(UserVo vo);
 	
+	@Configuration
+	public class SecurityConfig {
+	    @Bean
+	    public BCryptPasswordEncoder passwordEncoder() {
+	        return new BCryptPasswordEncoder(10);
+	    }
+	}
 	
+
+	
+	//파일 업로드 등록폼
+	public int insertUser(UserDto userDto);
 	
 }

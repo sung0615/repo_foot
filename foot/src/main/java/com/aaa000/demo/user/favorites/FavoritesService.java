@@ -36,7 +36,7 @@ public class FavoritesService extends BaseService{
     }
 
     // 0: 즐겨찾기 됨, 1: 즐겨찾기 안됨 (없으면 기본값 1)
-    public int getFavoriteStatus(int suSeq, int fiSeq) {
+    public Integer getFavoriteStatus(int suSeq, int fiSeq) {
         Integer status = favoritesDao.selectFavoriteStatus(suSeq, fiSeq);
         return (status != null) ? status : 1;
     }

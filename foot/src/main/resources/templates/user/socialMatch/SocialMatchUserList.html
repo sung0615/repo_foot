@@ -784,105 +784,101 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-const today = new Date();
-let startDate = new Date(today); // 초기 날짜 기준
+  // 오늘 날짜를 시간 정보 없이 생성
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  let startDate = new Date(today); // 초기 기준일
 
-// 날짜를 yyyy-MM-dd로 포맷 (예: 2025-05-23)
-function formatDate(date) {
-  return date.toISOString().split('T')[0];
-}
-
-// 날짜를 MM/dd (E) 형식으로 표시 (예: 05/23 (금), 한국 요일 포함)
-function formatDisplayDate(date) {
-  const options = { month: '2-digit', day: '2-digit', weekday: 'short' };
-  return date.toLocaleDateString('ko-KR', options);
-}
-
-// 날짜 버튼 생성 및 렌더링 함수
-function renderDateButtons() {
-  $('#dateButtons').empty();
-
-  for (let i = 0; i < 7; i++) {
-    let currentDate = new Date(startDate);
-    currentDate.setDate(startDate.getDate() + i);
-
-    const formatted = formatDisplayDate(currentDate); // 버튼에 보여질 텍스트
-    const dataDate = formatDate(currentDate);         // 비교용 yyyy-MM-dd
-
-    const btn = $('<button>')
-      .addClass('btn btn-outline-primary mx-1 date-btn')
-      .attr('data-date', dataDate)
-      .text(formatted);
-
-    // 오늘 날짜면 기본 활성화
-    if (dataDate === formatDate(today)) {
-      btn.removeClass('btn-outline-primary').addClass('btn-primary');
-    }
-
-    $('#dateButtons').append(btn);
+  // yyyy-MM-dd 형식 반환 (로컬 기준)
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
-}
 
-// 예약 목록에서 선택 날짜와 같은 날짜만 보이게 필터링
-function filterReservationsByDate(selectedDate) {
-  let hasReservation = false;
+  // MM.dd (요일) 형식 반환
+  function formatDisplayDate(date) {
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const weekday = date.toLocaleDateString('ko-KR', { weekday: 'short' });
+    return `${month}.${day}. (${weekday})`;
+  }
 
-  $('#reservationTableBody tr').each(function () {
-    if ($(this).attr('id') === 'noReservationMessage') return; // 메시지 행 제외
+  // 날짜 버튼 생성
+  function renderDateButtons() {
+    $('#dateButtons').empty();
 
-    const rowDate = $(this).attr('data-date'); // yyyy-MM-dd 형태
+    for (let i = 0; i < 7; i++) {
+      const currentDate = new Date(startDate);
+      currentDate.setDate(startDate.getDate() + i);
 
-    if (rowDate === selectedDate) {
-      $(this).show();
-      hasReservation = true;
-    } else {
-      $(this).hide();
+      const displayText = formatDisplayDate(currentDate); // 버튼에 보일 날짜
+      const dataDate = formatDate(currentDate); // 비교용 yyyy-MM-dd
+
+      const btn = $('<button>')
+        .addClass('btn btn-outline-primary mx-1 date-btn')
+        .attr('data-date', dataDate)
+        .text(displayText);
+
+      // 오늘이면 기본 활성화
+      if (dataDate === formatDate(today)) {
+        btn.removeClass('btn-outline-primary').addClass('btn-primary');
+      }
+
+      $('#dateButtons').append(btn);
     }
+  }
+
+  // 선택된 날짜에 맞게 예약 리스트 필터링
+  function filterReservationsByDate(selectedDate) {
+    let hasReservation = false;
+
+    $('#reservationTableBody tr').each(function () {
+      if ($(this).attr('id') === 'noReservationMessage') return;
+
+      const rowDate = $(this).attr('data-date');
+      if (rowDate === selectedDate) {
+        $(this).show();
+        hasReservation = true;
+      } else {
+        $(this).hide();
+      }
+    });
+
+    $('#noReservationMessage').toggle(!hasReservation);
+  }
+
+  // 날짜 버튼 클릭 이벤트
+  $(document).on('click', '.date-btn', function () {
+    const selectedDate = $(this).attr('data-date');
+    filterReservationsByDate(selectedDate);
+
+    $('.date-btn').removeClass('btn-primary').addClass('btn-outline-primary');
+    $(this).removeClass('btn-outline-primary').addClass('btn-primary');
   });
 
-  if (!hasReservation) {
-    $('#noReservationMessage').show();
-  } else {
-    $('#noReservationMessage').hide();
-  }
-}
+  // 이전 날짜로 이동
+  $('#prevBtn').on('click', function () {
+    startDate.setDate(startDate.getDate() - 7);
+    renderDateButtons();
+    filterReservationsByDate(formatDate(startDate));
+  });
 
-// 날짜 버튼 클릭 시 필터 적용 및 버튼 스타일 변경
-$(document).on('click', '.date-btn', function () {
-  const selectedDate = $(this).attr('data-date');
+  // 다음 날짜로 이동
+  $('#nextBtn').on('click', function () {
+    startDate.setDate(startDate.getDate() + 7);
+    renderDateButtons();
+    filterReservationsByDate(formatDate(startDate));
+  });
 
-  filterReservationsByDate(selectedDate);
-
-  $('.date-btn').removeClass('btn-primary').addClass('btn-outline-primary');
-  $(this).removeClass('btn-outline-primary').addClass('btn-primary');
-});
-
-// 이전 날짜 7일치로 이동
-$('#prevBtn').on('click', function () {
-  startDate.setDate(startDate.getDate() - 7);
-  renderDateButtons();
-
-  // 변경된 날짜 기준으로 필터링 (처음 날짜 기준)
-  filterReservationsByDate(formatDate(startDate));
-});
-
-// 다음 날짜 7일치로 이동
-$('#nextBtn').on('click', function () {
-  startDate.setDate(startDate.getDate() + 7);
-  renderDateButtons();
-
-  // 변경된 날짜 기준으로 필터링 (처음 날짜 기준)
-  filterReservationsByDate(formatDate(startDate));
-});
-
-// 문서 준비 완료 시 초기 실행
-$(document).ready(function () {
-  renderDateButtons();
-
-  // 기본 오늘 날짜 기준 필터링
-  filterReservationsByDate(formatDate(today));
-});
+  // 초기 실행
+  $(document).ready(function () {
+    renderDateButtons();
+    filterReservationsByDate(formatDate(today));
+  });
 </script>
+
 
 
 

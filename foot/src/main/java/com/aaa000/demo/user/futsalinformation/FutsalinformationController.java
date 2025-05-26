@@ -59,7 +59,7 @@ public class FutsalinformationController {
 	    vo.setShOptionDate(shOptionDate);
 	    vo.setShDateStart(shDateStart);
 	    vo.setShDateEnd(shDateEnd);
-
+	   
 	    vo.setParamsPaging(futsalinformationService.selectOneCount(vo));
 	    model.addAttribute("list", futsalinformationService.selectList(vo));
 	    model.addAttribute("list1", futsalinformationService.selectList1());
