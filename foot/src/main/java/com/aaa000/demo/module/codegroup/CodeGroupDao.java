@@ -19,6 +19,9 @@ public interface CodeGroupDao {
 	// 등록 하기
 	public int insert(CodeGroupDto codeGroupDto);
 	
+	//엑셀 등록 하기
+	public int insert1(CodeGroupDto excel);
+	
 	//업데이트 삭제
 	public int uelete(CodeGroupDto codeGroupDto);
 	

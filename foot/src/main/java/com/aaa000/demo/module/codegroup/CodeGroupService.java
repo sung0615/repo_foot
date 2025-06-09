@@ -26,6 +26,11 @@ public class CodeGroupService {
 		return codeGroupDao.insert(codeGroupDto);
 	}
 	
+	// 엑셀등록폼
+	public int insert1(CodeGroupDto excel) {
+		return codeGroupDao.insert1(excel);
+	}
+	
 	// 업데이트 삭제
 	public int uelete(CodeGroupDto codeGroupDto) {
 		return codeGroupDao.uelete(codeGroupDto);

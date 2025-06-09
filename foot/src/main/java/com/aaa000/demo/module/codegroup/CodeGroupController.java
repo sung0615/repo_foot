@@ -1,10 +1,16 @@
 package com.aaa000.demo.module.codegroup;
 
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.aaa000.demo.common.util.UtilDateTiem;
 
@@ -84,8 +90,44 @@ public class CodeGroupController {
 	}
 	
 	
+	//파일 업로드
+	@RequestMapping(value = "/readExcel")
+	public String readExcel(CodeGroupDto codeGroupDto,@RequestParam("file") MultipartFile file) throws Exception { 
+
+		XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+		XSSFSheet worksheet = workbook.getSheetAt(0);
+		
+		for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+			CodeGroupDto excel = new CodeGroupDto();
+		       
+		    
+		    DataFormatter formatter = new DataFormatter();		        
+		    XSSFRow row = worksheet.getRow(i);
+		    	    	
+
+		    String seq = formatter.formatCellValue(row.getCell(0));
+		    String name = formatter.formatCellValue(row.getCell(1));
+		    String delNy = formatter.formatCellValue(row.getCell(2));
+
+		
+			if (delNy.equals("N")) {
+				delNy = "0";
+			} else {
+				delNy = "1";
+			}
+
+			excel.setCdgSeq(seq);
+
+			excel.setIfcgName(name);
+
+			excel.setIfchDelNy(Integer.parseInt(delNy));
+
 	
-	
+	        codeGroupService.insert1(excel);
+		} 
+		
+		return "redirect:/codeGroup/codeGroupXdmList";
+	}
 	
 	
 	

@@ -222,6 +222,7 @@
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
                                       </svg>
                                     </button >
+<!-- 엑셀 다운로드 버튼 -->
 <a class="btn btn-success" 
    href="/excelDownload" 
    role="button" 
@@ -232,14 +233,16 @@
         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
     </svg>
 </a>
-                                <form id="uploadForm" method="post" enctype="multipart/form-data" action="/user/uploadExcel" style="display: flex; justify-content: flex-end; align-items: center;">
-								    <input type="file" id="excelFile" name="excelFile" accept=".xlsx" style="margin-right: 10px;" />
-								    <button class="btn btn-primary" type="submit" style="display: flex; align-items: center; gap: 5px;">
-								        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-type-underline" viewBox="0 0 16 16">
-								            <path d="M5.313 3.136h-1.23V9.54c0 2.105 1.47 3.623 3.917 3.623s3.917-1.518 3.917-3.623V3.136h-1.23v6.323c0 1.49-.978 2.57-2.687 2.57s-2.687-1.08-2.687-2.57zM12.5 15h-9v-1h9z"/>
-								        </svg>
-								        업로드
-								    </button>
+
+<!-- 엑셀 업로드 버튼과 파일 input -->
+<input type="file" id="excelFile" accept=".xlsx" style="margin-right: 10px; float: right;" />
+<button class="btn btn-primary" type="button" id="uploadBtn" style="float: right; margin-right: 10px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+        <path d="M.5 9.9a.5.5 0 0 1 .5-.4h2v3.6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9.5h2a.5.5 0 0 1 0 1H14v3.5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V10H1a.5.5 0 0 1-.5-.5z"/>
+        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3.5 3.5a.5.5 0 0 1-.708.708L8.5 2.707V10a.5.5 0 0 1-1 0V2.707L5.854 5.354a.5.5 0 1 1-.708-.708l3.5-3.5z"/>
+    </svg>
+    업로드
+</button>
 								</form>
                             </div>
                         </div>
@@ -297,6 +300,39 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
+
+
+<script>
+document.getElementById("uploadBtn").addEventListener("click", function () {
+    const fileInput = document.getElementById("excelFile");
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("엑셀 파일을 선택해주세요.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    fetch("/readExcel", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        // 컨트롤러에서 redirect:/codeGroup/codeGroupXdmList 반환되면 자동 이동
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            return response.text(); // 메시지 처리 등
+        }
+    })
+    .catch(error => {
+        console.error("업로드 실패:", error);
+        alert("파일 업로드 중 오류가 발생했습니다.");
+    });
+});
+</script>
 
 	
 	

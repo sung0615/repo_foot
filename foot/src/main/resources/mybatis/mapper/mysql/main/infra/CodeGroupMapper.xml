@@ -109,6 +109,41 @@
 		
 	</insert>
 	
+	
+		<!-- 등록하기 -->
+	<insert id="insert1">
+		
+		INSERT INTO codegroup(
+			ifcgName,
+			ifchDelNy,
+			newsAgency,
+			gender,
+			usedOrNot,
+			registration,
+			correction,
+	        regDateTime,
+	        modDateTime
+			
+			
+		) value (
+			#{ifcgName},
+			0,
+			#{newsAgency},
+			#{gender},
+			#{usedOrNot},
+			#{registration},
+			#{correction},
+	        NOW(),
+	        NOW()
+		
+		)
+		 <!-- <include refid="selectCommon"></include>  -->
+		<selectKey resultType="String" keyProperty="cdgSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+		
+	</insert>
+	
 	<!-- 데이터 1개씩 가져오기 -->
 	<select id="selectOne"  resultMap="resultMapObj">
 	SELECT
